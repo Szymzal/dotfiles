@@ -12,6 +12,7 @@ set shiftwidth=4
 set nohlsearch
 set hidden
 set nowrap
+set signcolumn=yes
 
 lua << EOF
 package.path = package.path .. ";/home/szymzal/.config/nvim/lua/?.lua;/home/szymzal/.config/nvim/?.lua"

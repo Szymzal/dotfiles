@@ -13,4 +13,7 @@ if has('nvim-0.5.0')
     inoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <silent> <C-j> <cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { focusable = false, border = 'rounded' }})<CR>
     nnoremap <silent> <C-k> <cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { focusable = false, border = 'rounded' }})<CR>
+
+    " Todo comments
+    nnoremap <silent> <leader>todo <cmd>TodoTelescope<CR>
 endif

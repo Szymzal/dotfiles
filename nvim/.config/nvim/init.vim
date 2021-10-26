@@ -18,6 +18,9 @@ if has('nvim-0.5.0')
 
 	" Better highlighting
 	luafile ~/.config/nvim/lua/treesitter.lua
+
+    " Todo highlighting
+    luafile ~/.config/nvim/lua/_todo-comments.lua
 endif
 
 source ~/.config/nvim/keybindings.vim

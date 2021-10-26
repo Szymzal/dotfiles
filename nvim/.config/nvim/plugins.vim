@@ -24,11 +24,9 @@ if has('nvim-0.5.0')
 	Plug 'glepnir/lspsaga.nvim'
 
 	" Autocompletion LSP
-	" Plug 'hrsh7th/nvim-compe'
 	Plug 'hrsh7th/cmp-nvim-lsp'
 	Plug 'hrsh7th/cmp-buffer'
 	Plug 'hrsh7th/nvim-cmp'
-	" Plug 'nvim-lua/completion-nvim'
 
 	" AutoFill
 	Plug 'L3MON4D3/LuaSnip'
@@ -36,5 +34,8 @@ if has('nvim-0.5.0')
 
 	" Customize autocompletion box
 	Plug 'onsails/lspkind-nvim'
+
+    " Todo highlighing
+    Plug 'folke/todo-comments.nvim'
 endif
 call plug#end()
