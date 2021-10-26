@@ -14,6 +14,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
+
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.SetWMName
 
@@ -115,3 +116,5 @@ main = do
                         , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
                     } `additionalKeysP` myKeys
+
+
