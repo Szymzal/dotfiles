@@ -31,9 +31,10 @@ nvim_lsp.ccls.setup {
 nvim_lsp.hls.setup {}
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = false,
-	signs = false,
+    underline = true,
 	update_in_insert = false,
+    virtual_text = { spacing = 4, prefix = "●" },
+    severity_sort = true;
 })
 
 -- colors of types of diagnostic

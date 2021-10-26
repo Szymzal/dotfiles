@@ -3,6 +3,7 @@ call plug#begin(stdpath('data') . '\plugged')
 
 " Theme
 Plug 'sainnhe/sonokai'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " Lightline
 Plug 'itchyny/lightline.vim'

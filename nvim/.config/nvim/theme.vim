@@ -12,7 +12,7 @@ let g:sonokai_diagnostic_virtual_text = 'colored'
 colorscheme sonokai
 
 " Lightline setup
-let g:lightline = {
+ let g:lightline = {
 		\ 'colorscheme': 'sonokai',
 		\ 'active' : {
 		\	'left': [ [ 'mode', 'paste' ],
@@ -20,8 +20,8 @@ let g:lightline = {
 		\ },
 		\ 'component': {
 		\   'lineinfo': ' %3l:%-2v'
-		\ },
-		\ 'component_function': {
+        \ },
+	    \ 'component_function': {
 		\   'readonly': 'LightlineReadonly',
 		\   'fugitive': 'LightlineFugitive'
 		\ },
