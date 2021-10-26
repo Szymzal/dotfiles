@@ -1,6 +1,4 @@
-local saga = require('lspsaga')
-
-saga.init_lsp_saga {
+require('lspsaga').init_lsp_saga {
 	use_saga_diagnostic_sign = true,
 	border_style = "round",
 	error_sign = '',

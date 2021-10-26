@@ -1,10 +1,7 @@
-local saga = require('lspsaga')
-
 -- Setup language servers
 local nvim_lsp = require('lspconfig')
-local protocol = require('vim.lsp.protocol')
 
-local on_attach = function(client, bufnr)
+local on_attach = function(bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -20,6 +17,14 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', '<C-y>', '<cmd>lua vim.lsp.buf.rename()<CR>', options)
 end
 
+-- Setup the sumneko lua language server
+local sumneko_root_path = ""
+local sumneko_binary = ""
+USER = vim.fn.expand('$USER')
+
+sumneko_root_path = "/home/" .. USER .. "/.config/nvim/lua-language-server"
+sumneko_binary = "/home/" .. USER .. "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
+
 -- C++ and C language server
 nvim_lsp.ccls.setup {
 	on_attach = on_attach,
@@ -28,7 +33,28 @@ nvim_lsp.ccls.setup {
 	capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
+-- Haskell language server which is not working
 nvim_lsp.hls.setup {}
+
+-- Lua language server
+nvim_lsp.sumneko_lua.setup {
+    on_attach = on_attach,
+    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+                path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+                globals = { 'vim' }
+            },
+            workspace = {
+                library = { [vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true }
+            }
+        }
+    }
+}
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
