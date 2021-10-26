@@ -11,3 +11,5 @@ if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" && -z ${BASH_EXECUTIO
 then
 	exec fish
 fi
+
+alias luamake=/home/szymzal/.dotfiles/nvim/.config/nvim/lua-language-server/3rd/luamake/luamake
