@@ -16,3 +16,8 @@ Oraz w terminalu wpisz:
 
 Wybierasz aplikacje dla ktorej chcesz zeby zainstalowac pliki konfiguracyjne.
 Wybierasz aplikacje przez wybranie folderu dostępnego w repozytorium
+
+# Problemy
+
+Jesli natknales sie na problemy z lua language server sprobuj skorzystac z tego tutoriala:
+https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
