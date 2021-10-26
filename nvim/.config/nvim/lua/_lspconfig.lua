@@ -63,6 +63,10 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
     severity_sort = true;
 })
 
+local popup_opts = { border = 'rounded', max_width = 80 }
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
+
 -- colors of types of diagnostic
 require('lsp-colors').setup({
 	Error = "#db4b4b",
