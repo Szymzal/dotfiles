@@ -24,3 +24,4 @@ if has('nvim-0.5.0')
 endif
 
 source ~/.config/nvim/keybindings.vim
+
