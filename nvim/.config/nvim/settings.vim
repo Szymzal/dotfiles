@@ -1,5 +1,4 @@
 " General settings of vim
-set shell=/bin/bash
 set exrc
 set relativenumber
 set noerrorbells
@@ -13,6 +12,7 @@ set nohlsearch
 set hidden
 set nowrap
 set signcolumn=yes
+set mouse=a
 
 lua << EOF
 package.path = package.path .. ";/home/szymzal/.config/nvim/lua/?.lua;/home/szymzal/.config/nvim/?.lua"

@@ -36,6 +36,14 @@ colorscheme sonokai
 		\ },
 		\ }
 
+ let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+ let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
+ let s:palette.inactive.middle = s:palette.normal.middle
+ let s:palette.tabline.middle = s:palette.normal.middle
+ let s:palette.insert.middle = s:palette.normal.middle
+ let s:palette.visual.middle = s:palette.normal.middle
+ let s:palette.command.middle = s:palette.normal.middle
+
 " The Read only files icon
 function! LightlineReadonly()
 	return &readonly ? '' : ''
@@ -69,7 +77,7 @@ function! LightlineOk()
 	let errorCount = luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")
 	let warningCount = luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")
 	
-	return errorCount == 0 ? warningCount == 0 ? '' : '' : ''
+	return errorCount == 0 ? warningCount == 0 ? ' ' : '' : ''
 endfunction
 
 " The update call to know is there any errors or warnings in file
@@ -77,3 +85,7 @@ augroup _lightline
 	autocmd!
 	autocmd InsertEnter,InsertLeave,BufEnter,BufRead,BufLeave,BufWritePost * call lightline#update()
 augroup END
+
+highlight Normal guibg=none
+highlight NonText guibg=none
+highlight EndOfBuffer guibg=none
