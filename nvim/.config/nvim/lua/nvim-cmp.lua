@@ -1,5 +1,7 @@
 vim.o.completeopt = "noselect,noinsert"
 
+require('nvim-autopairs').setup{}
+
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 

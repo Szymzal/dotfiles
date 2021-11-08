@@ -36,5 +36,8 @@ if has('nvim-0.5.0')
 
     " Todo highlighing
     Plug 'folke/todo-comments.nvim'
+
+    " Autopairs
+    Plug 'windwp/nvim-autopairs'
 endif
 call plug#end()
