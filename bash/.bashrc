@@ -7,9 +7,11 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+alias luamake=/home/szymzal/.dotfiles/nvim/.config/nvim/lua-language-server/3rd/luamake/luamake
+
+export VULKAN_SDK=/home/szymzal/vulkan/1.2.189.0/x86_64
+
 if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
 then
 	exec fish
 fi
-
-alias luamake=/home/szymzal/.dotfiles/nvim/.config/nvim/lua-language-server/3rd/luamake/luamake
