@@ -29,7 +29,7 @@ sumneko_binary = "/home/" .. USER .. "/.config/nvim/lua-language-server/bin/Linu
 nvim_lsp.ccls.setup {
 	on_attach = on_attach,
 	filetypes = { "cpp", "h", "hpp", "c" },
-	root_dir = nvim_lsp.util.root_pattern('CMakeLists.txt', 'compile_flags.txt', 'compile_commands.json'),
+	root_dir = nvim_lsp.util.root_pattern('.ccls', 'compile_flags.txt', 'compile_commands.json'),
 	capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 
