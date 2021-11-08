@@ -89,3 +89,4 @@ augroup END
 highlight Normal guibg=none
 highlight NonText guibg=none
 highlight EndOfBuffer guibg=none
+highlight Comment cterm=none gui=none
