@@ -23,4 +23,42 @@ if has('nvim-0.5.0')
 
     imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+
 endif
+
+" Custom keybindings
+nnoremap <F4> <cmd>e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
+function! SwitchAutocompletionFile()
+    let path = expand('%:p')
+    let check = "/src/include"
+    if (stridx(path, check) == -1)
+        " open autocompletion file
+        let path = expand('%:p')
+        let path = substitute(path, '.*\zs/src/', '/src/include/', '')
+        echo path
+        silent exe 'e ' . path
+    else
+        " open non autocompletion file
+        let path = expand('%:p')
+        let path = substitute(path, '.*\zs/src/include/', '/src/', '')
+        echo path
+        silent exe 'e ' . path
+    endif
+endfunction
+
+nnoremap <silent> <F3> <cmd>call SwitchAutocompletionFile()<CR>
+
+function! FindProjectRoot(lookFor)
+    let dir = finddir('engine', expand('%:p:h').';')
+    echo dir
+
+    return dir
+endfunction
+
+function! BuildScript()
+    let path = FindProjectRoot('build_options.sh')
+    echo path
+endfunction
+
+nnoremap <silent> <F2> <cmd>call BuildScript()<CR>
