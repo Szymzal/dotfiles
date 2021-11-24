@@ -2,6 +2,7 @@ if has('nvim-0.5.0')
 	" Telescope
 	nnoremap <silent> <C-p> :lua require('telescope.builtin').find_files()<cr>
 	nnoremap <silent> <leader>vim :lua require('telescope_modules.vimrc_files').search_dotfiles()<cr>
+    nnoremap <silent> <leader>tfix <cmd>lua require('telescope.builtin').lsp_code_actions<CR>
 
 	" Lspsaga
 	nnoremap <silent>gh <cmd>Lspsaga lsp_finder<CR>
@@ -24,6 +25,21 @@ if has('nvim-0.5.0')
     imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
     smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
+    " Maximizer
+    nnoremap <silent><leader>m :MaximizerToggle!<CR>
+
+    " Vimspector
+    nnoremap <silent><leader>dd :call vimspector#Launch()<CR>
+    nnoremap <silent><leader>dq :call vimspector#Reset()<CR>
+    
+    nmap <silent><F10> <Plug>VimspectorStepInto
+    nmap <silent><F9> <Plug>VimspectorStepOver
+    nmap <silent><F8> <Plug>VimspectorStepOut
+
+    nnoremap <silent>] :call vimspector#Continue()<CR>
+
+    nmap <leader>dtc <Plug>VimspectorRunToCursor<CR>
+    nmap <leader>dbp <Plug>VimspectorToggleBreakpoint<CR>
 endif
 
 " Custom keybindings
@@ -57,8 +73,16 @@ function! FindProjectRoot(lookFor)
 endfunction
 
 function! BuildScript()
-    let path = FindProjectRoot('build_options.sh')
-    echo path
+    if (expand('%:e') == 'java')
+        silent exe "lua require('jdtls').compile(full)"
+    else
+        let path = FindProjectRoot('build_options.sh')
+        echo path
+    endif
 endfunction
 
 nnoremap <silent> <F2> <cmd>call BuildScript()<CR>
+nnoremap <silent> <leader>ref <cmd>lua require('jdtls').update_project_config()<CR>
+nnoremap <silent> <leader>javap <cmd>lua require('jdtls').javap()<CR>
+
+nnoremap <silent> <leader>fix <cmd>lua require('jdtls').code_action()<CR>

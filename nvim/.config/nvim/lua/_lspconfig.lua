@@ -56,6 +56,113 @@ nvim_lsp.sumneko_lua.setup {
     }
 }
 
+-- Java language server
+function _G.setup()
+local root_markers = {'gradlew', 'pom.xml'}
+local root_dir = require('jdtls.setup').find_root(root_markers)
+local home = os.getenv('HOME')
+
+local capabilities = {
+    workspace = {
+        configuration = true
+    },
+    textDocument = {
+        completion = {
+            completionItem = {
+                snippetSupport = true
+            }
+        }
+    }
+}
+
+local workspace_dir = home .. "/.workspace/" .. vim.fn.fnamemodify(root_dir, ':p:h:t')
+local config = {
+    cmd = {
+        'java',
+        '-noverify',
+        '-Xms1G',
+        '-XX:+UseG1GC',
+        '-XX:+UseStringDeduplication',
+        '--enable-preview',
+        '-javaagent:/usr/share/java/lombok/lombok.jar',
+        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        '-Dosgi.bundles.defaultStartLevel=4',
+        '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        '-Dlog.protocol=true',
+        '-Dlog.level=ALL',
+        '--add-modules=ALL-SYSTEM',
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+        '-jar', '/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+        '-configuration', '/usr/share/java/jdtls/config_linux',
+        '-data', workspace_dir
+    },
+
+    flags = {
+        allow_incremental_sync = true,
+    },
+
+    --capabilities = capabilities,
+    on_attach = on_attach,
+
+    root_dir = root_dir,
+
+    settings = {
+        configuration = {
+            runtimes = {
+            }
+        }
+    }
+}
+
+config.on_init = function(client, _)
+    client.notify('workspace/didChangeConfiguration', { settings = config.settings })
+end
+
+require('jdtls').start_or_attach(config)
+
+-- Telescope code action list for java
+local finders = require('telescope.finders')
+local sorters = require('telescope.sorters')
+local actions = require('telescope.actions')
+local pickers = require('telescope.pickers')
+local action_state = require('telescope.actions.state')
+
+require('jdtls.ui').pick_one_async = function(items, prompt, label_fn, cb)
+    local opts = {}
+    pickers.new(opts, {
+        prompt_title = prompt,
+        finder = finders.new_table {
+            results = items,
+            entry_maker = function(entry)
+                return {
+                    value = entry,
+                    display = label_fn(entry),
+                    ordinal = label_fn(entry),
+                }
+            end,
+        },
+        sorter = sorters.get_generic_fuzzy_sorter(),
+        attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry(prompt_bufnr)
+                actions.close(prompt_bufnr)
+                cb(selection.value)
+            end)
+
+            return true
+        end,
+    }):find()
+end
+
+end
+
+vim.api.nvim_command('augroup jdtls_lsp')
+vim.api.nvim_command('autocmd!')
+vim.api.nvim_command('autocmd FileType java lua setup()')
+vim.api.nvim_command('augroup END')
+
+-- diagnostics settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
 	update_in_insert = false,

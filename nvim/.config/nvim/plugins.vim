@@ -34,10 +34,14 @@ if has('nvim-0.5.0')
 	" Customize autocompletion box
 	Plug 'onsails/lspkind-nvim'
 
-    " Todo highlighing
-    Plug 'folke/todo-comments.nvim'
-
     " Autopairs
     Plug 'windwp/nvim-autopairs'
+
+    " Debugging
+    Plug 'puremourning/vimspector'
+    Plug 'szw/vim-maximizer'
+
+    " Java language server
+    Plug 'mfussenegger/nvim-jdtls'
 endif
 call plug#end()
