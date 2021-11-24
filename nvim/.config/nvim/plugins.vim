@@ -43,5 +43,11 @@ if has('nvim-0.5.0')
 
     " Java language server
     Plug 'mfussenegger/nvim-jdtls'
+
+    " Git integration
+    Plug 'mhinz/vim-signify'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
+    Plug 'junegunn/gv.vim'
 endif
 call plug#end()

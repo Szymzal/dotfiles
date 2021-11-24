@@ -5,6 +5,9 @@ source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/settings.vim
 source ~/.config/nvim/theme.vim
 
+" Plugin settings
+source ~/.config/nvim/signify.vim
+
 if has('nvim-0.5.0')
 	" Plugins settings
 	" Fizzy Finding
