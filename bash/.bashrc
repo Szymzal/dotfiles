@@ -12,6 +12,7 @@ alias luamake=/home/szymzal/.dotfiles/nvim/.config/nvim/lua-language-server/3rd/
 export VULKAN_SDK=/home/szymzal/vulkan/1.2.189.0/x86_64
 export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 export LIBGL_ALWAYS_INDIRECT=1
+export GRADLE_USER_HOME=/home/szymzal/.gradle
 
 if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
 then
