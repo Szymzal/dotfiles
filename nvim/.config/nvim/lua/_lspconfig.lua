@@ -62,19 +62,6 @@ local root_markers = {'gradlew', 'pom.xml'}
 local root_dir = require('jdtls.setup').find_root(root_markers)
 local home = os.getenv('HOME')
 
-local capabilities = {
-    workspace = {
-        configuration = true
-    },
-    textDocument = {
-        completion = {
-            completionItem = {
-                snippetSupport = true
-            }
-        }
-    }
-}
-
 local workspace_dir = home .. "/.workspace/" .. vim.fn.fnamemodify(root_dir, ':p:h:t')
 local config = {
     cmd = {
@@ -161,6 +148,13 @@ vim.api.nvim_command('augroup jdtls_lsp')
 vim.api.nvim_command('autocmd!')
 vim.api.nvim_command('autocmd FileType java lua setup()')
 vim.api.nvim_command('augroup END')
+
+-- diagnostic icons
+local signs = { Error = " ", Warn = " ", Hint = " ", Information = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
 
 -- diagnostics settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {

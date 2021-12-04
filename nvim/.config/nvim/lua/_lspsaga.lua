@@ -1,5 +1,5 @@
 require('lspsaga').init_lsp_saga {
-	use_saga_diagnostic_sign = true,
+	use_saga_diagnostic_sign = false,
 	border_style = "round",
 	error_sign = ' ',
 	warn_sign = ' ',
