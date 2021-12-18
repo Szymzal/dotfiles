@@ -7,6 +7,9 @@ Plug 'sainnhe/sonokai'
 " Lightline
 Plug 'itchyny/lightline.vim'
 
+" Autopairs
+Plug 'windwp/nvim-autopairs'
+
 if has('nvim-0.5.0')
 	" Better syntax highlighing
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -33,9 +36,6 @@ if has('nvim-0.5.0')
 
 	" Customize autocompletion box
 	Plug 'onsails/lspkind-nvim'
-
-    " Autopairs
-    Plug 'windwp/nvim-autopairs'
 
     " Debugging
     Plug 'puremourning/vimspector'
