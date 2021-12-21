@@ -63,14 +63,28 @@ local root_dir = require('jdtls.setup').find_root(root_markers)
 local home = os.getenv('HOME')
 
 local workspace_dir = home .. "/.workspace/" .. vim.fn.fnamemodify(root_dir, ':p:h:t')
+local capabilities = {
+    workspace = {
+        configuration = true
+    },
+    textDocument = {
+        completion = {
+                completionItem = {
+                    snippetSupport = true
+            }
+        }
+    }
+}
+
 local config = {
     cmd = {
         'java',
-        '-noverify',
+        --'-noverify',
         '-Xms1G',
-        '-XX:+UseG1GC',
-        '-XX:+UseStringDeduplication',
-        '--enable-preview',
+        '-Xmx2G',
+        --'-XX:+UseG1GC',
+        --'-XX:+UseStringDeduplication',
+        --'--enable-preview',
         '-javaagent:/usr/share/java/lombok/lombok.jar',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
@@ -89,7 +103,7 @@ local config = {
         allow_incremental_sync = true,
     },
 
-    --capabilities = capabilities,
+    capabilities = capabilities,
     on_attach = on_attach,
 
     root_dir = root_dir,
@@ -105,6 +119,12 @@ local config = {
 config.on_init = function(client, _)
     client.notify('workspace/didChangeConfiguration', { settings = config.settings })
 end
+
+local extendedClientCapabilities = require('jdtls').extendedClientCapabilities;
+extendedClientCapabilities.resolveAdditionalTestEditsSupport = true;
+config.init_options = {
+    extendedClientCapabilities = extendedClientCapabilities;
+}
 
 require('jdtls').start_or_attach(config)
 
