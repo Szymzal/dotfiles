@@ -107,7 +107,8 @@ function differentusefulprograms() {
 }
 
 function windowmanager() {
-
+    stow i3
+    pikaur -S --noconfirm i3 dmenu nitrogen picom
 }
 
 packages
