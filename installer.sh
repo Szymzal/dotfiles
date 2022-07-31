@@ -88,12 +88,36 @@ function lsps() {
     chmod +x $HOME/.local/bin/rust-analyzer
 }
 
-#packages
-#aurhelper
-#configfiles
-#fonts
-#shell
-#terminalemulator
-#multitermial
-#neovim
-#lsps
+function zerotierone() {
+    pikaur -S zerotier-one
+    systemctl enable zerotier-one.service
+    systemctl start zerotier-one.service
+}
+
+function differentusefulprograms() {
+    # Maybe KVM?
+    pikaur -S --noconfirm bottles
+    pikaur -S --noconfirm jdk17-openjdk jdk8-openjdk
+    pikaur -S --noconfirm polymc-bin
+    pikaur -S --noconfirm obs-studio
+    pikaur -S --noconfirm wireshark-qt
+    pikaur -S --noconfirm gimp
+    pikaur -S --noconfirm zoom
+    zerotierone
+}
+
+function windowmanager() {
+
+}
+
+packages
+aurhelper
+configfiles
+fonts
+shell
+terminalemulator
+multitermial
+neovim
+lsps
+differentusefulprograms
+windowmanager
