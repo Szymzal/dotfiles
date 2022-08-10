@@ -45,7 +45,13 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
+
+# start browser
+bindsym $mod+F2 exec firefox
+
+# start file manager 
+bindsym $mod+F3 exec thunar
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -186,7 +192,7 @@ bar {
 }
 
 # Nitrogen
-exec nitrogen --restore
+exec --no-startup-id nitrogen --restore
 
 # Picom
-exec picom -f
+exec --no-startup-id picom -f

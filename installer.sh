@@ -23,6 +23,12 @@ function configfiles() {
     pikaur -S --noconfirm stow
 }
 
+function profile() {
+    echo 'Setting up .profile'
+    rm -rf $HOME/.profile
+    stow profile
+}
+
 function fonts() {
     echo 'Installing font for terminal'
     mkdir $HOME/firacode
@@ -97,13 +103,12 @@ function zerotierone() {
 function differentusefulprograms() {
     # Maybe KVM?
     pikaur -S --noconfirm bottles
-    pikaur -S --noconfirm jdk17-openjdk jdk8-openjdk
-    pikaur -S --noconfirm polymc-bin
+    pikaur -S --noconfirm jdk17-openjdk jdk8-openjdk polymc-bin
     pikaur -S --noconfirm obs-studio
     pikaur -S --noconfirm wireshark-qt
     pikaur -S --noconfirm gimp
     pikaur -S --noconfirm zoom
-    zerotierone
+    pilaur -S --noconfirm zerotierone
 }
 
 function windowmanager() {
