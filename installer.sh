@@ -23,6 +23,10 @@ function configfiles() {
     pikaur -S --noconfirm stow
 }
 
+function scripts() {
+    stow scripts
+}
+
 function profile() {
     echo 'Setting up .profile'
     rm -rf $HOME/.profile
@@ -108,22 +112,34 @@ function differentusefulprograms() {
     pikaur -S --noconfirm wireshark-qt
     pikaur -S --noconfirm gimp
     pikaur -S --noconfirm zoom
-    pilaur -S --noconfirm zerotierone
+    zerotierone
+}
+
+function rofi() {
+    stow rofi
+    pikaur -S --noconfirm rofi
 }
 
 function windowmanager() {
+    rofi
     stow i3
-    pikaur -S --noconfirm i3 dmenu nitrogen picom
+    pikaur -S --noconfirm i3 nitrogen picom
 }
 
-packages
-aurhelper
-configfiles
-fonts
-shell
-terminalemulator
-multitermial
-neovim
-lsps
-differentusefulprograms
-windowmanager
+function main() {
+    packages
+    aurhelper
+    configfiles
+    scripts
+    profile
+    fonts
+    shell
+    terminalemulator
+    multitermial
+    neovim
+    lsps
+    differentusefulprograms
+    windowmanager
+}
+
+main
