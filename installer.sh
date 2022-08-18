@@ -13,7 +13,7 @@ function aurhelper() {
     mkdir $HOME/pikaur
     git clone https://aur.archlinux.org/pikaur.git $HOME/pikaur
     pushd $HOME/pikaur
-    yes | makepkg -fsri
+    makepkg -fsri --noconfirm
     popd
     rm -rf $HOME/pikaur
 }
@@ -107,7 +107,7 @@ function lsps() {
 }
 
 function zerotierone() {
-    pikaur -S zerotier-one
+    pikaur -S --noconfirm zerotier-one
     systemctl enable zerotier-one.service
     systemctl start zerotier-one.service
 }
@@ -117,7 +117,7 @@ function kvm() {
 }
 
 function differentusefulprograms() {
-    kvm
+    #kvm
     pikaur -S --noconfirm bottles
     pikaur -S --noconfirm jdk17-openjdk jdk8-openjdk polymc-bin
     pikaur -S --noconfirm obs-studio
