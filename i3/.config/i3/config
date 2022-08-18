@@ -176,7 +176,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # Polybar
-exec --no-startup-id '$HOME/.config/polybar/run_polybar.sh'
+exec_always --no-startup-id $HOME/.config/polybar/run_polybar.sh
 
 # Nitrogen
 exec --no-startup-id nitrogen --restore
