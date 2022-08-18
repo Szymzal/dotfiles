@@ -113,6 +113,7 @@ function differentusefulprograms() {
     pikaur -S --noconfirm gimp
     pikaur -S --noconfirm zoom
     zerotierone
+    pikaur -S --noconfirm lxsession-gtk3
 }
 
 function rofi() {
@@ -122,8 +123,9 @@ function rofi() {
 
 function windowmanager() {
     rofi
+    stow polybar
     stow i3
-    pikaur -S --noconfirm i3 nitrogen picom
+    pikaur -S --noconfirm i3-gaps polybar nitrogen picom
 }
 
 function main() {
