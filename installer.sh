@@ -35,6 +35,7 @@ function profile() {
 
 function fonts() {
     echo 'Installing font for terminal'
+    # FiraCode
     mkdir $HOME/firacode
     pushd $HOME/firacode
     curl -s https://api.github.com/repos/tonsky/FiraCode/releases/latest \
@@ -47,8 +48,15 @@ function fonts() {
     pushd $HOME/firacode/extracted/ttf
     sudo mv *.ttf /usr/share/fonts/TTF/
     popd
-    fc-cache -f -v
     rm -rf $HOME/firacode
+    # Material icons
+    mkdir $HOME/material-icons
+    pushd $HOME/material-icons
+    wget https://github.com/google/material-design-icons/raw/master/font/MaterialIcons-Regular.ttf
+    sudo mv MaterialIcons-Regular.ttf /usr/share/fonts/TTF/
+    popd
+
+    fc-cache -f -v
 }
 
 function terminalemulator() {
@@ -104,8 +112,12 @@ function zerotierone() {
     systemctl start zerotier-one.service
 }
 
+function kvm() {
+    pikaur -S archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs 
+}
+
 function differentusefulprograms() {
-    # Maybe KVM?
+    kvm
     pikaur -S --noconfirm bottles
     pikaur -S --noconfirm jdk17-openjdk jdk8-openjdk polymc-bin
     pikaur -S --noconfirm obs-studio
@@ -142,6 +154,7 @@ function main() {
     lsps
     differentusefulprograms
     windowmanager
+    reboot
 }
 
 main
