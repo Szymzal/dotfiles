@@ -8,7 +8,7 @@ window:
 
   dynamic_padding: true
   title: Alacritty
-  decorations: none
+  decorations: full
 
 font:
   normal:
