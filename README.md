@@ -1,23 +1,19 @@
 # dotfiles
 
-Pliki konfiguracyjne dla linuxa
-Testowane na razie tylko w Arch Linux
+Osobister pliki konfiguracyjne dla linuxa (Manjaro)
 
 # Instalacja
 
-Sklonuj oraz pobierz stow.
-W Arch Linux możesz to zrobić tak:
+Sklonuj repozytorium
 
-`paru -S stow`
+```
+mkdir ~/.dotfiles
+git clone https://github.com/Szymzal/dotfiles ~/.dotfiles
+```
 
-Oraz w terminalu wpisz:
+A następnie uruchom `installer.sh`:
 
-`stow <aplikacja>`
-
-Wybierasz aplikacje dla ktorej chcesz zeby zainstalowac pliki konfiguracyjne.
-Wybierasz aplikacje przez wybranie folderu dostępnego w repozytorium
-
-# Problemy
-
-Jesli natknales sie na problemy z lua language server sprobuj skorzystac z tego tutoriala:
-https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
+```
+cd .dotfiles
+./installer.sh
+```
