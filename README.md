@@ -1,6 +1,6 @@
 # dotfiles
 
-Osobister pliki konfiguracyjne dla linuxa (Manjaro)
+Osobiste pliki konfiguracyjne dla Linuxa (Manjaro)
 
 # Instalacja
 
