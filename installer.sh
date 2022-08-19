@@ -5,10 +5,10 @@ function packages() {
     pikaur -S --noconfirm rustup stow alacritty fish tmux \
         python3 python-pip xclip neovim \
         zerotier-one bottles jdk17-openjdk jdk8-openjdk polymc-bin obs-studio wireshark-qt gimp zoom lxsession-gtk3 \
-        archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
         rofi i3-gaps polybar nitrogen picom \
         webkit2gtk curl wget openssl appmenu-gtk-module gtk3 libappindicator-gtk3 librsvg libvips \
         nodejs npm vscode-langservers-extracted
+	#archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
     sudo npm install -g npx typescript-language-server typescript @volar/vue-language-server
 }
 
@@ -88,8 +88,6 @@ function lsps() {
     popd
     rm -rf $HOME/rust-analyzer
     chmod +x $HOME/.local/bin/rust-analyzer
-
-
 }
 
 function services() {
