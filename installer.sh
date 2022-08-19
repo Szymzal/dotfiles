@@ -8,7 +8,7 @@ function packages() {
         steam tree \
         rofi i3-gaps polybar nitrogen picom \
         webkit2gtk curl wget openssl appmenu-gtk-module gtk3 libappindicator-gtk3 librsvg libvips \
-        nodejs npm vscode-langservers-extracted lua-language-server
+        nodejs npm vscode-langservers-extracted lua-language-server fzf
 	    #archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
 
     sudo npm install -g typescript-language-server typescript @volar/vue-language-server bash-language-server
