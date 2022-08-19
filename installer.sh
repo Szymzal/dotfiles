@@ -10,7 +10,7 @@ function packages() {
         webkit2gtk curl wget openssl appmenu-gtk-module gtk3 libappindicator-gtk3 librsvg libvips \
         nodejs npm vscode-langservers-extracted lua-language-server
 	    #archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
-    sudo npm install -g npx typescript-language-server typescript @volar/vue-language-server
+    sudo npm install -g npx typescript-language-server typescript @volar/vue-language-server bash-language-server
 }
 
 function aurhelper() {

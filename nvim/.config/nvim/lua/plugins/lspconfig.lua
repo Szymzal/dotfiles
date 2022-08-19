@@ -87,6 +87,11 @@ lsp.html.setup {
     proviteFormatter = false
 }
 
+lsp.bashls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 local fn = vim.fn
 
 fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
