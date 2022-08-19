@@ -5,10 +5,11 @@ function packages() {
     pikaur -S --noconfirm rustup stow alacritty fish tmux \
         python3 python-pip xclip neovim \
         zerotier-one bottles jdk17-openjdk jdk8-openjdk polymc-bin obs-studio wireshark-qt gimp zoom lxsession-gtk3 \
+        steam tree \
         rofi i3-gaps polybar nitrogen picom \
         webkit2gtk curl wget openssl appmenu-gtk-module gtk3 libappindicator-gtk3 librsvg libvips \
-        nodejs npm vscode-langservers-extracted
-	#archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
+        nodejs npm vscode-langservers-extracted lua-language-server
+	    #archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
     sudo npm install -g npx typescript-language-server typescript @volar/vue-language-server
 }
 
@@ -68,8 +69,7 @@ function shell() {
 
 function neovim() {
     python3 -m pip install --user --upgrade pynvim
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+    nvim --headless -c 'autocmd User PackerComplete quickall'
 }
 
 function lsps() {

@@ -1,4 +1,4 @@
-require('packer').startup(function()
+require('packer').startup(function(use)
     use { 'lewis6991/impatient.nvim', config = [[require('impatient')]] }
 
     use 'wbthomason/packer.nvim'
@@ -7,7 +7,7 @@ require('packer').startup(function()
     use { 'onsails/lspkind-nvim', event = 'VimEnter' }
     use { 'hrsh7th/nvim-cmp', after = 'lspkind-nvim', config = [[require('plugins/nvim-cmp')]] }
     -- I have no idea why lspconfig config needs to be here otherwise on_attach keymaps dont apply
-    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', config = [[require('plugins/lspconfig')]] } 
+    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', config = [[require('plugins/lspconfig')]] }
     use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = { 'nvim-cmp', 'cmp-nvim-lsp' } }
     use { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' }
     use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
@@ -31,7 +31,7 @@ require('packer').startup(function()
     use { 'tpope/vim-fugitive', event = "User InGitRepo" }
 
     use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = function()
-            require('alpha').setup(require('alpha.themes.dashboard').config) 
+            require('alpha').setup(require('alpha.themes.dashboard').config)
         end
     }
 

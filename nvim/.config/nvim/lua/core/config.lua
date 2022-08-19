@@ -3,8 +3,6 @@ local M = {}
 -- nvim options
 local options = vim.opt
 local window = vim.wo
-local global = vim.g
-local keymap = vim.keymap.set
 
 options.expandtab = true
 options.smarttab = true
@@ -28,13 +26,6 @@ options.autoindent = true
 
 window.wrap = false
 window.signcolumn = "yes"
-
--- neovide options
-if global.neovide == true then
-    global.neovide_refresh_rate = 144
-    global.neovide_fullscreen = true
-    keymap('n', '<F11>', ":let g:neovide_fullscreen = !g:neovide_fullscreen<CR>", {})
-end
 
 -- colorscheme options
 function M.set_color_scheme()
