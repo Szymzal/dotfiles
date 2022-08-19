@@ -77,6 +77,16 @@ lsp.sumneko_lua.setup {
     },
 }
 
+lsp.html.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "css", "vue" },
+    embedded_languages = {
+        css = true
+    },
+    proviteFormatter = false
+}
+
 local fn = vim.fn
 
 fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })

@@ -88,6 +88,7 @@ function lsps() {
     popd
     rm -rf $HOME/rust-analyzer
     chmod +x $HOME/.local/bin/rust-analyzer
+    cargo install tauri-cli
 }
 
 function services() {
