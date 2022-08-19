@@ -1,2 +1,2 @@
 #!/bin/bash
-$HOME/.dotfiles/rofi/.config/rofi/launchers/powermenu/powermenu.sh
+$HOME/.config/rofi/launchers/powermenu/powermenu.sh

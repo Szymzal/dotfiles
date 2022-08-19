@@ -46,6 +46,37 @@ lsp.rust_analyzer.setup {
     capabilities = capabilities
 }
 
+lsp.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+lsp.volar.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+lsp.sumneko_lua.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
+
 local fn = vim.fn
 
 fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })

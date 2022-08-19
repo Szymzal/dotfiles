@@ -6,11 +6,14 @@ function packages() {
         python3 python-pip xclip neovim \
         zerotier-one bottles jdk17-openjdk jdk8-openjdk polymc-bin obs-studio wireshark-qt gimp zoom lxsession-gtk3 \
         archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
-        rofi i3-gaps polybar nitrogen picom
+        rofi i3-gaps polybar nitrogen picom \
+        webkit2gtk curl wget openssl appmenu-gtk-module gtk3 libappindicator-gtk3 librsvg libvips \
+        nodejs npm vscode-langservers-extracted
+    sudo npm install -g npx typescript-language-server typescript @volar/vue-language-server
 }
 
 function aurhelper() {
-    sudo pacman -S --needed --noconfirm base-devel git
+    sudo pacman -Syu --needed --noconfirm base-devel git
     # Installing pikaur
     mkdir $HOME/pikaur
     git clone https://aur.archlinux.org/pikaur.git $HOME/pikaur
@@ -20,13 +23,16 @@ function aurhelper() {
     rm -rf $HOME/pikaur
 }
 
-function scripts() {
-    stow scripts
-}
-
-function profile() {
-    rm -rf $HOME/.profile
-    stow profile
+function config_files() {
+    setup_config "scripts"
+    setup_config "profile"
+    setup_config "alacritty"
+    setup_config "fish"
+    setup_config "tmux"
+    setup_config "nvim"
+    setup_config "rofi"
+    setup_config "polybar"
+    setup_config "i3"
 }
 
 function fonts() {
@@ -44,6 +50,7 @@ function fonts() {
     sudo mv *.ttf /usr/share/fonts/TTF/
     popd
     rm -rf $HOME/firacode
+
     # Material icons
     mkdir $HOME/material-icons
     pushd $HOME/material-icons
@@ -55,29 +62,19 @@ function fonts() {
     fc-cache -f -v
 }
 
-function terminalemulator() {
-    stow alacritty
-}
-
 function shell() {
-    stow fish
     chsh -s /bin/fish
-}
-
-function multitermial() {
-    stow tmux
 }
 
 function neovim() {
     python3 -m pip install --user --upgrade pynvim
-    stow nvim
     git clone --depth 1 https://github.com/wbthomason/packer.nvim\
      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 }
 
 function lsps() {
-    rustup default stable
     # rust-analyzer
+    rustup default stable
     mkdir $HOME/rust-analyzer
     pushd $HOME/rust-analyzer
     curl -s https://api.github.com/repos/rust-lang/rust-analyzer/releases/latest \
@@ -91,33 +88,59 @@ function lsps() {
     popd
     rm -rf $HOME/rust-analyzer
     chmod +x $HOME/.local/bin/rust-analyzer
+
+
 }
 
-function zerotierone() {
+function services() {
     sudo systemctl enable zerotier-one.service
     sudo systemctl start zerotier-one.service
 }
 
-function windowmanager() {
-    stow rofi
-    stow polybar
-    stow i3
+function setup_config() {
+    INSTALLER_PATH=$(dirname "$0")
+    CONFIG="$1"
+    CONFIG_PATH="$INSTALLER_PATH/$CONFIG"
+    for f in $(find $CONFIG_PATH -type f)
+    do
+        HOME_PATH=${f/$CONFIG_PATH/$HOME}
+        if [[ -f "$HOME_PATH" ]]; then
+
+            TEST_DIRECTORY_HOME_PATH="$HOME/"
+            while [[ ${TEST_DIRECTORY_HOME_PATH%/} != "$HOME_PATH" ]]; do 
+                UNCHECKED_DIRS=${HOME_PATH#"$TEST_DIRECTORY_HOME_PATH"}
+                UNCHECKED_DIR=${UNCHECKED_DIRS%/*}
+                TEST_DIRECTORY_HOME_PATH="$TEST_DIRECTORY_HOME_PATH$UNCHECKED_DIR/"
+                
+                if [[ -L ${TEST_DIRECTORY_HOME_PATH%/} ]]; then
+                    rm ${TEST_DIRECTORY_HOME_PATH%/}
+                    break
+                fi
+            done
+
+            if [[ -f "$HOME_PATH" ]]; then
+                rm $HOME_PATH
+            fi
+
+            while ! [[ "$(ls -A $(dirname "$HOME_PATH"))" ]]; do
+                HOME_PATH=$(dirname "$HOME_PATH")
+                rm -d $HOME_PATH
+            done
+        fi
+    done
+    stow $CONFIG
 }
 
 function main() {
     aurhelper
     packages
-    scripts
-    profile
-    fonts
+    config_files
     shell
-    terminalemulator
-    multitermial
+    fonts
+    services
     neovim
     lsps
-    zerotierone
-    windowmanager
-    reboot
+    #reboot
 }
 
 main
