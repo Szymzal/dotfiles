@@ -12,6 +12,9 @@ function packages() {
 	    #archlinux-keyring qemu virt-manager virt-viewer dnsmasq bridge-utils libguestfs \
 
     sudo npm install -g typescript-language-server typescript @volar/vue-language-server bash-language-server
+
+    rustup default stable
+    cargo install tauri-cli
 }
 
 function aurhelper() {
@@ -35,6 +38,10 @@ function config_files() {
     setup_config "rofi"
     setup_config "polybar"
     setup_config "i3"
+}
+
+function addition_apps() {
+    $HOME/.scripts/update
 }
 
 function fonts() {
@@ -73,25 +80,6 @@ function neovim() {
     nvim --headless -c 'autocmd User PackerComplete quitall'
 }
 
-function lsps() {
-    # rust-analyzer
-    rustup default stable
-    mkdir $HOME/rust-analyzer
-    pushd $HOME/rust-analyzer
-    curl -s https://api.github.com/repos/rust-lang/rust-analyzer/releases/latest \
-    | grep "rust-analyzer-x86_64-unknown-linux-gnu.gz" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi -
-    gzip -d rust-analyzer-x86_64-unknown-linux-gnu.gz
-    mkdir $HOME/.local/bin
-    mv rust-analyzer-x86_64-unknown-linux-gnu $HOME/.local/bin/rust-analyzer
-    popd
-    rm -rf $HOME/rust-analyzer
-    chmod +x $HOME/.local/bin/rust-analyzer
-    cargo install tauri-cli
-}
-
 function services() {
     sudo systemctl enable zerotier-one.service
     sudo systemctl start zerotier-one.service
@@ -124,7 +112,10 @@ function setup_config() {
 
             while ! [[ "$(ls -A $(dirname "$HOME_PATH"))" ]]; do
                 HOME_PATH=$(dirname "$HOME_PATH")
-                rm -d $HOME_PATH
+
+                if [[ -f "$HOMEPATH" ]]; do
+                    rm -d $HOME_PATH
+                fi
             done
         fi
     done
@@ -135,12 +126,13 @@ function main() {
     aurhelper
     packages
     config_files
+    addition_apps
     shell
     fonts
     services
     neovim
-    lsps
-    #reboot
+
+    echo "Installator finished! You would need to restart computer to work everything properly."
 }
 
 main

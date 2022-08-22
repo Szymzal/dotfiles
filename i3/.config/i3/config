@@ -181,9 +181,6 @@ exec_always --no-startup-id $HOME/.config/polybar/run_polybar.sh
 # Nitrogen
 exec --no-startup-id nitrogen --restore
 
-# Picom
-exec --no-startup-id picom -f
-
 # lxpolkit
 exec --no-startup-id lxpolkit
 

@@ -1,0 +1,55 @@
+#!/bin/bash
+
+function rust-analyzer() {
+    mkdir -p $HOME/temp/rust-analyzer
+    pushd $HOME/temp/rust-analyzer
+    curl -s https://api.github.com/repos/rust-lang/rust-analyzer/releases/latest \
+    | grep "rust-analyzer-x86_64-unknown-linux-gnu.gz" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -qi -
+    gzip -d rust-analyzer-x86_64-unknown-linux-gnu.gz
+
+    if ! [[ -f "$HOME/.local/bin" ]]; then 
+        mkdir -p $HOME/.local/bin
+    fi
+    if [[ -f "$HOME/.local/bin/rust-analyzer" ]]; then
+        rm -rf $HOME/.local/bin/rust-analyzer
+    fi
+
+    mv rust-analyzer-x86_64-unknown-linux-gnu $HOME/.local/bin/rust-analyzer
+    popd
+
+    rm -rf $HOME/temp/rust-analyzer
+    chmod +x $HOME/.local/bin/rust-analyzer
+}
+
+function playit() {
+    mkdir -p $HOME/temp/playit
+    pushd $HOME/temp/playit
+    curl -s https://api.github.com/repos/playit-cloud/playit-agent/releases/latest \
+    | grep "playit-[0-9].[0-99].[0-99]\"" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -qi -
+
+    if ! [[ -f "$HOME/.local/bin" ]]; then 
+        mkdir -p $HOME/.local/bin
+    fi
+    if [[ -f "$HOME/.local/bin/playit" ]]; then
+        rm -rf $HOME/.local/bin/playit
+    fi
+
+    mv * $HOME/.local/bin/playit
+    popd
+
+    rm -rf $HOME/temp/playit
+    chood +x $HOME/.local/bin/playit
+}
+
+function main() {
+    playit
+    rust-analyzer
+}
+
+main
