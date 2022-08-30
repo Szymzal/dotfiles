@@ -92,6 +92,11 @@ lsp.bashls.setup {
     capabilities = capabilities,
 }
 
+lsp.powershell_es.setup {
+    bundle_path = '/home/szymzal/PowerShellEditorServices',
+    cmd = { 'pwsh', '-NoLogo', '-NoProfile', '-Command', "/home/szymzal/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1 -BundledModulesPath /home/szymzal/PowerShellEditorServices -LogPath /home/szymzal/PowerShellEditorServices/logs.log -SessionDetailsPath /home/szymzal/PowerShellEditorServices/session.json -FeatureFlags @() -AdditionalModules @() -HostName 'PowerShell LSP' -HostProfileId 'powershelllsp' -HostVersion 1.0.0 -Stdio -LogLevel Normal" },
+}
+
 local fn = vim.fn
 
 fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
