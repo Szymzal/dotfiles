@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function main() {
+    # I don't have anything like that
+    # Maybe PowerShellEditorServices?
+    # But that later
+}
+
+main
