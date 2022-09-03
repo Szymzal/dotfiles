@@ -38,7 +38,8 @@ function Install-Packages {
     echo "INFO: Installing packages..."
     scoop bucket add main
     scoop bucket add extras
-    scoop install winget wingetui
+    scoop install winget wingetui flow-launcher git notepadplusplus
+    winget install --id Microsoft.PowerShell --silent
 }
 
 function WSL-Installed {
