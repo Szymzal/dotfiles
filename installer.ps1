@@ -1,13 +1,27 @@
-﻿# Self-Elevate if requied
-if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
-    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-        Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
-        Exit
+﻿param($Step="A")
+
+# Portions of this scipt were copied from: 
+# https://www.codeproject.com/Articles/223002/Reboot-and-Resume-PowerShell-Script
+
+# Imports
+$script = $MyInvocation.MyCommand.Definition
+$global:started = $false
+$global:startingStep = $Step
+$global:RegRunKey ="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+$global:restartKey = "Restart-And-Resume"
+$global:powershell = (Join-Path $env:windir "system32\WindowsPowerShell\v1.0\powershell.exe")
+
+# Functions
+function Self-Elevate {
+    # Self-Elevate if requied
+    if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+        if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+            $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+            Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+            Exit
+        }
     }
 }
-
-mkdir logs -ErrorAction SilentlyContinue | Out-Null
 
 function Install-Scoop {
     if (Command-Exists("scoop")) {
@@ -29,7 +43,7 @@ function Install-Scoop {
     }
 }
 
-function Command-Exists([string]$command) {
+function Command-Exists([string] $command) {
     try { if (Get-Command $command) { return $true } }
     Catch { $false }
 }
@@ -66,12 +80,74 @@ function Install-WSL {
     }
 }
 
+function Create-Logs-Folder {
+    mkdir logs -ErrorAction SilentlyContinue | Out-Null
+}
+
+function Should-Run-Step([string] $prospectStep) {
+    if ($global:startingStep -eq $prospectStep -or $global:started) {
+        $global:started = $TRUE
+    }
+    return $global:started
+}
+
+function Test-Key([string] $path, [string] $key) {
+    return ((Test-Path $path) -and ((Get-Key $path $key) -ne $null))   
+}
+
+function Remove-Key([string] $path, [string] $key) {
+    Remove-ItemProperty -path $path -name $key
+}
+
+function Set-Key([string] $path, [string] $key, [string] $value) {
+    Set-ItemProperty -path $path -name $key -value $value
+}
+
+function Get-Key([string] $path, [string] $key) {
+    return (Get-ItemProperty $path).$key
+}
+
+function Restart-And-Run([string] $key, [string] $run) {
+    Set-Key $global:RegRunKey $key $run
+    Restart-Computer
+    exit
+}
+
+function Clear-Any-Restart([string] $key=$global:restartKey) {
+    if (Test-Key $global:RegRunKey $key) {
+        Remove-Key $global:RegRunKey $key
+    }
+}
+
+function Restart-And-Resume([string] $script, [string] $step) {
+    Restart-And-Run $global:restartKey "$global:powershell $script -Step $step"
+}
+
+# Main Function
 function Main {
-    if (Install-Scoop) {
-        Install-Packages
-        Install-WSL
-    } else {
-        echo "ERROR: Failed to install scoop. Look in 'logs/scoop.log' to get more info."
+    if (Should-Run-Step("A")) {
+        Self-Elevate
+        Create-Logs-Folder
+
+        echo "Computer will be restarted, press Enter to continue..."
+        pause
+        Restart-And-Resume($script, "B")
+
+        #if (Install-Scoop) {
+        #    Install-Packages
+        #    Install-WSL
+
+        #    echo "Computer will be restarted, press Enter to continue..."
+        #    pause
+        #    Restart-And-Resume($script, "B")
+        #} else {
+        #    echo "ERROR: Failed to install scoop. Look in 'logs/scoop.log' to get more info."
+        #}
+    }
+
+    if (Should-Run-Step("B")) {
+        echo "Hey in new place!"
+        pause
     }
 
     pause
