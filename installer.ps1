@@ -5,19 +5,20 @@
 
 # Imports
 $script = $MyInvocation.MyCommand.Definition
-$global:started = $false
+
+$global:started = $False
 $global:startingStep = $Step
 $global:RegRunKey ="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
 $global:restartKey = "Restart-And-Resume"
-$global:powershell = (Join-Path $env:windir "system32\WindowsPowerShell\v1.0\powershell.exe")
+$global:powershell = "C:\Program Files\PowerShell\7\pwsh.exe"
 
 # Functions
 function Self-Elevate {
     # Self-Elevate if requied
     if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
         if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-            $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-            Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+            $CommandLine = "-File `"" + $MyInvocation.PSCommandPath + "`" -Step " + $Step
+            Start-Process -FilePath $global:powershell -Verb Runas -ArgumentList $CommandLine
             Exit
         }
     }
@@ -125,6 +126,7 @@ function Restart-And-Resume([string] $script, [string] $step) {
 
 # Main Function
 function Main {
+
     if (Should-Run-Step("A")) {
         Self-Elevate
         Create-Logs-Folder
