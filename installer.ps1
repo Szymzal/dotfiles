@@ -76,8 +76,12 @@ function Install-WSL {
 
         Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName VirtualMachinePlatform
         Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName Microsoft-Windows-Subsystem-Linux
+
+        return $TRUE
     } else {
         echo "INFO: Skipping installation of WSL..."
+
+        return $FALSE
     }
 }
 
@@ -137,17 +141,21 @@ function Main {
 
         #if (Install-Scoop) {
         #    Install-Packages
-        #    Install-WSL
+        #    if (Install-WSL) {
+        #        echo "Computer will be restarted, press Enter to continue..."
+        #        pause
+        #        Restart-And-Resume($script, "B")
+        #    }
 
-        #    echo "Computer will be restarted, press Enter to continue..."
-        #    pause
-        #    Restart-And-Resume($script, "B")
+
         #} else {
         #    echo "ERROR: Failed to install scoop. Look in 'logs/scoop.log' to get more info."
         #}
     }
 
     if (Should-Run-Step("B")) {
+        Clear-Any-Restart
+
         echo "Hey in new place!"
         pause
     }
