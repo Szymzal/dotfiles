@@ -38,7 +38,8 @@ function Install-Packages {
     echo "INFO: Installing packages..."
     scoop bucket add main
     scoop bucket add extras
-    scoop install winget wingetui flow-launcher git notepadplusplus
+    scoop bucket add versions
+    scoop install winget wingetui flow-launcher git notepadplusplus steam docker
     winget install --id Microsoft.PowerShell --silent
 }
 
