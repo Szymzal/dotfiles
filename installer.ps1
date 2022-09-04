@@ -39,7 +39,7 @@ function Install-Packages {
     scoop bucket add main
     scoop bucket add extras
     scoop bucket add versions
-    scoop install winget wingetui flow-launcher git notepadplusplus steam docker
+    scoop install winget wingetui flow-launcher git notepadplusplus steam docker playnite
     winget install --id Microsoft.PowerShell --silent
 }
 
