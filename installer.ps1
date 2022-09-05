@@ -2,6 +2,7 @@
 
 # Portions of this scipt were copied from: 
 # https://www.codeproject.com/Articles/223002/Reboot-and-Resume-PowerShell-Script
+# https://gist.github.com/Splaxi/fe168eaa91eb8fb8d62eba21736dc88a
 
 # Imports
 $script = $MyInvocation.MyCommand.Definition
@@ -11,6 +12,8 @@ $global:startingStep = $Step
 $global:RegRunKey ="HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
 $global:restartKey = "Restart-And-Resume"
 $global:powershell = "C:\Program Files\PowerShell\7\pwsh.exe"
+$global:runError = $False
+$global:WSLPath = "$env:USERPROFILE\WSL"
 
 # Functions
 function Self-Elevate {
@@ -26,11 +29,11 @@ function Self-Elevate {
 
 function Install-Scoop {
     if (Command-Exists("scoop")) {
-        echo "INFO: Skipping installation of scoop..."
+        Write-Host "Skipping installation of scoop..."
         return $true
     }
     else {
-        echo "INFO: Installing scoop..."
+        Write-Host "Installing scoop..."
 
         irm get.scoop.sh -OutFile 'install-scoop.ps1'
         .\install-scoop.ps1 > .\logs\scoop.log
@@ -50,7 +53,7 @@ function Command-Exists([string] $command) {
 }
 
 function Install-Packages {
-    echo "INFO: Installing packages..."
+    Write-Host "Installing packages..."
     scoop bucket add main
     scoop bucket add extras
     scoop bucket add versions
@@ -72,21 +75,23 @@ function WSL-Installed {
 
 function Install-WSL {
     if (-Not (WSL-Installed)) {
-        echo "INFO: Installing WSL..."
+        Write-Host "Installing WSL..."
 
         Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName VirtualMachinePlatform
         Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName Microsoft-Windows-Subsystem-Linux
 
         return $TRUE
     } else {
-        echo "INFO: Skipping installation of WSL..."
+        Write-Host "Skipping installation of WSL..."
 
         return $FALSE
     }
 }
 
-function Create-Logs-Folder {
+function Create-Folders {
     mkdir logs -ErrorAction SilentlyContinue | Out-Null
+    mkdir temp -ErrorAction SilentlyContinue | Out-Null
+    mkdir "$global:WSLPath\Arch" -ErrorAction SilentlyContinue | Out-Null
 }
 
 function Should-Run-Step([string] $prospectStep) {
@@ -128,34 +133,80 @@ function Restart-And-Resume([string] $script, [string] $step) {
     Restart-And-Run $global:restartKey "$global:powershell $script -Step `"$step`""
 }
 
+function Download-Latest-From-Github([string] $repo, [string] $pattern, [string] $pathExtract) {
+    $releasesUri = "https://api.github.com/repos/$repo/releases/latest"
+    $downloadUri = ((Invoke-RestMethod -Method GET -Uri $releasesUri).assets | Where-Object name -like $pattern ).browser_download_url
+
+    $pathZip = Join-Path -Path $([System.IO.Path]::GetTempPath()) -ChildPath $(Split-Path -Path $downloadUri -Leaf)
+
+    Invoke-WebRequest -Uri $downloadUri -Out $pathZip
+
+    Remove-Item -Path $pathExtract -Recurse -Force -ErrorAction SilentlyContinue
+
+    Expand-Archive -Path $pathZip -DestinationPath $pathExtract -Force
+
+    Remove-Item $pathZip -Force
+}
+
+function Install-Arch-WSL {
+    Write-Host "Installing Arch Linux WSL installer..."
+
+    $ArchWSLPath = "$global:WSLPath\Arch"
+    Download-Latest-From-Github "yuk7/ArchWSL" "Arch_Online.zip" "$ArchWSLPath"
+
+    Add-To-PATH-Environment-Variable User "$ArchWSLPath"
+
+    if (Test-Path -Path "$ArchWSLPath\Arch.exe") {
+        Write-Host "Installing Arch Linux WSL..."
+        $Expr = "$ArchWSLPath\Arch.exe"
+        $Expr += ';$?'
+        $Result = Invoke-Expression -Command $Expr
+
+        return $Result
+    }
+
+    return $FALSE
+}
+
+function Add-To-PATH-Environment-Variable([EnvironmentVariableTarget] $target, [string] $pathToAdd) {
+    $oldPathValue = [Environment]::GetEnvironmentVariable("Path", $target)
+
+    if (-Not ($oldPathValue.Contains($pathToAdd))) {
+        Write-Host "Adding path to PATH variable..."
+        [Environment]::SetEnvironmentVariable(
+            "Path",
+            "$oldPathValue;$pathToAdd",
+            $target
+        )
+    }
+
+}
+
 # Main Function
 function Main {
     Self-Elevate
     Clear-Any-Restart
+    Create-Folders
 
     if (Should-Run-Step "A") {
-        Create-Logs-Folder
+        $global:runError = (-Not (Install-Scoop))
+        if (-Not $global:runError) {
+            Install-Packages
 
-        echo "Computer will be restarted, press Enter to continue..."
-        pause
-        Restart-And-Resume $script "B"
-
-        #if (Install-Scoop) {
-        #    Install-Packages
-        #    if (Install-WSL) {
-        #        echo "Computer will be restarted, press Enter to continue..."
-        #        pause
-        #        Restart-And-Resume($script, "B")
-        #    }
-
-
-        #} else {
-        #    echo "ERROR: Failed to install scoop. Look in 'logs/scoop.log' to get more info."
-        #}
+            $global:runError = (-not (Install-WSL))
+            if (-Not $global:runError) {
+                Write-Host "Computer will be restarted, press Enter to continue..."
+                pause
+                Restart-And-Resume $script "B"
+            }
+        } else {
+            Write-Error "Failed to install scoop. Look in 'logs/scoop.log' to get more info."
+        }
     }
 
-    if (Should-Run-Step "B") {
-        echo "Hey in new place!"
+    if ((-Not $global:runError) -And (Should-Run-Step "B")) {
+        $global:runError = (-Not (Install-Arch-WSL))
+        Write-Host $global:runError
     }
 
     pause
