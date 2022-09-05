@@ -125,19 +125,20 @@ function Clear-Any-Restart([string] $key=$global:restartKey) {
 }
 
 function Restart-And-Resume([string] $script, [string] $step) {
-    Restart-And-Run $global:restartKey "$global:powershell $script -Step $step"
+    Restart-And-Run $global:restartKey "$global:powershell $script -Step `"$step`""
 }
 
 # Main Function
 function Main {
+    Self-Elevate
+    Clear-Any-Restart
 
-    if (Should-Run-Step("A")) {
-        Self-Elevate
+    if (Should-Run-Step "A") {
         Create-Logs-Folder
 
         echo "Computer will be restarted, press Enter to continue..."
         pause
-        Restart-And-Resume($script, "B")
+        Restart-And-Resume $script "B"
 
         #if (Install-Scoop) {
         #    Install-Packages
@@ -153,11 +154,8 @@ function Main {
         #}
     }
 
-    if (Should-Run-Step("B")) {
-        Clear-Any-Restart
-
+    if (Should-Run-Step "B") {
         echo "Hey in new place!"
-        pause
     }
 
     pause
