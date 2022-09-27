@@ -158,11 +158,15 @@ function Install-Arch-WSL {
 
     if (Test-Path -Path "$ArchWSLPath\Arch.exe") {
         Write-Host "Installing Arch Linux WSL..."
-        $Expr = "$ArchWSLPath\Arch.exe"
-        $Expr += ';$?'
-        $Result = Invoke-Expression -Command $Expr
+        Invoke-Expression -Command "$ArchWSLPath\Arch.exe"
 
-        return $Result
+        $Result = Invoke-Expression -Command "wsl --list" | findstr "Arch"
+
+        if ($Result -eq "") {
+            return $FALSE
+        }
+
+        return $TRUE
     }
 
     return $FALSE
@@ -206,7 +210,12 @@ function Main {
 
     if ((-Not $global:runError) -And (Should-Run-Step "B")) {
         $global:runError = (-Not (Install-Arch-WSL))
-        Write-Host $global:runError
+
+        if (-Not $global:runError) {
+            Write-Host "Successfully installed Arch Linux!"
+        } else {
+            Write-Host "Failed to install Arch Linux!"
+        }
     }
 
     pause
