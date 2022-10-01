@@ -1,8 +1,10 @@
+local M = {};
+
 local lsp = require('lspconfig')
 local opts = { buffer=true, noremap=true, silent=true }
 local keymap = vim.keymap.set
 
-local function on_attach()
+M.on_attach = function()
     keymap('n', 'K', vim.lsp.buf.hover, opts)
     keymap('n', 'fw', vim.diagnostic.open_float, opts)
     keymap('n', 'gd', vim.lsp.buf.definition, opts) -- <c-t> to return back
@@ -17,47 +19,13 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lsp.rust_analyzer.setup {
-    on_attach = on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importEnforceGranularity = true,
-                importGranularity = "module",
-                importPrefix = "crate"
-            },
-            cargo = {
-                allFeatures = true
-            },
-            checkOnSave = {
-                command = "clippy"
-            },
-            inlayHints = {
-                lifetimeElisionHints = {
-                    enable = true,
-                    useParameterNames = true
-                },
-            },
-            procMacro = {
-                enable = true
-            }
-        }
-    },
-    capabilities = capabilities
-}
-
 lsp.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-lsp.volar.setup {
-    on_attach = on_attach,
+    on_attach = M.on_attach,
     capabilities = capabilities
 }
 
 lsp.sumneko_lua.setup {
-    on_attach = on_attach,
+    on_attach = M.on_attach,
     capabilities = capabilities,
     settings = {
         Lua = {
@@ -78,7 +46,7 @@ lsp.sumneko_lua.setup {
 }
 
 lsp.html.setup {
-    on_attach = on_attach,
+    on_attach = M.on_attach,
     capabilities = capabilities,
     filetypes = { "html", "css", "vue" },
     embedded_languages = {
@@ -88,13 +56,8 @@ lsp.html.setup {
 }
 
 lsp.bashls.setup {
-    on_attach = on_attach,
+    on_attach = M.on_attach,
     capabilities = capabilities,
-}
-
-lsp.powershell_es.setup {
-    bundle_path = '/home/szymzal/PowerShellEditorServices',
-    cmd = { 'pwsh', '-NoLogo', '-NoProfile', '-Command', "/home/szymzal/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1 -BundledModulesPath /home/szymzal/PowerShellEditorServices -LogPath /home/szymzal/PowerShellEditorServices/logs.log -SessionDetailsPath /home/szymzal/PowerShellEditorServices/session.json -FeatureFlags @() -AdditionalModules @() -HostName 'PowerShell LSP' -HostProfileId 'powershelllsp' -HostVersion 1.0.0 -Stdio -LogLevel Normal" },
 }
 
 local fn = vim.fn
@@ -108,3 +71,5 @@ vim.diagnostic.config({
     underline = true,
     signs = true
 })
+
+return M

@@ -8,7 +8,7 @@ function packages() {
         curl wget openssl \
         nvm vscode-langservers-extracted lua-language-server fzf rust-analyzer
 
-    sudo npm install -g typescript-language-server typescript @volar/vue-language-server bash-language-server
+    sudo npm install -g typescript-language-server typescript bash-language-server
 
     rustup default stable
     cargo install tauri-cli

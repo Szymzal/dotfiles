@@ -35,5 +35,6 @@ require('packer').startup(function(use)
         end
     }
 
+    use { 'simrat39/rust-tools.nvim', after = 'nvim-lspconfig', config = [[require('plugins/rust-tools')]] }
     use { 'timonv/vim-cargo' }
 end)
