@@ -73,7 +73,7 @@ function setup_config() {
             while ! [[ "$(ls -A $(dirname "$HOME_PATH"))" ]]; do
                 HOME_PATH=$(dirname "$HOME_PATH")
 
-                if [[ -f "$HOMEPATH" ]]; do
+                if [[ -f "$HOMEPATH" ]]; then
                     rm -d $HOME_PATH
                 fi
             done
