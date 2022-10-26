@@ -29,11 +29,8 @@ window.signcolumn = "yes"
 
 -- colorscheme options
 function M.set_color_scheme()
-    vim.cmd [[ colorscheme horizon ]]
-    -- disable italics and bold in places where I don't want
-    vim.cmd [[ highlight Identifier cterm=none gui=none ]]
-    vim.cmd [[ highlight StorageClass cterm=none gui=none ]]
-    vim.cmd [[ highlight Statement cterm=none gui=none ]]
+    vim.cmd [[ let g:sonokai_style = 'andromeda' ]]
+    vim.cmd [[ colorscheme sonokai ]]
 end
 
 return M

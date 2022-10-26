@@ -17,7 +17,7 @@ require('packer').startup(function(use)
     use { 'honza/vim-snippets', after = 'ultisnips' }
     use { 'ray-x/lsp_signature.nvim', config = [[require('plugins/lsp-signature')]] }
 
-    use 'ntk148v/vim-horizon'
+    use 'sainnhe/sonokai'
     use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate", config = [[require('plugins/treesitter')]] }
 
     use { 'arkav/lualine-lsp-progress' }

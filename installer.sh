@@ -9,9 +9,14 @@ function packages() {
         nvm vscode-langservers-extracted lua-language-server fzf rust-analyzer
 
     sudo npm install -g typescript-language-server typescript bash-language-server
+}
 
+function rust() {
     rustup default stable
     cargo install tauri-cli
+    cargo install trunk
+
+    rustup add target wasm32-unknown-unknown
 }
 
 function aurhelper() {
@@ -85,6 +90,7 @@ function setup_config() {
 function main() {
     aurhelper
     packages
+    rust
     config_files
     addition_apps
     shell

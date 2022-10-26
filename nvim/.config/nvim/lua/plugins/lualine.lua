@@ -1,7 +1,7 @@
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = "horizon"
+        theme = "sonokai"
     },
     sections = {
         lualine_c = { 'lsp_progress' }
