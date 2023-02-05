@@ -33,4 +33,7 @@ function M.set_color_scheme()
     vim.cmd [[ colorscheme sonokai ]]
 end
 
+-- Add wgsl filetype recognision
+vim.cmd [[ au BufNewFile,BufRead *.wgsl set filetype=wgsl ]]
+
 return M

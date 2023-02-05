@@ -16,7 +16,7 @@ M.on_attach = function()
     -- to check diagnostics use Enter key
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lsp.tsserver.setup {
@@ -57,7 +57,13 @@ lsp.html.setup {
 
 lsp.bashls.setup {
     on_attach = M.on_attach,
+    capabilities = capabilities
+}
+
+lsp.wgsl_analyzer.setup {
+    on_attach = M.on_attach,
     capabilities = capabilities,
+    filetypes = { "wgsl" },
 }
 
 local fn = vim.fn
