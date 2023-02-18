@@ -1,15 +1,17 @@
-local M = {}
-
 -- nvim options
 local options = vim.opt
 local window = vim.wo
+local global = vim.g
+
+global.mapleader = ' '
+global.maplocalleader = ' '
 
 options.expandtab = true
 options.smarttab = true
 options.shiftwidth = 4
 options.tabstop = 4
 options.softtabstop = 4
-options.hlsearch = true
+options.hlsearch = false
 options.incsearch = true
 options.ignorecase = true
 options.smartcase = true
@@ -26,14 +28,3 @@ options.autoindent = true
 
 window.wrap = false
 window.signcolumn = "yes"
-
--- colorscheme options
-function M.set_color_scheme()
-    vim.cmd [[ let g:sonokai_style = 'andromeda' ]]
-    vim.cmd [[ colorscheme sonokai ]]
-end
-
--- Add wgsl filetype recognision
-vim.cmd [[ au BufNewFile,BufRead *.wgsl set filetype=wgsl ]]
-
-return M

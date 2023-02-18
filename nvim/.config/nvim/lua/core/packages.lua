@@ -1,40 +1,133 @@
-require('packer').startup(function(use)
-    use { 'lewis6991/impatient.nvim', config = [[require('impatient')]] }
-
-    use 'wbthomason/packer.nvim'
-
-    use { 'neovim/nvim-lspconfig' }
-    use { 'onsails/lspkind-nvim', event = 'VimEnter' }
-    use { 'hrsh7th/nvim-cmp', after = 'lspkind-nvim', config = [[require('plugins/nvim-cmp')]] }
-    -- I have no idea why lspconfig config needs to be here otherwise on_attach keymaps dont apply
-    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', config = [[require('plugins/lspconfig')]] }
-    use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = { 'nvim-cmp', 'cmp-nvim-lsp' } }
-    use { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' }
-    use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
-    use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
-    use { 'quangnguyen30192/cmp-nvim-ultisnips', after = { 'nvim-cmp', 'ultisnips' } }
-    use { 'SirVer/ultisnips', event = 'InsertEnter' }
-    use { 'honza/vim-snippets', after = 'ultisnips' }
-    use { 'ray-x/lsp_signature.nvim', config = [[require('plugins/lsp-signature')]] }
-
-    use 'sainnhe/sonokai'
-    use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate", config = [[require('plugins/treesitter')]] }
-
-    use { 'arkav/lualine-lsp-progress' }
-    use { 'nvim-lualine/lualine.nvim', after = 'lualine-lsp-progress', requires = { 'kyazdani42/nvim-web-devicons', opt = true }, config = [[require('plugins/lualine')]] }
-
-    use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} }, config = [[require('plugins/telescope')]] }
-
-    use { 'mhinz/vim-signify', event = "VimEnter" }
-    use { 'Raimondi/delimitMate', event = "InsertEnter" }
-    use { 'tpope/vim-commentary', event = "VimEnter" }
-    use { 'tpope/vim-fugitive', event = "User InGitRepo" }
-
-    use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = function()
+require("lazy").setup({
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
+    {
+        'lewis6991/impatient.nvim',
+        lazy = false,
+        config = function ()
+            require('impatient')
+        end
+    },
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            { 'j-hui/fidget.nvim', opts = {} },
+            'folke/neodev.nvim',
+        },
+        config = function()
+            require('plugins/lspconfig')
+        end
+    },
+    {
+        'onsails/lspkind-nvim',
+        event = 'VimEnter'
+    },
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            {
+                'hrsh7th/cmp-nvim-lsp',
+                dependencies = { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+            },
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip'
+        },
+        config = function()
+            require('plugins/nvim-cmp')
+        end
+    },
+    {
+        'ray-x/lsp_signature.nvim',
+        config = function()
+            require('plugins/lsp-signature')
+        end
+    },
+    {
+        'folke/which-key.nvim', opts = {}
+    },
+    {
+        'sainnhe/sonokai',
+        priority = 1000,
+        lazy = false,
+        config = function()
+            vim.cmd [[ let g:sonokai_style = 'andromeda' ]]
+            vim.cmd.colorscheme 'sonokai'
+        end
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = {
+            { 'kyazdani42/nvim-web-devicons', opts = {} }
+        },
+        config = function ()
+            require('plugins/lualine')
+        end
+    },
+    {
+        'numToStr/Comment.nvim',
+        opts = {}
+    },
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        opts = {
+            char = '┊',
+            show_trailing_blankline_indent = false,
+        },
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        version = '*',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                cond = function()
+                    return vim.fn.executable 'make' == 1
+                end,
+                config = function ()
+                    pcall(require('telescope').load_extension, 'fzf')
+                end
+            },
+        },
+        config = function()
+            require('plugins/telescope')
+        end
+    },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+        config = function()
+            pcall(require('nvim-treesitter.install').update { with_sync = true })
+            require('plugins/treesitter')
+        end,
+    },
+    {
+        'goolord/alpha-nvim',
+        dependencies = {
+            'kyazdani42/nvim-web-devicons'
+        },
+        config = function()
             require('alpha').setup(require('alpha.themes.dashboard').config)
         end
+    },
+    {
+        'Raimondi/delimitMate',
+        event = "InsertEnter"
+    },
+    {
+        'simrat39/rust-tools.nvim',
+        dependencies = {
+            'nvim-lspconfig'
+        },
+        config = function()
+            require('plugins/rust-tools')
+        end
     }
+})
 
-    use { 'simrat39/rust-tools.nvim', after = 'nvim-lspconfig', config = [[require('plugins/rust-tools')]] }
-    use { 'timonv/vim-cargo' }
-end)

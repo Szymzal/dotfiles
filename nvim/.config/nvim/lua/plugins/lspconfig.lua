@@ -16,6 +16,8 @@ M.on_attach = function()
     -- to check diagnostics use Enter key
 end
 
+require('neodev').setup()
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -24,7 +26,7 @@ lsp.tsserver.setup {
     capabilities = capabilities
 }
 
-lsp.sumneko_lua.setup {
+lsp.lua_ls.setup {
     on_attach = M.on_attach,
     capabilities = capabilities,
     settings = {

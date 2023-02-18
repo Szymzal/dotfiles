@@ -1,4 +1,4 @@
-local cfg = { 
+local cfg = {
     bind = true,
     doc_lines = 10,
     max_height = 12,

@@ -1,2 +1,2 @@
-require('core/config').set_color_scheme()
-require('core/keybindings').telescope_keybinds()
+-- Add wgsl filetype recognision
+vim.cmd [[ au BufNewFile,BufRead *.wgsl set filetype=wgsl ]]
