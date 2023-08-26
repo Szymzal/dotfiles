@@ -5,6 +5,7 @@ local opts = { buffer=true, noremap=true, silent=true }
 local keymap = vim.keymap.set
 
 M.on_attach = function()
+    keymap('i', '<C-k>', vim.lsp.buf.hover, opts)
     keymap('n', 'K', vim.lsp.buf.hover, opts)
     keymap('n', 'fw', vim.diagnostic.open_float, opts)
     keymap('n', 'gd', vim.lsp.buf.definition, opts) -- <c-t> to return back
@@ -68,12 +69,15 @@ lsp.wgsl_analyzer.setup {
     filetypes = { "wgsl" },
 }
 
+lsp.astro.setup {}
+
 local fn = vim.fn
 
-fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
-fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
-fn.sign_define("DiagnosticSignInformation", { text = " ", texthl = "DiagnosticSignInformation" })
-fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticSignHint" })
+fn.sign_define("DiagnosticSignError", { text = "󰅚 ", texthl = "DiagnosticSignError" })
+fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+fn.sign_define("DiagnosticSignInformation", { text = "󰋽 ", texthl = "DiagnosticSignInformation" })
+fn.sign_define("DiagnosticSignInfo", { text = "󰋽 ", texthl = "DiagnosticSignInfo" })
+fn.sign_define("DiagnosticSignHint", { text = "󰌶 ", texthl = "DiagnosticSignHint" })
 
 vim.diagnostic.config({
     underline = true,

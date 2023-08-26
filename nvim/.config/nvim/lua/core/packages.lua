@@ -11,7 +11,11 @@ require("lazy").setup({
     {
         'neovim/nvim-lspconfig',
         dependencies = {
-            { 'j-hui/fidget.nvim', opts = {} },
+            {
+                'j-hui/fidget.nvim',
+                tag = "legacy",
+                opts = {}
+            },
             'folke/neodev.nvim',
         },
         config = function()

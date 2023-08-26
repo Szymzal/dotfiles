@@ -6,7 +6,7 @@ require('telescope').setup {
         grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
 
-        file_ignore_patterns = { ".exe", "\\target\\", '.git' },
+        file_ignore_patterns = { ".exe", "\\target\\", "/target/", '.git' },
         mappings = {
             i = {
                 ["<C-x>"] = false,
