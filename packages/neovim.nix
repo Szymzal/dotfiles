@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
 
-  programs.nixvim = {
-    enable = true;
-  };
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim;
+  ];
 
 }
