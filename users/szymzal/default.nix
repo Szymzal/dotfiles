@@ -9,7 +9,7 @@
   };
 
   home-manager.users.szymzal = {
-    imports = [ ./home.nix ];    
+    imports = [ ./home.nix ];
   };
 
 }
