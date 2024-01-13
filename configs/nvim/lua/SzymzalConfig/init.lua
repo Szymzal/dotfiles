@@ -1,5 +1,5 @@
 local function init()
-	require("config.lazy")
+	require("SzymzalConfig.config.lazy")
 end
 
 return {

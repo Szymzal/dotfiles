@@ -26,6 +26,14 @@ in
         require('SzymzalConfig').init()
       EOF
     '';
+
+    extraPackages = with pkgs; [
+      git
+      gcc
+      lazygit
+      ripgrep
+      fd
+    ];
   };
 
 }

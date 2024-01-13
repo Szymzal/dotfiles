@@ -21,6 +21,7 @@ return {
         "c",
         "cpp",
         "rust",
+	"nix",
       },
     },
   },

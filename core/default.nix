@@ -4,6 +4,9 @@
 
   imports = [
     inputs.home-manager.nixosModules.default
+    ../configs/fonts
+
+    ../packages/git.nix
     ../packages/tmux.nix
     ../packages/zsh.nix
   ];
@@ -12,7 +15,6 @@
 
   environment.systemPackages = with pkgs; [
     bash
-    neovim
   ];
 
 }
