@@ -1,1 +1,1 @@
-require("SzymzalConfig").init()
+require("config.lazy")
