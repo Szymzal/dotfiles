@@ -1,11 +1,10 @@
 return {
+  { "williamboman/mason.nvim", enabled = false },
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        rust_analyzer = {
-          mason = false,
-        },
+        rust_analyzer = {},
 
         tsserver = {
           settings = {
@@ -24,32 +23,19 @@ return {
               },
             },
           },
-	  mason = false,
         },
+
+        nil_ls = {},
 
         html = {
           filetypes = { "html" },
           provideFormatter = false,
-	  mason = false,
         },
 
-        cssls = {
-	  mason = false,
-	},
+        cssls = {},
 
-        bashls = {
-	  mason = false,
-	},
-
-        wgsl_analyzer = {
-          filetypes = { "wgsl" },
-	  mason = false,
-        },
-
-        astro = {
-	  mason = false,
-	},
+        -- astro = {},
       },
     },
-  },
+  }
 }

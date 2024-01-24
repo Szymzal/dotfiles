@@ -1,7 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
-
-{
-
+{ ... }: {
   programs.git = {
     enable = true;
 
@@ -9,5 +6,4 @@
       init.defaultBranch = "main";
     };
   };
-
 }

@@ -1,14 +1,8 @@
-{ config, lib, pkgs, nixpkgs, inputs, ... }:
-
-{
-
+{ pkgs, inputs, ... }: {
   imports = [
     inputs.home-manager.nixosModules.default
-    ../configs/fonts
 
-    ../packages/git.nix
-    ../packages/tmux.nix
-    ../packages/zsh.nix
+    ../../packages
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -16,5 +10,4 @@
   environment.systemPackages = with pkgs; [
     bash
   ];
-
 }

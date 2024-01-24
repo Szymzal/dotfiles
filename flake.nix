@@ -11,27 +11,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    flakelight = {
+      url = "github:nix-community/flakelight";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      allSystems = nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-      ];
-    in
-    {
-      hosts = import ./nix/hosts.nix;
-      pkgs = allSystems (system: import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-	};
-      });
-
-      nixosConfigurations = import ./nix/nixos.nix inputs;
-    };
+  outputs = { flakelight, ... }@inputs:
+    flakelight ./. ({ lib, ... }: {
+      inherit inputs;
+      systems = lib.systems.flakeExposed;
+    });
 }

@@ -1,7 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-{
-
+{ pkgs, ... }: {
   users.users.szymzal = {
     createHome = true;
     isNormalUser = true;
@@ -11,5 +8,4 @@
   home-manager.users.szymzal = {
     imports = [ ./home.nix ];
   };
-
 }

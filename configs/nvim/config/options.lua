@@ -1,1 +1,0 @@
-require('SzymzalConfig.config.options');

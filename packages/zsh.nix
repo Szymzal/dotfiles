@@ -1,7 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-{
-
+{ pkgs, ... }: {
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
@@ -11,7 +8,7 @@
     histSize = 10000;
     ohMyZsh = {
       enable = true;
-      plugins= [ "git" ];
+      plugins = [ "git" ];
       theme = "robbyrussell";
     };
     syntaxHighlighting.enable = true;
@@ -19,5 +16,4 @@
 
   # Configure new shell
   environment.shells = with pkgs; [ zsh ];
-
 }

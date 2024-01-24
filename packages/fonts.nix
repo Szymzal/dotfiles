@@ -1,9 +1,5 @@
-{ config, lib, pkgs, nixpkgs, inputs, ... }:
-
-{
-
+{ pkgs, ... }: {
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-
 }
