@@ -3,7 +3,8 @@
     enable = true;
     autosuggestions.enable = true;
     shellAliases = {
-      update = "sudo nixos-rebuild switch --flake /etc/nixos#wsl";
+      sudovim = "sudo -E -s vim";
+      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#wsl";
     };
     histSize = 10000;
     ohMyZsh = {

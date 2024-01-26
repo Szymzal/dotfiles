@@ -6,6 +6,8 @@
     ../../../users/szymzal
   ];
 
+  # TODO: Is that really needed?
+  # Would it not be enough for only in common.nix?
   environment.systemPackages = with pkgs; [
     home-manager
   ];
