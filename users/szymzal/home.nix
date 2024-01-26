@@ -1,11 +1,14 @@
-{ inputs, ... }: 
+{ inputs, isDesktop, lib, ... }: 
 let
+  inherit (lib) optionals;
   inherit (inputs) self;
 in
 {
   imports = [
     self.homeModules.common
     self.homeModules.coding
+  ] ++ optionals isDesktop [
+    self.homeModules.desktop
   ];
 
   home.username = "szymzal";
@@ -23,8 +26,6 @@ in
   ];
 
   home.file = {
-    # ".config/nvim".source = ../../configs/nvim;
-
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
