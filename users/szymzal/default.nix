@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   users.users.szymzal = {
     createHome = true;
+    extraGroups = [ "wheel" ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };

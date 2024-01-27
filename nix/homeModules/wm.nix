@@ -1,3 +1,4 @@
-{ ... }: {
-  programs.hyprland.enable = true;
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ hello ];
+  # programs.hyprland.enable = true;
 }

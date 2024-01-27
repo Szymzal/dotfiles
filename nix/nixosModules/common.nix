@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: 
+{ pkgs, inputs, ... }:
 let
   inherit (inputs) self;
 in
@@ -9,7 +9,7 @@ in
     self.nixosModules.shell
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 
   environment = {
     systemPackages = with pkgs; [
@@ -18,7 +18,9 @@ in
       neovim
       tmux
     ];
-    variables.EDITOR = "nvim";
+    variables = {
+      EDITOR = "nvim";
+    };
   };
 
   home-manager = {

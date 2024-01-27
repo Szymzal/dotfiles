@@ -1,6 +1,10 @@
-{ inputs, pkgs, ... }:  {
+{ inputs, pkgs, ... }:
+let
+  inherit (inputs) self;
+in
+{
   imports = [
-    inputs.self.nixosModules.common
+    self.nixosModules.common
     inputs.nixos-wsl.nixosModules.default
 
     ../../../users/szymzal
