@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    self.homeModules.terminal
     self.homeModules.wm
   ];
 }

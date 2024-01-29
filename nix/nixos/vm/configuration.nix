@@ -5,8 +5,6 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    # Desktop always needs to be before common
-    # for whatever reason
     self.nixosModules.desktop
     self.nixosModules.common
 

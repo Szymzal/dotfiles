@@ -15,6 +15,8 @@
     };
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = { flakelight, ... }@inputs:

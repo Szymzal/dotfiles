@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, ... }: 
 let
   inherit (inputs) self;
 in

@@ -1,4 +1,4 @@
-{ inputs, isDesktop, lib, ... }:
+{ inputs, isDesktop, lib, ... }: 
 let
   inherit (inputs) self;
 in
