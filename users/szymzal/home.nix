@@ -27,6 +27,8 @@ in
 
   home.packages = with pkgs; [
     youtube-music
+    xfce.thunar
+    xfce.xfconf
   ];
 
   home.file = {
