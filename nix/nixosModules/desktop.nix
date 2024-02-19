@@ -12,6 +12,7 @@ in
   imports = [
     self.nixosModules.wm
     self.nixosModules.dm
+    self.nixosModules.sound
   ];
 
   security.polkit.enable = true;
