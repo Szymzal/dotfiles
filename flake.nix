@@ -14,9 +14,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
+
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { flakelight, ... }@inputs:

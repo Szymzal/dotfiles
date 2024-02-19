@@ -1,17 +1,22 @@
-{ pkgs, ... }: {
+{ inputs, ... }: 
+let
+  inherit (inputs) self;
+in
+{
   home-manager = {
     extraSpecialArgs = {
       isDesktop = true;
     };
   };
 
-  security.polkit.enable = true;
+  imports = [
+    self.nixosModules.wm
+    self.nixosModules.dm
+  ];
 
-  # xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  security.polkit.enable = true;
 
   hardware.opengl = {
     enable = true;
-    extraPackages = [ pkgs.mesa.drivers ];
   };
 }

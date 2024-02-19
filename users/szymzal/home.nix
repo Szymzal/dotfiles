@@ -1,10 +1,11 @@
-{ inputs, isDesktop, lib, ... }: 
+{ inputs, isDesktop, lib, pkgs, ... }: 
 let
   inherit (inputs) self;
 in
 {
   imports = [
     self.homeModules.common
+    self.homeModules.impermanence
     self.homeModules.coding
   ] ++ lib.optionals isDesktop [
     self.homeModules.desktop
@@ -15,12 +16,37 @@ in
 
   home.stateVersion = "23.11";
 
-  home.packages = [];
+  programs.firefox = {
+    enable = true;
+  };
 
-  home.file = {};
+  programs.git = {
+    userName = "Szymzal";
+    userEmail = "szymzal05@gmail.com";
+  };
+
+  home.packages = with pkgs; [
+    youtube-music
+  ];
+
+  home.file = {
+    ".zshrc".text = "";
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  home.persistence."/persist/home/szymzal" = {
+    directories = [
+      ".ssh"
+      ".config/sops"
+      ".mozilla"
+    ];
+    files = [
+
+    ];
+    allowOther = true;
   };
 
   programs.home-manager.enable = true;

@@ -2,9 +2,7 @@
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
-    shellAliases = {
-      sudovim = "sudo -E -s vim";
-    };
+    shellAliases = {};
     histSize = 10000;
     ohMyZsh = {
       enable = true;
