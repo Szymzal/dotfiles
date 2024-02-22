@@ -29,20 +29,37 @@ in
     youtube-music
     xfce.thunar
     xfce.xfconf
+    discord
   ];
 
-  home.file = {
-    ".zshrc".text = "";
+  home.pointerCursor = {
+    gtk.enable = true;
+    name = "mocha-dark";
+    size = 24;
+    package = pkgs.catppuccin-cursors.mochaDark;
   };
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
+  gtk = {
+    enable = true;
+  };
+
+  home.file = {
+
+  };
+
+  # home.sessionVariables works only for bash NOT TESTED
+  programs.zsh = {
+    enable = true;
+    sessionVariables = {
+
+    };
   };
 
   home.persistence."/persist/home/szymzal" = {
     directories = [
       ".ssh"
       ".config/sops"
+      ".config/discord"
       ".mozilla"
     ];
     files = [

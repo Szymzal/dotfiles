@@ -1,12 +1,19 @@
-{ inputs, ... }: 
+{ inputs, pkgs, ... }: 
 let
   inherit (inputs) self;
+  script = pkgs.writeShellScriptBin "power-menu" ''
+    killall rofi || ${pkgs.rofi}/bin/rofi -show power-menu -theme-str 'window {width: 8em;} listview {lines:6;}' -modi power-menu:rofi-power-menu
+  '';
 in
 {
   imports = [
     self.homeModules.statusBar
     self.homeModules.launcher
     inputs.hyprland.homeManagerModules.default
+  ];
+
+  home.packages = with pkgs; [
+    killall
   ];
 
   wayland.windowManager.hyprland = {
@@ -16,6 +23,15 @@ in
       exec-once = [
         "waybar"
       ];
+
+      input = {
+        kb_layout = "pl";
+      };
+
+      debug = {
+        disable_logs = false;
+        enable_stdout_logs = true;
+      };
 
       "$terminal" = "kitty";
       "$mod" = "SUPER";
@@ -39,6 +55,7 @@ in
 
         "$mod, F, fullscreen"
         "$mod, D, exec, killall rofi || rofi -show drun"
+        "$mod, Q, exec, ${script}/bin/power-menu"
 
         "$mod, H, movefocus, l"
         "$mod, L, movefocus, r"

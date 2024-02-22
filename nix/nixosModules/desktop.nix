@@ -20,4 +20,11 @@ in
   hardware.opengl = {
     enable = true;
   };
+
+  hardware.xone.enable = true;
+
+  environment.sessionVariables = {
+    # discord
+    NIXOS_OZONE_WL = "1";
+  };
 }

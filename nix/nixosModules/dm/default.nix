@@ -10,6 +10,7 @@ in
 
   services.xserver = {
     enable = true;
+    xkb.layout = "pl";
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
   };

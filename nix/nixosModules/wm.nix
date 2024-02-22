@@ -9,7 +9,4 @@ in
     package = hyprland_package;
   };
 
-  # services.xserver = {
-  #   displayManager.sessionPackages = [ hyprland_package ];
-  # };
 }
