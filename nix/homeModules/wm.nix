@@ -43,8 +43,8 @@ in
       ];
 
       monitor = [
-        "DP-1,1920x1080@144,0x0,1"
-        "HDMI-A-1,1920x1080@144,1920x0,1"
+        "DP-1,1920x1080@144.00101,0x0,1"
+        "HDMI-A-1,1920x1080@143.99800,1920x0,1"
       ];
 
       bind = [
@@ -61,6 +61,11 @@ in
         "$mod, L, movefocus, r"
         "$mod, K, movefocus, u"
         "$mod, J, movefocus, d"
+
+        "$mod SHIFT, H, swapwindow, l"
+        "$mod SHIFT, L, swapwindow, r"
+
+        "$mod, S, swapactiveworkspaces, DP-1 HDMI-A-1"
 
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
