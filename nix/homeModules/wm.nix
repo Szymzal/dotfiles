@@ -14,6 +14,7 @@ in
 
   home.packages = with pkgs; [
     killall
+    pamixer
   ];
 
   wayland.windowManager.hyprland = {
@@ -66,6 +67,10 @@ in
         "$mod SHIFT, L, swapwindow, r"
 
         "$mod, S, swapactiveworkspaces, DP-1 HDMI-A-1"
+
+        ",XF86AudioRaiseVolume, exec, pamixer -i 2"
+        ",XF86AudioLowerVolume, exec, pamixer -d 2"
+        ",XF86AudioMute, exec, pamixer -t"
 
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"

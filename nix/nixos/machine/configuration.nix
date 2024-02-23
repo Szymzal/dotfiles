@@ -50,6 +50,8 @@ in
     umount /btrfs_tmp
   '';
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   time.timeZone = "Europe/Warsaw";
 
   i18n.defaultLocale = "en_US.UTF-8";
