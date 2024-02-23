@@ -26,7 +26,6 @@ in
   };
 
   home.packages = with pkgs; [
-    youtube-music
     xfce.thunar
     xfce.xfconf
     discord
@@ -61,6 +60,7 @@ in
       ".config/sops"
       ".config/discord"
       ".mozilla"
+      ".local/share/Steam"
     ];
     files = [
 

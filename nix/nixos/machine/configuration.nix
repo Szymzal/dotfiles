@@ -8,6 +8,7 @@ in
     self.nixosModules.desktop
     self.nixosModules.common
     self.nixosModules.impermanence
+    self.nixosModules.steam
 
     ../../../users/szymzal
   ];
