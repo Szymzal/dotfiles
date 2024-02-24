@@ -1,4 +1,4 @@
-{ inputs, isDesktop, lib, pkgs, ... }: 
+{ inputs, pkgs, ... }:
 let
   inherit (inputs) self;
 in
@@ -7,7 +7,6 @@ in
     self.homeModules.common
     self.homeModules.impermanence
     self.homeModules.coding
-  ] ++ lib.optionals isDesktop [
     self.homeModules.desktop
   ];
 

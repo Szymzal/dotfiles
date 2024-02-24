@@ -1,15 +1,4 @@
-{ pkgs, inputs, ... }: 
-let
-  inherit (inputs) self;
-in
-{
-  imports = [
-    self.nixosModules.font
-    self.nixosModules.sops
-    self.nixosModules.shell
-    inputs.home-manager.nixosModules.default
-  ];
-
+{ pkgs, ... }: {
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
   nix.settings.auto-optimise-store = true;
   nix.gc = {
@@ -30,15 +19,6 @@ in
     ];
     variables = {
       EDITOR = "nvim";
-    };
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = {
-      inherit inputs;
-      isDesktop = false;
     };
   };
 }

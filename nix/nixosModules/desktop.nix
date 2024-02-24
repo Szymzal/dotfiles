@@ -1,30 +1,27 @@
-{ inputs, ... }: 
+{ lib, config, ... }: 
+with lib;
 let
-  inherit (inputs) self;
+  cfg = config.mypackages.desktop;
 in
 {
-  home-manager = {
-    extraSpecialArgs = {
-      isDesktop = true;
+  options = {
+    mypackages.desktop = {
+      enable = mkEnableOption "Enable desktop";
     };
   };
 
-  imports = [
-    self.nixosModules.wm
-    self.nixosModules.dm
-    self.nixosModules.sound
-  ];
+  config = mkIf cfg.enable {
+    security.polkit.enable = true;
 
-  security.polkit.enable = true;
+    hardware.opengl = {
+      enable = true;
+    };
 
-  hardware.opengl = {
-    enable = true;
-  };
+    hardware.xone.enable = true;
 
-  hardware.xone.enable = true;
-
-  environment.sessionVariables = {
-    # discord
-    NIXOS_OZONE_WL = "1";
+    environment.sessionVariables = {
+      # discord
+      NIXOS_OZONE_WL = "1";
+    };
   };
 }

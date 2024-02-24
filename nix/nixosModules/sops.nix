@@ -1,17 +1,31 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, lib, config, ... }: 
+with lib;
+let
+  cfg = config.mypackages.sops;
+in
+{
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];
 
-  environment.systemPackages = with pkgs; [
-    sops
-  ];
+  options = {
+    mypackages.sops = {
+      enable = mkEnableOption "Enable sops";
+    };
+  };
 
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      sops
+    ];
 
-  sops.age.keyFile = "/persist/home/szymzal/.config/sops/age/keys.txt";
+    # TODO: Make options for this
+    sops.defaultSopsFile = ../../secrets/secrets.yaml;
+    sops.defaultSopsFormat = "yaml";
 
-  sops.secrets.password = { };
-  sops.secrets.password.neededForUsers = true;
+    sops.age.keyFile = "/persist/home/szymzal/.config/sops/age/keys.txt";
+
+    sops.secrets.password = { };
+    sops.secrets.password.neededForUsers = true;
+  };
 }

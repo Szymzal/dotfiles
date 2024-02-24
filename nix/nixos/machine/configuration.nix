@@ -1,16 +1,12 @@
-{ inputs, pkgs, lib, config, ... }:
+{ inputs, config, ... }:
 let
   inherit (inputs) self;
 in
 {
   imports = [
     ./hardware-configuration.nix
-    self.nixosModules.desktop
     self.nixosModules.common
-    self.nixosModules.impermanence
-    self.nixosModules.steam
-
-    ../../../users/szymzal
+    self.nixosModules.modules
   ];
 
   boot.loader = {
@@ -26,31 +22,6 @@ in
     };
   };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount /dev/root_vg/root /btrfs_tmp
-    if [[ -e /btrfs_tmp/root ]]; then
-      mkdir -p /btrfs_tmp/old_roots
-      timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-      mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-    fi
-
-    delete_subvolume_recursively() {
-      IFS=$'\n'
-      for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-        delete_subvolume_recursively "/btrfs_tmp/$i"
-      done
-      btrfs subvolume delete "$1"
-    }
-
-    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-      delete_subvolume_recusively "$i"
-    done
-
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-  '';
-
   boot.supportedFilesystems = [ "ntfs" ];
 
   time.timeZone = "Europe/Warsaw";
@@ -62,27 +33,6 @@ in
 
   networking.hostName = "machine";
   networking.networkmanager.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  services = {
-    pipewire = {
-      enable = true;
-      audio.enable = true;
-      pulse.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      jack.enable = true;
-    };
-  };
-
-  # TODO: Is that really needed?
-  # Would it not be enough for only in common.nix?
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
 
   time.hardwareClockInLocalTime = true;
 
@@ -102,4 +52,30 @@ in
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
+
+  mypackages.impermanence = {
+    enable = true;
+    fileSystem = "/persist";
+    persistenceDir = "/persist/system";
+    disableSudoLecture = true;
+    wipeOnBoot = {
+      enable = true;
+      virtualGroup = "/dev/root_vg";
+      rootSubvolume = "root";
+      daysToDeleteOldRoots = 7;
+    };
+  };
+
+  mypackages.steam.enable = true;
+  mypackages.games.lethalCompany.enable = true;
+  mypackages.sound.enable = true;
+  mypackages.fonts.enable = true;
+  mypackages.shell.enable = true;
+  mypackages.sops.enable = true;
+  mypackages.wm.enable = true;
+  mypackages.dm.enable = true;
+  mypackages.desktop.enable = true;
+  mypackages.home-manager.enable = true;
+
+  myusers.szymzal.enable = true;
 }
