@@ -45,7 +45,7 @@ in
 
   };
 
-  # home.sessionVariables works only for bash NOT TESTED
+  # home.sessionVariables works only for bash. NOT TESTED
   programs.zsh = {
     enable = true;
     sessionVariables = {

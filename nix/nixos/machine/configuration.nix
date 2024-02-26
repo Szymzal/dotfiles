@@ -4,6 +4,9 @@ let
 in
 {
   imports = [
+    #inputs.disko.nixosModules.default
+    #(import ./disko.nix { device = "/dev/disk/by-id/wwn-0x500a0751e63d9907"; })
+    #(import ./disko.nix { device = "/dev/sdb"; })
     ./hardware-configuration.nix
     self.nixosModules.common
     self.nixosModules.modules
@@ -17,8 +20,8 @@ in
       useOSProber = true;
     };
     efi = {
-      efiSysMountPoint = "/boot/efi";
       canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
     };
   };
 
@@ -60,7 +63,7 @@ in
     disableSudoLecture = true;
     wipeOnBoot = {
       enable = true;
-      virtualGroup = "/dev/root_vg";
+      virtualGroup = "/dev/main_vg";
       rootSubvolume = "root";
       daysToDeleteOldRoots = 7;
     };
