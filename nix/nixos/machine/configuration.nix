@@ -4,9 +4,6 @@ let
 in
 {
   imports = [
-    #inputs.disko.nixosModules.default
-    #(import ./disko.nix { device = "/dev/disk/by-id/wwn-0x500a0751e63d9907"; })
-    #(import ./disko.nix { device = "/dev/sdb"; })
     ./hardware-configuration.nix
     self.nixosModules.common
     self.nixosModules.modules
@@ -79,6 +76,9 @@ in
   mypackages.dm.enable = true;
   mypackages.desktop.enable = true;
   mypackages.home-manager.enable = true;
+  mypackages.bottles.enable = true;
+  mypackages.games.rocket-league.enable = true;
+  #mypackages.games.roblox.enable = true;
 
   myusers.szymzal.enable = true;
 }

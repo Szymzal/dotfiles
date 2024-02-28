@@ -60,6 +60,7 @@ in
       ".config/discord"
       ".mozilla"
       ".local/share/Steam"
+      ".local/share/bottles"
     ];
     files = [
 

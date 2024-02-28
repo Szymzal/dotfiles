@@ -11,6 +11,9 @@
     ./wm.nix
     ./dm
     ./desktop.nix
+    ./bottles.nix
+    ./rocketleague.nix
+    ./roblox.nix
 
     ../../users/szymzal
   ];
