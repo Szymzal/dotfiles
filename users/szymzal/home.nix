@@ -61,6 +61,9 @@ in
       ".mozilla"
       ".local/share/Steam"
       ".local/share/bottles"
+      ".local/share/PrismLauncher"
+      "dev"
+      "Pobrane"
     ];
     files = [
 

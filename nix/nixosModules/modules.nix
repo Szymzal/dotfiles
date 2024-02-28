@@ -14,6 +14,7 @@
     ./bottles.nix
     ./rocketleague.nix
     ./roblox.nix
+    ./minecraft.nix
 
     ../../users/szymzal
   ];

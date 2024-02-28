@@ -79,6 +79,7 @@ in
   mypackages.bottles.enable = true;
   mypackages.games.rocket-league.enable = true;
   #mypackages.games.roblox.enable = true;
+  mypackages.games.minecraft.enable = true;
 
   myusers.szymzal.enable = true;
 }
