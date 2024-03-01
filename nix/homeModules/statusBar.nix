@@ -1,38 +1,51 @@
-{ ... }: {
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 30;
-        modules-left = [
-          "hyprland/workspaces"
-        ];
-        modules-center = [ ];
-        modules-right = [
-          "pulseaudio"
-          "temperature"
-          "clock"
-        ];
-      };
+{ lib, config, ... }: 
+with lib;
+let
+  cfg = config.mypackages.status-bar;
+in
+{
+  options = {
+    mypackages.status-bar = {
+      enable = mkEnableOption "Enable status bar";
     };
-    style = ''
-      * {
-        border: none;
-        border-radius: 0;
-        font-family: FiraCode;
-      }
+  };
 
-      window#waybar {
-        background: #16191C;
-        color: #AAB2BF;
-      }
+  config = mkIf cfg.enable {
+    programs.waybar = {
+      enable = true;
+      settings = {
+        mainBar = {
+          layer = "top";
+          position = "top";
+          height = 30;
+          modules-left = [
+            "hyprland/workspaces"
+          ];
+          modules-center = [ ];
+          modules-right = [
+            "pulseaudio"
+            "temperature"
+            "clock"
+          ];
+        };
+      };
+      style = ''
+        * {
+          border: none;
+          border-radius: 0;
+          font-family: FiraCode;
+        }
 
-      #workspaces button {
-        padding: 0 5px;
-        color: white;
-      }
-    '';
+        window#waybar {
+          background: #16191C;
+          color: #AAB2BF;
+        }
+
+        #workspaces button {
+          padding: 0 5px;
+          color: white;
+        }
+      '';
+    };
   };
 }

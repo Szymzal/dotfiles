@@ -1,10 +1,11 @@
-{ inputs, ... }: 
+{ lib, config, inputs, ... }:
+with lib;
 let
-  inherit (inputs) self;
+  cfg = config.mypackages.desktop;
 in
 {
-  imports = [
-    self.homeModules.terminal
-    self.homeModules.wm
-  ];
+  # imports = [
+  #   self.homeModules.terminal
+  #   self.homeModules.wm
+  # ];
 }

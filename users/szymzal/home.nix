@@ -4,11 +4,21 @@ let
 in
 {
   imports = [
-    self.homeModules.common
-    self.homeModules.impermanence
-    self.homeModules.coding
-    self.homeModules.desktop
+    self.homeModules.modules
+    # self.homeModules.common
+    # self.homeModules.impermanence
+    # self.homeModules.coding
+    # self.homeModules.desktop
   ];
+
+  mypackages.git.enable = true;
+  mypackages.impermanence.enable = true;
+  mypackages.launcher.enable = true;
+  mypackages.status-bar.enable = true;
+  mypackages.terminal.enable = true;
+  mypackages.tmux.enable = true;
+  mypackages.wm.enable = true;
+  mypackages.coding.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";
@@ -59,12 +69,15 @@ in
       ".config/sops"
       ".config/discord"
       ".mozilla"
+      ".steam"
       ".local/share/Steam"
       ".local/share/bottles"
       ".local/share/PrismLauncher"
       ".local/share/Rocket League"
       ".config/r2modman"
       ".config/r2modmanPlus-local"
+      ".config/Thunar"
+      ".config/xfce4"
       "dev"
       "Pobrane"
     ];
