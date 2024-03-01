@@ -37,18 +37,16 @@ in
   home.packages = with pkgs; [
     xfce.thunar
     xfce.xfconf
-    discord
+    webcord
   ];
 
   home.pointerCursor = {
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+    };
     name = "mocha-dark";
     size = 24;
     package = pkgs.catppuccin-cursors.mochaDark;
-  };
-
-  gtk = {
-    enable = true;
   };
 
   home.file = {

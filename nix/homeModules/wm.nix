@@ -36,6 +36,8 @@ in
       settings = {
         exec-once = [
           "waybar"
+          "gsettings set org.gnome.desktop.interface cursor_theme 'mocha-dark'"
+          "hyprctl setcursor mocha-dark 24"
         ];
 
         input = {

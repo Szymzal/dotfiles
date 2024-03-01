@@ -18,10 +18,5 @@ in
     };
 
     hardware.xone.enable = true;
-
-    environment.sessionVariables = {
-      # discord
-      NIXOS_OZONE_WL = "1";
-    };
   };
 }
