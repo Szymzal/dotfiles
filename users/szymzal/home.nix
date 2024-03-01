@@ -62,6 +62,9 @@ in
       ".local/share/Steam"
       ".local/share/bottles"
       ".local/share/PrismLauncher"
+      ".local/share/Rocket League"
+      ".config/r2modman"
+      ".config/r2modmanPlus-local"
       "dev"
       "Pobrane"
     ];
