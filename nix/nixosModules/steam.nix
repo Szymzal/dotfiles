@@ -19,7 +19,6 @@ in
 
     environment.systemPackages = with pkgs; [
       steam-run
-      steam-tui
       steamPackages.steamcmd
       (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib ]; })
     ];

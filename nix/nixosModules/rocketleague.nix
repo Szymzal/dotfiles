@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, inputs, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.games.rocket-league;
@@ -11,7 +11,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    mypackages.steam.enable = true;
+    environment.systemPackages = [
+      pkgs.gamemode
+      inputs.nix-gaming.packages.${pkgs.system}.rocket-league
+    ] ++ (inputs.nix-gaming.lib.legendaryBuilder pkgs {});
+
+    # mypackages.steam.enable = true;
 
     # TODO: BakkesMod some time
     #

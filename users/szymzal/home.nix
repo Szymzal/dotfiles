@@ -5,10 +5,6 @@ in
 {
   imports = [
     self.homeModules.modules
-    # self.homeModules.common
-    # self.homeModules.impermanence
-    # self.homeModules.coding
-    # self.homeModules.desktop
   ];
 
   mypackages.git.enable = true;
@@ -65,9 +61,8 @@ in
     directories = [
       ".ssh"
       ".config/sops"
-      ".config/discord"
+      ".config/WebCord"
       ".mozilla"
-      ".steam"
       ".local/share/Steam"
       ".local/share/bottles"
       ".local/share/PrismLauncher"
@@ -76,8 +71,10 @@ in
       ".config/r2modmanPlus-local"
       ".config/Thunar"
       ".config/xfce4"
+      ".cargo"
       "dev"
-      "Pobrane"
+      "Downloads"
+      "Games"
     ];
     files = [
 
