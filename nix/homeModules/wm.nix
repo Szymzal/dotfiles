@@ -16,6 +16,7 @@ in
 
   config = mkIf cfg.enable
   (let
+    # TODO: replace with wlogout
     script = pkgs.writeShellScriptBin "power-menu" ''
       killall rofi || ${pkgs.rofi}/bin/rofi -show power-menu -theme-str 'window {width: 8em;} listview {lines:6;}' -modi power-menu:rofi-power-menu
     '';
