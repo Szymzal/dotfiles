@@ -105,7 +105,7 @@ in
         }
 
         for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +${builtins.toString cfg.wipeOnBoot.daysToDeleteOldRoots}); do
-          delete_subvolume_recusively "$i"
+          delete_subvolume_recursively "$i"
         done
 
         btrfs subvolume create /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume}
