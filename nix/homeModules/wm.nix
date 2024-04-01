@@ -11,6 +11,18 @@ in
   options = {
     mypackages.wm = {
       enable = mkEnableOption "Enable window manager";
+      wallpaper-path = mkOption {
+        default = null;
+        example = "/persist/nixos/wallpaper.png";
+        description = "Path to wallpaper (support for: png, jpg, jpeg, webp)";
+        type = types.str;
+      };
+      splash = mkOption {
+        default = false;
+        example = "true";
+        description = "Enable splashes on screens";
+        type = types.bool;
+      };
     };
   };
 
@@ -29,6 +41,7 @@ in
     home.packages = with pkgs; [
       killall
       pamixer
+      hyprpaper
     ];
 
     wayland.windowManager.hyprland = {
@@ -39,6 +52,7 @@ in
           "waybar"
           "gsettings set org.gnome.desktop.interface cursor_theme 'mocha-dark'"
           "hyprctl setcursor mocha-dark 24"
+          "hyprpaper"
         ];
 
         input = {
@@ -116,5 +130,13 @@ in
         ];
       };
     };
+
+    home.file.".config/hypr/hyprpaper.conf".text = ''
+      preload = ${cfg.wallpaper-path}
+      wallpaper = DP-1,${cfg.wallpaper-path}
+      wallpaper = HDMI-A-1,${cfg.wallpaper-path}
+
+      splash = ${trivial.boolToString cfg.splash}
+    '';
   });
 }

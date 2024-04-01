@@ -13,7 +13,11 @@ in
   mypackages.status-bar.enable = true;
   mypackages.terminal.enable = true;
   mypackages.tmux.enable = true;
-  mypackages.wm.enable = true;
+  mypackages.wm = {
+    enable = true;
+    wallpaper-path = "/persist/nixos/wallpaper.jpg";
+    splash = false;
+  };
   mypackages.coding.enable = true;
 
   home.username = "szymzal";
