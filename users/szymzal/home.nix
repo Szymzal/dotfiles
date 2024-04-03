@@ -8,7 +8,16 @@ in
   ];
 
   mypackages.git.enable = true;
-  mypackages.impermanence.enable = true;
+  mypackages.impermanence = {
+    enable = true;
+    persistent-path = "/persist/home/szymzal";
+    directories = [
+      ".ssh"
+      "dev"
+      "Downloads"
+      ".cargo"
+    ];
+  };
   mypackages.launcher.enable = true;
   mypackages.status-bar.enable = true;
   mypackages.terminal.enable = true;
@@ -19,26 +28,20 @@ in
     splash = false;
   };
   mypackages.coding.enable = true;
+  mypackages.notes.enable = true;
+  mypackages.file-explorer.enable = true;
+  mypackages.communication.enable = true;
+  mypackages.browser.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";
 
   home.stateVersion = "23.11";
 
-  programs.firefox = {
-    enable = true;
-  };
-
   programs.git = {
     userName = "Szymzal";
     userEmail = "szymzal05@gmail.com";
   };
-
-  home.packages = with pkgs; [
-    xfce.thunar
-    xfce.xfconf
-    webcord
-  ];
 
   home.pointerCursor = {
     gtk = {
@@ -62,22 +65,15 @@ in
   };
 
   home.persistence."/persist/home/szymzal" = {
+    # TODO: resolve those (connection between nixos and home-manager modules)
     directories = [
-      ".ssh"
       ".config/sops"
-      ".config/WebCord"
-      ".mozilla"
       ".local/share/Steam"
       ".local/share/bottles"
       ".local/share/PrismLauncher"
       ".local/share/Rocket League"
       ".config/r2modman"
       ".config/r2modmanPlus-local"
-      ".config/Thunar"
-      ".config/xfce4"
-      ".cargo"
-      "dev"
-      "Downloads"
       "Games"
     ];
     files = [
