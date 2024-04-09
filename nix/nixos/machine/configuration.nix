@@ -34,7 +34,7 @@ in
   networking.hostName = "machine";
   networking.networkmanager.enable = true;
 
-  time.hardwareClockInLocalTime = true;
+  # time.hardwareClockInLocalTime = true;
 
   hardware.opengl = {
     enable = true;
