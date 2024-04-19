@@ -49,10 +49,10 @@ in
 
       settings = {
         exec-once = [
+          "hyprpaper"
           "waybar"
           "gsettings set org.gnome.desktop.interface cursor_theme 'mocha-dark'"
           "hyprctl setcursor mocha-dark 24"
-          "hyprpaper"
         ];
 
         input = {
@@ -62,6 +62,10 @@ in
         debug = {
           disable_logs = false;
           enable_stdout_logs = true;
+        };
+
+        misc = {
+          disable_hyprland_logo = true;
         };
 
         "$terminal" = "kitty";
