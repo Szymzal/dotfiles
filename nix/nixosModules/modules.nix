@@ -15,6 +15,7 @@
     ./rocketleague.nix
     ./roblox.nix
     ./minecraft.nix
+    ./wireshark.nix
 
     ../../users/szymzal
   ];
