@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.wireshark;
@@ -14,5 +14,9 @@ in
     programs.wireshark = {
       enable = true;
     };
+
+    environment.systemPackages = with pkgs; [
+      wireshark
+    ];
   };
 }

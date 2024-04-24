@@ -32,6 +32,8 @@ in
   mypackages.file-explorer.enable = true;
   mypackages.communication.enable = true;
   mypackages.browser.enable = true;
+  mypackages.viewers.enableAll = true;
+  mypackages.image-editors.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";

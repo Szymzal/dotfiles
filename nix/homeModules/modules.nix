@@ -12,5 +12,7 @@
     ./file-explorer.nix
     ./communication.nix
     ./browser.nix
+    ./image-editor.nix
+    ./viewers.nix
   ];
 }

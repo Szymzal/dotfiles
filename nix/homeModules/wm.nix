@@ -66,6 +66,8 @@ in
 
         misc = {
           disable_hyprland_logo = true;
+          layers_hog_keyboard_focus = true;
+          mouse_move_focuses_monitor = true;
         };
 
         "$terminal" = "kitty";
@@ -74,12 +76,14 @@ in
         env = [
           "LIBVA_DRIVER_NAME,nvidia"
           "XDG_SESSION_TYPE,wayland"
-          "WLR_NO_HARDWARE_CURSORS,1"
+          # "WLR_NO_HARDWARE_CURSORS,1"
         ];
 
         monitor = [
           "DP-1,1920x1080@144.00101,0x0,1"
           "HDMI-A-1,1920x1080@143.99800,1920x0,1"
+          # TODO: can we fix it?
+          "Unknown-1,disable"
         ];
 
         bind = [
