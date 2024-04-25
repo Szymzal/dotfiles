@@ -28,9 +28,12 @@ in
 
   config = mkIf cfg.enable
   (let
-    # TODO: replace with wlogout
-    script = pkgs.writeShellScriptBin "power-menu" ''
-      killall rofi || ${pkgs.rofi}/bin/rofi -show power-menu -theme-str 'window {width: 8em;} listview {lines:6;}' -modi power-menu:rofi-power-menu
+    power-menu-script = pkgs.writeShellScriptBin "power-menu" ''
+      killall wlogout || ${pkgs.wlogout}/bin/wlogout
+    '';
+    # TODO: make configurable path
+    screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
+      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/$(date '+%Y%m%d-%H:%M:%S').png
     '';
   in
   {
@@ -42,6 +45,7 @@ in
       killall
       pamixer
       hyprpaper
+      wlogout
     ];
 
     wayland.windowManager.hyprland = {
@@ -76,7 +80,6 @@ in
         env = [
           "LIBVA_DRIVER_NAME,nvidia"
           "XDG_SESSION_TYPE,wayland"
-          # "WLR_NO_HARDWARE_CURSORS,1"
         ];
 
         monitor = [
@@ -92,9 +95,11 @@ in
           "$mod, M, exit"
           "$mod, Space, togglefloating"
 
+          "$mod, P, exec, ${screenshot-script}/bin/screenshot"
+
           "$mod, F, fullscreen"
           "$mod, D, exec, killall rofi || rofi -show drun"
-          "$mod, Q, exec, ${script}/bin/power-menu"
+          "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
 
           "$mod, H, movefocus, l"
           "$mod, L, movefocus, r"

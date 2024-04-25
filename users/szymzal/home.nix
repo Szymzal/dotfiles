@@ -34,6 +34,7 @@ in
   mypackages.browser.enable = true;
   mypackages.viewers.enableAll = true;
   mypackages.image-editors.enable = true;
+  mypackages.screenshot.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";

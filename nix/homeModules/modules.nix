@@ -14,5 +14,6 @@
     ./browser.nix
     ./image-editor.nix
     ./viewers.nix
+    ./screenshot.nix
   ];
 }
