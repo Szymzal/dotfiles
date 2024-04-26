@@ -11,6 +11,7 @@
     ./desktop.nix
     ./wireshark.nix
     ./compression.nix
+    ./nix.nix
 
     ../../users/szymzal
   ];

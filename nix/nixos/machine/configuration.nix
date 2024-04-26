@@ -76,6 +76,7 @@ in
   mypackages.home-manager.enable = true;
   mypackages.wireshark.enable = true;
   mypackages.compression.enable = true;
+  mypackages.nix-helpers.enable = true;
 
   myusers.szymzal.enable = true;
 }
