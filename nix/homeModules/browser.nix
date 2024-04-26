@@ -18,7 +18,12 @@ in
     mypackages.impermanence = {
       directories = [
         ".mozilla"
+        "Downloads"
       ];
     };
+
+    home.activation.symlinks = hm.dag.entryAfter ["writeBoundary"] ''
+      run ln -sfn $HOME/Downloads $HOME/Pobrane
+    '';
   };
 }

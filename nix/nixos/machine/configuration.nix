@@ -66,8 +66,6 @@ in
     };
   };
 
-  mypackages.steam.enable = true;
-  # mypackages.games.lethalCompany.enable = true;
   mypackages.sound.enable = true;
   mypackages.fonts.enable = true;
   mypackages.shell.enable = true;
@@ -76,11 +74,8 @@ in
   mypackages.dm.enable = true;
   mypackages.desktop.enable = true;
   mypackages.home-manager.enable = true;
-  mypackages.bottles.enable = true;
-  # mypackages.games.rocket-league.enable = true;
-  # mypackages.games.roblox.enable = true;
-  mypackages.games.minecraft.enable = true;
   mypackages.wireshark.enable = true;
+  mypackages.compression.enable = true;
 
   myusers.szymzal.enable = true;
 }

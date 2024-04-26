@@ -20,6 +20,7 @@ in
       directories = [
         ".config/GIMP"
         ".config/inkscape"
+        "Pictures"
       ];
     };
   };

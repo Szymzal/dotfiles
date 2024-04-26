@@ -4,7 +4,6 @@ let
   cfg = config.mypackages.impermanence;
 in
 {
-  # TODO: I have no idea how to make it conditional
   imports = [
     inputs.impermanence.nixosModules.impermanence
   ];
@@ -12,14 +11,12 @@ in
   options = {
     mypackages.impermanence = {
       enable = mkEnableOption "Enable impermanence";
-      # TODO: Path validation
       fileSystem = mkOption {
         default = null;
         example = "/persist";
         description = "File system where persistence data will be stored. It is needed to mark it as neededForBoot";
         type = types.str;
       };
-      # TODO: Path validation
       persistenceDir = mkOption {
         default = null;
         example = "/persist/system";
@@ -39,7 +36,6 @@ in
           description = "Do you want to wipe everything on boot? Support only for btrfs";
           type = types.bool;
         };
-        # TODO: Path validation
         virtualGroup = mkOption {
           default = null;
           example = "/dev/root_vg";

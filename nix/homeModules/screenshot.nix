@@ -7,6 +7,12 @@ in
   options = {
     mypackages.screenshot = {
       enable = mkEnableOption "Enable screenshotting tool";
+      savePicturesPath = mkOption {
+        default = "Pictures/Screenshots";
+        example = "Pictures/Screenshots";
+        description = "Path to directory for screenshots (only in /home/{user} directory)";
+        type = types.str;
+      };
     };
   };
 
@@ -20,8 +26,7 @@ in
     mypackages.impermanence = {
       directories = [
         ".config/satty"
-        # TODO: make configurable path
-        "Pictures/Screenshots"
+        cfg.savePicturesPath
       ];
     };
   };

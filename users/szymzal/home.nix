@@ -14,7 +14,6 @@ in
     directories = [
       ".ssh"
       "dev"
-      "Downloads"
       ".cargo"
     ];
   };
@@ -34,7 +33,10 @@ in
   mypackages.browser.enable = true;
   mypackages.viewers.enableAll = true;
   mypackages.image-editors.enable = true;
-  mypackages.screenshot.enable = true;
+  mypackages.screenshot = {
+    enable = true;
+    savePicturesPath = "Pictures/Screenshots";
+  };
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";
@@ -71,13 +73,6 @@ in
     # TODO: resolve those (connection between nixos and home-manager modules)
     directories = [
       ".config/sops"
-      ".local/share/Steam"
-      ".local/share/bottles"
-      ".local/share/PrismLauncher"
-      ".local/share/Rocket League"
-      ".config/r2modman"
-      ".config/r2modmanPlus-local"
-      "Games"
     ];
     files = [
 

@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ... }: 
+{ inputs, pkgs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.wm;
@@ -31,9 +31,8 @@ in
     power-menu-script = pkgs.writeShellScriptBin "power-menu" ''
       killall wlogout || ${pkgs.wlogout}/bin/wlogout
     '';
-    # TODO: make configurable path
     screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
-      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/$(date '+%Y%m%d-%H:%M:%S').png
+      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/${config.mypackages.screenshot.savePicturesPath}/$(date '+%Y%m%d-%H:%M:%S').png
     '';
   in
   {
@@ -95,8 +94,6 @@ in
           "$mod, M, exit"
           "$mod, Space, togglefloating"
 
-          "$mod, P, exec, ${screenshot-script}/bin/screenshot"
-
           "$mod, F, fullscreen"
           "$mod, D, exec, killall rofi || rofi -show drun"
           "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
@@ -134,6 +131,8 @@ in
           "$mod SHIFT, 7, movetoworkspace, 7"
           "$mod SHIFT, 8, movetoworkspace, 8"
           "$mod SHIFT, 9, movetoworkspace, 9"
+        ] ++ optionals (config.mypackages.screenshot.enable) [
+          "$mod, P, exec, ${screenshot-script}/bin/screenshot"
         ];
 
         bindm = [
