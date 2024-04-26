@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: 
+{ pkgs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.coding;
@@ -35,6 +35,8 @@ in
         vscode-langservers-extracted
         # nodePackages.@astrojs/language-server
         nodePackages.typescript-language-server
+        # phpactor
+        nodePackages.intelephense
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -99,10 +101,8 @@ in
 
             # rust plugin
             crates-nvim
-            rust-tools-nvim
-            neotest-rust
-
-            suda-vim
+            neotest
+            rustaceanvim
           ];
 
           mkEntryFromDrv = drv:
@@ -134,7 +134,7 @@ in
               { "williamboman/mason-lspconfig.nvim", enabled = false },
               { "williamboman/mason.nvim", enabled = false },
               -- import rust plugin
-              { "lazyvim.plugins.extra.lang.rust" },
+              { import = "lazyvim.plugins.extras.lang.rust" },
               -- import/override with your plugins
               { import = "plugins" },
               -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
@@ -169,6 +169,7 @@ in
               cpp
               rust
               nix
+              php
             ])).dependencies;
           };
         in

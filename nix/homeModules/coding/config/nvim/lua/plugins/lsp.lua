@@ -1,41 +1,47 @@
 return {
-  { "williamboman/mason.nvim", enabled = false },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        rust_analyzer = {},
+	{ "williamboman/mason.nvim", enabled = false },
+	{
+		"neovim/nvim-lspconfig",
+		opts = {
+			servers = {
+				-- rust_analyzer = {},
 
-        tsserver = {
-          settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-              },
-              telemetry = {
-                enable = false,
-              },
-            },
-          },
-        },
+				lua_ls = {},
 
-        nil_ls = {},
+				-- phpactor = {},
 
-        html = {
-          filetypes = { "html" },
-          provideFormatter = false,
-        },
+				intelephense = {},
 
-        cssls = {},
+				tsserver = {
+					settings = {
+						Lua = {
+							runtime = {
+								version = "LuaJIT",
+							},
+							diagnostics = {
+								globals = { "vim" },
+							},
+							workspace = {
+								library = vim.api.nvim_get_runtime_file("", true),
+							},
+							telemetry = {
+								enable = false,
+							},
+						},
+					},
+				},
 
-        -- astro = {},
-      },
-    },
-  }
+				nil_ls = {},
+
+				html = {
+					filetypes = { "html" },
+					provideFormatter = false,
+				},
+
+				cssls = {},
+
+				-- astro = {},
+			},
+		},
+	},
 }
