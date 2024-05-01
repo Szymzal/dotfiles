@@ -77,6 +77,7 @@ in
   mypackages.wireshark.enable = true;
   mypackages.compression.enable = true;
   mypackages.nix-helpers.enable = true;
+  mypackages.android.enable = true;
 
   myusers.szymzal.enable = true;
 }

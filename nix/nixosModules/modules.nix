@@ -12,6 +12,7 @@
     ./wireshark.nix
     ./compression.nix
     ./nix.nix
+    ./android.nix
 
     ../../users/szymzal
   ];

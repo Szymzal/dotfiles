@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: 
+{ pkgs, config, lib, ... }:
 with lib;
 let
   cfg = config.myusers.szymzal;
@@ -16,7 +16,7 @@ in
     users.mutableUsers = false;
     users.users.szymzal = {
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "wireshark" ];
+      extraGroups = [ "wheel" "networkmanager" "wireshark" "adbusers" ];
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.password.path;
       shell = pkgs.zsh;
