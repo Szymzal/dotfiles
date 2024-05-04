@@ -1,7 +1,12 @@
-{ inputs, lib, config, ... }: 
+{ inputs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.impermanence;
+  # TODO: HOW TO MAKE OWN lib.nix?
+  mkThrow = condition: message:
+    (if (condition) then true else throw "${message}");
+  mkThrowNull = item: message:
+    (mkThrow (item != null) message);
 in
 {
   imports = [
@@ -59,8 +64,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    fileSystems."${cfg.fileSystem}".neededForBoot = if (cfg.fileSystem != null) then true else throw "Please specify filesytem!";
-    environment.persistence."${cfg.persistenceDir}" = 
+    fileSystems."${cfg.fileSystem}".neededForBoot = (mkThrowNull cfg.fileSystem "Please specify mypackages.impermanence.filesytem!");
+    environment.persistence."${cfg.persistenceDir}" =
       if (cfg.persistenceDir != null) then {
         hideMounts = true;
         directories = [
@@ -74,15 +79,18 @@ in
         files = [
           "/etc/machine-id"
         ];
-      } else 
-        throw "Please specify persistenceDir!";
+      } else
+        throw "Please specify mypackages.impermanence.persistenceDir!";
 
     security.sudo.extraConfig = mkIf cfg.disableSudoLecture ''Defaults lecture="never"'';
 
-    # TODO: home manager
     programs.fuse.userAllowOther = true;
 
-    boot.initrd.postDeviceCommands = mkIf (cfg.wipeOnBoot.enable && cfg.wipeOnBoot.virtualGroup != null)
+    boot.initrd.postDeviceCommands = mkIf
+      (
+        cfg.wipeOnBoot.enable &&
+        (mkThrowNull cfg.wipeOnBoot.virtualGroup "Please specify mypackages.impermanence.wipeOnBoot.virtualGroup!")
+      )
       (mkAfter ''
         mkdir /btrfs_tmp
         mount ${cfg.wipeOnBoot.virtualGroup}/${cfg.wipeOnBoot.rootSubvolume} /btrfs_tmp
