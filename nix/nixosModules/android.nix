@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.android;
@@ -12,5 +12,9 @@ in
 
   config = mkIf cfg.enable {
     programs.adb.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      jmtpfs
+    ];
   };
 }
