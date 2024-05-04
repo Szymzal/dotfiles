@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, ... }: 
+{ lib, config, inputs, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.home-manager;
@@ -24,7 +24,6 @@ in
       useUserPackages = true;
       extraSpecialArgs = {
         inherit inputs;
-        # isDesktop = false;
       };
     };
   };

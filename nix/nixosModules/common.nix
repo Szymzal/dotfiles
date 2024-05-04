@@ -7,7 +7,7 @@
     options = "--delete-older-than 7d";
   };
 
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   environment = {
     systemPackages = with pkgs; [

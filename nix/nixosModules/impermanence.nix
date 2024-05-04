@@ -1,12 +1,8 @@
 { inputs, lib, config, ... }:
 with lib;
 let
+  myLib = config.lib.myLib;
   cfg = config.mypackages.impermanence;
-  # TODO: HOW TO MAKE OWN lib.nix?
-  mkThrow = condition: message:
-    (if (condition) then true else throw "${message}");
-  mkThrowNull = item: message:
-    (mkThrow (item != null) message);
 in
 {
   imports = [
@@ -64,7 +60,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    fileSystems."${cfg.fileSystem}".neededForBoot = (mkThrowNull cfg.fileSystem "Please specify mypackages.impermanence.filesytem!");
+    fileSystems."${cfg.fileSystem}".neededForBoot = (myLib.mkThrowNull cfg.fileSystem "Please specify mypackages.impermanence.filesytem!");
     environment.persistence."${cfg.persistenceDir}" =
       if (cfg.persistenceDir != null) then {
         hideMounts = true;
@@ -89,7 +85,7 @@ in
     boot.initrd.postDeviceCommands = mkIf
       (
         cfg.wipeOnBoot.enable &&
-        (mkThrowNull cfg.wipeOnBoot.virtualGroup "Please specify mypackages.impermanence.wipeOnBoot.virtualGroup!")
+        (myLib.mkThrowNull cfg.wipeOnBoot.virtualGroup "Please specify mypackages.impermanence.wipeOnBoot.virtualGroup!")
       )
       (mkAfter ''
         mkdir /btrfs_tmp

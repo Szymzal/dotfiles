@@ -36,8 +36,8 @@
   };
 
   outputs = { flakelight, ... }@inputs:
-    flakelight ./. ({ lib, src, ... }: {
+    flakelight ./. ({ lib, ... }: {
       inherit inputs;
-      systems = builtins.trace src lib.systems.flakeExposed;
+      systems = lib.systems.flakeExposed;
     });
 }

@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./lib.nix
     ./homeManager.nix
     ./fonts.nix
     ./impermanence.nix

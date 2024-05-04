@@ -7,6 +7,7 @@ in
     ./hardware-configuration.nix
     self.nixosModules.common
     self.nixosModules.modules
+    ../../../modules/modules2.nix
   ];
 
   boot.loader = {
@@ -78,6 +79,7 @@ in
   mypackages.compression.enable = true;
   mypackages.nix-helpers.enable = true;
   mypackages.android.enable = true;
+  mypackages.notes.enable = true;
 
   myusers.szymzal.enable = true;
 }

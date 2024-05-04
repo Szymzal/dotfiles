@@ -33,7 +33,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable || osCfg.enable) {
+  config = mkIf (cfg.enable && osCfg.enable) {
     home.persistence."${cfg.persistent-path}" = {
       directories = cfg.directories;
       files = cfg.files;
