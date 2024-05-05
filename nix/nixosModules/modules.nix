@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ./lib.nix
+    ./cachix.nix
     ./gc.nix
     ./bash.nix
     ./clipboard.nix

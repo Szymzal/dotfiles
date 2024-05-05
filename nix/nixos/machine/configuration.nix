@@ -41,6 +41,7 @@ in
   mypackages.clipboard.enable = true;
   mypackages.git.enable = true;
   mypackages.multiTerminal.enable = true;
+  mypackages.cachix.enable = true;
 
   mypackages.impermanence = {
     enable = true;
