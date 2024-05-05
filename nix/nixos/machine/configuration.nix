@@ -1,13 +1,11 @@
-{ inputs, config, ... }:
+{ inputs, ... }:
 let
   inherit (inputs) self;
 in
 {
   imports = [
     ./hardware-configuration.nix
-    self.nixosModules.common
     self.nixosModules.modules
-    ../../../modules/modules2.nix
   ];
 
   boot.loader = {
@@ -37,22 +35,12 @@ in
 
   # time.hardwareClockInLocalTime = true;
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-  };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  mypackages.gc.enable = true;
+  mypackages.editor.enable = true;
+  mypackages.clipboard.enable = true;
+  mypackages.git.enable = true;
+  mypackages.multiTerminal.enable = true;
 
   mypackages.impermanence = {
     enable = true;
@@ -73,13 +61,13 @@ in
   mypackages.sops.enable = true;
   mypackages.wm.enable = true;
   mypackages.dm.enable = true;
-  mypackages.desktop.enable = true;
   mypackages.home-manager.enable = true;
   mypackages.wireshark.enable = true;
   mypackages.compression.enable = true;
   mypackages.nix-helpers.enable = true;
   mypackages.android.enable = true;
-  mypackages.notes.enable = true;
+  mypackages.xbox.enable = true;
+  mypackages.nvidia.enable = true;
 
   myusers.szymzal.enable = true;
 }

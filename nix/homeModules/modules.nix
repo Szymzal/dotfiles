@@ -14,5 +14,6 @@
     ./image-editor.nix
     ./viewers.nix
     ./screenshot.nix
+    ./notes.nix
   ];
 }

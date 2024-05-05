@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: 
+{ pkgs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.shell;
@@ -7,6 +7,12 @@ in
   options = {
     mypackages.shell = {
       enable = mkEnableOption "Enable shell";
+      disableBash = mkOption {
+        default = false;
+        example = true;
+        description = "Disable bash shell entirely";
+        type = types.bool;
+      };
     };
   };
 
@@ -25,6 +31,11 @@ in
     };
 
     # Configure new shell
-    environment.shells = with pkgs; [ zsh ];
+    environment = {
+      systemPackages = with pkgs; lib.optionals (!cfg.disableBash) [
+        bash
+      ];
+      shells = with pkgs; [ zsh ];
+    };
   };
 }

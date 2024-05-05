@@ -7,7 +7,11 @@ in
     self.homeModules.modules
   ];
 
-  mypackages.git.enable = true;
+  mypackages.git = {
+    enable = true;
+    userName = "Szymzal";
+    userEmail = "szymzal05@gmail.com";
+  };
   mypackages.impermanence = {
     enable = true;
     persistent-path = "/persist/home/szymzal";
@@ -42,11 +46,6 @@ in
   home.homeDirectory = "/home/szymzal";
 
   home.stateVersion = "23.11";
-
-  programs.git = {
-    userName = "Szymzal";
-    userEmail = "szymzal05@gmail.com";
-  };
 
   home.pointerCursor = {
     gtk = {

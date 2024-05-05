@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ... }: 
+{ inputs, pkgs, lib, config, ... }:
 with lib;
 let
   hyprland_package = inputs.hyprland.packages."${pkgs.system}".hyprland;
@@ -12,6 +12,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    security.polkit.enable = true;
+
     programs.hyprland = {
       enable = true;
       package = hyprland_package;
