@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ... }:
+{ inputs, pkgs, lib, config, osConfig, ... }:
 with lib;
 let
   cfg = config.mypackages.wm;
@@ -36,6 +36,13 @@ in
     '';
   in
   {
+    assertions = [
+      {
+        assertion = ((builtins.head osConfig.mypackages.monitors) != []);
+        message = "Please specify mypackages.monitors in nixos configuration!";
+      }
+    ];
+
     mypackages.terminal.enable = mkDefault true;
     mypackages.status-bar.enable = mkDefault true;
     mypackages.launcher.enable = mkDefault true;
@@ -70,16 +77,18 @@ in
         "$mod" = "SUPER";
 
         env = [
-          "LIBVA_DRIVER_NAME,nvidia"
           "XDG_SESSION_TYPE,wayland"
+        ] ++ lib.optionals osConfig.mypackages.nvidia.enable [
+          "LIBVA_DRIVER_NAME,nvidia"
         ];
 
-        monitor = [
-          "DP-1,1920x1080@144.00101,0x0,1"
-          "HDMI-A-1,1920x1080@143.99800,1920x0,1"
-          # TODO: can we fix it?
-          "Unknown-1,disable"
-        ];
+        monitor = (lib.forEach (osConfig.mypackages.monitors) (value:
+          if (value.enable) then
+            "${value.spec.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale}"
+          else
+            "${value.spec.connector},disable"
+          )
+        );
 
         bind = [
           "$mod, Return, exec, $terminal"
