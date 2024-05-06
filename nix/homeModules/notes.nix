@@ -2,7 +2,6 @@
 with lib;
 let
   cfg = config.mypackages.notes;
-  isHomeManagerContext = builtins.hasAttr "home" config;
 in
 {
   options = {
@@ -11,7 +10,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable && isHomeManagerContext) {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       obsidian
     ];

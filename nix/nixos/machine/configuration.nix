@@ -43,6 +43,48 @@ in
   mypackages.multiTerminal.enable = true;
   mypackages.cachix.enable = true;
 
+  mypackages.monitors = [
+    {
+      enable = true;
+      primary = true;
+      spec = {
+        connector = "DP-1";
+        vendor = "AOC";
+        model = "27G2G4";
+        serial = "0x0000b8af";
+      };
+      position = {
+        x = 0;
+        y = 0;
+      };
+      mode = {
+        width = 1920;
+        height = 1080;
+        rate = 144.00101;
+        scale = 1;
+      };
+    }
+    {
+      enable = true;
+      spec = {
+        connector = "HDMI-A-1";
+        vendor = "IVM";
+        model = "PL2470H";
+        serial = "0x0000009a";
+      };
+      position = {
+        x = 1920;
+        y = 0;
+      };
+      mode = {
+        width = 1920;
+        height = 1080;
+        rate = 143.99800;
+        scale = 1;
+      };
+    }
+  ];
+
   mypackages.impermanence = {
     enable = true;
     fileSystem = "/persist";

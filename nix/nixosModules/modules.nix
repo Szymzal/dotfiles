@@ -5,6 +5,7 @@
     ./gc.nix
     ./bash.nix
     ./clipboard.nix
+    ./monitors.nix
     ./multiTerminal.nix
     ./git.nix
     ./homeManager.nix

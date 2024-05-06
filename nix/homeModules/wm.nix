@@ -36,7 +36,7 @@ in
     '';
   in
   {
-    mypackages.terminal.enable = mkForce true;
+    mypackages.terminal.enable = mkDefault true;
     mypackages.status-bar.enable = mkDefault true;
     mypackages.launcher.enable = mkDefault true;
 
@@ -54,17 +54,10 @@ in
         exec-once = [
           "hyprpaper"
           "waybar"
-          "gsettings set org.gnome.desktop.interface cursor_theme 'mocha-dark'"
-          "hyprctl setcursor mocha-dark 24"
         ];
 
         input = {
           kb_layout = "pl";
-        };
-
-        debug = {
-          disable_logs = false;
-          enable_stdout_logs = true;
         };
 
         misc = {

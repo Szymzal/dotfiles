@@ -176,5 +176,10 @@ in
 
       ".config/nvim/lua".source = ./config/nvim/lua;
     };
+
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "intelephense"
+      ];
   };
 }
