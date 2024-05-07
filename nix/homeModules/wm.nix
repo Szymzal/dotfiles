@@ -35,11 +35,12 @@ in
     screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
       ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/${config.mypackages.screenshot.savePicturesPath}/$(date '+%Y%m%d-%H:%M:%S').png
     '';
+    monitors = osConfig.mypackages.monitors;
   in
   {
     assertions = [
       {
-        assertion = ((builtins.head osConfig.mypackages.monitors) != []);
+        assertion = ((builtins.head monitors) != []);
         message = "Please specify mypackages.monitors in nixos configuration!";
       }
     ];
@@ -83,7 +84,10 @@ in
           "LIBVA_DRIVER_NAME,nvidia"
         ];
 
-        monitor = (myLib.hyprlandMonitorsConfig osConfig.mypackages.monitors);
+        monitor = (myLib.hyprlandMonitorsConfig);
+        workspace = [
+          "1,monitor:${myLib.getPrimaryMonitor.spec.connector},default:true"
+        ];
 
         bind = [
           "$mod, Return, exec, $terminal"
@@ -140,11 +144,18 @@ in
       };
     };
 
-    home.file.".config/hypr/hyprpaper.conf".text = ''
+    home.file.".config/hypr/hyprpaper.conf".text =
+    let
+      monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
+        if (value.enable) then
+          "wallpaper = ${value.spec.connector},${cfg.wallpaper-path}\n"
+        else
+          ""
+      )));
+    in
+    ''
       preload = ${cfg.wallpaper-path}
-      wallpaper = DP-1,${cfg.wallpaper-path}
-      wallpaper = HDMI-A-1,${cfg.wallpaper-path}
-
+      ${monitorsConfig}
       splash = ${trivial.boolToString cfg.splash}
     '';
   });

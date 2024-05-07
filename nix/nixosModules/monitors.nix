@@ -1,5 +1,8 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
+let
+  cfg = config.mypackages.monitors;
+in
 {
   options = {
     mypackages.monitors = mkOption {
@@ -89,5 +92,18 @@ with lib;
         };
       });
     };
+  };
+
+  config = mkIf ((builtins.head cfg) != []) {
+    assertions = [
+      {
+        assertion = ((builtins.head (builtins.filter (value: (value.enable && value.primary)) cfg)) != []);
+        message = "No primary monitors!";
+      }
+      {
+        assertion = ((builtins.length (builtins.filter (value: (value.enable && value.primary)) cfg)) < 2);
+        message = "Multiple primary monitors!";
+      }
+    ];
   };
 }
