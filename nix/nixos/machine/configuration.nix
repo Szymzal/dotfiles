@@ -47,12 +47,7 @@ in
     {
       enable = true;
       primary = true;
-      spec = {
-        connector = "DP-1";
-        vendor = "AOC";
-        model = "27G2G4";
-        serial = "0x0000b8af";
-      };
+      connector = "DP-1";
       position = {
         x = 0;
         y = 0;
@@ -66,12 +61,7 @@ in
     }
     {
       enable = true;
-      spec = {
-        connector = "HDMI-A-1";
-        vendor = "IVM";
-        model = "PL2470H";
-        serial = "0x0000009a";
-      };
+      connector = "HDMI-A-1";
       position = {
         x = 1920;
         y = 0;

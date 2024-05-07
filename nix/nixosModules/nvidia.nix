@@ -33,9 +33,7 @@ in
     mypackages.monitors = [
       {
         enable = false;
-        spec = {
-          connector = "Unknown-1";
-        };
+        connector = "Unknown-1";
       }
     ];
 

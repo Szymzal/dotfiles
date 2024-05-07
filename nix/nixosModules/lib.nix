@@ -9,9 +9,9 @@
     isEnabledOptionOnHomeConfig = option: (lib.lists.findSingle (value: value) false true (getOptionsFromHomeConfigs option));
     hyprlandMonitorsConfig = (lib.forEach (config.mypackages.monitors) (value:
       if (value.enable) then
-        "${value.spec.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale}"
+        "${value.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale}"
       else
-        "${value.spec.connector},disable"
+        "${value.connector},disable"
       )
     );
     getPrimaryMonitor = (builtins.head (builtins.filter (value: (value.enable && value.primary)) config.mypackages.monitors));

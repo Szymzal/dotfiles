@@ -33,7 +33,7 @@ in
           disable_splash_rendering=true
         }
         ${monitors}
-        workspace=1,monitor:${myLib.getPrimaryMonitor.spec.connector},default:true
+        workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
         windowrulev2=workspace 1,title:(.*)
         exec-once=hyprctl dispatch workspace 1
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit

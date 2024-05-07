@@ -15,7 +15,7 @@
     ./sops.nix
     ./sound.nix
     ./wm.nix
-    ./dm
+    ./dm.nix
     ./wireshark.nix
     ./compression.nix
     ./nix.nix

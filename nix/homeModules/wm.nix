@@ -87,7 +87,7 @@ in
 
         monitor = (myLib.hyprlandMonitorsConfig);
         workspace = [
-          "1,monitor:${myLib.getPrimaryMonitor.spec.connector},default:true"
+          "1,monitor:${myLib.getPrimaryMonitor.connector},default:true"
         ];
 
         bind = [
@@ -149,7 +149,7 @@ in
     let
       monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
         if (value.enable) then
-          "wallpaper = ${value.spec.connector},${cfg.wallpaper-path}\n"
+          "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
         else
           ""
       )));

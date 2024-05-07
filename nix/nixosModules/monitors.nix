@@ -23,31 +23,11 @@ in
             description = "Make monitor primary";
             type = types.bool;
           };
-          spec = {
-            connector = mkOption {
-              default = null;
-              example = "DP-1";
-              description = "Name of connector which monitor is connected";
-              type = types.str;
-            };
-            vendor = mkOption {
-              default = null;
-              example = "AOC";
-              description = "Name of vendor of monitor";
-              type = types.str;
-            };
-            model = mkOption {
-              default = null;
-              example = "27G2G4";
-              description = "Model of monitor";
-              type = types.str;
-            };
-            serial = mkOption {
-              default = null;
-              example = "0x000008af";
-              description = "Serial number of monitor";
-              type = types.str;
-            };
+          connector = mkOption {
+            default = null;
+            example = "DP-1";
+            description = "Name of connector which monitor is connected";
+            type = types.str;
           };
           position = {
             x = mkOption {
