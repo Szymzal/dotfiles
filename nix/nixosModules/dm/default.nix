@@ -25,10 +25,17 @@ in
         "monitor=${value}\n"
       )));
       configFile = pkgs.writeText "hyprland.conf" ''
-        input.kb_layout="pl"
-        misc.disable_hyprland_logo = true;
+        input {
+          kb_layout=pl
+        }
+        misc {
+          disable_hyprland_logo=true
+          disable_splash_rendering=true
+        }
         ${monitors}
         workspace=1,monitor:${myLib.getPrimaryMonitor.spec.connector},default:true
+        windowrulev2=workspace 1,title:(.*)
+        exec-once=hyprctl dispatch workspace 1
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
       '';
     in

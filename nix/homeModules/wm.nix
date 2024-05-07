@@ -61,6 +61,7 @@ in
 
       settings = {
         exec-once = [
+          "hyprctl dispatch workspace 1"
           "hyprpaper"
           "waybar"
         ];
