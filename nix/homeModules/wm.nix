@@ -1,6 +1,7 @@
 { inputs, pkgs, lib, config, osConfig, ... }:
 with lib;
 let
+  myLib = osConfig.lib.myLib;
   cfg = config.mypackages.wm;
 in
 {
@@ -82,13 +83,7 @@ in
           "LIBVA_DRIVER_NAME,nvidia"
         ];
 
-        monitor = (lib.forEach (osConfig.mypackages.monitors) (value:
-          if (value.enable) then
-            "${value.spec.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale}"
-          else
-            "${value.spec.connector},disable"
-          )
-        );
+        monitor = (myLib.hyprlandMonitorsConfig osConfig.mypackages.monitors);
 
         bind = [
           "$mod, Return, exec, $terminal"
