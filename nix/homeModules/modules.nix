@@ -11,6 +11,7 @@
     ./cd.nix
     ./ls.nix
     ./find.nix
+    ./notifications.nix
     ./file-explorer.nix
     ./communication.nix
     ./browser.nix

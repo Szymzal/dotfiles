@@ -44,6 +44,7 @@ in
   mypackages.cd.enable = true;
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
+  mypackages.notifications.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";

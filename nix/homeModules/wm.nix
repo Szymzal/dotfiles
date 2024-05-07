@@ -48,6 +48,7 @@ in
     mypackages.terminal.enable = mkDefault true;
     mypackages.status-bar.enable = mkDefault true;
     mypackages.launcher.enable = mkDefault true;
+    mypackages.notifications.enable = mkDefault true;
 
     home.packages = with pkgs; [
       killall
