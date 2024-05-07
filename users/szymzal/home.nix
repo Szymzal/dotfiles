@@ -41,6 +41,9 @@ in
     enable = true;
     savePicturesPath = "Pictures/Screenshots";
   };
+  mypackages.cd.enable = true;
+  mypackages.ls.enable = true;
+  mypackages.find.enable = true;
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";

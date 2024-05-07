@@ -8,6 +8,9 @@
     ./tmux.nix
     ./wm.nix
     ./coding
+    ./cd.nix
+    ./ls.nix
+    ./find.nix
     ./file-explorer.nix
     ./communication.nix
     ./browser.nix

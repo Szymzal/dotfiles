@@ -16,6 +16,9 @@
     ./sound.nix
     ./wm.nix
     ./dm.nix
+    ./cd.nix
+    ./ls.nix
+    ./find.nix
     ./wireshark.nix
     ./compression.nix
     ./nix.nix

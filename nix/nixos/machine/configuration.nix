@@ -101,6 +101,9 @@ in
   mypackages.android.enable = true;
   mypackages.xbox.enable = true;
   mypackages.nvidia.enable = true;
+  mypackages.cd.enable = true;
+  mypackages.ls.enable = true;
+  mypackages.find.enable = true;
 
   myusers.szymzal.enable = true;
 }
