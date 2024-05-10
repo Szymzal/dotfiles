@@ -30,6 +30,18 @@ in
         description = "Disable sudo lecture entirely, so there will be no lecture after computer restart";
         type = types.bool;
       };
+      directories = mkOption {
+        default = [];
+        example = [ "/var/lib/nixos" "/var/log" ];
+        description = "Directories to persist. Directories needs to be absolute";
+        type = types.listOf types.str;
+      };
+      files = mkOption {
+        default = [];
+        example = [ "/etc/machine-id" ];
+        description = "Files to persist. Files needs to be absolute";
+        type = types.listOf types.str;
+      };
       wipeOnBoot = {
         enable = mkOption {
           default = false;
@@ -71,10 +83,10 @@ in
           "/var/lib/systemd/coredump"
           "/etc/NetworkManager/system-connections"
           { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
-        ];
+        ] ++ cfg.directories;
         files = [
           "/etc/machine-id"
-        ];
+        ] ++ cfg.files;
       } else
         throw "Please specify mypackages.impermanence.persistenceDir!";
 

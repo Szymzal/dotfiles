@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
   inherit (inputs) self;
 in
@@ -93,7 +93,10 @@ in
   mypackages.shell.enable = true;
   mypackages.sops.enable = true;
   mypackages.wm.enable = true;
-  mypackages.dm.enable = true;
+  mypackages.dm = {
+    enable = true;
+    wallpaper-path = "/persist/nixos/wallpaper.jpg";
+  };
   mypackages.home-manager.enable = true;
   mypackages.wireshark.enable = true;
   mypackages.compression.enable = true;
@@ -104,6 +107,26 @@ in
   mypackages.cd.enable = true;
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
+  mypackages.theme = {
+    enable = true;
+    prefer-dark-theme = true;
+    theme = {
+      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "blue" ];
+        variant = "mocha";
+      };
+    };
+    cursorTheme = {
+      name = "Catppuccin-Mocha-Dark-Cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
+      size = 24;
+    };
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
+  };
 
   myusers.szymzal.enable = true;
 }

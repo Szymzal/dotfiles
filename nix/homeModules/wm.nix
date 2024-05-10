@@ -82,8 +82,12 @@ in
 
         env = [
           "XDG_SESSION_TYPE,wayland"
+          "HYPRCURSOR_THEME,Catppuccin-Mocha-Dark-Cursors"
+          "HYPRCURSOR_SIZE,24"
         ] ++ lib.optionals osConfig.mypackages.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
+        ] ++ lib.optionals config.mypackages.browser.enable [
+          "MOZ_ENABLE_WAYLAND,1"
         ];
 
         monitor = (myLib.hyprlandMonitorsConfig);

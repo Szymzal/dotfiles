@@ -45,20 +45,31 @@ in
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
+  mypackages.theme = {
+    enable = true;
+    prefer-dark-theme = true;
+    theme = {
+      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "blue" ];
+        variant = "mocha";
+      };
+    };
+    cursorTheme = {
+      name = "Catppuccin-Mocha-Dark-Cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
+      size = 24;
+    };
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
+  };
 
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";
 
   home.stateVersion = "23.11";
-
-  home.pointerCursor = {
-    gtk = {
-      enable = true;
-    };
-    name = "mocha-dark";
-    size = 24;
-    package = pkgs.catppuccin-cursors.mochaDark;
-  };
 
   home.file = {
 

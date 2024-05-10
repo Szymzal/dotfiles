@@ -24,5 +24,9 @@ in
     programs.bash.shellAliases = mkIf (!osConfig.mypackages.shell.enable) {
       cd = "z";
     };
+
+    mypackages.impermanence.directories = [
+      ".local/share/zoxide"
+    ];
   };
 }

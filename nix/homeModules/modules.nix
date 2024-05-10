@@ -19,5 +19,6 @@
     ./viewers.nix
     ./screenshot.nix
     ./notes.nix
+    ./theme.nix
   ];
 }

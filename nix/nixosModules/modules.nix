@@ -29,6 +29,9 @@
     ./xbox.nix
     ./nvidia.nix
     ./editor.nix
+    ./gtk.nix
+    ./theme.nix
+    ./catppuccin-hyprcursor
 
     ../../users/szymzal
   ];
