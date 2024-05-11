@@ -75,7 +75,7 @@ SCRIPT_DIR="."
 : "${ALIASES:="$SCRIPT_DIR"/src/cursorList}"
 : "${CONFIG_DIR:="$SCRIPT_DIR"/src/config}"
 
-for theme_src_dir in "$SRC_DIR"/*; do
+for theme_src_dir in "$SRC_DIR"/Catppuccin-Mocha-Dark-Cursors; do
 	# skip directory that not contains index.theme file
 	[ -f "$theme_src_dir/index.theme" ] || continue
 	theme_name="$(basename "$theme_src_dir")"
@@ -92,7 +92,7 @@ for theme_src_dir in "$SRC_DIR"/*; do
 	cat >"$theme_out_dir"/manifest.hl <<- EOL
 		name = $theme_name
 		description = ${theme_comment#Comment=}
-		version = $(git show -s --format=%cd --date=format:%Y%m%d HEAD)
+		version = 0.2.0
 		cursors_directory = hyprcursors
 	EOL
 done

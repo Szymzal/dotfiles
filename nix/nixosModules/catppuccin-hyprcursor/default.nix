@@ -15,7 +15,7 @@
         git
       ];
 
-      buildPhase = builtins.readFile ./build.sh;
+      buildPhase = (builtins.readFile ./build.sh);
       installPhase = ''
         runHook preInstall
 

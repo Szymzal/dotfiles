@@ -42,8 +42,10 @@ in
         workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
         windowrulev2=workspace 1,title:(.*)
         exec-once=hyprctl dispatch workspace 1
-        env = HYPRCURSOR_THEME,Catppuccin-Mocha-Dark-Cursors
-        env = HYPRCURSOR_SIZE,24
+        env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
+        env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+        env = XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
+        env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
       '';
     in

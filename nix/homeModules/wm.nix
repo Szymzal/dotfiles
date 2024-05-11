@@ -82,8 +82,12 @@ in
 
         env = [
           "XDG_SESSION_TYPE,wayland"
-          "HYPRCURSOR_THEME,Catppuccin-Mocha-Dark-Cursors"
-          "HYPRCURSOR_SIZE,24"
+          # TODO: fix
+          # Hyprcursor doesn't work for now on NixOS :(
+          # "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
+          # "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
+          "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
+          "XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
         ] ++ lib.optionals osConfig.mypackages.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
         ] ++ lib.optionals config.mypackages.browser.enable [
@@ -140,6 +144,8 @@ in
           "$mod SHIFT, 9, movetoworkspace, 9"
         ] ++ optionals (config.mypackages.screenshot.enable) [
           "$mod, P, exec, ${screenshot-script}/bin/screenshot"
+        ] ++ optionals (config.mypackages.browser.enable) [
+          "$mod, B, exec, ${config.programs.firefox.package}/bin/firefox"
         ];
 
         bindm = [
