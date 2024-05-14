@@ -45,6 +45,7 @@ in
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
+  mypackages.calendar.enable = true;
   mypackages.theme = {
     enable = true;
     prefer-dark-theme = true;

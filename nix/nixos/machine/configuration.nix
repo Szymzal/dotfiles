@@ -127,6 +127,7 @@ in
       package = pkgs.papirus-icon-theme;
     };
   };
+  mypackages.mouse.enable = true;
 
   myusers.szymzal.enable = true;
 }

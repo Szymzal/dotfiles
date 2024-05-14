@@ -82,6 +82,7 @@ in
 
         env = [
           "XDG_SESSION_TYPE,wayland"
+          "NIXOS_OZONE_WL,1"
           # TODO: fix
           # Hyprcursor doesn't work for now on NixOS :(
           # "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"

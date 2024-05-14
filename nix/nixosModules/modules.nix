@@ -32,6 +32,7 @@
     ./gtk.nix
     ./theme.nix
     ./catppuccin-hyprcursor
+    ./mouse.nix
 
     ../../users/szymzal
   ];

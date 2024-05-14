@@ -20,5 +20,6 @@
     ./screenshot.nix
     ./notes.nix
     ./theme.nix
+    ./calendar.nix
   ];
 }
