@@ -36,14 +36,27 @@ in
         # nodePackages.@astrojs/language-server
         nodePackages.typescript-language-server
         nodePackages.intelephense
+
+        # luarocks.nvim
+        # luajit
       ];
 
       plugins = with pkgs.vimPlugins; [
         lazy-nvim
       ];
 
-      extraLuaConfig = 
+      extraLuaConfig =
         let
+          # luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
+          #   name = "luarocks.nvim";
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "vhyrro";
+          #     repo = "luarocks.nvim";
+          #     rev = "d3dda396d66e484590f253d1ac6d8980e3130807";
+          #     hash = "sha256-jkygUJe6Ghias2bLvwBvkK9r3B+cXagvYVQA0ERAybo=";
+          #   };
+          # };
+
           plugins = with pkgs.vimPlugins; [
             # colorscheme
             edge
@@ -102,6 +115,10 @@ in
             crates-nvim
             neotest
             rustaceanvim
+
+            # ORG
+            # neorg
+            # { name = "luarocks.nvim"; path = luarocks-nvim; }
           ];
 
           mkEntryFromDrv = drv:

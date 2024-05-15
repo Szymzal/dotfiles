@@ -4,11 +4,7 @@ return {
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
-				-- rust_analyzer = {},
-
 				lua_ls = {},
-
-				-- phpactor = {},
 
 				intelephense = {},
 
