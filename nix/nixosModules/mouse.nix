@@ -13,7 +13,8 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       piper
-      libratbag
     ];
+
+    services.ratbagd.enable = true;
   };
 }
