@@ -11,6 +11,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      gnumake
+    ];
+
     programs.neovim = {
       enable = true;
 
@@ -37,8 +41,8 @@ in
         nodePackages.typescript-language-server
         nodePackages.intelephense
 
-        # luarocks.nvim
-        # luajit
+        # Neorg
+        luajit
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -47,15 +51,23 @@ in
 
       extraLuaConfig =
         let
-          # luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
-          #   name = "luarocks.nvim";
-          #   src = pkgs.fetchFromGitHub {
-          #     owner = "vhyrro";
-          #     repo = "luarocks.nvim";
-          #     rev = "d3dda396d66e484590f253d1ac6d8980e3130807";
-          #     hash = "sha256-jkygUJe6Ghias2bLvwBvkK9r3B+cXagvYVQA0ERAybo=";
-          #   };
-          # };
+          lua-utils-nvim = pkgs.vimUtils.buildVimPlugin {
+            inherit (pkgs.luajitPackages.lua-utils-nvim) pname version src;
+          };
+
+          pathlib-nvim = pkgs.vimUtils.buildVimPlugin {
+            inherit (pkgs.luajitPackages.pathlib-nvim) pname version src;
+          };
+
+          luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "luarocks.nvim";
+            src = pkgs.fetchFromGitHub {
+              owner = "vhyrro";
+              repo = "luarocks.nvim";
+              rev = "d3dda396d66e484590f253d1ac6d8980e3130807";
+              hash = "sha256-jkygUJe6Ghias2bLvwBvkK9r3B+cXagvYVQA0ERAybo=";
+            };
+          };
 
           plugins = with pkgs.vimPlugins; [
             # colorscheme
@@ -117,8 +129,11 @@ in
             rustaceanvim
 
             # ORG
-            # neorg
-            # { name = "luarocks.nvim"; path = luarocks-nvim; }
+            neorg
+            { name = "luarocks.nvim"; path = luarocks-nvim; }
+            lua-utils-nvim
+            pathlib-nvim
+            nvim-nio
           ];
 
           mkEntryFromDrv = drv:
@@ -161,7 +176,7 @@ in
     };
 
     home.file = {
-      ".config/nvim/parser".source = 
+      ".config/nvim/parser".source =
         let
           parsers = pkgs.symlinkJoin {
             name = "treesitter-parsers";
@@ -186,7 +201,10 @@ in
               rust
               nix
               php
-            ])).dependencies;
+            ] ++ (with pkgs.tree-sitter-grammars; [
+              tree-sitter-norg
+              tree-sitter-norg-meta
+            ]))).dependencies;
           };
         in
         "${parsers}/parser";
