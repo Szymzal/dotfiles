@@ -33,6 +33,7 @@
     ./theme.nix
     ./catppuccin-hyprcursor
     ./mouse.nix
+    ./bottles.nix
 
     ../../users/szymzal
   ];

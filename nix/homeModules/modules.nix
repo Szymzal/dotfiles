@@ -21,5 +21,6 @@
     ./notes.nix
     ./theme.nix
     ./calendar.nix
+    ./bottles.nix
   ];
 }

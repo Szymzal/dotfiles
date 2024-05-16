@@ -107,6 +107,7 @@ in
   mypackages.cd.enable = true;
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
+  mypackages.bottles.enable = true;
   mypackages.theme = {
     enable = true;
     prefer-dark-theme = true;
