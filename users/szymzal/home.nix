@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, osConfig, ... }:
 let
   inherit (inputs) self;
 in
@@ -45,27 +45,11 @@ in
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
-  mypackages.calendar.enable = true;
+  mypackages.calendar.enable = false;
   mypackages.bottles.enable = true;
   mypackages.theme = {
     enable = true;
-    prefer-dark-theme = true;
-    theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "blue" ];
-        variant = "mocha";
-      };
-    };
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
-      size = 24;
-    };
-    iconTheme = {
-      name = "Papirus";
-      package = pkgs.papirus-icon-theme;
-    };
+    inherit (osConfig.mypackages.theme) prefer-dark-theme theme cursorTheme iconTheme;
   };
 
   home.username = "szymzal";

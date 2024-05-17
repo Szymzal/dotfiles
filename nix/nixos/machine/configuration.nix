@@ -23,6 +23,12 @@ in
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/8A48821948820463";
+    fsType = "ntfs-3g";
+    options = [ "rw" "gid=100" "uid=1000" "noatime" ];
+  };
+
   time.timeZone = "Europe/Warsaw";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -33,7 +39,7 @@ in
   networking.hostName = "machine";
   networking.networkmanager.enable = true;
 
-  # time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   mypackages.gc.enable = true;
@@ -108,6 +114,7 @@ in
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
   mypackages.bottles.enable = true;
+  mypackages.catppuccin-hyprcursor.enable = false;
   mypackages.theme = {
     enable = true;
     prefer-dark-theme = true;
@@ -119,9 +126,9 @@ in
       };
     };
     cursorTheme = {
-      name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
-      size = 24;
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+      size = 16;
     };
     iconTheme = {
       name = "Papirus";

@@ -65,7 +65,8 @@ in
         in {
           application_prefer_dark_theme = gtk.prefer-dark-theme;
           cursor_theme_name = gtk.cursorTheme.name;
-          cursor_theme_size = gtk.cursorTheme.size;
+          # TODO: Why there is no cursor theme size?
+          # cursor_theme_size = gtk.cursorTheme.size;
           theme_size = gtk.theme.name;
         });
       };

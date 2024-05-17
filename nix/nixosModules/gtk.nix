@@ -93,7 +93,8 @@ in
       "/etc/xdg/gtk-4.0"
     ];
 
-    environment.systemPackages = [
+    environment.systemPackages = with pkgs; [
+      xdg-desktop-portal-gtk
       cfg.cursorTheme.package
       cfg.iconTheme.package
       cfg.theme.package
