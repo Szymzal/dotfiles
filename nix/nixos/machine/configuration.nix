@@ -113,7 +113,7 @@ in
   mypackages.cd.enable = true;
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
-  mypackages.bottles.enable = true;
+  mypackages.bottles.enable = false;
   mypackages.catppuccin-hyprcursor.enable = false;
   mypackages.theme = {
     enable = true;
