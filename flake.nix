@@ -33,6 +33,16 @@
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
     };
+
+    nvim-snippets = {
+      url = "github:garymjr/nvim-snippets";
+      flake = false;
+    };
+
+    luarocks-nvim = {
+      url = "github:vhyrro/luarocks.nvim";
+      flake = false;
+    };
   };
 
   outputs = { flakelight, ... }@inputs:

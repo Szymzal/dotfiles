@@ -46,7 +46,7 @@ in
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
   mypackages.calendar.enable = false;
-  mypackages.bottles.enable = true;
+  mypackages.bottles.enable = false;
   mypackages.theme = {
     enable = true;
     inherit (osConfig.mypackages.theme) prefer-dark-theme theme cursorTheme iconTheme;

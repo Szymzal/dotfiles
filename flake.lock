@@ -238,6 +238,22 @@
         "type": "github"
       }
     },
+    "luarocks-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713339294,
+        "narHash": "sha256-jkygUJe6Ghias2bLvwBvkK9r3B+cXagvYVQA0ERAybo=",
+        "owner": "vhyrro",
+        "repo": "luarocks.nvim",
+        "rev": "d3dda396d66e484590f253d1ac6d8980e3130807",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vhyrro",
+        "repo": "luarocks.nvim",
+        "type": "github"
+      }
+    },
     "nix-gaming": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -355,15 +371,33 @@
         "type": "github"
       }
     },
+    "nvim-snippets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707318704,
+        "narHash": "sha256-N46IDExKEL9rwvq4L4487k9gDbJG7mvcfor252WTzoM=",
+        "owner": "garymjr",
+        "repo": "nvim-snippets",
+        "rev": "f394d17b9a83820714957a06c6ed8e12223f3034",
+        "type": "github"
+      },
+      "original": {
+        "owner": "garymjr",
+        "repo": "nvim-snippets",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flakelight": "flakelight",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "impermanence": "impermanence",
+        "luarocks-nvim": "luarocks-nvim",
         "nix-gaming": "nix-gaming",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
+        "nvim-snippets": "nvim-snippets",
         "sops-nix": "sops-nix"
       }
     },

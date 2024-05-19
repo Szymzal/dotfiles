@@ -10,7 +10,7 @@ in
     };
   };
 
-  config = mkIf (osConfig.mypackages.bottles.enable || cfg.enable) {
+  config = mkIf (osConfig.mypackages.bottles.enable && cfg.enable) {
     mypackages.impermanence = {
       directories = [
         ".local/share/bottles"

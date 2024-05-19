@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 with lib;
 let
   cfg = config.mypackages.coding;
@@ -51,6 +51,12 @@ in
 
       extraLuaConfig =
         let
+          nvim-snippets = pkgs.vimUtils.buildVimPlugin {
+            pname = "nvim-snippets";
+            version = "2024-05-19";
+            src = inputs.nvim-snippets;
+          };
+
           lua-utils-nvim = pkgs.vimUtils.buildVimPlugin {
             inherit (pkgs.luajitPackages.lua-utils-nvim) pname version src;
           };
@@ -61,12 +67,8 @@ in
 
           luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
             name = "luarocks.nvim";
-            src = pkgs.fetchFromGitHub {
-              owner = "vhyrro";
-              repo = "luarocks.nvim";
-              rev = "d3dda396d66e484590f253d1ac6d8980e3130807";
-              hash = "sha256-jkygUJe6Ghias2bLvwBvkK9r3B+cXagvYVQA0ERAybo=";
-            };
+            version = "2024-05-19";
+            src = inputs.luarocks-nvim;
           };
 
           plugins = with pkgs.vimPlugins; [
@@ -93,6 +95,7 @@ in
             neodev-nvim
             noice-nvim
             nui-nvim
+            nvim-snippets
             nvim-cmp
             nvim-lint
             nvim-lspconfig
