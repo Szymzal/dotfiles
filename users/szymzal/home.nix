@@ -27,7 +27,7 @@ in
   mypackages.tmux.enable = true;
   mypackages.wm = {
     enable = true;
-    wallpaper-path = "/persist/nixos/wallpaper.jpg";
+    wallpaper-path = /persist/nixos/wallpaper.jpg;
     splash = false;
   };
   mypackages.coding.enable = true;

@@ -10,9 +10,11 @@ in
       enable = mkEnableOption "Enable Display Manager";
       wallpaper-path = mkOption {
         default = null;
-        example = "/persist/nixos/wallpaper.png";
+        example = literalExpression ''
+          /persist/nixos/wallpaper.png
+        '';
         description = "Path to wallpaper (support for: png, jpg, jpeg, webp)";
-        type = types.str;
+        type = types.path;
       };
     };
   };
@@ -60,15 +62,25 @@ in
         background = mkIf (!(isNull cfg.wallpaper-path)) {
           path = cfg.wallpaper-path;
         };
-        GTK = mkIf (config.mypackages.gtk.enable) (let
-          gtk = config.mypackages.gtk;
+        GTK = (let
+          theme = config.mypackages.theme;
         in {
-          application_prefer_dark_theme = gtk.prefer-dark-theme;
-          cursor_theme_name = gtk.cursorTheme.name;
-          # TODO: Why there is no cursor theme size?
-          # cursor_theme_size = gtk.cursorTheme.size;
-          theme_size = gtk.theme.name;
+          application_prefer_dark_theme = theme.prefer-dark-theme;
+          cursor_theme_name = theme.cursorTheme.name;
+          icon_theme_name = theme.iconTheme.name;
+          font_name = mkIf (config.mypackages.fonts.enable) "FiraCode Nerd Font";
+          # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
+          theme_name = "adw-gtk3";
         });
+        # GTK = mkIf (config.mypackages.gtk.enable) (let
+        #   gtk = config.mypackages.gtk;
+        # in {
+        #   application_prefer_dark_theme = gtk.prefer-dark-theme;
+        #   cursor_theme_name = gtk.cursorTheme.name;
+        #   # TODO: Why there is no cursor theme size?
+        #   # cursor_theme_size = gtk.cursorTheme.size;
+        #   theme_name = gtk.theme.name;
+        # });
       };
     };
   };

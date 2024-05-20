@@ -1,6 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
+  myLib = config.lib.myLib;
   cfg = config.mypackages.gtk;
 
   toGtk3Ini = generators.toINI {
@@ -28,22 +29,6 @@ in
         example = false;
         description = "Prefer dark theme for applications";
         type = types.bool;
-      };
-      theme = {
-        name = mkOption {
-          default = "Catppuccin-Mocha-Standard-Blue-Dark";
-          example = "Catppuccin-Mocha-Standard-Blue-Dark";
-          description = "Name of gtk theme";
-          type = types.str;
-        };
-        package = mkOption {
-          default = pkgs.catppuccin-gtk;
-          example = literalExpression ''
-            pkgs.catppuccin-gtk
-          '';
-          description = "Package of gtk theme";
-          type = types.package;
-        };
       };
       cursorTheme = {
         name = mkOption {
@@ -95,17 +80,16 @@ in
 
     environment.systemPackages = with pkgs; [
       xdg-desktop-portal-gtk
-      cfg.cursorTheme.package
       cfg.iconTheme.package
-      cfg.theme.package
+      cfg.cursorTheme.package
+      # cfg.theme.package
     ];
 
     environment.etc = let
-      shareThemes = "${cfg.theme.package}/share/themes/${cfg.theme.name}";
+      # shareThemes = "${cfg.theme.package}/share/themes/${cfg.theme.name}";
       gtkIni = {
         gtk-application-prefer-dark-theme = cfg.prefer-dark-theme;
-      } // optionalAttrs (cfg.theme.name != null) {
-        gtk-theme-name = cfg.theme.name;
+        gtk-theme-name = "adw-gtk3";
       } // optionalAttrs (cfg.cursorTheme.name != null) {
         gtk-cursor-theme-name = cfg.cursorTheme.name;
         gtk-cursor-theme-size = cfg.cursorTheme.size;
@@ -125,12 +109,12 @@ in
         Settings = gtkIni;
       };
 
-      "xdg/gtk-4.0/gtk.css".text = ''
-        @import url("file://${shareThemes}/gtk-4.0/gtk.css");
-      '';
+      # TODO: is there better way?
+      "xdg/gtk-3.0/gtk.css".source = mkIf ((myLib.isEnabledOptionOnHomeConfig "mypackages.theme.enable")) /home/szymzal/.config/gtk-3.0/gtk.css;
+      "xdg/gtk-4.0/gtk.css".source = mkIf ((myLib.isEnabledOptionOnHomeConfig "mypackages.theme.enable")) /home/szymzal/.config/gtk-4.0/gtk.css;
 
-      "xdg/gtk-4.0/gtk-dark.css".source = "${shareThemes}/gtk-4.0/gtk-dark.css";
-      "xdg/gtk-4.0/assets".source = "${shareThemes}/gtk-4.0/assets";
+      # "xdg/gtk-4.0/gtk-dark.css".source = "${shareThemes}/gtk-4.0/gtk-dark.css";
+      # "xdg/gtk-4.0/assets".source = "${shareThemes}/gtk-4.0/assets";
     };
   };
 }

@@ -34,6 +34,8 @@
       url = "github:vhyrro/luarocks.nvim";
       flake = false;
     };
+
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { flakelight, ... }@inputs:

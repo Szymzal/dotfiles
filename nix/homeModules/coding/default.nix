@@ -11,9 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      gnumake
-    ];
+    stylix.targets.vim.enable = mkIf (config.mypackages.theme.enable) false;
 
     programs.neovim = {
       enable = true;
@@ -137,6 +135,8 @@ in
             lua-utils-nvim
             pathlib-nvim
             nvim-nio
+          ] ++ lib.optionals (config.mypackages.theme.enable) [
+            { name = "mini.base16"; path = mini-nvim; }
           ];
 
           mkEntryFromDrv = drv:
@@ -170,6 +170,7 @@ in
               -- import rust plugin
               { import = "lazyvim.plugins.extras.lang.rust" },
               -- import/override with your plugins
+              { import = "extensions" },
               { import = "plugins" },
               -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
               { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
@@ -212,7 +213,45 @@ in
         in
         "${parsers}/parser";
 
-      ".config/nvim/lua".source = ./config/nvim/lua;
+      ".config/nvim/lua/config".source = ./config/nvim/lua/config;
+      ".config/nvim/lua/plugins".source = ./config/nvim/lua/plugins;
+      ".config/nvim/lua/extensions/core.lua".text = mkIf (config.mypackages.theme.enable) ''
+        return {
+          {
+            "echasnovski/mini.base16",
+            priority = 1000,
+            lazy = false,
+            config = function()
+              require('mini.base16').setup({
+                palette = {
+                  base00 = "#${config.lib.stylix.colors.base00}",
+                  base01 = "#${config.lib.stylix.colors.base01}",
+                  base02 = "#${config.lib.stylix.colors.base02}",
+                  base03 = "#${config.lib.stylix.colors.base03}",
+                  base04 = "#${config.lib.stylix.colors.base04}",
+                  base05 = "#${config.lib.stylix.colors.base05}",
+                  base06 = "#${config.lib.stylix.colors.base06}",
+                  base07 = "#${config.lib.stylix.colors.base07}",
+                  base08 = "#${config.lib.stylix.colors.base08}",
+                  base09 = "#${config.lib.stylix.colors.base09}",
+                  base0A = "#${config.lib.stylix.colors.base0A}",
+                  base0B = "#${config.lib.stylix.colors.base0B}",
+                  base0C = "#${config.lib.stylix.colors.base0C}",
+                  base0D = "#${config.lib.stylix.colors.base0D}",
+                  base0E = "#${config.lib.stylix.colors.base0E}",
+                  base0F = "#${config.lib.stylix.colors.base0F}",
+                },
+              })
+            end
+          },
+          {
+            "LazyVim/LazyVim",
+            opts = {
+              colorscheme = "minischeme",
+            },
+          },
+        }
+      '';
     };
 
     nixpkgs.config.allowUnfreePredicate = pkg:

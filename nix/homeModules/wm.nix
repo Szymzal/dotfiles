@@ -14,9 +14,11 @@ in
       enable = mkEnableOption "Enable window manager";
       wallpaper-path = mkOption {
         default = null;
-        example = "/persist/nixos/wallpaper.png";
+        example = literalExpression ''
+          /persist/nixos/wallpaper.png
+        '';
         description = "Path to wallpaper (support for: png, jpg, jpeg, webp)";
-        type = types.str;
+        type = types.path;
       };
       splash = mkOption {
         default = false;

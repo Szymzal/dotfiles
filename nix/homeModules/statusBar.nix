@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: 
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.status-bar;
@@ -51,11 +51,11 @@ in
               weeks-pos = "right";
               on-scroll = 1;
               format = {
-                months = "<span color='#ffead3'><b>{}</b></span>";
-                days = "<span color='#ecc6d9'><b>{}</b></span>";
-                weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-                weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+                months = "<span color='#${config.lib.stylix.colors.base0A}'><b>{}</b></span>";
+                days = "<span color='#${config.lib.stylix.colors.base0E}'><b>{}</b></span>";
+                weeks = "<span color='#${config.lib.stylix.colors.base0D}'><b>W{}</b></span>";
+                weekdays = "<span color='#${config.lib.stylix.colors.base09}'><b>{}</b></span>";
+                today = "<span color='#${config.lib.stylix.colors.base08}'><b><u>{}</u></b></span>";
                 };
               };
             actions =  {
@@ -79,30 +79,14 @@ in
         }
 
         window#waybar {
-          background: rgba(43, 48, 59, 0.5);
-          border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-          color: white;
-        }
-
-        tooltip {
-          background: rgba(43, 48, 59, 0.5);
-          border: 1px solid rgba(100, 114, 125, 0.5);
-        }
-
-        tooltip label {
-          color: white;
+          border-bottom: 3px solid #${config.lib.stylix.colors.base01};
         }
 
         #workspaces button {
           padding: 0 5px;
           background: transparent;
-          color: white;
+          color: #${config.lib.stylix.colors.base05};
           border-bottom: 3px solid transparent;
-        }
-
-        #workspaces button.focused {
-          background: #64727D;
-          border-bottom: 3px solid white;
         }
 
         #mode, #clock, #temperature, #pulseaudio {
@@ -110,21 +94,22 @@ in
           padding: 0 10px;
         }
 
-        #mode {
-          background: #64727D;
-          border-bottom: 3px solid white;
-        }
-
         #clock {
-          background-color: #64727D;
+          background-color: #${config.lib.stylix.colors.base0E};
         }
 
         #temperature {
-          background-color: orange;
+          background-color: #${config.lib.stylix.colors.base09};
         }
 
         #pulseaudio {
-          background-color: green;
+          background-color: #${config.lib.stylix.colors.base0B};
+        }
+
+        #clock,
+        #temperature,
+        #pulseaudio {
+          color: #${config.lib.stylix.colors.base04};
         }
       '';
     };

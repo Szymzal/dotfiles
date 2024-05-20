@@ -101,7 +101,7 @@ in
   mypackages.wm.enable = true;
   mypackages.dm = {
     enable = true;
-    wallpaper-path = "/persist/nixos/wallpaper.jpg";
+    wallpaper-path = /persist/nixos/wallpaper.jpg;
   };
   mypackages.home-manager.enable = true;
   mypackages.wireshark.enable = true;
@@ -119,11 +119,12 @@ in
     enable = true;
     prefer-dark-theme = true;
     theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "blue" ];
-        variant = "mocha";
-      };
+      base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      # name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      # package = pkgs.catppuccin-gtk.override {
+      #   accents = [ "blue" ];
+      #   variant = "mocha";
+      # };
     };
     cursorTheme = {
       name = "Bibata-Modern-Classic";
