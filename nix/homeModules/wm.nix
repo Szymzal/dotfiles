@@ -159,19 +159,108 @@ in
       };
     };
 
-    home.file.".config/hypr/hyprpaper.conf".text =
-    let
-      monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
-        if (value.enable) then
-          "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
-        else
-          ""
-      )));
-    in
-    ''
-      preload = ${cfg.wallpaper-path}
-      ${monitorsConfig}
-      splash = ${trivial.boolToString cfg.splash}
-    '';
+    home.file = {
+      ".config/hypr/hyprpaper.conf".text =
+        let
+          monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
+            if (value.enable) then
+              "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
+            else
+              ""
+          )));
+        in
+        ''
+          preload = ${cfg.wallpaper-path}
+          ${monitorsConfig}
+          splash = ${trivial.boolToString cfg.splash}
+        '';
+
+      ".config/wlogout/style.css".text = (let
+        # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L3
+        pow =
+          let
+            pow' = base: exponent: value:
+              # FIXME: It will silently overflow on values > 2**62 :(
+              # The value will become negative or zero in this case
+              if exponent == 0
+              then 1
+              else if exponent <= 1
+              then value
+              else (pow' base (exponent - 1) (value * base));
+          in base: exponent: pow' base exponent base;
+        # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L38
+        hex-to-dec = v:
+          let
+            hexToInt = {
+              "0" = 0; "1" = 1;  "2" = 2;
+              "3" = 3; "4" = 4;  "5" = 5;
+              "6" = 6; "7" = 7;  "8" = 8;
+              "9" = 9; "a" = 10; "b" = 11;
+              "c" = 12;"d" = 13; "e" = 14;
+              "f" = 15;
+            };
+            chars = stringToCharacters v;
+            charsLen = length chars;
+          in
+            foldl
+              (a: v: a + v)
+              0
+              (imap0
+                (k: v: hexToInt."${v}" * (pow 16 (charsLen - k - 1)))
+                chars);
+        hex-to-rgb = (hex: "${toString (hex-to-dec (builtins.substring 0 2 hex))}, ${toString (hex-to-dec (builtins.substring 2 2 hex))}, ${toString (hex-to-dec (builtins.substring 4 2 hex))}");
+      in ''
+        * {
+          background-image: none;
+          box-shadow: none;
+        }
+
+        window {
+          background-color: rgba(${hex-to-rgb config.lib.stylix.colors.base00}, 0.9);
+        }
+
+        button {
+            border-radius: 0;
+            border-color: black;
+          text-decoration-color: #${config.lib.stylix.colors.base05};
+            color: #${config.lib.stylix.colors.base05};
+          background-color: #${config.lib.stylix.colors.base01};
+          border-style: solid;
+          border-width: 1px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 25%;
+        }
+
+        button:focus, button:active, button:hover {
+          background-color: #${config.lib.stylix.colors.base02};
+          outline-style: none;
+        }
+
+        #lock {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/lock.png"));
+        }
+
+        #logout {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/logout.png"));
+        }
+
+        #suspend {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/suspend.png"));
+        }
+
+        #hibernate {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/hibernate.png"));
+        }
+
+        #shutdown {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png"));
+        }
+
+        #reboot {
+            background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png"));
+        }
+      '');
+    };
   });
 }
