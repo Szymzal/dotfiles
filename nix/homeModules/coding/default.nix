@@ -241,14 +241,10 @@ in
                   base0E = "#${config.lib.stylix.colors.base0E}",
                   base0F = "#${config.lib.stylix.colors.base0F}",
                 },
+                use_cterm = true,
+                plugins = { default = true },
               })
             end
-          },
-          {
-            "LazyVim/LazyVim",
-            opts = {
-              colorscheme = "minischeme",
-            },
           },
         }
       '';
