@@ -136,6 +136,7 @@ in
     };
   };
   mypackages.mouse.enable = true;
+  mypackages.network-tools.enable = true;
 
   myusers.szymzal.enable = true;
 }

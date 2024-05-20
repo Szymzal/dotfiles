@@ -34,6 +34,7 @@
     ./catppuccin-hyprcursor
     ./mouse.nix
     ./bottles.nix
+    ./network.nix
 
     ../../users/szymzal
   ];
