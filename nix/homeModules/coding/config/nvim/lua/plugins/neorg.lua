@@ -47,12 +47,13 @@ return {
 			})
 		end,
 	},
-	{
-		"hrsh7th/nvim-cmp",
-		opts = {
-			sources = {
-				{ name = "neorg" },
-			},
-		},
-	},
+	-- TODO: Causes other LSP to not work
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	opts = {
+	-- 		sources = {
+	-- 			{ name = "neorg" },
+	-- 		},
+	-- 	},
+	-- },
 }

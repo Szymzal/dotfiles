@@ -4,6 +4,8 @@ return {
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
+				gopls = {},
+
 				lua_ls = {},
 
 				intelephense = {},

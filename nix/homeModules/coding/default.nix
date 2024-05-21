@@ -31,6 +31,7 @@ in
 
         # LSPs
         rust-analyzer
+        gopls
         nil
         lua-language-server
         taplo
@@ -41,6 +42,12 @@ in
 
         # Neorg
         luajit
+
+        # Golang
+        delve
+        gomodifytags
+        impl
+        gofumpt
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -129,6 +136,10 @@ in
             neotest
             rustaceanvim
 
+            # go plugin
+            neotest-go
+            nvim-dap-go
+
             # ORG
             neorg
             { name = "luarocks.nvim"; path = luarocks-nvim; }
@@ -169,6 +180,8 @@ in
               { "williamboman/mason.nvim", enabled = false },
               -- import rust plugin
               { import = "lazyvim.plugins.extras.lang.rust" },
+              -- import go plugin
+              { import = "lazyvim.plugins.extras.lang.go" },
               -- import/override with your plugins
               { import = "extensions" },
               { import = "plugins" },
@@ -205,6 +218,10 @@ in
               rust
               nix
               php
+              go
+              gomod
+              gowork
+              gosum
             ] ++ (with pkgs.tree-sitter-grammars; [
               tree-sitter-norg
               tree-sitter-norg-meta
