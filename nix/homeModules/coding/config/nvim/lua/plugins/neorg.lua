@@ -29,8 +29,8 @@ return {
 					["core.concealer"] = {},
 					["core.ui"] = {},
 					["core.integrations.treesitter"] = {},
-					["core.integrations.nvim-cmp"] = {},
 					["core.qol.todo_items"] = {},
+					["core.integrations.nvim-cmp"] = {},
 					["core.completion"] = {
 						config = {
 							engine = "nvim-cmp",
@@ -47,13 +47,21 @@ return {
 			})
 		end,
 	},
-	-- TODO: Causes other LSP to not work
-	-- {
-	-- 	"hrsh7th/nvim-cmp",
-	-- 	opts = {
-	-- 		sources = {
-	-- 			{ name = "neorg" },
-	-- 		},
-	-- 	},
-	-- },
+	-- TODO: Make it better
+	{
+		"hrsh7th/nvim-cmp",
+		opts = {
+			sources = {
+				{ name = "crates" },
+				{ name = "nvim_lua" },
+				{ name = "nvim_lsp" },
+				{ name = "path" },
+				{ name = "luasnip" },
+				{ name = "neorg" },
+				-- FIX: Couses problems
+				-- { name = "snippets" },
+				{ name = "buffer" },
+			},
+		},
+	},
 }
