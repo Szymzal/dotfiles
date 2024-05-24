@@ -117,8 +117,8 @@ in
           "$mod, K, movefocus, u"
           "$mod, J, movefocus, d"
 
-          "$mod SHIFT, H, swapwindow, l"
-          "$mod SHIFT, L, swapwindow, r"
+          "$mod SHIFT, H, movecurrentworkspacetomonitor, l"
+          "$mod SHIFT, L, movecurrentworkspacetomonitor, r"
 
           "$mod, S, swapactiveworkspaces, DP-1 HDMI-A-1"
 
