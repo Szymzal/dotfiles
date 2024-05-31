@@ -120,11 +120,6 @@ in
     prefer-dark-theme = true;
     theme = {
       base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-      # name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      # package = pkgs.catppuccin-gtk.override {
-      #   accents = [ "blue" ];
-      #   variant = "mocha";
-      # };
     };
     cursorTheme = {
       name = "Bibata-Modern-Classic";
@@ -138,6 +133,10 @@ in
   };
   mypackages.mouse.enable = true;
   mypackages.network-tools.enable = true;
+  mypackages.games.minecraft = {
+    client.enable = true;
+    server.enable = true;
+  };
 
   myusers.szymzal.enable = true;
 }

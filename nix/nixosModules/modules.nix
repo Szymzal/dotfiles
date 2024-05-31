@@ -36,6 +36,8 @@
     ./bottles.nix
     ./network.nix
 
+    ./games/minecraft.nix
+
     ../../users/szymzal
   ];
 }

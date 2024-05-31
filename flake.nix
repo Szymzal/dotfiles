@@ -36,11 +36,16 @@
     };
 
     stylix.url = "github:danth/stylix";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = { flakelight, ... }@inputs:
     flakelight ./. ({ lib, ... }: {
       inherit inputs;
+      withOverlays = [
+        inputs.nix-minecraft.overlay
+      ];
       systems = lib.systems.flakeExposed;
     });
 }
