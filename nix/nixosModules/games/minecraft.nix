@@ -28,9 +28,41 @@ in
       prismlauncher
     ];
 
-    # services.minecraft-servers = mkIf cfg.server.enable {
-    #   enable = true;
-    #   eula = true;
-    # };
+    services.minecraft-servers = mkIf cfg.server.enable {
+      enable = true;
+      eula = true;
+      # dataDir = "/mnt/data/Games/Minecraft/Serwery/Linux/";
+      servers = {
+        games-datapack = {
+          enable = true;
+          autoStart = false;
+          openFirewall = true;
+          jvmOpts = "-Xmx4G -Xms4G";
+          package = pkgs.fabricServers.fabric-1_20_6;
+          serverProperties = {
+            allow-flight = true;
+            broadcast-console-to-ops = false;
+            broadcast-rcon-to-ops = false;
+            difficulty = "peaceful";
+            enable-command-block = true;
+            hide-online-players = true;
+            max-players = 10;
+            online-mode = false;
+            spawn-protection = 0;
+            simulation-distance = 8;
+            view-distance = 16;
+            motd = "Minigames server created for you :)";
+          };
+        };
+      };
+    };
+
+    mypackages.impermanence.directories = lib.optionals (cfg.server.enable) [
+      "/srv/minecraft"
+    ];
+
+    mypackages.unfree.allowed = mkIf (cfg.server.enable) [
+      "minecraft-server"
+    ];
   };
 }
