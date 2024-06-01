@@ -79,6 +79,12 @@ in
           mouse_move_focuses_monitor = true;
         };
 
+        # Cursor behavies really weird and can crash Hyprland. Don't touch it until https://github.com/hyprwm/Hyprland/issues/5776
+        # It also includes WLR_NO_HARDWARE_CURSORS on dm.nix
+        cursor = mkIf (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
+          no_hardware_cursors = true;
+        };
+
         "$terminal" = "kitty";
         "$mod" = "SUPER";
 
@@ -91,10 +97,12 @@ in
           # "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
           "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
           "XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
-        ] ++ lib.optionals osConfig.mypackages.nvidia.enable [
+        ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) [
           "LIBVA_DRIVER_NAME,nvidia"
         ] ++ lib.optionals config.mypackages.browser.enable [
           "MOZ_ENABLE_WAYLAND,1"
+        ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) [
+          "WLR_NO_HARDWARE_CURSORS,1"
         ];
 
         monitor = (myLib.hyprlandMonitorsConfig);

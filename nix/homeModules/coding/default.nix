@@ -56,12 +56,6 @@ in
 
       extraLuaConfig =
         let
-          nvim-snippets = pkgs.vimUtils.buildVimPlugin {
-            pname = "nvim-snippets";
-            version = "2024-05-19";
-            src = inputs.nvim-snippets;
-          };
-
           lua-utils-nvim = pkgs.vimUtils.buildVimPlugin {
             inherit (pkgs.luajitPackages.lua-utils-nvim) pname version src;
           };
@@ -70,10 +64,22 @@ in
             inherit (pkgs.luajitPackages.pathlib-nvim) pname version src;
           };
 
+          nvim-snippets = pkgs.vimUtils.buildVimPlugin {
+            pname = "nvim-snippets";
+            version = "2024-05-19";
+            src = inputs.nvim-snippets;
+          };
+
           luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
             name = "luarocks.nvim";
             version = "2024-05-19";
             src = inputs.luarocks-nvim;
+          };
+
+          ts-comments-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "ts-comments.nvim";
+            version = "2024-06-01";
+            src = inputs.ts-comments-nvim;
           };
 
           plugins = with pkgs.vimPlugins; [
@@ -122,6 +128,7 @@ in
             vim-illuminate
             vim-startuptime
             which-key-nvim
+            { name = "ts-comments.nvim"; path = ts-comments-nvim; }
             { name = "LuaSnip"; path = luasnip; }
             { name = "catppuccin"; path = catppuccin-nvim; }
             { name = "mini.ai"; path = mini-nvim; }

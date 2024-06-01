@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ts-comments-nvim = {
+      url = "github:folke/ts-comments.nvim";
+      flake = false;
+    };
+
     nvim-snippets = {
       url = "github:garymjr/nvim-snippets";
       flake = false;

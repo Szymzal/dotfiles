@@ -109,7 +109,10 @@ in
   mypackages.nix-helpers.enable = true;
   mypackages.android.enable = true;
   mypackages.xbox.enable = true;
-  mypackages.nvidia.enable = true;
+  mypackages.nvidia = {
+    enable = true;
+    open.enable = false;
+  };
   mypackages.cd.enable = true;
   mypackages.ls.enable = true;
   mypackages.find.enable = true;

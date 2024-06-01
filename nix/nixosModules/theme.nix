@@ -22,20 +22,6 @@ in
           default = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
           example = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
         };
-        # name = mkOption {
-        #   default = "Catppuccin-Mocha-Standard-Blue-Dark";
-        #   example = "Catppuccin-Mocha-Standard-Blue-Dark";
-        #   description = "Name of gtk theme";
-        #   type = types.str;
-        # };
-        # package = mkOption {
-        #   default = pkgs.catppuccin-gtk;
-        #   example = literalExpression ''
-        #     pkgs.catppuccin-gtk
-        #   '';
-        #   description = "Package of gtk theme";
-        #   type = types.package;
-        # };
       };
       cursorTheme = {
         name = mkOption {
@@ -103,10 +89,6 @@ in
     mypackages.gtk = {
       enable = true;
       prefer-dark-theme = cfg.prefer-dark-theme;
-      # theme = {
-      #   name = cfg.theme.name;
-      #   package = cfg.theme.package;
-      # };
       cursorTheme = {
         name = cfg.cursorTheme.name;
         package = cfg.cursorTheme.package;

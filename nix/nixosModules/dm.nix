@@ -29,6 +29,13 @@ in
 
     services.greetd =
     let
+      no_hardware_cursors = if (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable) then ''
+        cursor {
+          no_hardware_cursors=true
+        }
+        env = WLR_NO_HARDWARE_CURSORS,1
+
+      '' else "";
       monitors = (lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (value:
         "monitor=${value}\n"
       )));
@@ -40,12 +47,11 @@ in
           disable_hyprland_logo=true
           disable_splash_rendering=true
         }
+        ${no_hardware_cursors}
         ${monitors}
         workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
         windowrulev2=workspace 1,title:(.*)
         exec-once=hyprctl dispatch workspace 1
-        env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
-        env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
         env = XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
         env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
