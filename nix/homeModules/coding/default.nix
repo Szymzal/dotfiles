@@ -19,7 +19,36 @@ in
       viAlias = true;
       vimAlias = true;
 
-      extraPackages = with pkgs; [
+      extraPackages = (with pkgs;
+      let
+        spyglass-language-server = pkgs.buildNpmPackage {
+          pname = "@spyglassmc/language-server";
+          version = "0.4.7";
+
+          src = fetchFromGitHub {
+            owner = "SpyglassMC";
+            repo = "Spyglass";
+            rev = "9ec9b08007067602d1eafc7f764f19b479f3647f";
+            sha256 = "0r0sqmdvh23c7yajz8y2r7wdzjd895956xgvg7gsaysvm9shyxsw";
+          };
+
+          npmDepsHash = "sha256-Rxq4ny1bRakOINQjDV9LssOxMf4qHsaO7NActewJrR8=";
+
+          makeCacheWritable = true;
+
+          dontNpmBuild = true;
+          npmWorkspace = "packages/language-server";
+
+          buildInputs = with pkgs; [
+            nodePackages.webpack-cli
+          ];
+
+          preInstall = ''
+            ${pkgs.nodePackages.webpack}/bin/webpack --config $src/packages/language-server/webpack.config.js
+          '';
+        };
+      in
+      [
         # LazyVim
         lua-language-server
         stylua
@@ -35,6 +64,8 @@ in
         nil
         lua-language-server
         taplo
+        gleam
+        # spyglass-language-server
         vscode-langservers-extracted
         # nodePackages.@astrojs/language-server
         nodePackages.typescript-language-server
@@ -48,7 +79,7 @@ in
         gomodifytags
         impl
         gofumpt
-      ];
+      ]);
 
       plugins = with pkgs.vimPlugins; [
         lazy-nvim
@@ -232,6 +263,7 @@ in
             ] ++ (with pkgs.tree-sitter-grammars; [
               tree-sitter-norg
               tree-sitter-norg-meta
+              tree-sitter-gleam
             ]))).dependencies;
           };
         in

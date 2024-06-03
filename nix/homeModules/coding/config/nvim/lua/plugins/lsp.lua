@@ -10,6 +10,10 @@ return {
 
 				intelephense = {},
 
+				gleam = {},
+
+				spyglassmc_language_server = {},
+
 				tsserver = {
 					settings = {
 						Lua = {
