@@ -58,8 +58,7 @@ return {
 				{ name = "path" },
 				{ name = "luasnip" },
 				{ name = "neorg" },
-				-- FIX: Couses problems
-				-- { name = "snippets" },
+				{ name = "snippets" },
 				{ name = "buffer" },
 			},
 		},
