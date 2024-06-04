@@ -1,3 +1,9 @@
-# TODO
-- [ ] Set cursor theme for Hyprland
-- [ ] Enabled NIXOS_OZONE_WL only for discord, not system-wide
+# Hi, welcome to my world!
+Those are my dotfiles for my NixOS system
+
+If you really want you can use them, but I don't recommend.
+
+## Remember to check
+- [ ] (Nouveau weird cursor)[https://github.com/hyprwm/Hyprland/issues/5776]
+- [ ] NVIDIA 555 driver becomes stable
+- [ ] (Hyprcursor not working on NixOS)[https://github.com/hyprwm/hyprcursor/issues/19]

@@ -93,6 +93,7 @@ in
           "NIXOS_OZONE_WL,1"
           # TODO: fix
           # Hyprcursor doesn't work for now on NixOS :(
+          # Related issue: https://github.com/hyprwm/hyprcursor/issues/19
           # "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
           # "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
           "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"

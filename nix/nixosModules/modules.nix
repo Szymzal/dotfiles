@@ -31,7 +31,6 @@
     ./editor.nix
     ./gtk.nix
     ./theme.nix
-    ./catppuccin-hyprcursor
     ./mouse.nix
     ./bottles.nix
     ./network.nix
