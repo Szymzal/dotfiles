@@ -4,6 +4,6 @@ Those are my dotfiles for my NixOS system
 If you really want you can use them, but I don't recommend.
 
 ## Remember to check
-- [ ] (Nouveau weird cursor)[https://github.com/hyprwm/Hyprland/issues/5776]
+- [ ] [Nouveau weird cursor](https://github.com/hyprwm/Hyprland/issues/5776)
 - [ ] NVIDIA 555 driver becomes stable
-- [ ] (Hyprcursor not working on NixOS)[https://github.com/hyprwm/hyprcursor/issues/19]
+- [ ] [Hyprcursor not working on NixOS](https://github.com/hyprwm/hyprcursor/issues/19)
