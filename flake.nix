@@ -50,6 +50,13 @@
       inherit inputs;
       withOverlays = [
         inputs.nix-minecraft.overlay
+        (final: prev: {
+          myNodePackages = final.callPackage ./nodePackages/node-packages.nix {
+            nodeEnv = final.callPackage ./nodePackages/node-env.nix {
+              libtool = if final.stdenv.isDarwin then final.darwin.cctools else null;
+            };
+          };
+        })
       ];
       systems = lib.systems.flakeExposed;
     });

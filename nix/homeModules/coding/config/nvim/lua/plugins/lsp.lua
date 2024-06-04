@@ -42,7 +42,7 @@ return {
 
 				cssls = {},
 
-				-- astro = {},
+				astro = {},
 			},
 		},
 	},
