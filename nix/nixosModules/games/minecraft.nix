@@ -26,12 +26,12 @@ in
       jdk21
     ] ++ lib.optionals (cfg.client.enable) [
       prismlauncher
+      # glfw-wayland-minecraft
     ];
 
     services.minecraft-servers = mkIf cfg.server.enable {
       enable = true;
       eula = true;
-      # dataDir = "/mnt/data/Games/Minecraft/Serwery/Linux/";
       servers = {
         games-datapack = {
           enable = true;
