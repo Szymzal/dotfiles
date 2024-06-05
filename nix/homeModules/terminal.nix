@@ -1,4 +1,4 @@
-{ lib, config, ... }: 
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.terminal;
@@ -14,5 +14,14 @@ in
     programs.kitty = {
       enable = true;
     };
+
+    home.sessionVariables = {
+      TERMINAL = "kitty";
+      TERM = "kitty";
+    };
+
+    home.packages = with pkgs; [
+      xdg-terminal-exec
+    ];
   };
 }
