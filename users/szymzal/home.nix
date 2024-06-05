@@ -45,6 +45,7 @@ in
   mypackages.ls.enable = true;
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
+  mypackages.office.enable = true;
   mypackages.calendar.enable = false;
   mypackages.bottles.enable = false;
   mypackages.theme = {

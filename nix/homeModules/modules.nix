@@ -23,6 +23,7 @@
     ./calendar.nix
     ./bottles.nix
     ./network.nix
+    ./office.nix
 
     ./games/minecraft.nix
   ];
