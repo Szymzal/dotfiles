@@ -17,7 +17,6 @@ in
 
     home.sessionVariables = {
       TERMINAL = "kitty";
-      TERM = "kitty";
     };
 
     home.packages = with pkgs; [
