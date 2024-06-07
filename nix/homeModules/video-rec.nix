@@ -13,6 +13,7 @@ in
   config = mkIf (cfg.enable) {
     programs.obs-studio.enable = true;
     mypackages.impermanence.directories = [
+      ".config/obs-studio"
       "Videos"
     ];
   };
