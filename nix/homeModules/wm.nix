@@ -79,10 +79,6 @@ in
           kb_layout = "pl";
         };
 
-        # animation = [
-        #   "windows,off"
-        # ];
-
         misc = {
           disable_hyprland_logo = true;
           layers_hog_keyboard_focus = true;
@@ -129,11 +125,6 @@ in
           "$mod, Space, togglefloating"
 
           "$mod, F, fullscreen"
-
-          # "$mod SHIFT, F, resizeactive, 1 0"
-          #"$mod SHIFT, F, setfloating"
-          #"$mod SHIFT, F, resizeactive, exact 100% 100%"
-          #"$mod SHIFT, F, fullscreen"
           "$mod SHIFT, F, exec, ${fakefullscreen-script}/bin/fakefullscreen"
 
           "$mod, D, exec, killall rofi || rofi -show drun"
