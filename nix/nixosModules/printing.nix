@@ -35,7 +35,7 @@ in
         $out/opt/brother/Printers/${model}/lpd/br${model}filter
 
         mkdir -p $out/lib/cups/filter/
-        ln -s $out/opt/brother/Printers/${model}/lpd/filter${model} $out/lib/cups/filter/brlpdwrapper${model}
+        ln -s $out/opt/brother/Printers/${model}/lpd/filter${model} $out/lib/cups/filter/brother_lpdwrapper_${model}
 
         wrapProgram $out/opt/brother/Printers/${model}/lpd/filter${model} \
           --prefix PATH ":" ${
