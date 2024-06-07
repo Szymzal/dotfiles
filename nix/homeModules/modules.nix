@@ -24,6 +24,7 @@
     ./bottles.nix
     ./network.nix
     ./office.nix
+    ./video-rec.nix
 
     ./games/minecraft.nix
   ];

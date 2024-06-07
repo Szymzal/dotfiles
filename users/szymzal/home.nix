@@ -46,6 +46,7 @@ in
   mypackages.find.enable = true;
   mypackages.notifications.enable = true;
   mypackages.office.enable = true;
+  mypackages.video-recording.enable = true;
   mypackages.calendar.enable = false;
   mypackages.bottles.enable = false;
   mypackages.theme = {
