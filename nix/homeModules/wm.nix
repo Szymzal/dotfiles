@@ -37,6 +37,13 @@ in
     screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
       ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/${config.mypackages.screenshot.savePicturesPath}/$(date '+%Y%m%d-%H:%M:%S').png
     '';
+    fakefullscreen-script = pkgs.writeShellScriptBin "fakefullscreen" ''
+      hyprctl dispatch -- setfloating
+      hyprctl dispatch -- resizeactive exact 100% 100%
+      hyprctl dispatch -- centerwindow
+      sleep 1
+      hyprctl dispatch -- fullscreen
+    '';
     monitors = osConfig.mypackages.monitors;
   in
   {
@@ -64,7 +71,6 @@ in
 
       settings = {
         exec-once = [
-          "hyprctl dispatch workspace 1"
           "hyprpaper"
           "waybar"
         ];
@@ -73,16 +79,21 @@ in
           kb_layout = "pl";
         };
 
+        # animation = [
+        #   "windows,off"
+        # ];
+
         misc = {
           disable_hyprland_logo = true;
           layers_hog_keyboard_focus = true;
           mouse_move_focuses_monitor = true;
         };
 
-        # Cursor behavies really weird and can crash Hyprland. Don't touch it until https://github.com/hyprwm/Hyprland/issues/5776
-        # It also includes WLR_NO_HARDWARE_CURSORS on dm.nix
-        cursor = mkIf (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
-          no_hardware_cursors = true;
+        cursor = {
+          # Cursor behavies really weird and can crash Hyprland. Don't touch it until https://github.com/hyprwm/Hyprland/issues/5776
+          # It also includes WLR_NO_HARDWARE_CURSORS on dm.nix
+          no_hardware_cursors = mkIf (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) true;
+          default_monitor = "${myLib.getPrimaryMonitor.connector}";
         };
 
         "$terminal" = "kitty";
@@ -118,7 +129,13 @@ in
           "$mod, Space, togglefloating"
 
           "$mod, F, fullscreen"
-          "$mod SHIFT, F, fakefullscreen"
+
+          # "$mod SHIFT, F, resizeactive, 1 0"
+          #"$mod SHIFT, F, setfloating"
+          #"$mod SHIFT, F, resizeactive, exact 100% 100%"
+          #"$mod SHIFT, F, fullscreen"
+          "$mod SHIFT, F, exec, ${fakefullscreen-script}/bin/fakefullscreen"
+
           "$mod, D, exec, killall rofi || rofi -show drun"
           "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
 
