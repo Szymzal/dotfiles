@@ -34,6 +34,7 @@
     ./mouse.nix
     ./bottles.nix
     ./network.nix
+    ./printing.nix
 
     ./games/minecraft.nix
 

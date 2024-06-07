@@ -108,6 +108,7 @@ in
   mypackages.compression.enable = true;
   mypackages.nix-helpers.enable = true;
   mypackages.android.enable = true;
+  mypackages.printing.enable = true;
   mypackages.xbox.enable = true;
   mypackages.nvidia = {
     enable = true;
