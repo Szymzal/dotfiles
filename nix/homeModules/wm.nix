@@ -118,6 +118,7 @@ in
           "$mod, Space, togglefloating"
 
           "$mod, F, fullscreen"
+          "$mod SHIFT, F, fakefullscreen"
           "$mod, D, exec, killall rofi || rofi -show drun"
           "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
 

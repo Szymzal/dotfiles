@@ -26,7 +26,6 @@ in
       jdk21
     ] ++ lib.optionals (cfg.client.enable) [
       prismlauncher
-      # glfw-wayland-minecraft
     ];
 
     services.minecraft-servers = mkIf cfg.server.enable {
@@ -52,7 +51,6 @@ in
             simulation-distance = 8;
             view-distance = 16;
             motd = "Minigames server created for you :)";
-
           };
           symlinks = {
             mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
