@@ -25,6 +25,7 @@
     ./network.nix
     ./office.nix
     ./video-rec.nix
+    ./shell.nix
 
     ./games/minecraft.nix
   ];
