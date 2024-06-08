@@ -79,6 +79,10 @@ in
           kb_layout = "pl";
         };
 
+        debug = {
+          disable_logs = false;
+        };
+
         misc = {
           disable_hyprland_logo = true;
           layers_hog_keyboard_focus = true;
