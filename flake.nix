@@ -25,21 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ts-comments-nvim = {
-      url = "github:folke/ts-comments.nvim";
-      flake = false;
-    };
-
-    nvim-snippets = {
-      url = "github:garymjr/nvim-snippets";
-      flake = false;
-    };
-
-    luarocks-nvim = {
-      url = "github:vhyrro/luarocks.nvim";
-      flake = false;
-    };
-
     stylix.url = "github:danth/stylix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";

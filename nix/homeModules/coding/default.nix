@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.coding;
@@ -58,32 +58,6 @@ in
 
       extraLuaConfig =
         let
-          lua-utils-nvim = pkgs.vimUtils.buildVimPlugin {
-            inherit (pkgs.luajitPackages.lua-utils-nvim) pname version src;
-          };
-
-          pathlib-nvim = pkgs.vimUtils.buildVimPlugin {
-            inherit (pkgs.luajitPackages.pathlib-nvim) pname version src;
-          };
-
-          nvim-snippets = pkgs.vimUtils.buildVimPlugin {
-            pname = "nvim-snippets";
-            version = "2024-05-19";
-            src = inputs.nvim-snippets;
-          };
-
-          luarocks-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "luarocks.nvim";
-            version = "2024-05-19";
-            src = inputs.luarocks-nvim;
-          };
-
-          ts-comments-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "ts-comments.nvim";
-            version = "2024-06-01";
-            src = inputs.ts-comments-nvim;
-          };
-
           plugins = with pkgs.vimPlugins; [
             # colorscheme
             edge

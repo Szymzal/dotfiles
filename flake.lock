@@ -404,22 +404,6 @@
         "type": "github"
       }
     },
-    "luarocks-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1716914177,
-        "narHash": "sha256-siqpyQLpxWYfZKxoPrflnCg8V5oTQcIXKrezjCgZfMM=",
-        "owner": "vhyrro",
-        "repo": "luarocks.nvim",
-        "rev": "1db9093915eb16ba2473cfb8d343ace5ee04130a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vhyrro",
-        "repo": "luarocks.nvim",
-        "type": "github"
-      }
-    },
     "nix-minecraft": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -520,35 +504,16 @@
         "type": "github"
       }
     },
-    "nvim-snippets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1717422659,
-        "narHash": "sha256-NmpW08WDehvJ+1TdWXw170UtRJ3UQCgOpOds5aw5N7g=",
-        "owner": "garymjr",
-        "repo": "nvim-snippets",
-        "rev": "cff37a199a92f3c3cd52bb1593a7d01669b35d23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "garymjr",
-        "repo": "nvim-snippets",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flakelight": "flakelight",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "impermanence": "impermanence",
-        "luarocks-nvim": "luarocks-nvim",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_3",
-        "nvim-snippets": "nvim-snippets",
         "sops-nix": "sops-nix",
-        "stylix": "stylix",
-        "ts-comments-nvim": "ts-comments-nvim"
+        "stylix": "stylix"
       }
     },
     "sops-nix": {
@@ -627,22 +592,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "ts-comments-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1717061223,
-        "narHash": "sha256-1ZT5D3HnrJp4/zphTCkz8crT/cyERBBHYt2tcqYQMRE=",
-        "owner": "folke",
-        "repo": "ts-comments.nvim",
-        "rev": "e339090c076871069c00e488b11def49aaf4e413",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "ts-comments.nvim",
         "type": "github"
       }
     },
