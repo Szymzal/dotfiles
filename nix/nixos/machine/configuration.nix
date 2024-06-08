@@ -42,103 +42,116 @@ in
   time.hardwareClockInLocalTime = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  mypackages.gc.enable = true;
-  mypackages.editor.enable = true;
-  mypackages.clipboard.enable = true;
-  mypackages.git.enable = true;
-  mypackages.multiTerminal.enable = true;
-  mypackages.cachix.enable = true;
 
-  mypackages.monitors = [
-    {
-      enable = true;
-      primary = true;
-      connector = "DP-1";
-      position = {
-        x = 0;
-        y = 0;
-      };
-      mode = {
-        width = 1920;
-        height = 1080;
-        rate = 144.00101;
-        scale = 1;
-      };
-    }
-    {
-      enable = true;
-      connector = "HDMI-A-1";
-      position = {
-        x = 1920;
-        y = 0;
-      };
-      mode = {
-        width = 1920;
-        height = 1080;
-        rate = 143.99800;
-        scale = 1;
-      };
-    }
-  ];
+  mypackages = {
+    gc.enable = true;
+    editor.enable = true;
+    clipboard.enable = true;
+    git.enable = true;
+    multiTerminal.enable = true;
+    cachix.enable = true;
 
-  mypackages.impermanence = {
-    enable = true;
-    fileSystem = "/persist";
-    persistenceDir = "/persist/system";
-    disableSudoLecture = true;
-    wipeOnBoot = {
+    monitors = [
+      {
+        enable = true;
+        primary = true;
+        connector = "DP-1";
+        position = {
+          x = 0;
+          y = 0;
+        };
+        mode = {
+          width = 1920;
+          height = 1080;
+          rate = 144.00101;
+          scale = 1;
+        };
+      }
+      {
+        enable = true;
+        connector = "HDMI-A-1";
+        position = {
+          x = 1920;
+          y = 0;
+        };
+        mode = {
+          width = 1920;
+          height = 1080;
+          rate = 143.99800;
+          scale = 1;
+        };
+      }
+    ];
+
+    impermanence = {
       enable = true;
-      virtualGroup = "/dev/main_vg";
-      rootSubvolume = "root";
-      daysToDeleteOldRoots = 7;
+      fileSystem = "/persist";
+      persistenceDir = "/persist/system";
+      disableSudoLecture = true;
+      wipeOnBoot = {
+        enable = true;
+        virtualGroup = "/dev/main_vg";
+        rootSubvolume = "root";
+        daysToDeleteOldRoots = 7;
+      };
     };
-  };
 
-  mypackages.sound.enable = true;
-  mypackages.fonts.enable = true;
-  mypackages.shell.enable = true;
-  mypackages.sops.enable = true;
-  mypackages.wm.enable = true;
-  mypackages.dm = {
-    enable = true;
-    wallpaper-path = /persist/nixos/wallpaper.jpg;
-  };
-  mypackages.home-manager.enable = true;
-  mypackages.wireshark.enable = true;
-  mypackages.compression.enable = true;
-  mypackages.nix-helpers.enable = true;
-  mypackages.android.enable = true;
-  mypackages.printing.enable = true;
-  mypackages.xbox.enable = true;
-  mypackages.nvidia = {
-    enable = true;
-    open.enable = false;
-  };
-  mypackages.cd.enable = true;
-  mypackages.ls.enable = true;
-  mypackages.find.enable = true;
-  mypackages.bottles.enable = false;
-  mypackages.theme = {
-    enable = true;
-    prefer-dark-theme = true;
+    sound.enable = true;
+    fonts.enable = true;
+    shell.enable = true;
+    sops = {
+      enable = true;
+      defaultSopsFile = ../../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
+      keyFile = "/persist/home/szymzal/.config/sops/age/keys.txt";
+      secrets = {
+        password = {
+          neededForUsers = true;
+        };
+      };
+    };
+    wm.enable = true;
+    dm = {
+      enable = true;
+      wallpaper-path = /persist/customization/wallpaper.jpg;
+    };
+    home-manager.enable = true;
+    wireshark.enable = true;
+    compression.enable = true;
+    nix-helpers.enable = true;
+    android.enable = true;
+    printing.enable = true;
+    xbox.enable = true;
+    nvidia = {
+      enable = true;
+      open.enable = false;
+    };
+    cd.enable = true;
+    ls.enable = true;
+    find.enable = true;
+    bottles.enable = false;
     theme = {
-      base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      enable = true;
+      prefer-dark-theme = true;
+      theme = {
+        base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
+      cursorTheme = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 16;
+      };
+      iconTheme = {
+        name = "Papirus";
+        package = pkgs.papirus-icon-theme;
+      };
     };
-    cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-      size = 16;
+    mouse.enable = true;
+    network-tools.enable = true;
+    games.minecraft = {
+      client.enable = true;
+      server.enable = true;
     };
-    iconTheme = {
-      name = "Papirus";
-      package = pkgs.papirus-icon-theme;
-    };
-  };
-  mypackages.mouse.enable = true;
-  mypackages.network-tools.enable = true;
-  mypackages.games.minecraft = {
-    client.enable = true;
-    server.enable = true;
   };
 
   myusers.szymzal.enable = true;

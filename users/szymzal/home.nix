@@ -7,80 +7,60 @@ in
     self.homeModules.modules
   ];
 
-  mypackages.git = {
-    enable = true;
-    userName = "Szymzal";
-    userEmail = "szymzal05@gmail.com";
-  };
-  mypackages.impermanence = {
-    enable = true;
-    persistent-path = "/persist/home/szymzal";
-    directories = [
-      ".ssh"
-      "dev"
-      ".cargo"
-    ];
-  };
-  mypackages.launcher.enable = true;
-  mypackages.status-bar.enable = true;
-  mypackages.terminal.enable = true;
-  mypackages.tmux.enable = true;
-  mypackages.wm = {
-    enable = true;
-    wallpaper-path = /persist/nixos/wallpaper.jpg;
-    splash = false;
-  };
-  mypackages.coding.enable = true;
-  mypackages.notes.enable = true;
-  mypackages.file-explorer.enable = true;
-  mypackages.communication.enable = true;
-  mypackages.browser.enable = true;
-  mypackages.viewers.enableAll = true;
-  mypackages.image-editors.enable = true;
-  mypackages.screenshot = {
-    enable = true;
-    savePicturesPath = "Pictures/Screenshots";
-  };
-  mypackages.cd.enable = true;
-  mypackages.ls.enable = true;
-  mypackages.find.enable = true;
-  mypackages.notifications.enable = true;
-  mypackages.office.enable = true;
-  mypackages.video-recording.enable = true;
-  mypackages.calendar.enable = false;
-  mypackages.bottles.enable = false;
-  mypackages.theme = {
-    enable = true;
-    inherit (osConfig.mypackages.theme) prefer-dark-theme theme cursorTheme iconTheme;
-  };
-
   home.username = "szymzal";
   home.homeDirectory = "/home/szymzal";
 
   home.stateVersion = "23.11";
 
-  home.file = {
+  programs.home-manager.enable = true;
 
-  };
-
-  # home.sessionVariables works only for bash. NOT TESTED
-  programs.zsh = {
-    enable = true;
-    sessionVariables = {
-
+  mypackages = {
+    git = {
+      enable = true;
+      userName = "Szymzal";
+      userEmail = "szymzal05@gmail.com";
+    };
+    impermanence = {
+      enable = true;
+      persistent-path = "/persist/home/szymzal";
+      directories = [
+        ".config/sops"
+        ".ssh"
+        "dev"
+        ".cargo"
+      ];
+    };
+    launcher.enable = true;
+    status-bar.enable = true;
+    terminal.enable = true;
+    tmux.enable = true;
+    wm = {
+      enable = true;
+      wallpaper-path = /persist/customization/wallpaper.jpg;
+      splash = false;
+    };
+    coding.enable = true;
+    notes.enable = true;
+    file-explorer.enable = true;
+    communication.enable = true;
+    browser.enable = true;
+    viewers.enableAll = true;
+    image-editors.enable = true;
+    screenshot = {
+      enable = true;
+      savePicturesPath = "Pictures/Screenshots";
+    };
+    cd.enable = true;
+    ls.enable = true;
+    find.enable = true;
+    notifications.enable = true;
+    office.enable = true;
+    video-recording.enable = true;
+    calendar.enable = false;
+    bottles.enable = false;
+    theme = {
+      enable = true;
+      inherit (osConfig.mypackages.theme) prefer-dark-theme theme cursorTheme iconTheme;
     };
   };
-
-  home.persistence."/persist/home/szymzal" = {
-    # TODO: resolve those (connection between nixos and home-manager modules)
-    directories = [
-      ".config/sops"
-    ];
-    files = [
-
-    ];
-    allowOther = true;
-  };
-
-  programs.home-manager.enable = true;
 }

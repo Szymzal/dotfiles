@@ -18,6 +18,7 @@ in
 
     mypackages.impermanence = {
       directories = [
+        ".config/gtk-3.0/bookmarks"
         ".config/Thunar"
         ".config/xfce4"
       ];
