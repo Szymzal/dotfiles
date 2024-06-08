@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.printing;
@@ -12,10 +12,14 @@ in
 
   config = mkIf (cfg.enable)
   {
+    services.avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
+
     services.printing = {
       enable = true;
-      drivers = with pkgs; [ dcpj105lpr dcpj105cupswrapper ];
-      logLevel = "debug";
     };
 
     mypackages.impermanence.directories = [
