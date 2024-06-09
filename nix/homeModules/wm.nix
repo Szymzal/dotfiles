@@ -131,7 +131,8 @@ in
           "$mod, F, fullscreen"
           "$mod SHIFT, F, exec, ${fakefullscreen-script}/bin/fakefullscreen"
 
-          "$mod, D, exec, killall rofi || rofi -show drun"
+          "$mod, E, exec, killall bemoji || bemoji"
+          "$mod, D, exec, killall fuzzel || fuzzel"
           "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
 
           "$mod, H, movefocus, l"

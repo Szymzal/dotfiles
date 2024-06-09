@@ -36,14 +36,15 @@ in
     keyMap = "pl";
   };
 
-  networking.hostName = "machine";
-  networking.networkmanager.enable = true;
-
   time.hardwareClockInLocalTime = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   mypackages = {
+    networkmanager = {
+      enable = true;
+      hostName = "machine";
+    };
     gc.enable = true;
     editor.enable = true;
     clipboard.enable = true;
@@ -121,6 +122,7 @@ in
     nix-helpers.enable = true;
     android.enable = true;
     printing.enable = true;
+    bluetooth.enable = true;
     xbox.enable = true;
     nvidia = {
       enable = true;

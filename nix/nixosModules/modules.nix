@@ -35,6 +35,8 @@
     ./bottles.nix
     ./network.nix
     ./printing.nix
+    ./bluetooth.nix
+    ./networkmanager.nix
 
     ./games/minecraft.nix
 
