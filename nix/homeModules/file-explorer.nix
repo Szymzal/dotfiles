@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.file-explorer;
@@ -12,8 +12,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      xfce.thunar
-      xfce.xfconf
+      gvfs
     ];
 
     mypackages.impermanence = {

@@ -27,6 +27,7 @@
     ./coding.nix
     ./unfree.nix
     ./xbox.nix
+    ./file-explorer.nix
     ./nvidia.nix
     ./editor.nix
     ./gtk.nix
