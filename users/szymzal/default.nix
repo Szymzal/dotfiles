@@ -16,7 +16,7 @@ in
     users.mutableUsers = false;
     users.users.szymzal = {
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "wireshark" "adbusers" "minecraft" ];
+      extraGroups = [ "wheel" "networkmanager" "wireshark" "adbusers" "minecraft" "scanner" "lp" ];
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.password.path;
       shell = pkgs.zsh;
