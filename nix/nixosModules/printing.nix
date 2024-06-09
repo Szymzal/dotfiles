@@ -34,6 +34,7 @@ in
 
     environment.systemPackages = with pkgs; [
       gnome.simple-scan
+      system-config-printer
     ];
 
     mypackages.unfree.allowed = [
