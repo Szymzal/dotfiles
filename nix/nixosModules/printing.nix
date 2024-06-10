@@ -33,6 +33,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      cups-pdf-to-pdf
       gnome.simple-scan
       system-config-printer
     ];

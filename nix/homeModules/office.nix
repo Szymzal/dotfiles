@@ -14,5 +14,9 @@ in
     home.packages = with pkgs; [
       libreoffice-fresh
     ];
+
+    mypackages.impermanence.directories = [
+      ".config/libreoffice"
+    ];
   };
 }
