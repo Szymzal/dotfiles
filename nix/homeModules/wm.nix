@@ -54,10 +54,12 @@ in
       }
     ];
 
-    mypackages.terminal.enable = mkDefault true;
-    mypackages.status-bar.enable = mkDefault true;
-    mypackages.launcher.enable = mkDefault true;
-    mypackages.notifications.enable = mkDefault true;
+    mypackages = {
+      terminal.enable = mkDefault true;
+      status-bar.enable = mkDefault true;
+      launcher.enable = mkDefault true;
+      notifications.enable = mkDefault true;
+    };
 
     home.packages = with pkgs; [
       killall
@@ -73,6 +75,7 @@ in
         exec-once = [
           "hyprpaper"
           "waybar"
+          "ags"
         ];
 
         input = {

@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./ags
     ./impermanence.nix
     ./git.nix
     ./launcher.nix

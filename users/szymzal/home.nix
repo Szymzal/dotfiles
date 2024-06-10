@@ -30,6 +30,7 @@ in
         ".cargo"
       ];
     };
+    ags.enable = true;
     launcher.enable = true;
     status-bar.enable = true;
     terminal.enable = true;

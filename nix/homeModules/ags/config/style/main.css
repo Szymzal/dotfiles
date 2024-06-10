@@ -1,0 +1,15 @@
+.workspaces button {
+  all: unset;
+}
+
+.workspaces .indicator {
+  padding: 1rem;
+}
+
+.workspaces .occupied {
+  background-color: red;
+}
+
+.workspaces .active {
+  background-color: blue;
+}
