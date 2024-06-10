@@ -11,5 +11,7 @@ in
         xfce.thunar-archive-plugin
       ];
     };
+
+    services.gvfs.enable = true;
   };
 }

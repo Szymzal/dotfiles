@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.file-explorer;
@@ -11,10 +11,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      gvfs
-    ];
-
     mypackages.impermanence = {
       directories = [
         ".config/gtk-3.0/bookmarks"
