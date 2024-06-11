@@ -36,7 +36,7 @@ in
     keyMap = "pl";
   };
 
-  time.hardwareClockInLocalTime = true;
+  # time.hardwareClockInLocalTime = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
