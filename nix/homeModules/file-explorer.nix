@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.file-explorer;
@@ -11,6 +11,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      gnome.file-roller
+    ];
+
     mypackages.impermanence = {
       directories = [
         ".config/gtk-3.0/bookmarks"
