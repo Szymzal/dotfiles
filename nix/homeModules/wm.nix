@@ -128,6 +128,7 @@ in
         bind = [
           "$mod, Return, exec, $terminal"
           "$mod, C, killactive"
+          "$mod SHIFT, C, exec, hyprctl kill"
           "$mod, M, exit"
           "$mod, Space, togglefloating"
 
