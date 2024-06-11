@@ -15,7 +15,7 @@
     ./sops.nix
     ./sound.nix
     ./wm.nix
-    ./dm.nix
+    ./dm
     ./cd.nix
     ./ls.nix
     ./find.nix

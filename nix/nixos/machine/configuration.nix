@@ -29,14 +29,12 @@ in
     options = [ "rw" "gid=100" "uid=1000" "noatime" ];
   };
 
-  time.timeZone = "Europe/Warsaw";
-
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     keyMap = "pl";
   };
 
-  # time.hardwareClockInLocalTime = true;
+  time.timeZone = "Europe/Warsaw";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

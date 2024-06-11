@@ -68,6 +68,11 @@ in
 
     programs.regreet = {
       enable = true;
+      package = pkgs.greetd.regreet.overrideAttrs (oldAttrs: {
+        name = "regreet-patched";
+        patches = oldAttrs.patches
+          ++ [ ./cursor_size.patch ];
+      });
       settings = {
         background = mkIf (!(isNull cfg.wallpaper-path)) {
           path = cfg.wallpaper-path;
@@ -77,20 +82,12 @@ in
         in {
           application_prefer_dark_theme = theme.prefer-dark-theme;
           cursor_theme_name = theme.cursorTheme.name;
+          cursor_theme_size = theme.cursorTheme.size;
           icon_theme_name = theme.iconTheme.name;
           font_name = mkIf (config.mypackages.fonts.enable) "FiraCode Nerd Font";
           # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
           theme_name = "adw-gtk3";
         });
-        # GTK = mkIf (config.mypackages.gtk.enable) (let
-        #   gtk = config.mypackages.gtk;
-        # in {
-        #   application_prefer_dark_theme = gtk.prefer-dark-theme;
-        #   cursor_theme_name = gtk.cursorTheme.name;
-        #   # TODO: Why there is no cursor theme size?
-        #   # cursor_theme_size = gtk.cursorTheme.size;
-        #   theme_name = gtk.theme.name;
-        # });
       };
     };
   };

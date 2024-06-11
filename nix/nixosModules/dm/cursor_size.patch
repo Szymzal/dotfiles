@@ -1,0 +1,29 @@
+diff --git a/src/config.rs b/src/config.rs
+index d7eb290..81b8c51 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -34,6 +34,8 @@ pub struct GtkSettings {
+     #[serde(default)]
+     pub cursor_theme_name: Option<String>,
+     #[serde(default)]
++    pub cursor_size: Option<i32>,
++    #[serde(default)]
+     pub font_name: Option<String>,
+     #[serde(default)]
+     pub icon_theme_name: Option<String>,
+diff --git a/src/gui/component.rs b/src/gui/component.rs
+index 455a70d..0c1d6fe 100644
+--- a/src/gui/component.rs
++++ b/src/gui/component.rs
+@@ -47,6 +47,11 @@ fn setup_settings(model: &Greeter, root: &gtk::ApplicationWindow) {
+         settings.set_gtk_cursor_theme_name(config.cursor_theme_name.as_deref());
+     };
+ 
++    if let Some(cursor_size) = &config.cursor_size {
++        debug!("Setting cursor size: {cursor_size}");
++        settings.set_gtk_cursor_theme_size(*cursor_size);
++    };
++
+     if let Some(font) = &config.font_name {
+         debug!("Setting font: {font}");
+         settings.set_gtk_font_name(config.font_name.as_deref());
