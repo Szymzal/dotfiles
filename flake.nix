@@ -33,6 +33,11 @@
   outputs = { flakelight, ... }@inputs:
     flakelight ./. ({ lib, ... }: {
       inherit inputs;
+
+      outputs = {
+        overlay = (_: pkgs: (import ./pkgs { inherit pkgs; }));
+      };
+
       withOverlays = [
         inputs.nix-minecraft.overlay
         (_: pkgs: (import ./pkgs { inherit pkgs; }))
