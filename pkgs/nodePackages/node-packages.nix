@@ -697,13 +697,13 @@ let
         sha512 = "U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==";
       };
     };
-    "rfdc-1.3.1" = {
+    "rfdc-1.4.1" = {
       name = "rfdc";
       packageName = "rfdc";
-      version = "1.3.1";
+      version = "1.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rfdc/-/rfdc-1.3.1.tgz";
-        sha512 = "r5a3l5HzYlIC68TpmYKlxWjmOP6wiPJ1vWv2HeLhNsRZMrCkxeqxiHlQ21oXmQ4F3SiryXBHhAD7JZqvOJjFmg==";
+        url = "https://registry.npmjs.org/rfdc/-/rfdc-1.4.1.tgz";
+        sha512 = "q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==";
       };
     };
     "run-parallel-1.2.0" = {
@@ -1024,7 +1024,7 @@ in
       })
       sources."readdirp-3.6.0"
       sources."reusify-1.0.4"
-      sources."rfdc-1.3.1"
+      sources."rfdc-1.4.1"
       sources."run-parallel-1.2.0"
       sources."safe-buffer-5.2.1"
       sources."seek-bzip-1.0.6"
@@ -1057,6 +1057,24 @@ in
     meta = {
       description = "![banner](https://raw.githubusercontent.com/SpyglassMC/logo/main/banner.png)";
       homepage = "https://spyglassmc.com";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  "@types/google-apps-script" = nodeEnv.buildNodePackage {
+    name = "_at_types_slash_google-apps-script";
+    packageName = "@types/google-apps-script";
+    version = "1.0.83";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@types/google-apps-script/-/google-apps-script-1.0.83.tgz";
+      sha512 = "o+QNeNZxPAfYHzRiLHjub9qF0IILg21r9MzYlnrIHUT+/wcC70aqDfedmzKTgtzsj79zvoTZD0cjGgy46+1Ynw==";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "TypeScript definitions for google-apps-script";
+      homepage = "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/google-apps-script";
       license = "MIT";
     };
     production = true;

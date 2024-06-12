@@ -1,3 +1,4 @@
 [
-  "@spyglassmc/language-server"
+  "@spyglassmc/language-server",
+  "@types/google-apps-script"
 ]
