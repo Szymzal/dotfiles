@@ -10,23 +10,30 @@ export default () => Widget.Box({
   class_name: 'workspaces',
   children: range(workspaces || 9).map(i => Widget.Button({
     on_clicked: () => dispatch(i),
+    setup: button => {
+      button.hook(Hyprland, self => {
+        let workspace = Hyprland.getWorkspace(i);
+        if (workspace !== undefined) {
+          self.toggleClassName('occupied', workspace.windows > 0);
+
+          workspace = Hyprland.getWorkspace(i + 1);
+          self.toggleClassName('end', (workspace === undefined || workspace.windows < 1));
+
+          workspace = Hyprland.getWorkspace(i - 1);
+          self.toggleClassName('start', (workspace === undefined || workspace.windows < 1));
+        }
+      });
+    },
     child: Widget.Label({
       setup: label => {
         label.hook(Hyprland.active, self => {
           self.toggleClassName('active', Hyprland.active.workspace.id === i);
         });
-
-        label.hook(Hyprland, self => {
-          const workspace = Hyprland.getWorkspace(i);
-          if (workspace !== undefined) {
-            self.toggleClassName('occupied', workspace.windows > 0);
-          }
-        });
       },
       label: `${i}`,
-      class_name: 'indicatior',
+      class_name: 'indicator',
       vpack: 'center',
     }),
-    expand: true,
+    class_name: 'workspace',
   })),
 });

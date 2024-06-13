@@ -2,14 +2,35 @@
   all: unset;
 }
 
-.workspaces .indicator {
-  padding: 1rem;
+.workspaces {
+  margin: 0.3rem;
 }
 
+.indicator {
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+}
+
+
 .workspaces .occupied {
-  background-color: red;
+  background-color: @destructive_bg_color;
+  color: @accent_fg_color;
 }
 
 .workspaces .active {
-  background-color: blue;
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  margin: 0.1rem 0.15rem;
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+.workspaces .start {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.workspaces .end {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
