@@ -1,4 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import GLib from 'gi://GLib';
 
 const Clock = (
@@ -23,7 +24,37 @@ const Clock = (
   })
 };
 
-export default ({ format = '%d.%m.%y - %H:%M' } = {}) => Clock({
-  format,
-  hpack: 'center',
-});
+export default ({ window = 'dashboard', format = '%d.%m.%y - %H:%M', ...rest } = {}) => {
+  let open = false;
+
+  return Widget.Button({
+    class_name: "popup-button",
+    setup: button => {
+      button.hook(App, self => {
+        const win = App.get_active_window();
+
+        if (win && win.name == window) {
+          if (open && !win.visible) {
+            open = false;
+            self.toggleClassName('active', false);
+          }
+
+          if (win.visible) {
+            open = true;
+            self.toggleClassName('active');
+          }
+        }
+      });
+    },
+    on_clicked: () => App.toggleWindow(window),
+    child: Widget.Box({
+      children: [
+        Clock({
+          format,
+          hpack: 'center',
+        })
+      ],
+    }),
+    ...rest
+  });
+};

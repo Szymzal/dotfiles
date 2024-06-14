@@ -34,3 +34,22 @@
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
+
+.popup-button {
+  margin: 0.3rem;
+  padding: 0 0.2rem;
+  background-color: transparent;
+}
+
+.popup-window .active {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+.popup-window>* {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: @accent_fg_color;
+  border: 0.1rem solid @accent_bg_color;
+}
