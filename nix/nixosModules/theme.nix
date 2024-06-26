@@ -72,14 +72,16 @@ in
       }
     ];
 
-    stylix.base16Scheme = cfg.theme.base16-scheme-path;
-
-    stylix.polarity = if (cfg.prefer-dark-theme) then "dark" else "light";
-    stylix.image = config.mypackages.dm.wallpaper-path;
-    stylix.cursor = {
-      name = cfg.cursorTheme.name;
-      size = cfg.cursorTheme.size;
-      package = cfg.cursorTheme.package;
+    stylix = {
+      enable = true;
+      base16Scheme = cfg.theme.base16-scheme-path;
+      polarity = if (cfg.prefer-dark-theme) then "dark" else "light";
+      image = config.mypackages.dm.wallpaper-path;
+      cursor = {
+        name = cfg.cursorTheme.name;
+        size = cfg.cursorTheme.size;
+        package = cfg.cursorTheme.package;
+      };
     };
 
     environment.systemPackages = [

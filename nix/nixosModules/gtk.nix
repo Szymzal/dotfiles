@@ -110,6 +110,7 @@ in
       };
 
       # TODO: is there better way?
+      # TODO: Cannot be build for the first time
       "xdg/gtk-3.0/gtk.css".source = mkIf ((myLib.isEnabledOptionOnHomeConfig "mypackages.theme.enable")) /home/szymzal/.config/gtk-3.0/gtk.css;
       "xdg/gtk-4.0/gtk.css".source = mkIf ((myLib.isEnabledOptionOnHomeConfig "mypackages.theme.enable")) /home/szymzal/.config/gtk-4.0/gtk.css;
 

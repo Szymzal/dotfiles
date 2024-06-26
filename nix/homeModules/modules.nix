@@ -28,6 +28,7 @@
     ./video-rec.nix
     ./shell.nix
     ./networkmanager.nix
+    ./videoediting.nix
 
     ./games/minecraft.nix
   ];

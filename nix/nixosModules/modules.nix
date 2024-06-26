@@ -38,6 +38,7 @@
     ./printing.nix
     ./bluetooth.nix
     ./networkmanager.nix
+    ./videoediting.nix
 
     ./games/minecraft.nix
 

@@ -186,21 +186,30 @@ in
       };
     };
 
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        splash = cfg.splash;
+        preload = [ "${cfg.wallpaper-path}" ];
+        wallpaper = (lib.forEach (monitors) (value: if (value.enable) then "${value.connector},${cfg.wallpaper-path}" else ""));
+      };
+    };
+
     home.file = {
-      ".config/hypr/hyprpaper.conf".text =
-        let
-          monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
-            if (value.enable) then
-              "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
-            else
-              ""
-          )));
-        in
-        ''
-          preload = ${cfg.wallpaper-path}
-          ${monitorsConfig}
-          splash = ${trivial.boolToString cfg.splash}
-        '';
+      # ".config/hypr/hyprpaper.conf".text =
+      #   let
+      #     monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
+      #       if (value.enable) then
+      #         "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
+      #       else
+      #         ""
+      #     )));
+      #   in
+      #   ''
+      #     preload = ${cfg.wallpaper-path}
+      #     ${monitorsConfig}
+      #     splash = ${trivial.boolToString cfg.splash}
+      #   '';
 
       ".config/wlogout/style.css".text = (let
         # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L3
@@ -247,10 +256,10 @@ in
         }
 
         button {
-            border-radius: 0;
-            border-color: black;
+          border-radius: 0;
+          border-color: black;
           text-decoration-color: #${config.lib.stylix.colors.base05};
-            color: #${config.lib.stylix.colors.base05};
+          color: #${config.lib.stylix.colors.base05};
           background-color: #${config.lib.stylix.colors.base01};
           border-style: solid;
           border-width: 1px;

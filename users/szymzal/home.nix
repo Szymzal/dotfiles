@@ -59,6 +59,7 @@ in
     video-recording.enable = true;
     calendar.enable = false;
     bottles.enable = false;
+    video-editing.enable = true;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme cursorTheme iconTheme;

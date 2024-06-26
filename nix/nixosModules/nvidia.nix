@@ -17,7 +17,6 @@ in
     (mkIf cfg.open.enable {
       hardware.opengl = {
         enable = true;
-        driSupport = true;
         driSupport32Bit = true;
       };
 
@@ -31,7 +30,6 @@ in
     (mkIf (!cfg.open.enable) {
       hardware.opengl = {
         enable = true;
-        driSupport = true;
         driSupport32Bit = true;
       };
 
