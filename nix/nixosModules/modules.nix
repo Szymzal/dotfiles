@@ -2,6 +2,7 @@
   imports = [
     ./lib.nix
     ./cachix.nix
+    ./casparcg.nix
     ./gc.nix
     ./bash.nix
     ./clipboard.nix

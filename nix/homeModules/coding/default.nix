@@ -76,7 +76,9 @@ in
             friendly-snippets
             gitsigns-nvim
             indent-blankline-nvim
+            lazydev-nvim
             lualine-nvim
+            { name = "luvit-meta"; path = luvit-meta; }
             neo-tree-nvim
             neoconf-nvim
             neodev-nvim
@@ -181,35 +183,35 @@ in
           parsers = pkgs.symlinkJoin {
             name = "treesitter-parsers";
             paths = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-              bash
-              html
-              javascript
-              typescript
-              json
-              lua
-              markdown
-              markdown_inline
-              python
-              query
-              regex
-              vim
-              yaml
-              toml
-              css
-              c
-              cpp
-              rust
-              nix
-              php
-              go
-              gomod
-              gowork
-              gosum
-            ] ++ (with pkgs.tree-sitter-grammars; [
+              tree-sitter-bash
+              tree-sitter-html
+              tree-sitter-javascript
+              tree-sitter-typescript
+              tree-sitter-json
+              tree-sitter-lua
+              tree-sitter-markdown
+              tree-sitter-markdown-inline
+              tree-sitter-python
+              tree-sitter-query
+              tree-sitter-regex
+              tree-sitter-vim
+              tree-sitter-vimdoc
+              tree-sitter-yaml
+              tree-sitter-toml
+              tree-sitter-css
+              tree-sitter-c
+              tree-sitter-cpp
+              tree-sitter-rust
+              tree-sitter-nix
+              tree-sitter-php
+              tree-sitter-go
+              tree-sitter-gomod
+              tree-sitter-gowork
+              tree-sitter-gosum
               tree-sitter-norg
               tree-sitter-norg-meta
               tree-sitter-gleam
-            ]))).dependencies;
+            ])).dependencies;
           };
         in
         "${parsers}/parser";

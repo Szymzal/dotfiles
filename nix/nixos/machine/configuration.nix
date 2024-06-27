@@ -152,6 +152,7 @@ in
       client.enable = true;
       server.enable = true;
     };
+    casparcg.enable = false;
   };
 
   myusers.szymzal.enable = true;

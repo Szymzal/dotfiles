@@ -11,7 +11,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    sound.enable = true;
+    # NOTE: sound.enable only enables ALSA, but I have Pipewire instead
+    # sound.enable = true;
+
     services = {
       pipewire = {
         enable = true;

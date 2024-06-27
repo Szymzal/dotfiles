@@ -19,13 +19,13 @@
     };
   };
 
-  ts-comments-nvim = vimUtils.buildVimPlugin {
-    name = "ts-comments.nvim";
-    version = "2024-06-08";
+  luvit-meta = vimUtils.buildVimPlugin {
+    name = "luvit-meta";
+    version = "2024-06-27";
     src = fetchFromGitHub {
-      owner = "folke";
-      repo = "ts-comments.nvim";
-      rev = "e339090c076871069c00e488b11def49aaf4e413";
+      owner = "Bilal2453";
+      repo = "luvit-meta";
+      rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60";
       sha256 = "1ZT5D3HnrJp4/zphTCkz8crT/cyERBBHYt2tcqYQMRE=";
     };
   };
