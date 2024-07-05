@@ -6,4 +6,5 @@
       libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
     };
   };
+  fetchModrinthModpack = (pkgs.callPackage ./fetchModrinthModpack.nix { });
 }

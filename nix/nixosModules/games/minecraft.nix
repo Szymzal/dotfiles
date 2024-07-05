@@ -39,6 +39,7 @@ in
           jvmOpts = "-Xmx4G -Xms4G";
           package = pkgs.fabricServers.fabric-1_20_6;
           serverProperties = {
+            server-port = 25566;
             allow-flight = true;
             broadcast-console-to-ops = false;
             broadcast-rcon-to-ops = false;
@@ -65,6 +66,39 @@ in
               FabricAPI = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/MtIGbixh/fabric-api-0.99.4%2B1.20.6.jar"; sha512 = "8a016df8989b082694d484f51c7d2207eca3af722cfe573dad093f2087832117e7a4c89a969eb84aaa6460956dec6352494a425a7e6e46c26eb8d5bc779da2bf"; };
               Axiom = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/sJP1pto6/Axiom-3.0.0-for-MC1.20.6.jar"; sha512 = "b5cb5edb5705534c86243c03735cea4c808161b84bbcbd638b86e16990c88a0ab6f2c56449d218ce6c1ceb7ff194b43e3dae83f10123ce6bc3bcea81ba2af1cc"; };
             });
+          };
+        };
+        minecraft-1-21 = {
+          enable = true;
+          autoStart = false;
+          openFirewall = true;
+          jvmOpts = "-Xmx4G -Xms4G";
+          package = pkgs.fabricServers.fabric-1_21.override { loaderVersion = "0.15.11"; };
+          serverProperties = {
+            server-port = 25565;
+            allow-flight = true;
+            broadcast-console-to-ops = false;
+            broadcast-rcon-to-ops = false;
+            difficulty = "hard";
+            enable-command-block = false;
+            hide-online-players = true;
+            max-players = 10;
+            online-mode = true;
+            spawn-protection = 0;
+            simulation-distance = 8;
+            view-distance = 16;
+            motd = "Some survival";
+          };
+          symlinks = {
+            mods = (
+            let
+              modpack = pkgs.fetchModrinthModpack {
+                url = "https://cdn.modrinth.com/data/lezk3Nxv/versions/6DfeUJhQ/NMI%201.21%201.1.0.mrpack";
+                hash = "sha512-s4aHltlOta1RkPBCHQBwUYRysFAESXhD8uy4z6aJghyHCeuAd2KRQkQWouNgKhnH899b4+15RsbkmQJJSyr1RA==";
+              };
+            in
+            "${modpack}/mods"
+            );
           };
         };
       };
