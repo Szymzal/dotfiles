@@ -89,7 +89,7 @@ in
             nvim-lint
             nvim-lspconfig
             nvim-notify
-            nvim-spectre
+            # nvim-spectre
             nvim-treesitter
             nvim-treesitter-context
             nvim-treesitter-textobjects
