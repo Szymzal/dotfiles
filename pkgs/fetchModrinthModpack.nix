@@ -22,6 +22,7 @@ let
     downloadToTemp = true;
     nativeBuildInputs = [ unzip glibcLocalesUtf8 ];
 
+    # copied from: https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchzip/default.nix#L47
     postFetch = ''
       unpackDir="$TMPDIR/unpack"
       mkdir "$unpackDir"
@@ -30,7 +31,7 @@ let
       renamed="$TMPDIR/download.zip"
       mv "$downloadedFile" "$renamed"
       unpackFile "$renamed"
-      chmod -R +rw "$unpackDir"
+      chmod -R +rw "$unpackDir" # only this line has changed
 
       if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
         echo "error: zip file must contain a single file or directory."
@@ -59,8 +60,10 @@ let
         sha512 = file.hashes.sha512;
       }
     );
+    projectID = (builtins.elemAt (lib.splitString "/" (builtins.head file.downloads)) 4);
   in
-  [ ''"${drv}"'' ''"${file.path}"'' ])))));
+  if (builtins.elem projectID removeProjectIDs) then [] else [ ''"${drv}"'' ''"${file.path}"'' ]
+  )))));
 in
 stdenvNoCC.mkDerivation ({
   version = version';
@@ -81,8 +84,8 @@ stdenvNoCC.mkDerivation ({
         continue
       fi
 
-      mkdir -p $out/$(dirname ''${FILES[$(($i + 1))]})
-      find ''${FILES[$i]} -maxdepth 1 -type f -exec ln -s {} ''${FILES[$(($i + 1))]} \;
+      mkdir -p "$out/$(dirname "''${FILES[$(($i + 1))]}")"
+      find ''${FILES[$i]} -maxdepth 1 -type f -exec ln -s {} "$out/''${FILES[$(($i + 1))]}" \;
 
     done
 

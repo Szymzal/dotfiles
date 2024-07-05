@@ -95,6 +95,9 @@ in
               modpack = pkgs.fetchModrinthModpack {
                 url = "https://cdn.modrinth.com/data/lezk3Nxv/versions/6DfeUJhQ/NMI%201.21%201.1.0.mrpack";
                 hash = "sha512-s4aHltlOta1RkPBCHQBwUYRysFAESXhD8uy4z6aJghyHCeuAd2KRQkQWouNgKhnH899b4+15RsbkmQJJSyr1RA==";
+                removeProjectIDs = [
+                  "ZjwW8Q6n"
+                ];
               };
             in
             "${modpack}/mods"
