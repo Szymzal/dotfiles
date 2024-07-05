@@ -89,6 +89,7 @@ in
             nvim-lint
             nvim-lspconfig
             nvim-notify
+            # follow https://github.com/NixOS/nixpkgs/issues/324458
             # nvim-spectre
             nvim-treesitter
             nvim-treesitter-context
