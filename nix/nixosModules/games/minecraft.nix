@@ -73,7 +73,10 @@ in
           autoStart = false;
           openFirewall = true;
           jvmOpts = "-Xmx4G -Xms4G";
-          package = pkgs.fabricServers.fabric-1_21.override { loaderVersion = "0.15.11"; };
+          package = pkgs.fabricServers.fabric-1_21.override {
+            jre_headless = pkgs.temurin-jre-bin-21;
+            loaderVersion = "0.15.11";
+          };
           serverProperties = {
             server-port = 25565;
             allow-flight = true;
