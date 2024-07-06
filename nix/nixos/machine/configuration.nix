@@ -29,7 +29,13 @@ in
     options = [ "rw" "gid=100" "uid=1000" "noatime" ];
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "pl_PL.UTF-8";
+    };
+  };
+
   console = {
     keyMap = "pl";
   };

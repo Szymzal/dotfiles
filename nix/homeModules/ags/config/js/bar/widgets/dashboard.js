@@ -1,4 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Calendar from './calendar.js';
 
 let name = 'dashboard';
 
@@ -9,10 +10,9 @@ export default () => Widget.Window({
   anchor: ['top'],
   class_names: ['popup-window', name],
   child: Widget.Box({
+    vertical: true,
     children: [
-      Widget.Label({
-        label: "Test",
-      }),
+      Calendar(),
     ],
   }),
   setup: window => {
