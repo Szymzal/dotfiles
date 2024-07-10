@@ -11,6 +11,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      casparcg-client
+    ];
+
     nixpkgs.config.permittedInsecurePackages = [
       "freeimage-unstable-2021-11-01"
     ];

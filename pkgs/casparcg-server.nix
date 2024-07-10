@@ -24,9 +24,10 @@
 , sfml
 , systemd
 , mesa_glu
-, boost185
+, boost175
 , nss
 , ffmpeg
+, icu
 }:
 
 stdenv.mkDerivation (let
@@ -72,23 +73,26 @@ in {
     xorg.libXrandr      # libxrandr-dev
     systemd             # libudev-dev
     mesa_glu            # libglu1-mesa-dev
-    boost185            # libboost-all-dev
+    boost175            # libboost-all-dev
     nss                 # libnss3-dev
     ffmpeg
+    icu
   ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_FFMPEG=ON"
+    "-DUSE_STATIC_BOOST=OFF"
+    "-DENABLE_HTML=OFF" # until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
   ];
 
   cmakeDir = "../src";
 
-  preBuild = ''
-    mkdir build
-    cd build
-  '';
+  installPhase = ''
+    runHook preInstall
 
-  postBuild = ''
-    make -j8
+    mkdir -p $out/bin
+    mv staging/bin/casparcg $out/bin/casparcg-server
+
+    runHook postInstall
   '';
 })

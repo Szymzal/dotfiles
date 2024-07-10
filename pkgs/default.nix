@@ -1,4 +1,5 @@
 { pkgs }: {
+  casparcg-client = (pkgs.callPackage ./casparcg-client.nix { });
   casparcg-server = (pkgs.callPackage ./casparcg-server.nix { });
   vimPlugins = pkgs.vimPlugins // (pkgs.callPackage ./vimPlugins.nix { });
   myNodePackages = pkgs.callPackage ./nodePackages/node-packages.nix {
