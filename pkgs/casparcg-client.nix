@@ -38,4 +38,8 @@ in {
   ]);
 
   cmakeDir = "../src";
+
+  postInstall = ''
+    substituteInPlace $out/share/applications/casparcg-client.desktop --replace "/usr" "$out"
+  '';
 })
