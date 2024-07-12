@@ -22,6 +22,7 @@
     ./notes.nix
     ./theme.nix
     ./calendar.nix
+    ./casparcg.nix
     ./bottles.nix
     ./network.nix
     ./office.nix

@@ -59,6 +59,7 @@ in
     video-recording.enable = true;
     calendar.enable = false;
     bottles.enable = false;
+    casparcg-client.enable = true;
     video-editing.enable = true;
     theme = {
       enable = true;

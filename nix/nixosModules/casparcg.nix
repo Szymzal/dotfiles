@@ -12,7 +12,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      casparcg-client
+      # casparcg-server
+      # casparcg-media-scanner
+      # yarn2nix
     ];
 
     nixpkgs.config.permittedInsecurePackages = [
