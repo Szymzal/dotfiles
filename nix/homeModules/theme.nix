@@ -40,6 +40,12 @@ in
           description = "Package of gtk cursor theme";
           type = types.package;
         };
+        hyprcursor = mkOption {
+          default = false;
+          example = true;
+          description = "Enable hyprcursor of current package";
+          type = types.bool;
+        };
       };
       iconTheme = {
         name = mkOption {
@@ -77,29 +83,9 @@ in
       size = cfg.cursorTheme.size;
       package = cfg.cursorTheme.package;
     };
-    # qt = {
-    #   enable = true;
-    #   platformTheme.name = "gtk3";
-    # };
 
     gtk = {
       enable = true;
-    #   gtk2.extraConfig = optionalString (cfg.prefer-dark-theme) "gtk-application-prefer-dark-theme=${builtins.toString cfg.prefer-dark-theme}\n";
-    #   gtk3.extraConfig = optionalAttrs (cfg.prefer-dark-theme) {
-    #     gtk-application-prefer-dark-theme = cfg.prefer-dark-theme;
-    #   };
-    #   gtk4.extraConfig = optionalAttrs (cfg.prefer-dark-theme) {
-    #     gtk-application-prefer-dark-theme = cfg.prefer-dark-theme;
-    #   };
-    #   theme = {
-    #     name = cfg.theme.name;
-    #     package = cfg.theme.package;
-    #   };
-    #   cursorTheme = {
-    #     name = cfg.cursorTheme.name;
-    #     package = cfg.cursorTheme.package;
-    #     size = cfg.cursorTheme.size;
-    #   };
       iconTheme = {
         name = cfg.iconTheme.name;
         package = cfg.iconTheme.package;
@@ -107,18 +93,10 @@ in
     };
 
     home.packages = [
-      # cfg.theme.package
-      # cfg.cursorTheme.package
       cfg.iconTheme.package
     ];
-    #
-    # xdg.configFile =
-    #   let
-    #     gtk4Dir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
-    #   in
-    #   {
-    #     "gtk-4.0/assets".source = "${gtk4Dir}/assets";
-    #     "gtk-4.0/gtk-dark.css".source = "${gtk4Dir}/gtk-dark.css";
-    #   };
+
+    home.file.".icons/${cfg.cursorTheme.name}-hyprcursor".source = mkIf cfg.cursorTheme.hyprcursor "${pkgs.bibata-hyprcursor}/share/icons/${cfg.cursorTheme.name}-hyprcursor";
+    xdg.dataFile."icons/${cfg.cursorTheme.name}-hyprcursor".source = mkIf cfg.cursorTheme.hyprcursor "${pkgs.bibata-hyprcursor}/share/icons/${cfg.cursorTheme.name}-hyprcursor";
   };
 }

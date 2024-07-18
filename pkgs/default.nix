@@ -1,5 +1,5 @@
 { pkgs }: {
-  bibata-cursor = (pkgs.callPackage ./BibataCursor.nix { });
+  bibata-hyprcursor = (pkgs.callPackage ./BibataCursor.nix { });
   casparcg-media-scanner = (pkgs.callPackage ./casparcg-media-scanner.nix { });
   casparcg-client = (pkgs.callPackage ./casparcg-client.nix { });
   casparcg-server = (pkgs.callPackage ./casparcg-server.nix { });
