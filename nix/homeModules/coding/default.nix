@@ -13,6 +13,7 @@ in
   config = mkIf cfg.enable {
     stylix.targets.vim.enable = mkIf (config.mypackages.theme.enable) false;
 
+    # copied from: https://github.com/LazyVim/LazyVim/discussions/1972
     programs.neovim = {
       enable = true;
 
