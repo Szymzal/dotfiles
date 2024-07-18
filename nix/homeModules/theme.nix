@@ -40,11 +40,19 @@ in
           description = "Package of gtk cursor theme";
           type = types.package;
         };
-        hyprcursor = mkOption {
-          default = false;
-          example = true;
-          description = "Enable hyprcursor of current package";
-          type = types.bool;
+        hyprcursor = {
+          enable = mkEnableOption "Enable hyprcursor";
+          name = mkOption {
+            default = "Bibata-Modern-Classic-hyprcursor";
+          };
+          package = mkOption {
+            default = pkgs.bibata-hyprcursor;
+            example = literalExpression ''
+              pkgs.bibata-hyprcursor
+            '';
+            description = "Package for hyprcursor";
+            type = types.package;
+          };
         };
       };
       iconTheme = {
@@ -66,7 +74,10 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (let
+    hyprcursor-theme = "${cfg.cursorTheme.name}-hyprcursor";
+  in
+  {
     assertions = [
       {
         assertion = (config.mypackages.wm.enable);
@@ -96,7 +107,7 @@ in
       cfg.iconTheme.package
     ];
 
-    home.file.".icons/${cfg.cursorTheme.name}-hyprcursor".source = mkIf cfg.cursorTheme.hyprcursor "${pkgs.bibata-hyprcursor}/share/icons/${cfg.cursorTheme.name}-hyprcursor";
-    xdg.dataFile."icons/${cfg.cursorTheme.name}-hyprcursor".source = mkIf cfg.cursorTheme.hyprcursor "${pkgs.bibata-hyprcursor}/share/icons/${cfg.cursorTheme.name}-hyprcursor";
-  };
+    home.file.".icons/${hyprcursor-theme}".source = mkIf cfg.cursorTheme.hyprcursor.enable "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
+    xdg.dataFile."icons/${hyprcursor-theme}".source = mkIf cfg.cursorTheme.hyprcursor.enable "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
+  });
 }

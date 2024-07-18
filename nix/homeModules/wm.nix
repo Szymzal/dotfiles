@@ -77,6 +77,8 @@ in
           "hyprpaper"
           "waybar"
           "ags"
+        ] ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
+          "hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}"
         ];
 
         input = {
@@ -106,11 +108,6 @@ in
         env = [
           "XDG_SESSION_TYPE,wayland"
           "NIXOS_OZONE_WL,1"
-          # TODO: fix
-          # Hyprcursor doesn't work for now on NixOS :(
-          # Related issue: https://github.com/hyprwm/hyprcursor/issues/19
-          # "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
-          # "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
           "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
           "XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
         ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) [
@@ -119,6 +116,9 @@ in
           "MOZ_ENABLE_WAYLAND,1"
         ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) [
           "WLR_NO_HARDWARE_CURSORS,1"
+        ] ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
+          "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}"
+          "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
         ];
 
         monitor = (myLib.hyprlandMonitorsConfig);

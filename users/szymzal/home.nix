@@ -1,4 +1,4 @@
-{ inputs, osConfig, ... }:
+{ inputs, osConfig, pkgs, ... }:
 let
   inherit (inputs) self;
 in
@@ -66,7 +66,11 @@ in
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme;
       cursorTheme = {
         inherit (osConfig.mypackages.theme.cursorTheme) name package size;
-        hyprcursor = true;
+        hyprcursor = {
+          enable = true;
+          name = "Bibata-Modern-Classic-hyprcursor";
+          package = pkgs.bibata-hyprcursor;
+        };
       };
     };
   };

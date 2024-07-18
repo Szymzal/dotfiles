@@ -115,8 +115,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/icons
-    cp -r themes/* $out/share/icons
+    install -dm 0755 $out/share/icons
+    cp -rf themes/* $out/share/icons/
 
     runHook postInstall
   '';
