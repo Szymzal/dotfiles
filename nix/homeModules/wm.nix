@@ -66,6 +66,7 @@ in
       pamixer
       hyprpaper
       wlogout
+      bibata-hyprcursor
     ];
 
     wayland.windowManager.hyprland = {
