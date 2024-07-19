@@ -42,12 +42,10 @@ in
         }
       '';
 
-      # env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
-      # exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
       hyprcursor = if (config.mypackages.theme.cursorTheme.hyprcursor.enable) then ''
-        exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} 24
+        exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
         env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
-        env = HYPRCURSOR_SIZE,24
+        env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
       '' else "";
 
       monitors = (lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (value:
