@@ -41,9 +41,19 @@ in
           default_monitor=${myLib.getPrimaryMonitor.connector}
         }
       '';
+
+      # env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+      # exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
+      hyprcursor = if (config.mypackages.theme.cursorTheme.hyprcursor.enable) then ''
+        exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} 24
+        env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
+        env = HYPRCURSOR_SIZE,24
+      '' else "";
+
       monitors = (lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (value:
         "monitor=${value}\n"
       )));
+
       configFile = pkgs.writeText "hyprland.conf" ''
         input {
           kb_layout=pl
@@ -56,6 +66,7 @@ in
         ${monitors}
         workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
         windowrulev2=workspace 1,title:(.*)
+        ${hyprcursor}
         env = XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
         env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit

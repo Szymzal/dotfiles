@@ -146,6 +146,11 @@ in
         name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
         size = 16;
+        hyprcursor = {
+          enable = true;
+          name = "Bibata-Modern-Classic-hyprcursor";
+          package = pkgs.bibata-hyprcursor;
+        };
       };
       iconTheme = {
         name = "Papirus";

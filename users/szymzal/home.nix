@@ -63,15 +63,7 @@ in
     video-editing.enable = true;
     theme = {
       enable = true;
-      inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme;
-      cursorTheme = {
-        inherit (osConfig.mypackages.theme.cursorTheme) name package size;
-        hyprcursor = {
-          enable = true;
-          name = "Bibata-Modern-Classic-hyprcursor";
-          package = pkgs.bibata-hyprcursor;
-        };
-      };
+      inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
     };
   };
 }

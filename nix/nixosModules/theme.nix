@@ -44,6 +44,20 @@ in
           description = "Package of gtk cursor theme";
           type = types.package;
         };
+        hyprcursor = {
+          enable = mkEnableOption "Enable hyprcursor";
+          name = mkOption {
+            default = "Bibata-Modern-Classic-hyprcursor";
+          };
+          package = mkOption {
+            default = pkgs.bibata-hyprcursor;
+            example = literalExpression ''
+              pkgs.bibata-hyprcursor
+            '';
+            description = "Package for hyprcursor";
+            type = types.package;
+          };
+        };
       };
       iconTheme = {
         name = mkOption {
@@ -86,6 +100,8 @@ in
 
     environment.systemPackages = [
       cfg.iconTheme.package
+    ] ++ lib.optionals cfg.cursorTheme.hyprcursor.enable [
+      cfg.cursorTheme.hyprcursor.package
     ];
 
     mypackages.gtk = {
