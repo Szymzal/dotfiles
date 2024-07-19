@@ -14,7 +14,6 @@ in
     environment.systemPackages = with pkgs; [
       # casparcg-server
       # casparcg-media-scanner
-      # yarn2nix
     ];
 
     nixpkgs.config.permittedInsecurePackages = [
