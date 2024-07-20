@@ -30,6 +30,7 @@
     ./shell.nix
     ./networkmanager.nix
     ./videoediting.nix
+    ./ldtk.nix
 
     ./games/minecraft.nix
   ];
