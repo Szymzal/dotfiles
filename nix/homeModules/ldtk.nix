@@ -14,5 +14,9 @@ in
     home.packages = with pkgs; [
       ldtk
     ];
+
+    mypackages.impermanence = [
+      ".config/LDtk"
+    ];
   };
 }
