@@ -15,7 +15,7 @@ in
       ldtk
     ];
 
-    mypackages.impermanence = [
+    mypackages.impermanence.directories = [
       ".config/LDtk"
     ];
   };
