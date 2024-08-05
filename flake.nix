@@ -28,11 +28,6 @@
     stylix.url = "github:danth/stylix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { flakelight, ... }@inputs:
