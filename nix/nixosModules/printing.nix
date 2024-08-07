@@ -14,7 +14,7 @@ in
   {
     services.avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
 
@@ -34,7 +34,7 @@ in
 
     environment.systemPackages = with pkgs; [
       cups-pdf-to-pdf
-      gnome.simple-scan
+      simple-scan
       system-config-printer
     ];
 

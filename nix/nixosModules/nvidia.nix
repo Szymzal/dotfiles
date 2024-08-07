@@ -15,9 +15,9 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.open.enable {
-      hardware.opengl = {
+      hardware.graphics = {
         enable = true;
-        driSupport32Bit = true;
+        enable32Bit = true;
       };
 
       boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -28,9 +28,9 @@ in
       ];
     })
     (mkIf (!cfg.open.enable) {
-      hardware.opengl = {
+      hardware.graphics = {
         enable = true;
-        driSupport32Bit = true;
+        enable32Bit = true;
       };
 
       services.xserver.videoDrivers = [ "nvidia" ];

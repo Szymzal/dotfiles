@@ -107,6 +107,7 @@ in
             vim-illuminate
             vim-startuptime
             which-key-nvim
+            { name = "grug-far.nvim"; path = grug-far-nvim; }
             { name = "ts-comments.nvim"; path = ts-comments-nvim; }
             { name = "LuaSnip"; path = luasnip; }
             { name = "catppuccin"; path = catppuccin-nvim; }
@@ -116,6 +117,7 @@ in
             { name = "mini.indentscope"; path = mini-nvim; }
             { name = "mini.pairs"; path = mini-nvim; }
             { name = "mini.surround"; path = mini-nvim; }
+            { name = "mini.icons"; path = mini-nvim; }
 
             # rust plugin
             crates-nvim

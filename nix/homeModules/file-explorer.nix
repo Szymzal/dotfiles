@@ -12,7 +12,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      gnome.file-roller
+      file-roller
     ];
 
     mypackages.impermanence.directories = [

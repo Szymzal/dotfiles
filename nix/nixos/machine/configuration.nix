@@ -44,12 +44,17 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  boot.kernel.sysctl = {
+    "fs.file-max" = 2097152;
+    "fs.inotify.max_user_instances" = 8192;
+  };
+
   security.pam.loginLimits = [
     {
       domain = "*";
       type = "soft";
       item = "nofile";
-      value = "8192";
+      value = "65536";
     }
   ];
 
