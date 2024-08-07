@@ -28,6 +28,11 @@
     stylix.url = "github:danth/stylix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { flakelight, ... }@inputs:
