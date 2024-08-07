@@ -1,4 +1,4 @@
-{ inputs, osConfig, pkgs, ... }:
+{ inputs, osConfig, ... }:
 let
   inherit (inputs) self;
 in
@@ -26,7 +26,10 @@ in
       directories = [
         ".config/sops"
         ".ssh"
-        "dev"
+        {
+          directory = "dev";
+          method = "symlink";
+        }
         ".cargo"
       ];
     };
