@@ -61,7 +61,7 @@ in
     office.enable = true;
     video-recording.enable = true;
     calendar.enable = false;
-    bottles.enable = false;
+    bottles.enable = true;
     casparcg-client.enable = true;
     video-editing.enable = true;
     ldtk.enable = true;

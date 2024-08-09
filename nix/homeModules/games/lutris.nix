@@ -7,6 +7,10 @@ in
   config = mkIf cfg.enable {
     mypackages.impermanence.directories = [
       {
+        directory = ".config/steamtinkerlaunch";
+        method = "symlink";
+      }
+      {
         directory = ".local/share/Steam";
         method = "symlink";
       }

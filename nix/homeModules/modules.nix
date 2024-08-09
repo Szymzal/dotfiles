@@ -34,7 +34,7 @@
 
     ./games/minecraft.nix
     ./games/terraria.nix
-    ./games/rocket-league.nix
+    ./games/rocket-league
     ./games/lutris.nix
   ];
 }

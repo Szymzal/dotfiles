@@ -13,7 +13,10 @@ in
   config = mkIf (osConfig.mypackages.bottles.enable && cfg.enable) {
     mypackages.impermanence = {
       directories = [
-        ".local/share/bottles"
+        {
+          directory = ".local/share/bottles";
+          method = "symlink";
+        }
       ];
     };
   };

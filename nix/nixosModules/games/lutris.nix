@@ -13,6 +13,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       lutris
+      steamtinkerlaunch
     ];
 
     programs.steam.enable = true;
