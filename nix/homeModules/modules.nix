@@ -33,5 +33,8 @@
     ./ldtk.nix
 
     ./games/minecraft.nix
+    ./games/terraria.nix
+    ./games/rocket-league.nix
+    ./games/lutris.nix
   ];
 }

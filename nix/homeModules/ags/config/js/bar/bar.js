@@ -1,3 +1,4 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import DateButton from "./widgets/date.js";
 import Workspaces from "./widgets/workspaces.js";
 
@@ -24,7 +25,7 @@ const End = () => Widget.Box({
 
 export default (/** @type {number} */ monitor) => Widget.Window({
   monitor,
-  name: `bar${monitor}`,
+  name: `bar-${monitor}`,
   anchor: ['top', 'left', 'right'],
   exclusivity: 'exclusive',
   child: Widget.CenterBox({

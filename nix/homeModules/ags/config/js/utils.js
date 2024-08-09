@@ -1,6 +1,5 @@
 // Copied from https://github.com/RoccoRakete/hyprland-dots/blob/main/nixos/hosts/desktop/home-dotfiles-desktop/ags/js/utils.js
 
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gdk from 'gi://Gdk';
 
 /**

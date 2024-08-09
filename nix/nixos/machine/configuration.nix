@@ -168,9 +168,12 @@ in
     };
     mouse.enable = true;
     network-tools.enable = true;
-    games.minecraft = {
-      client.enable = true;
-      server.enable = true;
+    games = {
+      lutris.enable = true;
+      minecraft = {
+        client.enable = true;
+        server.enable = true;
+      };
     };
     casparcg.enable = true;
   };

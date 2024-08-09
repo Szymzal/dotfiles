@@ -69,5 +69,9 @@ in
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
     };
+    games = {
+      terraria.enable = true;
+      rocket-league.enable = true;
+    };
   };
 }

@@ -42,6 +42,7 @@
     ./videoediting.nix
 
     ./games/minecraft.nix
+    ./games/lutris.nix
 
     ../../users/szymzal
   ];
