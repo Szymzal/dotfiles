@@ -13,11 +13,13 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       webcord
+      element-desktop
     ];
 
     mypackages.impermanence = {
       directories = [
         ".config/WebCord"
+        ".config/Element"
       ];
     };
   };
