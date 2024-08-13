@@ -74,6 +74,7 @@ in
       terraria.enable = true;
       rocket-league.enable = true;
       roblox.enable = true;
+      ets2.enable = true;
     };
   };
 }
