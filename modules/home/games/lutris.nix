@@ -5,6 +5,11 @@ let
 in
 {
   config = mkIf cfg.enable {
+    home.sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+        "\${HOME}/.steam/root/compatibilitytools.d";
+    };
+
     mypackages.impermanence.directories = [
       {
         directory = ".config/steamtinkerlaunch";

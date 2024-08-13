@@ -14,6 +14,7 @@ in
     environment.systemPackages = with pkgs; [
       lutris
       steamtinkerlaunch
+      protonup
     ];
 
     programs.steam.enable = true;
