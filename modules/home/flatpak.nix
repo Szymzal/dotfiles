@@ -19,9 +19,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.flatpak.enableModule = true;
+    services.flatpak = {
+      enableModule = true;
+      remotes = {
+        "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      };
+      packages = cfg.packages;
+    };
 
-    services.flatpak.packages = cfg.packages;
 
     mypackages.impermanence.directories = [
       ".local/share/flatpak"

@@ -2,23 +2,9 @@
 with lib;
 let
   cfg = config.mypackages.games.roblox;
-  flatpakref = with pkgs; stdenv.mkDerivation {
-    name = "sober-flatpakref";
-    src = fetchurl {
-      url = "https://sober.vinegarhq.org/sober.flatpakref";
-      hash = "sha256-VFRvboQ7IZwYDQvEcWimOuno7vIj+5EztOvxCHvwSN4=";
-    };
-
-    dontUnpack = true;
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir $out
-      cp $src $out/sober.flatpakref
-
-      runHook postInstall
-    '';
+  flatpakref = pkgs.fetchurl {
+    url = "https://sober.vinegarhq.org/sober.flatpakref";
+    hash = "sha256-VFRvboQ7IZwYDQvEcWimOuno7vIj+5EztOvxCHvwSN4=";
   };
 in
 {
@@ -28,10 +14,12 @@ in
     };
   };
 
+  # APKs:
+  # https://www.apkmirror.com/apk/roblox-corporation/roblox/
   config = mkIf cfg.enable {
     mypackages.flatpak = {
       enable = true;
-      packages = [ ":${flatpakref}/sober.flatpakref" ];
+      packages = [ ":${flatpakref}" ];
     };
   };
 }
