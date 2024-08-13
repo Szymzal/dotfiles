@@ -33,6 +33,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flatpak.url = "github:GermanBread/declarative-flatpak";
   };
 
   outputs = { flakelight, ... }@inputs:

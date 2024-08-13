@@ -168,6 +168,7 @@ in
     };
     mouse.enable = true;
     network-tools.enable = true;
+    flatpak.enable = true;
     games = {
       lutris.enable = true;
       minecraft = {

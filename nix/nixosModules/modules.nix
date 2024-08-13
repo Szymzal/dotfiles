@@ -40,6 +40,7 @@
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/networkmanager.nix
     ../../modules/nixos/videoediting.nix
+    ../../modules/nixos/flatpak.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix

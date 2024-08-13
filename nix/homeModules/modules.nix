@@ -2,7 +2,6 @@
   imports = [
     ../../modules/home/ags
 
-    # ../../modules/home-slim/home.nix
     ../../modules/home/impermanence.nix
     ../../modules/home/git.nix
     ../../modules/home/launcher.nix
@@ -33,10 +32,12 @@
     ../../modules/home/networkmanager.nix
     ../../modules/home/videoediting.nix
     ../../modules/home/ldtk.nix
+    ../../modules/home/flatpak.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
     ../../modules/home/games/rocket-league
     ../../modules/home/games/lutris.nix
+    ../../modules/home/games/roblox.nix
   ];
 }

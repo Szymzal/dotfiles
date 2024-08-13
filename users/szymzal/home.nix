@@ -65,6 +65,7 @@ in
     casparcg-client.enable = true;
     video-editing.enable = true;
     ldtk.enable = true;
+    flatpak.enable = true;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
@@ -72,6 +73,7 @@ in
     games = {
       terraria.enable = true;
       rocket-league.enable = true;
+      roblox.enable = true;
     };
   };
 }
