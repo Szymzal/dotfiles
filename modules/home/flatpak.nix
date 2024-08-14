@@ -30,6 +30,7 @@ in
 
     mypackages.impermanence.directories = [
       ".local/share/flatpak"
+      ".var/app"
     ];
   };
 }
