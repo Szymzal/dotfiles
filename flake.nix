@@ -2,7 +2,9 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # NOTE: https://nixpk.gs/pr-tracker.html?pr=333779
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?rev=302b8650e53d2e81e18cceb8b69a5b311241cc1e";
 
     flakelight = {
       url = "github:nix-community/flakelight";
