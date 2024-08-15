@@ -23,7 +23,7 @@ in
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/8A48821948820463";
