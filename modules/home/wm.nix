@@ -113,7 +113,7 @@ in
         ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) [
           "LIBVA_DRIVER_NAME,nvidia"
         ] ++ lib.optionals config.mypackages.browser.enable [
-          "MOZ_ENABLE_WAYLAND,1"
+          "MOZ_ENABLE_WAYLAND,0"
         ] ++ lib.optionals (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) [
           "WLR_NO_HARDWARE_CURSORS,1"
         ] ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
