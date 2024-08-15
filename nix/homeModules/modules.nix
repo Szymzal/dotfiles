@@ -33,6 +33,7 @@
     ../../modules/home/videoediting.nix
     ../../modules/home/ldtk.nix
     ../../modules/home/flatpak.nix
+    ../../modules/home/godot.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
