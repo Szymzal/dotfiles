@@ -12,7 +12,10 @@ in
 
   config = mkIf cfg.enable {
     mypackages.impermanence.directories = [
-      ".local/share/Euro Truck Simulator 2"
+      {
+        directory = ".local/share/Euro Truck Simulator 2";
+        method = "symlink";
+      }
     ];
   };
 }
