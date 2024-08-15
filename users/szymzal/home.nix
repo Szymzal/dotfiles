@@ -66,6 +66,7 @@ in
     video-editing.enable = true;
     ldtk.enable = true;
     flatpak.enable = true;
+    godot.enable = true;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
