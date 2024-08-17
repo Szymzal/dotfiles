@@ -67,6 +67,7 @@ in
       hyprpaper
       wlogout
       bibata-hyprcursor
+      xdg-desktop-portal-hyprland
     ];
 
     wayland.windowManager.hyprland = {
