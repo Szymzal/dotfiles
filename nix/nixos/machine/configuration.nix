@@ -55,7 +55,14 @@ in
     }
   ];
 
+  environment.systemPackages = with pkgs; [
+    forge-servers.forge-1_20_1
+  ];
+
   mypackages = {
+    unfree.allowed = [
+      "minecraft-server-forge"
+    ];
     networkmanager = {
       enable = true;
       hostName = "machine";
