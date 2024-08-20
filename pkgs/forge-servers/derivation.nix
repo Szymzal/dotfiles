@@ -1,3 +1,12 @@
+# based on:
+# - https://github.com/Faeranne/nix-minecraft/blob/f4e4514f1d65b6a19704eab85070741e40c1d272/pkgs/forge-servers/derivation.nix
+# - https://github.com/Infinidoge/nix-minecraft/blob/ab4790259bf8ed20f4417de5a0e5ee592094c7c3/pkgs/build-support/mkTextileLoader.nix
+#
+# Locks (lock_game.json, lock_launcher.json, lock_libraries.json)
+# are copied from https://github.com/Faeranne/nix-minecraft/tree/f4e4514f1d65b6a19704eab85070741e40c1d272/pkgs/forge-servers
+#
+# Locks are modified to have only one version of Forge (1.20.1-47.3.1)
+# I didn't want to deal with many versions of Forge
 { lib
 , stdenvNoCC
 , fetchurl
@@ -121,6 +130,9 @@ stdenvNoCC.mkDerivation {
     rm $out/run.sh
     rm $out/user_jvm_args.txt
     rm $out/forge-installer.jar
+
+    substituteInPlace $out/libraries/net/minecraftforge/forge/1.20.1-47.3.1/unix_args.txt \
+      --replace libraries $out/libraries
   '') else throw "Cannot work with other types of packaging than installer!";
 
   dontUnpack = true;

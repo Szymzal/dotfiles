@@ -1,3 +1,6 @@
+# based on:
+# - https://github.com/Infinidoge/nix-minecraft/blob/ab4790259bf8ed20f4417de5a0e5ee592094c7c3/pkgs/fabric-servers/default.nix
+# - https://github.com/Faeranne/nix-minecraft/blob/f4e4514f1d65b6a19704eab85070741e40c1d272/pkgs/forge-servers/default.nix
 { callPackage
 , lib
 , jre8_headless
@@ -13,6 +16,8 @@ let
   # target latest the latest JDK for all newer versions of Minecraft.
   # TODO: Assert that jre_headless >= java version
   getJavaVersion = v: if v == 8 then jre8_headless else jre_headless;
+
+  # Copied from https://github.com/Infinidoge/nix-minecraft/blob/ab4790259bf8ed20f4417de5a0e5ee592094c7c3/lib/default.nix
   chain = {
     func = id;
     __functor = self: input:
@@ -30,6 +35,7 @@ let
     (sort versionOlder)
     last
     (attrNames versions);
+  #####
 
   mkServer = gameVersion: (callPackage ./server.nix {
     inherit gameVersion;

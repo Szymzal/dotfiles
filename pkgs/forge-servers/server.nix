@@ -1,3 +1,4 @@
+# based on https://github.com/Infinidoge/nix-minecraft/blob/master/pkgs/build-support/mkTextileServer.nix
 { callPackage
 , lib
 , writeShellScriptBin
@@ -10,7 +11,7 @@
 , extraMinecraftArgs ? ""
 }:
 (writeShellScriptBin "minecraft-server" ''
-  exec ${lib.getExe jre_headless} ${extraJavaArgs} @${loader}/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt nogui ${extraMinecraftArgs} "$@"''
+  exec ${lib.getExe jre_headless} ${extraJavaArgs} $@ @${loader}/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt nogui ${extraMinecraftArgs}''
 ) // rec {
   pname = "minecraft-server";
   version = "${gameVersion}-forge-${loaderVersion}";
