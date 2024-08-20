@@ -3,25 +3,30 @@
 , fetchurl
 , gameVersion
 , loaderVersion
-, vanillaServers
 , jre_headless
+, jq
 }:
 let
-  escapeVersion = lib.replaceStrings [ "." " " ] [ "_" "_" ];
+  minecraftInfo = (lib.importJSON ./lock_game.json).${gameVersion};
 
-  vanilla-server = vanillaServers."vanilla-${escapeVersion gameVersion}".override {
-    jre_headless = jre_headless;
-  };
   forge-installer = "forge-${gameVersion}-${loaderVersion}-installer";
 
-  mappingsInfo = (lib.importJSON ./lock_game.json).${gameVersion}.mappings;
+  mappingsInfo = minecraftInfo.mappings;
   mappings = fetchurl {
     name = "minecraft-mappings";
+    version = "${gameVersion}";
     inherit (mappingsInfo) sha1 url;
   };
 
+  vanillaInfo = minecraftInfo.server;
+  vanilla = fetchurl {
+    name = "vanilla-server";
+    version = "${gameVersion}";
+    inherit (vanillaInfo) sha1 url;
+  };
+
   loader = (lib.importJSON ./lock_launcher.json).${gameVersion}.${loaderVersion};
-  libraries = (lib.importJSON ./lock_game.json).${gameVersion}.libraries;
+  libraries = minecraftInfo.libraries;
   libraries_lock = lib.importJSON ./lock_libraries.json;
   fetchedLibraries = lib.forEach libraries (l:
     let
@@ -33,7 +38,7 @@ let
   );
 in
 stdenvNoCC.mkDerivation {
-  pname = "minecraft-server-forge";
+  pname = "forge-loader";
   version = "${gameVersion}-${loaderVersion}";
 
   libraries = fetchedLibraries;
@@ -74,7 +79,8 @@ stdenvNoCC.mkDerivation {
       done
     done
 
-    MOJMAP_DIR_NAME=$(basename "$out/libraries/de/oceanlabs/mcp/mcp_config/${gameVersion}-*")
+    MOJMAP_DIR_NAME=$(basename $out/libraries/de/oceanlabs/mcp/mcp_config/${gameVersion}-*)
+    echo $MOJMAP_DIR_NAME
     MOJMAP_DIR=$out/libraries/net/minecraft/server/$MOJMAP_DIR_NAME
     mkdir -p "$MOJMAP_DIR"
 
@@ -83,16 +89,41 @@ stdenvNoCC.mkDerivation {
     MINECRAFT_LIB=$out/libraries/net/minecraft/server/${gameVersion}
     mkdir -p "$MINECRAFT_LIB"
 
-    ln -s ${vanilla-server}/lib/minecraft/server.jar $MINECRAFT_LIB/server-${gameVersion}.jar
+    ln -s ${vanilla} $MINECRAFT_LIB/server-${gameVersion}.jar
 
-    ${jre_headless}/bin/java -jar $src --offline --installServer $out
+    cp $src $out/forge-installer.jar
+
+    echo Patching forge installer...
+    pushd $out
+
+    ${jre_headless}/bin/jar xf $out/forge-installer.jar install_profile.json
+
+    mv $out/install_profile.json $out/install_profile_original.json
+
+    ${lib.getExe jq} 'del(.processors[] | select(.args[1]=="DOWNLOAD_MOJMAPS"))' $out/install_profile_original.json > $out/install_profile.json
+    mkdir -p $out/META-INF
+    touch $out/META-INF/FORGE.RSA
+
+    ${jre_headless}/bin/jar uf $out/forge-installer.jar install_profile.json META-INF/FORGE.RSA
+
+    popd
+
+    rm $out/install_profile.json
+    rm $out/install_profile_original.json
+    rm -rf $out/META-INF
+
+    echo Running installer...
+    ${jre_headless}/bin/java -jar $out/forge-installer.jar --offline --installServer $out
+
+    echo Cleaning up...
+
+    rm $out/run.bat
+    rm $out/run.sh
+    rm $out/user_jvm_args.txt
+    rm $out/forge-installer.jar
   '') else throw "Cannot work with other types of packaging than installer!";
 
   dontUnpack = true;
-
-  passthru = {
-    updateScript = ./update.py;
-  };
 
   meta = with lib; {
     description = "Minecraft Server";

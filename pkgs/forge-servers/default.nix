@@ -31,9 +31,12 @@ let
     last
     (attrNames versions);
 
-  mkServer = gameVersion: (callPackage ./derivation.nix {
+  mkServer = gameVersion: (callPackage ./server.nix {
     inherit gameVersion;
     loaderVersion = latestVersion loader_versions.${gameVersion};
+    jre_headless = getJavaVersion 17;
+    loaderDrv = ./derivation.nix;
+    extraJavaArgs = "-Dlog4j.configurationFile=${./log4j.xml}";
   });
 
   gameVersions = attrNames loader_versions;

@@ -55,13 +55,9 @@ in
     }
   ];
 
-  environment.systemPackages = with pkgs; [
-    forge-servers.forge-1_20_1
-  ];
-
   mypackages = {
     unfree.allowed = [
-      "minecraft-server-forge"
+      "forge-loader"
     ];
     networkmanager = {
       enable = true;
@@ -185,6 +181,16 @@ in
         server = {
           enable = true;
           servers = {
+            minecraft-forge-test = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.forgeServers.forge-1_20_1;
+              serverProperties = {
+                server-port = 25567;
+              };
+            };
             games-datapack = {
               enable = true;
               autoStart = false;
