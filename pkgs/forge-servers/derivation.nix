@@ -131,7 +131,7 @@ stdenvNoCC.mkDerivation {
     rm $out/user_jvm_args.txt
     rm $out/forge-installer.jar
 
-    substituteInPlace $out/libraries/net/minecraftforge/forge/1.20.1-47.3.1/unix_args.txt \
+    substituteInPlace $out/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt \
       --replace libraries $out/libraries
   '') else throw "Cannot work with other types of packaging than installer!";
 
