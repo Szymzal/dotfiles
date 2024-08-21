@@ -181,16 +181,45 @@ in
         server = {
           enable = true;
           servers = {
-            minecraft-forge-test = {
+            TerraFirmaGreg = (let
+              gameVersion = "1.20.x";
+              modpackVersion = "0.7.12";
+              modpack = pkgs.fetchzip {
+                url = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/${modpackVersion}/TerraFirmaGreg-${gameVersion}-${modpackVersion}-server.zip";
+                hash = "sha256-k5OU6HBnf3Y9Zf7ZV/TA5ck2H/g7hnwW/0e/vYcn8wI=";
+              };
+            in {
               enable = true;
               autoStart = false;
               openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
-              package = pkgs.forgeServers.forge-1_20_1;
-              serverProperties = {
-                server-port = 25567;
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.2.6";
+                jre_headless = pkgs.jdk17;
               };
-            };
+              serverProperties = {
+                server-port = 25565;
+                allow-flight = true;
+                allow-nether = false;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "normal";
+                level-type = "tfc\:overworld";
+                max-chained-neighbor-updates = 1000000;
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+              };
+              symlinks = {
+                "mods" = "${modpack}/mods";
+                "kubejs" = "${modpack}/kubejs";
+              };
+              # TODO: How to copy?
+              # files = {
+              #   "config/" = "${modpack}/config/";
+              #   "defaultconfigs/" = "${modpack}/defaultconfigs/";
+              # };
+            });
             games-datapack = {
               enable = true;
               autoStart = false;
@@ -236,7 +265,7 @@ in
                 loaderVersion = "0.15.11";
               };
               serverProperties = {
-                server-port = 25565;
+                server-port = 25567;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;

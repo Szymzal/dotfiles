@@ -35,7 +35,7 @@ let
   };
 
   loader = (lib.importJSON ./lock_launcher.json).${gameVersion}.${loaderVersion};
-  libraries = minecraftInfo.libraries;
+  libraries = minecraftInfo.libraries ++ loader.libraries;
   libraries_lock = lib.importJSON ./lock_libraries.json;
   fetchedLibraries = lib.forEach libraries (l:
     let

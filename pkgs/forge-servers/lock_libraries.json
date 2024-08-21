@@ -1,4 +1,196 @@
 {
+    "org.ow2.asm:asm:9.5": {
+        "path": "org/ow2/asm/asm/9.5/asm-9.5.jar",
+        "sha1": "dc6ea1875f4d64fbc85e1691c95b96a3d8569c90",
+        "size": 121863,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm/9.5/asm-9.5.jar"
+    },
+    "org.ow2.asm:asm-commons:9.5": {
+        "path": "org/ow2/asm/asm-commons/9.5/asm-commons-9.5.jar",
+        "sha1": "19ab5b5800a3910d30d3a3e64fdb00fd0cb42de0",
+        "size": 72209,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-commons/9.5/asm-commons-9.5.jar"
+    },
+    "org.ow2.asm:asm-tree:9.5": {
+        "path": "org/ow2/asm/asm-tree/9.5/asm-tree-9.5.jar",
+        "sha1": "fd33c8b6373abaa675be407082fdfda35021254a",
+        "size": 51944,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-tree/9.5/asm-tree-9.5.jar"
+    },
+    "org.ow2.asm:asm-util:9.5": {
+        "path": "org/ow2/asm/asm-util/9.5/asm-util-9.5.jar",
+        "sha1": "64b5a1fc8c1b15ed2efd6a063e976bc8d3dc5ffe",
+        "size": 91076,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-util/9.5/asm-util-9.5.jar"
+    },
+    "org.ow2.asm:asm-analysis:9.5": {
+        "path": "org/ow2/asm/asm-analysis/9.5/asm-analysis-9.5.jar",
+        "sha1": "490bacc77de7cbc0be1a30bb3471072d705be4a4",
+        "size": 33978,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-analysis/9.5/asm-analysis-9.5.jar"
+    },
+    "org.ow2.asm:asm:9.3": {
+        "path": "org/ow2/asm/asm/9.3/asm-9.3.jar",
+        "sha1": "8e6300ef51c1d801a7ed62d07cd221aca3a90640",
+        "size": 122176,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm/9.3/asm-9.3.jar"
+    },
+    "org.ow2.asm:asm-tree:9.3": {
+        "path": "org/ow2/asm/asm-tree/9.3/asm-tree-9.3.jar",
+        "sha1": "78d2ecd61318b5a58cd04fb237636c0e86b77d97",
+        "size": 52669,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-tree/9.3/asm-tree-9.3.jar"
+    },
+    "org.ow2.asm:asm-commons:9.3": {
+        "path": "org/ow2/asm/asm-commons/9.3/asm-commons-9.3.jar",
+        "sha1": "1f2a432d1212f5c352ae607d7b61dcae20c20af5",
+        "size": 72716,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-commons/9.3/asm-commons-9.3.jar"
+    },
+    "org.ow2.asm:asm-analysis:9.3": {
+        "path": "org/ow2/asm/asm-analysis/9.3/asm-analysis-9.3.jar",
+        "sha1": "4b071f211b37c38e0e9f5998550197c8593f6ad8",
+        "size": 34276,
+        "url": "https://maven.minecraftforge.net/org/ow2/asm/asm-analysis/9.3/asm-analysis-9.3.jar"
+    },
+    "com.google.code.findbugs:jsr305:3.0.2": {
+        "path": "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar",
+        "sha1": "25ea2e8b0c338a877313bd4672d3fe056ea78f0d",
+        "size": 19936,
+        "url": "https://libraries.minecraft.net/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
+    },
+    "com.google.code.gson:gson:2.8.7": {
+        "path": "com/google/code/gson/gson/2.8.7/gson-2.8.7.jar",
+        "sha1": "69d9503ea0a40ee16f0bcdac7e3eaf83d0fa914a",
+        "size": 240400,
+        "url": "https://maven.minecraftforge.net/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar"
+    },
+    "com.google.guava:guava:20.0": {
+        "path": "com/google/guava/guava/20.0/guava-20.0.jar",
+        "sha1": "89507701249388e1ed5ddcf8c41f4ce1be7831ef",
+        "size": 2442625,
+        "url": "https://maven.minecraftforge.net/com/google/guava/guava/20.0/guava-20.0.jar"
+    },
+    "com.opencsv:opencsv:4.4": {
+        "path": "com/opencsv/opencsv/4.4/opencsv-4.4.jar",
+        "sha1": "525932a1edf46c9ca75aa9c83d31dc180c186865",
+        "size": 167167,
+        "url": "https://maven.minecraftforge.net/com/opencsv/opencsv/4.4/opencsv-4.4.jar"
+    },
+    "commons-beanutils:commons-beanutils:1.9.3": {
+        "path": "commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar",
+        "sha1": "c845703de334ddc6b4b3cd26835458cb1cba1f3d",
+        "size": 246174,
+        "url": "https://maven.minecraftforge.net/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar"
+    },
+    "commons-collections:commons-collections:3.2.2": {
+        "path": "commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar",
+        "sha1": "8ad72fe39fa8c91eaaf12aadb21e0c3661fe26d5",
+        "size": 588337,
+        "url": "https://maven.minecraftforge.net/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"
+    },
+    "commons-io:commons-io:2.4": {
+        "path": "commons-io/commons-io/2.4/commons-io-2.4.jar",
+        "sha1": "b1b6ea3b7e4aa4f492509a4952029cd8e48019ad",
+        "size": 185140,
+        "url": "https://libraries.minecraft.net/commons-io/commons-io/2.4/commons-io-2.4.jar"
+    },
+    "de.siegmar:fastcsv:2.0.0": {
+        "path": "de/siegmar/fastcsv/2.0.0/fastcsv-2.0.0.jar",
+        "sha1": "b615f26c03edeac966618b93b9ee4f4eed50aae1",
+        "size": 29476,
+        "url": "https://maven.minecraftforge.net/de/siegmar/fastcsv/2.0.0/fastcsv-2.0.0.jar"
+    },
+    "net.md-5:SpecialSource:1.11.0": {
+        "path": "net/md-5/SpecialSource/1.11.0/SpecialSource-1.11.0.jar",
+        "sha1": "43b84c4bb8d01cf90a29dfeec1c958a4b64baf46",
+        "size": 88737,
+        "url": "https://maven.minecraftforge.net/net/md-5/SpecialSource/1.11.0/SpecialSource-1.11.0.jar"
+    },
+    "net.minecraftforge:fmlcore:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/fmlcore/1.20.1-47.2.6/fmlcore-1.20.1-47.2.6.jar",
+        "sha1": "2d5f5aff839b7d2825c6968049399633d1c4d0b8",
+        "size": 117593,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlcore/1.20.1-47.2.6/fmlcore-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:fmlearlydisplay:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/fmlearlydisplay/1.20.1-47.2.6/fmlearlydisplay-1.20.1-47.2.6.jar",
+        "sha1": "0855538dcc7ae05a1de27881ebd5725cd7177201",
+        "size": 170337,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlearlydisplay/1.20.1-47.2.6/fmlearlydisplay-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:fmlloader:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/fmlloader/1.20.1-47.2.6/fmlloader-1.20.1-47.2.6.jar",
+        "sha1": "7e862c69c8fd10696819690249f2afa0d1da3c3b",
+        "size": 264306,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/fmlloader/1.20.1-47.2.6/fmlloader-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:forge:1.20.1-47.2.6:universal": {
+        "path": "net/minecraftforge/forge/1.20.1-47.2.6/forge-1.20.1-47.2.6-universal.jar",
+        "sha1": "06b9852182ad1d54c63eae6870e3f6be3a1cb2b0",
+        "size": 2677289,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.6/forge-1.20.1-47.2.6-universal.jar"
+    },
+    "net.minecraftforge:installertools:1.3.0": {
+        "path": "net/minecraftforge/installertools/1.3.0/installertools-1.3.0.jar",
+        "sha1": "248be3a2b70ecf8aca430d52cbbecd4d63b077cc",
+        "size": 83178,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/installertools/1.3.0/installertools-1.3.0.jar"
+    },
+    "net.minecraftforge:jarsplitter:1.1.4": {
+        "path": "net/minecraftforge/jarsplitter/1.1.4/jarsplitter-1.1.4.jar",
+        "sha1": "57ce2d6564c1176b23a911ef57127ff3c45bffb3",
+        "size": 7405,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/jarsplitter/1.1.4/jarsplitter-1.1.4.jar"
+    },
+    "net.minecraftforge:javafmllanguage:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/javafmllanguage/1.20.1-47.2.6/javafmllanguage-1.20.1-47.2.6.jar",
+        "sha1": "56551ed4a181a00930b0365996e1d9f3ca851459",
+        "size": 16518,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/javafmllanguage/1.20.1-47.2.6/javafmllanguage-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:lowcodelanguage:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/lowcodelanguage/1.20.1-47.2.6/lowcodelanguage-1.20.1-47.2.6.jar",
+        "sha1": "f27bd133cd78227e8d6def633b83c881a30cc243",
+        "size": 7400,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/lowcodelanguage/1.20.1-47.2.6/lowcodelanguage-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:mclanguage:1.20.1-47.2.6": {
+        "path": "net/minecraftforge/mclanguage/1.20.1-47.2.6/mclanguage-1.20.1-47.2.6.jar",
+        "sha1": "6e1641ac5a046737d7c3209901ca0a829d636873",
+        "size": 5001,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/mclanguage/1.20.1-47.2.6/mclanguage-1.20.1-47.2.6.jar"
+    },
+    "net.minecraftforge:srgutils:0.4.11": {
+        "path": "net/minecraftforge/srgutils/0.4.11/srgutils-0.4.11.jar",
+        "sha1": "fbad1341ffdb47d276bbdc40ecb06da49e053e74",
+        "size": 69289,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/srgutils/0.4.11/srgutils-0.4.11.jar"
+    },
+    "net.minecraftforge:coremods:5.0.1": {
+        "path": "net/minecraftforge/coremods/5.0.1/coremods-5.0.1.jar",
+        "sha1": "386b00279628b105b2d507539c46e134e96f6237",
+        "size": 24199,
+        "url": "https://maven.minecraftforge.net/net/minecraftforge/coremods/5.0.1/coremods-5.0.1.jar"
+    },
+    "org.apache.commons:commons-collections4:4.2": {
+        "path": "org/apache/commons/commons-collections4/4.2/commons-collections4-4.2.jar",
+        "sha1": "54ebea0a5b653d3c680131e73fe807bb8f78c4ed",
+        "size": 752798,
+        "url": "https://maven.minecraftforge.net/org/apache/commons/commons-collections4/4.2/commons-collections4-4.2.jar"
+    },
+    "org.apache.commons:commons-lang3:3.8.1": {
+        "path": "org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar",
+        "sha1": "6505a72a097d9270f7a9e7bf42c4238283247755",
+        "size": 501879,
+        "url": "https://maven.minecraftforge.net/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar"
+    },
+    "org.apache.commons:commons-text:1.3": {
+        "path": "org/apache/commons/commons-text/1.3/commons-text-1.3.jar",
+        "sha1": "9abf61708a66ab5e55f6169a200dbfc584b546d9",
+        "size": 182954,
+        "url": "https://maven.minecraftforge.net/org/apache/commons/commons-text/1.3/commons-text-1.3.jar"
+    },
     "trove:trove:1.0.2": {
         "path": "trove/trove/1.0.2/trove-1.0.2.jar",
         "sha1": "112b40581ab9a4d3de4636d49985a7f686d181c8",
@@ -388,12 +580,6 @@
         "sha1": "b1d8ab82d11d92fd639b56d639f8f46f739dd5fa",
         "size": 979212,
         "url": "https://libraries.minecraft.net/com/github/oshi/oshi-core/6.4.10/oshi-core-6.4.10.jar"
-    },
-    "com.google.code.gson:gson:2.10.1": {
-        "path": "com/google/code/gson/gson/2.10.1/gson-2.10.1.jar",
-        "sha1": "b3add478d4382b78ea20b1671390a858002feb6c",
-        "size": 283367,
-        "url": "https://libraries.minecraft.net/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar"
     },
     "com.google.guava:failureaccess:1.0.1": {
         "path": "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",

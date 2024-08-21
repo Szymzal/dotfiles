@@ -33,6 +33,15 @@ in
       prismlauncher
     ];
 
+    systemd.services = (lib.mapAttrs' (
+      name: conf: {
+        name = "minecraft-server-${name}";
+        value = {
+          startLimitIntervalSec = lib.mkForce 10;
+        };
+      }
+    ) cfg.server.servers);
+
     services.minecraft-servers = mkIf cfg.server.enable {
       enable = true;
       eula = true;
