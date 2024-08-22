@@ -75,29 +75,35 @@ in
       settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
     };
 
-    programs.regreet = {
+    programs.regreet = (let
+      theme = config.mypackages.theme;
+    in {
       enable = true;
       package = pkgs.greetd.regreet.overrideAttrs (oldAttrs: {
         name = "regreet-patched";
         patches = oldAttrs.patches
           ++ [ ./cursor_size.patch ];
       });
+      font.name = mkIf (config.mypackages.fonts.enable) "FiraCode Nerd Font";
+      iconTheme = {
+        name = theme.iconTheme.name;
+        package = theme.iconTheme.package;
+      };
+      cursorTheme = {
+        name = theme.cursorTheme.name;
+        package = theme.cursorTheme.package;
+      };
+      # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
+      theme.name = "adw-gtk3";
       settings = {
         background = mkIf (!(isNull cfg.wallpaper-path)) {
           path = cfg.wallpaper-path;
         };
-        GTK = (let
-          theme = config.mypackages.theme;
-        in {
+        GTK = {
           application_prefer_dark_theme = theme.prefer-dark-theme;
-          cursor_theme_name = theme.cursorTheme.name;
           cursor_theme_size = theme.cursorTheme.size;
-          icon_theme_name = theme.iconTheme.name;
-          font_name = mkIf (config.mypackages.fonts.enable) "FiraCode Nerd Font";
-          # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
-          theme_name = "adw-gtk3";
-        });
+        };
       };
-    };
+    });
   };
 }
