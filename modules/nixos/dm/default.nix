@@ -22,6 +22,10 @@ in
   config = mkIf cfg.enable {
     mypackages.wm.enable = mkForce true;
 
+    services.displayManager.sessionPackages = [
+      (config.programs.river.package)
+    ];
+
     services.xserver = {
       enable = true;
       xkb.layout = "pl";

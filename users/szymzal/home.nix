@@ -40,6 +40,7 @@ in
     tmux.enable = true;
     wm = {
       enable = true;
+      preset = "river";
       wallpaper-path = /persist/customization/wallpaper.jpg;
       splash = false;
     };

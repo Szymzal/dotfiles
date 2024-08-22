@@ -12,6 +12,12 @@ in
   options = {
     mypackages.wm = {
       enable = mkEnableOption "Enable window manager";
+      preset = mkOption {
+        default = "hyprland";
+        example = "river";
+        description = "What WM to choose";
+        type = types.enum [ "river" "hyprland" ];
+      };
       wallpaper-path = mkOption {
         default = null;
         example = literalExpression ''
@@ -67,17 +73,20 @@ in
       hyprpaper
       wlogout
       bibata-hyprcursor
+      wlr-randr
+    ] ++ optionals (cfg.preset == "hyprland") [
       xdg-desktop-portal-hyprland
+    ] ++ optionals (cfg.preset == "river") [
+      xdg-desktop-portal-wlr
     ];
 
-    wayland.windowManager.hyprland = {
+    wayland.windowManager.hyprland = mkIf (cfg.preset == "hyprland") {
       enable = true;
 
       settings = {
         exec-once = [
           "hyprpaper"
           "waybar"
-          "ags"
         ] ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
           "hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}"
         ];
@@ -186,6 +195,57 @@ in
           "$mod, mouse:273, resizewindow"
         ];
       };
+    };
+
+    wayland.windowManager.river = mkIf (cfg.preset == "river") {
+      enable = true;
+
+      settings = {
+        map = {
+          normal = {
+            "Super Return" = "spawn kitty";
+            "Super Q" = "close";
+            "Super L" = "spawn ${power-menu-script}/bin/power-menu";
+            "Super D" = "spawn 'killall fuzzel || fuzzel'";
+            "Super B" = "spawn ${config.programs.firefox.package}/bin/firefox";
+            "Super Space" = "toggle-float";
+          };
+        };
+        map-pointer = {
+          normal = {
+            "Super BTN_LEFT" = "move-view";
+            "Super BTN_RIGHT" = "resize-view";
+          };
+        };
+        xcursor-theme = "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
+        rule-add."-app-id" = {
+          "'bar'" = "csd";
+        };
+        spawn = [
+          "hyprpaper"
+          "waybar"
+          "rivertile"
+        ];
+      };
+
+      extraConfig = ''
+        riverctl default-layout rivertile
+      '';
+
+      extraSessionVariables = {
+        XDG_SESSION_TYPE = "wayland";
+        NIXOS_OZONE_WL = "1";
+      } // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) {
+        LIBVA_DRIVER_NAME = "nvidia";
+      } // lib.optionalAttrs config.mypackages.browser.enable {
+        MOZ_ENABLE_WAYLAND = "0";
+      } // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
+        WLR_NO_HARDWARE_CURSORS = "1";
+      };
+
+      systemd.enable = true;
+
+      xwayland.enable = true;
     };
 
     services.hyprpaper = {
