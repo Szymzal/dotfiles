@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ lib, inputs, pkgs, ... }:
 let
   inherit (inputs) self;
 in
@@ -188,6 +188,30 @@ in
                 url = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/${modpackVersion}/TerraFirmaGreg-${gameVersion}-${modpackVersion}-server.zip";
                 hash = "sha256-k5OU6HBnf3Y9Zf7ZV/TA5ck2H/g7hnwW/0e/vYcn8wI=";
               };
+
+              copyFiles = (from: to: (let
+                evalDir = (prefix: to: dir:
+                  (lib.mapAttrsToList
+                    (path: type:
+                      (let
+                        diffPath = (builtins.replaceStrings [ "${prefix}" ] [ "" ] "${dir}");
+                        diffPathRemovedDep = builtins.unsafeDiscardStringContext diffPath;
+                      in (
+                          if (type == "directory") then
+                            (evalDir prefix to "${prefix}${diffPath}/${path}")
+                          else
+                            {
+                              "${to}${diffPathRemovedDep}/${path}" = "${prefix}${diffPath}/${path}";
+                            }
+                        )
+                      )
+                    )
+                    (builtins.readDir dir)
+                  )
+                );
+              in (
+                lib.mergeAttrsList (lib.flatten (evalDir from to from))
+              )));
             in {
               enable = true;
               autoStart = false;
@@ -214,11 +238,8 @@ in
                 "mods" = "${modpack}/mods";
                 "kubejs" = "${modpack}/kubejs";
               };
-              # TODO: How to copy?
-              # files = {
-              #   "config/" = "${modpack}/config/";
-              #   "defaultconfigs/" = "${modpack}/defaultconfigs/";
-              # };
+              files = (copyFiles "${modpack}/config" "config")
+                // (copyFiles "${modpack}/defaultconfigs" "defaultconfigs");
             });
             games-datapack = {
               enable = true;
