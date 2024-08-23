@@ -201,16 +201,102 @@ in
       enable = true;
 
       settings = {
-        map = {
+        declare-mode = [
+          "passthrough"
+          "launcher"
+        ];
+        map = (let
+          mediaButtons = {
+            "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 2'";
+            "None XF86AudioLowerVolume" = "spawn 'pamixer -d 2'";
+            "None XF86AudioMute" = "spawn 'pamixer -t'";
+          };
+        in {
+          launcher = {
+            "None B" = "spawn ${config.programs.firefox.package}/bin/firefox";
+            "None T" = "spawn thunar";
+            "None Escape" = "enter-mode normal";
+          };
+          passthrough = {
+            "Super F11" = "enter-mode normal";
+          };
+          locked = mediaButtons;
           normal = {
             "Super Return" = "spawn kitty";
             "Super Q" = "close";
-            "Super L" = "spawn ${power-menu-script}/bin/power-menu";
+
+            "Super O" = "spawn ${power-menu-script}/bin/power-menu";
             "Super D" = "spawn 'killall fuzzel || fuzzel'";
-            "Super B" = "spawn ${config.programs.firefox.package}/bin/firefox";
+            "Super P" = "spawn ${screenshot-script}/bin/screenshot";
+
             "Super Space" = "toggle-float";
-          };
-        };
+
+            "Super J" = "focus-view next";
+            "Super K" = "focus-view previous";
+
+            "Super+Shift J" = "swap next";
+            "Super+Shift K" = "swap previous";
+
+            "Super Period" = "focus-output next";
+            "Super Comma" = "focus-output previous";
+
+            "Super+Shift Period" = "send-to-output next";
+            "Super+Shift Comma" = "send-to-output previous";
+
+            "Super T" = "zoom";
+
+            "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+            "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+
+            "Super+Shift H" = "send-layout-cmd rivertile 'main-count +1'";
+            "Super+Shift L" = "send-layout-cmd rivertile 'main-count -1'";
+
+            "Super+Alt H" = "move left 100";
+            "Super+Alt J" = "move down 100";
+            "Super+Alt K" = "move up 100";
+            "Super+Alt L" = "move right 100";
+
+            "Super+Alt+Control H" = "snap left";
+            "Super+Alt+Control J" = "snap down";
+            "Super+Alt+Control K" = "snap up";
+            "Super+Alt+Control L" = "snap right";
+
+            "Super+Alt+Shift H" = "resize horizontal -100";
+            "Super+Alt+Shift J" = "resize vertical 100";
+            "Super+Alt+Shift K" = "resize vertical -100";
+            "Super+Alt+Shift L" = "resize horizontal 100";
+
+            "Super F" = "toggle-fullscreen";
+
+            "Super Up" = "send-layout-cmd rivertile 'main-location top'";
+            "Super Right" = "send-layout-cmd rivertile 'main-location right'";
+            "Super Down" = "send-layout-cmd rivertile 'main-location bottom'";
+            "Super Left" = "send-layout-cmd rivertile 'main-location left'";
+
+            "Super F11" = "enter-mode passthrough";
+            "Super Z" = "enter-mode launcher";
+          } // (let
+            loop = (i: to: let
+              tags = "$((1 << (${builtins.toString i} - 1)))";
+            in (
+              {
+                "Super ${builtins.toString i}" = "set-focused-tags ${tags}";
+                "Super+Shift ${builtins.toString i}" = "set-view-tags ${tags}";
+                "Super+Control ${builtins.toString i}" = "toggle-focused-tags ${tags}";
+                "Super+Shift+Control ${builtins.toString i}" = "toggle-view-tags ${tags}";
+              } // lib.optionalAttrs (i < to) (loop (i + 1) to)
+            ));
+          in
+            loop 1 9
+          ) // (let
+            allTags = "$(((1 << 32) - 1))";
+          in (
+            {
+              "Super 0" = "set-focused-tags ${allTags}";
+              "Super+Shift 0" = "set-view-tags ${allTags}";
+            }
+          )) // mediaButtons;
+        });
         map-pointer = {
           normal = {
             "Super BTN_LEFT" = "move-view";
@@ -220,17 +306,27 @@ in
         xcursor-theme = "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
         rule-add."-app-id" = {
           "'bar'" = "csd";
+          "firefox" = "ssd";
+          "float" = "float";
+          "'org.pulseaudio.pavucontrol'" = "float";
+          "'blueman-manager'" = "float";
+          "'firefox'" = {
+            "-title" = {
+              "'Picture-in-Picture'" = "float";
+            };
+          };
         };
+        border-color-focused = "0x${config.lib.stylix.colors.base0D}";
+        border-color-unfocused = "0x${config.lib.stylix.colors.base03}";
+        set-repeat = "50 300";
+        default-layout = "rivertile";
+        focus-follows-cursor = "normal";
         spawn = [
           "hyprpaper"
           "waybar"
           "rivertile"
         ];
       };
-
-      extraConfig = ''
-        riverctl default-layout rivertile
-      '';
 
       extraSessionVariables = {
         XDG_SESSION_TYPE = "wayland";
@@ -253,7 +349,8 @@ in
       settings = [
         {
           profile.name = "default";
-          profile.outputs = (lib.forEach (osConfig.mypackages.monitors) (value:
+          profile.outputs = (lib.forEach (monitors) (value:
+          # TODO: Exclude Unknown-1 monitor
           (mkIf value.enable {
             status = if (value.enable) then "enable" else "disable";
             adaptiveSync = false;
