@@ -321,6 +321,7 @@ in
         set-repeat = "50 300";
         default-layout = "rivertile";
         focus-follows-cursor = "normal";
+        keyboard-layout = "pl";
         spawn = [
           "hyprpaper"
           "waybar"
