@@ -248,6 +248,27 @@ in
       xwayland.enable = true;
     };
 
+    services.kanshi = mkIf (cfg.preset == "river") {
+      enable = true;
+      settings = [
+        {
+          profile.name = "default";
+          profile.outputs = (lib.forEach (osConfig.mypackages.monitors) (value:
+          (mkIf value.enable {
+            status = if (value.enable) then "enable" else "disable";
+            adaptiveSync = false;
+            criteria = value.connector;
+            position = "${builtins.toString value.position.x},${builtins.toString value.position.y}";
+            scale = value.mode.scale;
+            transform = "normal";
+            mode = "${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate}Hz";
+          })
+        ));
+        }
+      ];
+      systemdTarget = "river-session.target";
+    };
+
     services.hyprpaper = {
       enable = true;
       settings = {
@@ -258,21 +279,6 @@ in
     };
 
     home.file = {
-      # ".config/hypr/hyprpaper.conf".text =
-      #   let
-      #     monitorsConfig = (lib.concatStrings (lib.forEach (monitors) (value:
-      #       if (value.enable) then
-      #         "wallpaper = ${value.connector},${cfg.wallpaper-path}\n"
-      #       else
-      #         ""
-      #     )));
-      #   in
-      #   ''
-      #     preload = ${cfg.wallpaper-path}
-      #     ${monitorsConfig}
-      #     splash = ${trivial.boolToString cfg.splash}
-      #   '';
-
       ".config/wlogout/style.css".text = (let
         # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L3
         pow =

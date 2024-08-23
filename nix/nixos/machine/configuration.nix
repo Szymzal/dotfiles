@@ -83,7 +83,7 @@ in
           width = 1920;
           height = 1080;
           rate = 144.00101;
-          scale = 1;
+          scale = 1.0;
         };
       }
       {
@@ -97,7 +97,7 @@ in
           width = 1920;
           height = 1080;
           rate = 143.99800;
-          scale = 1;
+          scale = 1.0;
         };
       }
     ];

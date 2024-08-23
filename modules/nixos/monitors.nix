@@ -63,7 +63,7 @@ in
               type = types.numbers.nonnegative;
             };
             scale = mkOption {
-              default = 1;
+              default = 1.0;
               example = 2.0;
               description = "Scale of screen";
               type = types.numbers.positive;
