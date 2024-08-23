@@ -1,4 +1,5 @@
 { pkgs }: {
+  playit-agent = (pkgs.callPackage ./playit.nix { });
   forgeServers = (pkgs.callPackage ./forge-servers/default.nix { });
   bibata-hyprcursor = (pkgs.callPackage ./BibataCursor.nix { });
   casparcg-media-scanner = (pkgs.callPackage ./casparcg-media-scanner.nix { });

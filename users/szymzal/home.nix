@@ -68,6 +68,7 @@ in
     ldtk.enable = true;
     flatpak.enable = true;
     godot.enable = true;
+    playit.enable = true;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
