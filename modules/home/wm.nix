@@ -304,16 +304,21 @@ in
           };
         };
         xcursor-theme = "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
-        rule-add."-app-id" = {
-          "'bar'" = "csd";
-          "firefox" = "ssd";
-          "float" = "float";
-          "'org.pulseaudio.pavucontrol'" = "float";
-          "'blueman-manager'" = "float";
-          "'firefox'" = {
-            "-title" = {
-              "'Picture-in-Picture'" = "float";
+        rule-add = {
+          "-app-id" = {
+            "'bar'" = "csd";
+            "firefox" = "ssd";
+            "float" = "float";
+            "'org.pulseaudio.pavucontrol'" = "float";
+            "'blueman-manager'" = "float";
+            "'firefox'" = {
+              "-title" = {
+                "'Picture-in-Picture'" = "float";
+              };
             };
+          };
+          "-title" = {
+            "'MainPicker'" = "float";
           };
         };
         border-color-focused = "0x${config.lib.stylix.colors.base0D}";
@@ -331,6 +336,7 @@ in
 
       extraSessionVariables = {
         XDG_SESSION_TYPE = "wayland";
+        XDG_CURRENT_DESKTOP = "river";
         NIXOS_OZONE_WL = "1";
       } // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) {
         LIBVA_DRIVER_NAME = "nvidia";
