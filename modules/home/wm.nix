@@ -326,6 +326,8 @@ in
         set-repeat = "50 300";
         default-layout = "rivertile";
         focus-follows-cursor = "normal";
+        set-cursor-warp = "on-focus-change";
+        hide-cursor.when-typing = "enabled";
         keyboard-layout = "pl";
         spawn = [
           "hyprpaper"
