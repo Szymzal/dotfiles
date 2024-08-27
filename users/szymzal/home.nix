@@ -78,6 +78,7 @@ in
       rocket-league.enable = true;
       roblox.enable = true;
       ets2.enable = true;
+      openttd.enable = true;
     };
   };
 }
