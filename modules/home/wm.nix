@@ -305,9 +305,9 @@ in
         };
         xcursor-theme = "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
         rule-add = {
+          "" = "ssd";
           "-app-id" = {
             "'bar'" = "csd";
-            "firefox" = "ssd";
             "float" = "float";
             "'org.pulseaudio.pavucontrol'" = "float";
             "'blueman-manager'" = "float";
