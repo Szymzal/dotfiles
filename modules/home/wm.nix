@@ -309,6 +309,7 @@ in
           "-app-id" = {
             "'bar'" = "csd";
             "float" = "float";
+            "'org.gnome.FileRoller'" = "float";
             "'org.pulseaudio.pavucontrol'" = "float";
             "'blueman-manager'" = "float";
             "'firefox'" = {
