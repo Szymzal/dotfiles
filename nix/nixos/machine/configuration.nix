@@ -58,6 +58,7 @@ in
   networking = {
     firewall.enable = true;
     nftables.enable = true;
+    interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
   mypackages = {
@@ -70,6 +71,7 @@ in
       hostName = "machine";
     };
     gc.enable = true;
+    tailscale.enable = true;
     editor.enable = true;
     clipboard.enable = true;
     git.enable = true;
