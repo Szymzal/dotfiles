@@ -34,7 +34,7 @@ in
         default = [];
         example = [ "/var/lib/nixos" "/var/log" ];
         description = "Directories to persist. Directories needs to be absolute";
-        type = types.listOf types.str;
+        type = types.listOf (types.either types.str types.attrs);
       };
       files = mkOption {
         default = [];

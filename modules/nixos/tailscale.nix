@@ -15,5 +15,9 @@ in
       enable = true;
       openFirewall = true;
     };
+
+    mypackages.impermanence.directories = [
+      { directory = "/var/lib/tailscale"; mode = "0700"; }
+    ];
   };
 }

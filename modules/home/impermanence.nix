@@ -22,7 +22,7 @@ in
         default = [];
         example = [ "Downloads" "dev/project" ];
         description = "Directories to persist. Directories will be appended to persistent-path option";
-        type = types.listOf (types.either types.str types.attrs );
+        type = types.listOf (types.either types.str types.attrs);
       };
       files = mkOption {
         default = [];
