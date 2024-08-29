@@ -55,7 +55,13 @@ in
     }
   ];
 
+  networking = {
+    firewall.enable = true;
+    nftables.enable = true;
+  };
+
   mypackages = {
+    ssh.enable = true;
     unfree.allowed = [
       "forge-loader"
     ];

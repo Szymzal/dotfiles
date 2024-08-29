@@ -20,6 +20,9 @@ in
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.password.path;
       shell = pkgs.zsh;
+      openssh.authorizedKeys.keys = mkIf config.mypackages.ssh.enable [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPE6vaWToYAsNeXoorsn6MBbgMyJ4Iw9MesRKV890NwP szymzal@phone"
+      ];
     };
 
     sops.secrets.password = {
