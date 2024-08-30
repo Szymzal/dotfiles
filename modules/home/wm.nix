@@ -116,6 +116,7 @@ in
         "$mod" = "SUPER";
 
         env = [
+          "__GL_THREADED_OPTIMIZATIONS,0"
           "XDG_SESSION_TYPE,wayland"
           "NIXOS_OZONE_WL,1"
           "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
@@ -338,6 +339,7 @@ in
       };
 
       extraSessionVariables = {
+        __GL_THREADED_OPTIMIZATIONS = "0";
         XDG_SESSION_TYPE = "wayland";
         XDG_CURRENT_DESKTOP = "river";
         NIXOS_OZONE_WL = "1";
