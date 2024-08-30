@@ -25,6 +25,10 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.kernelParams = [
+    "reboot=acpi"
+  ];
+
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/8A48821948820463";
     fsType = "ntfs-3g";
