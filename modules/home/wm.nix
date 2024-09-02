@@ -186,7 +186,7 @@ in
         ] ++ optionals (config.mypackages.screenshot.enable) [
           "$mod, P, exec, ${screenshot-script}/bin/screenshot"
         ] ++ optionals (config.mypackages.browser.enable) [
-          "$mod, B, exec, ${config.programs.firefox.package}/bin/firefox"
+          "$mod, B, exec, ${lib.getExe config.programs.chromium.package}"
         ];
 
         bindm = [

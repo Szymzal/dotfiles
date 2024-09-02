@@ -65,10 +65,15 @@ in
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    zoom-us
+  ];
+
   mypackages = {
     ssh.enable = true;
     unfree.allowed = [
       "forge-loader"
+      "zoom"
     ];
     networkmanager = {
       enable = true;
