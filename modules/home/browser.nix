@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.mypackages.browser;
@@ -13,7 +13,6 @@ in
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs.ungoogled-chromium;
       extensions = [
         { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # Proton Pass
       ];
