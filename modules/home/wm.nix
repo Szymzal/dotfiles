@@ -213,7 +213,7 @@ in
           };
         in {
           launcher = {
-            "None B" = "spawn ${config.programs.firefox.package}/bin/firefox";
+            "None B" = "spawn ${lib.getExe config.programs.chromium.package}";
             "None T" = "spawn thunar";
             "None Escape" = "enter-mode normal";
           };
