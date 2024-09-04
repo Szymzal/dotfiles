@@ -35,6 +35,8 @@
     ../../modules/home/flatpak.nix
     ../../modules/home/godot.nix
     ../../modules/home/playit.nix
+    ../../modules/home/zoom.nix
+    ../../modules/home/blender.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix

@@ -65,10 +65,6 @@ in
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    zoom-us
-  ];
-
   mypackages = {
     ssh.enable = true;
     unfree.allowed = [
@@ -338,6 +334,8 @@ in
       };
     };
     casparcg.enable = true;
+    zoom.enable = true;
+    blender.enable = true;
   };
 
   myusers.szymzal.enable = true;
