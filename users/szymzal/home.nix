@@ -80,5 +80,7 @@ in
       ets2.enable = true;
       openttd.enable = true;
     };
+    zoom.enable = true;
+    blender.enable = true;
   };
 }

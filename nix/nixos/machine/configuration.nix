@@ -334,8 +334,6 @@ in
       };
     };
     casparcg.enable = true;
-    zoom.enable = true;
-    blender.enable = true;
   };
 
   myusers.szymzal.enable = true;

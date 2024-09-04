@@ -14,5 +14,9 @@ in
     home.packages = with pkgs; [
       blender
     ];
+
+    mypackages.impermanence.directories = [
+      ".config/blender"
+    ];
   };
 }

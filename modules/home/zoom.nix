@@ -14,5 +14,10 @@ in
     home.packages = with pkgs; [
       zoom-us
     ];
+
+    mypackages.impermanence.files = [
+      ".config/zoom.conf"
+      ".config/zoomus.conf"
+    ];
   };
 }
