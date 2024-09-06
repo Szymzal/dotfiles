@@ -70,6 +70,10 @@ in
     unfree.allowed = [
       "forge-loader"
       "zoom"
+      "blender"
+      "cuda_cudart"
+      "cuda_nvcc"
+      "cuda_cccl"
     ];
     networkmanager = {
       enable = true;

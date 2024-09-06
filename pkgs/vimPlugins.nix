@@ -18,15 +18,4 @@
       sha256 = "siqpyQLpxWYfZKxoPrflnCg8V5oTQcIXKrezjCgZfMM=";
     };
   };
-
-  luvit-meta = vimUtils.buildVimPlugin {
-    name = "luvit-meta";
-    version = "2024-06-27";
-    src = fetchFromGitHub {
-      owner = "Bilal2453";
-      repo = "luvit-meta";
-      rev = "ce76f6f6cdc9201523a5875a4471dcfe0186eb60";
-      sha256 = "1ZT5D3HnrJp4/zphTCkz8crT/cyERBBHYt2tcqYQMRE=";
-    };
-  };
 }

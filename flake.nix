@@ -34,7 +34,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flatpak.url = "github:GermanBread/declarative-flatpak";
+    flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
   };
 
   outputs = { flakelight, ... }@inputs:
