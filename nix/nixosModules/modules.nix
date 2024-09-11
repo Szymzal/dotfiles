@@ -43,6 +43,8 @@
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/tailscale.nix
+    ../../modules/nixos/blender.nix
+    ../../modules/nixos/zoom.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix
