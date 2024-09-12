@@ -23,5 +23,22 @@ in
       enable = true;
       package = hyprland_package;
     };
+
+    programs.river = {
+      enable = true;
+      xwayland.enable = true;
+      extraPackages = with pkgs; [
+        hyprlock
+      ];
+    };
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+    };
   };
 }

@@ -76,8 +76,6 @@ in
       wlr-randr
     ] ++ optionals (cfg.preset == "hyprland") [
       xdg-desktop-portal-hyprland
-    ] ++ optionals (cfg.preset == "river") [
-      xdg-desktop-portal-wlr
     ];
 
     wayland.windowManager.hyprland = mkIf (cfg.preset == "hyprland") {
