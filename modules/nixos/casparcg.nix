@@ -20,23 +20,25 @@ in
       "freeimage-unstable-2021-11-01"
     ];
 
-    containers.casparcg = {
-      privateNetwork = true;
-      hostAddress = "192.168.16.10";
-      localAddress = "192.168.16.11";
-      config = { config, lib, ... }: {
-        environment.systemPackages = with pkgs; [
-          casparcg-server
-        ];
+    containers = {
+      casparcg = {
+        privateNetwork = true;
+        hostAddress = "192.168.16.10";
+        localAddress = "192.168.16.11";
+        config = { config, lib, ... }: {
+          environment.systemPackages = with pkgs; [
+            casparcg-server
+          ];
 
-        networking = {
-          firewall = {
-            enable = true;
+          networking = {
+            firewall = {
+              enable = true;
+            };
+            useHostResolvConf = lib.mkForce false;
           };
-          useHostResolvConf = lib.mkForce false;
-        };
 
-        system.stateVersion = "24.05";
+          system.stateVersion = "24.05";
+        };
       };
     };
   };
