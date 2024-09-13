@@ -1,37 +1,3 @@
-# { stdenv
-# , fetchzip
-# , autoPatchelfHook
-# , musl
-# , ffmpeg
-# }:
-# stdenv.mkDerivation rec {
-#   pname = "media-scanner";
-#   version = "1.3.4";
-#
-#   src = fetchzip {
-#     url = "https://github.com/CasparCG/media-scanner/releases/download/v${version}/casparcg-scanner-v${version}-linux-x64.zip";
-#     stripRoot = false;
-#     sha256 = "sha256-sxx7XDly0KPBOdn61FGXM+jZ6R4Iq5XUZRqKL24Jepk=";
-#   };
-#
-#   nativeBuildInputs = [
-#     ffmpeg
-#     autoPatchelfHook
-#   ];
-#
-#   buildInputs = [
-#     musl
-#   ];
-#
-#   dontBuild = true;
-#
-#   installPhase = ''
-#     mkdir -p $out/bin
-#     cp ./scanner $out/bin/caspar-scanner
-#     cp -r ./prebuilds $out/bin/prebuilds
-#   '';
-# }
-
 { stdenvNoCC
 , fetchFromGitHub
 , nodejs_18
@@ -40,10 +6,10 @@
 , ffmpeg
 , musl
 , typescript
-, pkg-config
+, writeShellScript
 }:
 
-stdenvNoCC.mkDerivation (let 
+stdenvNoCC.mkDerivation (let
   version = "1.3.4";
   src = fetchFromGitHub {
     owner = "CasparCG";
@@ -51,12 +17,14 @@ stdenvNoCC.mkDerivation (let
     rev = "v${version}";
     hash = "sha256-qWMukQYfOynTsEg48wdMlM6a3HPvNR/LlsIRZhO8L0g=";
   };
-  patched-node = (nodejs_18.overrideAttrs (finalAttrs: previousAttrs: { version = "18.15.0"; sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"; patches = [ ./node.v18.15.0.cpp.patch ]; }));
+  runScript = writeShellScript "caspar-scanner" ''
+    node OUTDIR/lib/caspar-scanner/src $@
+  '';
 in rec {
   pname = "media-scanner";
   inherit version src;
 
-  nativeBuildInputs = [ nodejs_18 yarn-berry ffmpeg pkg-config ];
+  nativeBuildInputs = [ nodejs_18 yarn-berry ffmpeg ];
   buildInputs = [ musl typescript ];
 
   patches = [
@@ -110,21 +78,11 @@ in rec {
     outputHashMode = "recursive";
   };
 
-  # cp "${(nodejs_18.overrideAttrs (finalAttrs: previousAttrs: { patches = [ ./node.v18.15.0.cpp.patch ]; }))}/bin/node" ".pkg-cache/v3.4/build-v18.5.0-linux-x64"
-  #
-  # cp "${nodejs_18}/bin/node" ".pkg-cache/v3.4/built-v18.5.0-alpine-x64"
-  # cp "${nodejs_18}/bin/node" ".pkg-cache/v3.4/built-v18.5.0-linux-x64"
   configurePhase = ''
     runHook preConfigure
 
     export HOME="$NIX_BUILD_TOP"
     export YARN_ENABLE_TELEMETRY=0
-    export PKG_CACHE_PATH=".pkg-cache"
-
-    mkdir -p ".pkg-cache/v3.4"
-
-    cp "${patched-node}/bin/node" ".pkg-cache/v3.4/build-v18.5.0-linux-x64"
-    cp "${patched-node}/bin/node" ".pkg-cache/v3.4/build-v18.5.0-alpine-x64"
 
     yarn config set enableGlobalCache false
     yarn config set cacheFolder $yarnOfflineCache
@@ -136,13 +94,21 @@ in rec {
     runHook preBuild
 
     yarn install --immutable --immutable-cache
-    yarn build
+    yarn build:ts
 
     runHook postBuild
   '';
 
   installPhase = ''
-    mkdir -p $out
-    cp -r dist/. $out/
+    mkdir -p $out/lib/caspar-scanner/src
+    mkdir -p $out/bin
+
+    rm -rf dist/*{.ts,.map}
+    cp -r dist/* $out/lib/caspar-scanner/src
+    cp -r node_modules/ $out/lib/caspar-scanner
+    cp package.json $out/lib/caspar-scanner
+    cp ${runScript} $out/bin/caspar-scanner
+
+    substituteInPlace $out/bin/caspar-scanner --replace-fail "OUTDIR" "$out"
   '';
 })
