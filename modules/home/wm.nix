@@ -161,6 +161,7 @@ in
           ",XF86AudioRaiseVolume, exec, pamixer -i 2"
           ",XF86AudioLowerVolume, exec, pamixer -d 2"
           ",XF86AudioMute, exec, pamixer -t"
+          ",XF86AudioMicMute, exec, pamixer --default-source -t"
 
           "$mod, 1, workspace, 1"
           "$mod, 2, workspace, 2"
@@ -208,6 +209,7 @@ in
             "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 2'";
             "None XF86AudioLowerVolume" = "spawn 'pamixer -d 2'";
             "None XF86AudioMute" = "spawn 'pamixer -t'";
+            "None XF86AudioMicMute" = "spawn 'pamixer --default-source -t'";
           };
         in {
           launcher = {
