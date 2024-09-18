@@ -21,6 +21,7 @@ in
     mypackages.impermanence = {
       directories = [
         ".config/chromium"
+        ".local/share/applications" # PWA
         "Downloads"
       ];
     };

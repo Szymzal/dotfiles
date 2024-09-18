@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation (let
     hash = "sha256-qWMukQYfOynTsEg48wdMlM6a3HPvNR/LlsIRZhO8L0g=";
   };
   runScript = writeShellScript "caspar-scanner" ''
-    node OUTDIR/lib/caspar-scanner/src $@
+    ${nodejs_18}/bin/node OUTDIR/lib/caspar-scanner/src $@
   '';
 in rec {
   pname = "media-scanner";
@@ -80,6 +80,9 @@ in rec {
 
   configurePhase = ''
     runHook preConfigure
+
+    substituteInPlace src/config.ts --replace-warn ": 'ffmpeg'" ": '${ffmpeg}/bin/ffmpeg'"
+    substituteInPlace src/config.ts --replace-warn ": 'ffprobe'" ": '${ffmpeg}/bin/ffprobe'"
 
     export HOME="$NIX_BUILD_TOP"
     export YARN_ENABLE_TELEMETRY=0
