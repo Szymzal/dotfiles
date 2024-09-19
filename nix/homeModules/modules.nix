@@ -37,6 +37,7 @@
     ../../modules/home/playit.nix
     ../../modules/home/zoom.nix
     ../../modules/home/blender.nix
+    ../../modules/home/epic-games.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix

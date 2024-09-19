@@ -82,5 +82,6 @@ in
     };
     zoom.enable = true;
     blender.enable = true;
+    epic-games.enable = true;
   };
 }
