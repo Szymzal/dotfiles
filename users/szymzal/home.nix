@@ -79,6 +79,7 @@ in
       roblox.enable = true;
       ets2.enable = true;
       openttd.enable = true;
+      trackmania.enable = true;
     };
     zoom.enable = true;
     blender.enable = true;
