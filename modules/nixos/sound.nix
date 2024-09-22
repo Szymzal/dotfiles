@@ -28,7 +28,8 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      qpwgraph
+      # qpwgraph
+      helvum
       pavucontrol
     ];
   };
