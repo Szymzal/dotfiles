@@ -193,6 +193,38 @@ in
         server = {
           enable = true;
           servers = {
+            CreateServer = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.fabricServers.fabric-1_20_1;
+              serverProperties = {
+                server-port = 25565;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = true;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Create Modpack Created by US :)";
+              };
+              symlinks = {
+                mods = (
+                let
+                  modpack = pkgs.fetchModrinthModpack {
+                    mrpackFile = ./CreateModpackv1.mrpack;
+                  };
+                in
+                "${modpack}/mods"
+                );
+              };
+            };
             TerraFirmaGreg = (let
               gameVersion = "1.20.x";
               modpackVersion = "0.7.12";
@@ -234,7 +266,7 @@ in
                 jre_headless = pkgs.jdk17;
               };
               serverProperties = {
-                server-port = 25565;
+                server-port = 25568;
                 allow-flight = true;
                 allow-nether = false;
                 broadcast-console-to-ops = false;

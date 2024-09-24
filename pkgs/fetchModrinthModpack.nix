@@ -7,14 +7,39 @@
 
 { pname ? ""
 , version ? ""
-, url
-, hash
+, mrpackFile ? null
+, url ? null
+, hash ? null
 , removeProjectIDs ? []
 , ...
 }@args :
 let
   # NOTE: fetchzip does fails with files with no read permission (modrinth.index.json)
-  mrpack = (fetchurl {
+  mrpack = if mrpackFile != null then (
+    stdenvNoCC.mkDerivation {
+      name = "mrpack-file";
+      nativeBuildInputs = [ unzip ];
+      src = mrpackFile;
+
+      unpackPhase = ''
+        unpackDir="$TMPDIR/unpack"
+        mkdir -p "$unpackDir"
+        cd "$unpackDir"
+
+        renamed="$TMPDIR/download.zip"
+        cp "$src" "$renamed"
+        unpackFile "$renamed"
+        chmod -R +rw "$unpackDir" # only this line has changed
+
+        mv "$unpackDir" "$out"
+
+        chmod 755 "$out"
+      '';
+
+      dontConfigure = true;
+    }
+  ) else (
+  fetchurl {
     name = "source";
     inherit url hash;
 
