@@ -197,7 +197,7 @@ in
               enable = true;
               autoStart = false;
               openFirewall = true;
-              jvmOpts = "-Xmx4G -Xms4G";
+              jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
                 server-port = 25565;
