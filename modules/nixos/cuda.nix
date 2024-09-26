@@ -20,7 +20,8 @@ in
       "libcufft"
     ];
 
-    nixpkgs.config.cudaSupport = true;
+    # FIX: https://nixpk.gs/pr-tracker.html?pr=339619
+    # nixpkgs.config.cudaSupport = true;
 
     mypackages.cachix = {
       substituters = [ "https://cuda-maintainers.cachix.org" ];

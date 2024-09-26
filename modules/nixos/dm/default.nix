@@ -88,17 +88,10 @@ in
         patches = oldAttrs.patches
           ++ [ ./cursor_size.patch ];
       });
-      font.name = mkIf (config.mypackages.fonts.enable) "FiraCode Nerd Font";
       iconTheme = {
         name = theme.iconTheme.name;
         package = theme.iconTheme.package;
       };
-      cursorTheme = {
-        name = theme.cursorTheme.name;
-        package = theme.cursorTheme.package;
-      };
-      # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
-      theme.name = "adw-gtk3";
       settings = {
         background = mkIf (!(isNull cfg.wallpaper-path)) {
           path = cfg.wallpaper-path;

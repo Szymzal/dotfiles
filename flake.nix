@@ -38,7 +38,7 @@
   };
 
   outputs = { flakelight, ... }@inputs:
-    flakelight ./. ({ lib, ... }: {
+    (flakelight ./. ({ lib, ... }: {
       inherit inputs;
 
       outputs = {
@@ -50,5 +50,5 @@
         (_: pkgs: (import ./pkgs { inherit pkgs; }))
       ];
       systems = lib.systems.flakeExposed;
-    });
+    }));
 }

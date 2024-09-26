@@ -66,7 +66,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    btop
+    (btop.override { cudaSupport = true; })
   ];
 
   mypackages = {
