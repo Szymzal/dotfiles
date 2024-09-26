@@ -45,6 +45,7 @@
     ../../modules/nixos/tailscale.nix
     ../../modules/nixos/blender.nix
     ../../modules/nixos/zoom.nix
+    ../../modules/nixos/cuda.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix

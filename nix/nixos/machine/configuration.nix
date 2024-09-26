@@ -65,6 +65,10 @@ in
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    btop
+  ];
+
   mypackages = {
     ssh.enable = true;
     unfree.allowed = [
@@ -81,6 +85,7 @@ in
     git.enable = true;
     multiTerminal.enable = true;
     cachix.enable = true;
+    cuda.enable = true;
 
     monitors = [
       {
