@@ -360,7 +360,6 @@ in
         {
           profile.name = "default";
           profile.outputs = (lib.forEach (monitors) (value:
-            # TODO: Exclude Unknown-1 monitor
             (mkIf value.enable {
               status = "enable";
               adaptiveSync = false;
@@ -398,8 +397,6 @@ in
         pow =
           let
             pow' = base: exponent: value:
-              # FIXME: It will silently overflow on values > 2**62 :(
-              # The value will become negative or zero in this case
               if exponent == 0
               then 1
               else if exponent <= 1
