@@ -1,11 +1,11 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import DateButton from "./widgets/date.js";
-import Workspaces from "./widgets/workspaces.js";
+// import Workspaces from "./widgets/workspaces.js";
 
 const Start = () => Widget.Box({
   class_name: 'start',
   children: [
-    Workspaces()
+    // Workspaces()
   ],
 });
 
