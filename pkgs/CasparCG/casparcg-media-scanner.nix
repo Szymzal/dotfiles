@@ -27,10 +27,6 @@ in rec {
   nativeBuildInputs = [ nodejs_18 yarn-berry ffmpeg ];
   buildInputs = [ musl typescript ];
 
-  patches = [
-    ./patch.patch
-  ];
-
   yarnOfflineCache = stdenvNoCC.mkDerivation {
     name = "media-scanner-deps";
     inherit src;
@@ -43,14 +39,12 @@ in rec {
       libc = [ "glibc" "musl" ];
     };
 
-    patches = [
-      ./patch.patch
-    ];
-
     NODE_EXTRA_CA_CERTS = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
     configurePhase = ''
       runHook preConfigure
+
+      substituteInPlace yarn.lock --replace-fail "checksum: " "checksum: 10c0/"
 
       export HOME="$NIX_BUILD_TOP"
       export YARN_ENABLE_TELEMETRY=0
@@ -81,6 +75,7 @@ in rec {
   configurePhase = ''
     runHook preConfigure
 
+    substituteInPlace yarn.lock --replace-fail "checksum: " "checksum: 10c0/"
     substituteInPlace src/config.ts --replace-warn ": 'ffmpeg'" ": '${ffmpeg}/bin/ffmpeg'"
     substituteInPlace src/config.ts --replace-warn ": 'ffprobe'" ": '${ffmpeg}/bin/ffprobe'"
 

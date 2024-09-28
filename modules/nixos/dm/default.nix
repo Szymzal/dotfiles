@@ -79,6 +79,8 @@ in
       settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
     };
 
+    stylix.targets.regreet.enable = false;
+
     programs.regreet = (let
       theme = config.mypackages.theme;
     in {
@@ -91,6 +93,14 @@ in
       iconTheme = {
         name = theme.iconTheme.name;
         package = theme.iconTheme.package;
+      };
+      cursorTheme = {
+        name = theme.cursorTheme.name;
+        package = theme.cursorTheme.package;
+      };
+      # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
+      theme = {
+        name = "adw-gtk3";
       };
       settings = {
         background = mkIf (!(isNull cfg.wallpaper-path)) {

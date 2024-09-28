@@ -360,19 +360,26 @@ in
         {
           profile.name = "default";
           profile.outputs = (lib.forEach (monitors) (value:
-          # TODO: Exclude Unknown-1 monitor
-          (mkIf value.enable {
-            status = if (value.enable) then "enable" else "disable";
-            adaptiveSync = false;
-            criteria = value.connector;
-            position = "${builtins.toString value.position.x},${builtins.toString value.position.y}";
-            scale = value.mode.scale;
-            transform = "normal";
-            mode = "${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate}Hz";
-          })
-        ));
+            # TODO: Exclude Unknown-1 monitor
+            (mkIf value.enable {
+              status = "enable";
+              adaptiveSync = false;
+              criteria = value.connector;
+              position = "${builtins.toString value.position.x},${builtins.toString value.position.y}";
+              scale = value.mode.scale;
+              transform = "normal";
+              mode = "${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate}Hz";
+            })
+          ));
         }
-      ];
+      ] ++ (lib.forEach (monitors) (value:
+        (mkIf (!value.enable) {
+          output = {
+            status = "disable";
+            criteria = value.connector;
+          };
+        })
+      ));
       systemdTarget = "river-session.target";
     };
 
