@@ -24,7 +24,7 @@ in
   boot.supportedFilesystems = [ "ntfs" ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   boot.kernelParams = [
     "reboot=acpi"
