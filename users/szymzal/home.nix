@@ -24,6 +24,7 @@ in
       enable = true;
       persistent-path = "/persist/home/szymzal";
       directories = [
+        "speedrunigt"
         ".config/sops"
         ".ssh"
         {
