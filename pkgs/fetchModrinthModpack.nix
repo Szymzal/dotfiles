@@ -58,16 +58,18 @@ let
       unpackFile "$renamed"
       chmod -R +rw "$unpackDir" # only this line has changed
 
-      if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
-        echo "error: zip file must contain a single file or directory."
-        echo "hint: Pass stripRoot=false; to fetchzip to assume flat list of files."
-        exit 1
-      fi
-      fn=$(cd "$unpackDir" && ls -A)
-      if [ -f "$unpackDir/$fn" ]; then
-        mkdir $out
-      fi
-      mv "$unpackDir/$fn" "$out"
+      # if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
+      #   echo "error: zip file must contain a single file or directory."
+      #   echo "hint: Pass stripRoot=false; to fetchzip to assume flat list of files."
+      #   exit 1
+      # fi
+      # fn=$(cd "$unpackDir" && ls -A)
+      # if [ -f "$unpackDir/$fn" ]; then
+      #   mkdir $out
+      # fi
+      # mv "$unpackDir/$fn" "$out"
+
+      mv "$unpackDir" "$out"
 
       chmod 755 "$out"
     '';
@@ -113,6 +115,10 @@ stdenvNoCC.mkDerivation ({
       find ''${FILES[$i]} -maxdepth 1 -type f -exec ln -s {} "$out/''${FILES[$(($i + 1))]}" \;
 
     done
+
+    if [ -e ${mrpack}/overrides ]; then
+      cp -r ${mrpack}/overrides/* $out
+    fi
 
     runHook postInstall
   '';

@@ -198,8 +198,40 @@ in
         client.enable = true;
         server = {
           enable = true;
-          servers = {
-            CreateServer = {
+          servers = (let
+            copyFiles = (from: to: (let
+              evalDir = (prefix: to: dir:
+                (lib.mapAttrsToList
+                  (path: type:
+                    (let
+                      diffPath = (builtins.replaceStrings [ "${prefix}" ] [ "" ] "${dir}");
+                      diffPathRemovedDep = builtins.unsafeDiscardStringContext diffPath;
+                    in (
+                        if (type == "directory") then
+                          (evalDir prefix to "${prefix}${diffPath}/${path}")
+                        else
+                          {
+                            "${to}${diffPathRemovedDep}/${path}" = "${prefix}${diffPath}/${path}";
+                          }
+                      )
+                    )
+                  )
+                  (builtins.readDir dir)
+                )
+              );
+            in (
+              lib.mergeAttrsList (lib.flatten (evalDir from to from))
+            )));
+          in {
+            minecraft-1-20-survival = (let
+              modpack = pkgs.fetchModrinthModpack {
+                url = "https://cdn.modrinth.com/data/EGs3lC8D/versions/ZmjQ66hF/Prominence%20II%20Hasturian%20Era%203.0.5h.mrpack";
+                hash = "sha512-gnWhh9ZVYNt21+Vt6E2aXgGWKb/28QnDIQJ4B2+5lruXSR8FyKqGDxd5+DZJDFhly3nb6T6rFfeXsjxzKR7Npg==";
+                removeProjectIDs = [
+                  "tJzrFuyy"
+                ];
+              };
+            in {
               enable = true;
               autoStart = false;
               openFirewall = true;
@@ -207,6 +239,34 @@ in
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
                 server-port = 25565;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = false;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Some survival";
+              };
+              # symlinks = {
+              #   mods = "${modpack}/mods";
+              # };
+              # files = (copyFiles "${modpack}/config" "config")
+              #   // (copyFiles "${modpack}/defaultconfigs" "defaultconfigs")
+              #   // (copyFiles "${modpack}/mods" "mods");
+            });
+            CreateServer = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.fabricServers.fabric-1_20_1;
+              serverProperties = {
+                server-port = 25571;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -238,30 +298,6 @@ in
                 url = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/${modpackVersion}/TerraFirmaGreg-${gameVersion}-${modpackVersion}-server.zip";
                 hash = "sha256-k5OU6HBnf3Y9Zf7ZV/TA5ck2H/g7hnwW/0e/vYcn8wI=";
               };
-
-              copyFiles = (from: to: (let
-                evalDir = (prefix: to: dir:
-                  (lib.mapAttrsToList
-                    (path: type:
-                      (let
-                        diffPath = (builtins.replaceStrings [ "${prefix}" ] [ "" ] "${dir}");
-                        diffPathRemovedDep = builtins.unsafeDiscardStringContext diffPath;
-                      in (
-                          if (type == "directory") then
-                            (evalDir prefix to "${prefix}${diffPath}/${path}")
-                          else
-                            {
-                              "${to}${diffPathRemovedDep}/${path}" = "${prefix}${diffPath}/${path}";
-                            }
-                        )
-                      )
-                    )
-                    (builtins.readDir dir)
-                  )
-                );
-              in (
-                lib.mergeAttrsList (lib.flatten (evalDir from to from))
-              )));
             in {
               enable = true;
               autoStart = false;
@@ -366,7 +402,7 @@ in
                 );
               };
             };
-          };
+          });
         };
       };
     };
