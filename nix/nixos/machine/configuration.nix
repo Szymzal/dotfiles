@@ -223,6 +223,28 @@ in
               lib.mergeAttrsList (lib.flatten (evalDir from to from))
             )));
           in {
+            exploria = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.fabricServers.fabric-1_20_1;
+              serverProperties = {
+                server-port = 25565;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = false;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Some exploration";
+              };
+            };
             minecraft-1-20-survival = (let
               modpack = pkgs.fetchModrinthModpack {
                 url = "https://cdn.modrinth.com/data/EGs3lC8D/versions/ZmjQ66hF/Prominence%20II%20Hasturian%20Era%203.0.5h.mrpack";
@@ -238,7 +260,7 @@ in
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
-                server-port = 25565;
+                server-port = 25572;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
