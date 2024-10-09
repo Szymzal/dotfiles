@@ -11,12 +11,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.kitty = {
+    programs.foot = {
       enable = true;
+      server.enable = true;
     };
 
     home.sessionVariables = {
-      TERMINAL = "kitty";
+      TERMINAL = "foot";
     };
 
     home.packages = with pkgs; [

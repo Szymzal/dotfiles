@@ -110,7 +110,7 @@ in
           default_monitor = "${myLib.getPrimaryMonitor.connector}";
         };
 
-        "$terminal" = "kitty";
+        "$terminal" = "foot";
         "$mod" = "SUPER";
 
         env = [
@@ -222,7 +222,7 @@ in
           };
           locked = mediaButtons;
           normal = {
-            "Super Return" = "spawn kitty";
+            "Super Return" = "spawn foot";
             "Super Q" = "close";
 
             "Super O" = "spawn ${power-menu-script}/bin/power-menu";

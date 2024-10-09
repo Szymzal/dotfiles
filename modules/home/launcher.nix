@@ -18,7 +18,7 @@ in
       enable = true;
       settings = {
         main = {
-          terminal = "${pkgs.kitty}/bin/kitty";
+          terminal = "${pkgs.foot}/bin/foot";
           dpi-aware = "no";
           width = 25;
           line-height = 25;
