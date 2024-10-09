@@ -79,7 +79,7 @@ in
       settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
     };
 
-    stylix.targets.regreet.enable = false;
+    # stylix.targets.regreet.enable = false;
 
     programs.regreet = (let
       theme = config.mypackages.theme;
@@ -96,7 +96,7 @@ in
       };
       cursorTheme = {
         name = theme.cursorTheme.name;
-        package = theme.cursorTheme.package;
+        package = mkForce theme.cursorTheme.package;
       };
       # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
       theme = {
