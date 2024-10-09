@@ -21,7 +21,7 @@ in
     ];
 
     # FIX: https://nixpk.gs/pr-tracker.html?pr=339619
-    # nixpkgs.config.cudaSupport = true;
+    nixpkgs.config.cudaSupport = true;
 
     mypackages.cachix = {
       substituters = [ "https://cuda-maintainers.cachix.org" ];
