@@ -20,7 +20,6 @@ in
       "libcufft"
     ];
 
-    # FIX: https://nixpk.gs/pr-tracker.html?pr=339619
     nixpkgs.config.cudaSupport = true;
 
     mypackages.cachix = {
