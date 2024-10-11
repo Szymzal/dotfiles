@@ -1,0 +1,59 @@
+.workspaces button {
+  all: unset;
+}
+
+.workspaces {
+  margin: 0.3rem;
+}
+
+.indicator {
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+}
+
+.workspaces .occupied {
+  background-color: @destructive_bg_color;
+  color: @accent_fg_color;
+}
+
+.workspaces .active {
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  margin: 0.1rem 0.15rem;
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+.workspaces .start {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.workspaces .end {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.popup-button {
+  margin: 0.3rem;
+  padding: 0 0.2rem;
+  background-color: transparent;
+}
+
+.popup-window .active {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+
+.popup-window>* {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: @accent_fg_color;
+  border: 0.1rem solid @accent_bg_color;
+}
+
+.button-active {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}

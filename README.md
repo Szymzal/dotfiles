@@ -1,19 +1,7 @@
-# dotfiles
+# Hi, welcome to my world!
+Those are my dotfiles for my NixOS system
 
-Osobiste pliki konfiguracyjne dla Linuxa (Manjaro)
+You can use them, but I don't recommend.
 
-# Instalacja
-
-Sklonuj repozytorium
-
-```
-mkdir ~/.dotfiles
-git clone https://github.com/Szymzal/dotfiles ~/.dotfiles
-```
-
-A następnie uruchom `installer.sh`:
-
-```
-cd .dotfiles
-./installer.sh
-```
+## TODO
+- [ ] Migrate DM from Hyprland to RiverWM
