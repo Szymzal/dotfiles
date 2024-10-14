@@ -160,6 +160,7 @@ in
     printing.enable = true;
     bluetooth.enable = true;
     xbox.enable = true;
+    video-recording.enable = true;
     nvidia = {
       enable = true;
       open.enable = false;

@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
   cfg = config.mypackages.video-recording;
@@ -11,11 +11,10 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    programs.obs-studio.enable = true;
-    mypackages.impermanence.directories = [
-      ".config/gpu-screen-recorder"
-      ".config/obs-studio"
-      "Videos"
+    environment.systemPackages = with pkgs; [
+      gpu-screen-recorder-gtk
     ];
+
+    programs.gpu-screen-recorder.enable = true;
   };
 }

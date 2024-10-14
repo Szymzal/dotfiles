@@ -47,6 +47,7 @@
     ../../modules/nixos/zoom.nix
     ../../modules/nixos/cuda.nix
     ../../modules/nixos/terminal.nix
+    ../../modules/nixos/video-rec.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix
