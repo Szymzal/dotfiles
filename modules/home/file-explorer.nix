@@ -20,5 +20,11 @@ in
       ".config/Thunar"
       ".config/xfce4"
     ];
+
+    home.file = {
+      ".config/xfce4/helpers.rc".text = ''
+        TerminalEmulator=${lib.getExe pkgs.foot}
+      '';
+    };
   };
 }

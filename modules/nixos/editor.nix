@@ -15,9 +15,6 @@ in
       systemPackages = with pkgs; [
         neovim
       ];
-      variables = {
-        EDITOR = "nvim";
-      };
     };
   };
 }

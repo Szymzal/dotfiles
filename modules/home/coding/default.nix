@@ -21,6 +21,8 @@ in
       viAlias = true;
       vimAlias = true;
 
+      defaultEditor = true;
+
       extraPackages = (with pkgs; [
         # LazyVim
         lua-language-server
