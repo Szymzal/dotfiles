@@ -24,6 +24,12 @@ in
       package = hyprland_package;
     };
 
+    programs.xwayland.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      xwaylandvideobridge
+    ];
+
     programs.river = {
       enable = true;
       xwayland.enable = true;
