@@ -16,8 +16,7 @@ in
         nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [ pkgs.makeWrapper ];
         postFixup = (attrs.postFixup or "") + ''
           wrapProgram $out/opt/zoom/zoom \
-            --set XDG_SESSION_TYPE "" \
-            --set WAYLAND_DISPLAY ""
+            --unset XDG_SESSION_TYPE
         '';
       }))
     ];

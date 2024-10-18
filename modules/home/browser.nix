@@ -16,12 +16,15 @@ in
       extensions = [
         { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # Proton Pass
       ];
+      commandLineArgs = [
+        "--enable-features=PulseaudioLoopbackForCast,PulseaudioLoopbackForScreenShare,WebRtcPipeWireCamera"
+      ];
     };
 
     mypackages.impermanence = {
       directories = [
         ".config/chromium"
-        ".local/share/applications" # PWA
+        ".local/share/applications" # PWAs
         "Downloads"
       ];
     };

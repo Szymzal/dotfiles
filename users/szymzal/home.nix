@@ -82,7 +82,7 @@ in
       openttd.enable = true;
       trackmania.enable = true;
     };
-    zoom.enable = true;
+    zoom.enable = false; # use chromium for zoom PWA
     blender.enable = true;
     epic-games.enable = true;
   };
