@@ -53,5 +53,6 @@
     ../../modules/nixos/games/lutris.nix
 
     ../../users/szymzal
+    ../../users/camera
   ];
 }
