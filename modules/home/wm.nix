@@ -70,7 +70,6 @@ in
     home.packages = with pkgs; [
       killall
       pamixer
-      hyprpaper
       wlogout
       bibata-hyprcursor
       wlr-randr
@@ -83,7 +82,6 @@ in
 
       settings = {
         exec-once = [
-          "hyprpaper"
           "waybar"
         ] ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
           "hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}"
@@ -331,7 +329,6 @@ in
         hide-cursor.when-typing = "enabled";
         keyboard-layout = "pl";
         spawn = [
-          "hyprpaper"
           "waybar"
           "rivertile"
         ];

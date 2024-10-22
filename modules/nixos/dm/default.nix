@@ -79,8 +79,6 @@ in
       settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
     };
 
-    # stylix.targets.regreet.enable = false;
-
     programs.regreet = (let
       theme = config.mypackages.theme;
     in {

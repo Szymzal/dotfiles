@@ -5,7 +5,7 @@ let
 in
 {
   options = {
-    myusers.portable = {
+    myusers.camera = {
       enable = mkEnableOption "Enable Camera user";
     };
   };
