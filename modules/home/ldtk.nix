@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.ldtk;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.ldtk;
+in {
   options = {
     mypackages.ldtk = {
       enable = mkEnableOption "Enable LDTK";

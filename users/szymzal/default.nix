@@ -1,9 +1,12 @@
-{ pkgs, config, lib, ... }:
-with lib;
-let
-  cfg = config.myusers.szymzal;
-in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.myusers.szymzal;
+in {
   options = {
     myusers.szymzal = {
       enable = mkEnableOption "Enable Szymzal user";
@@ -16,7 +19,7 @@ in
     users.mutableUsers = false;
     users.users.szymzal = {
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" "wireshark" "adbusers" "minecraft" "scanner" "lp" "gamemode" ];
+      extraGroups = ["wheel" "networkmanager" "wireshark" "adbusers" "minecraft" "scanner" "lp" "gamemode"];
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.password.path;
       shell = pkgs.zsh;
@@ -37,7 +40,7 @@ in
     ];
 
     home-manager.users.szymzal = {
-      imports = [ ./home.nix ];
+      imports = [./home.nix];
     };
   };
 }

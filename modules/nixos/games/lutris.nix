@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.games.lutris;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.games.lutris;
+in {
   options = {
     mypackages.games.lutris = {
       enable = mkEnableOption "Enable Lutris launcher";

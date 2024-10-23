@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.screenshot;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.screenshot;
+in {
   options = {
     mypackages.screenshot = {
       enable = mkEnableOption "Enable screenshotting tool";

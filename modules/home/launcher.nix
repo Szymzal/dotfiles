@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.launcher;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.launcher;
+in {
   options = {
     mypackages.launcher = {
       enable = mkEnableOption "Enable App/Power launcher";
@@ -43,8 +46,8 @@ in
 
     home.file = {
       ".config/networkmanager-dmenu/config.ini".text = ''
-      [dmenu]
-      dmenu_command = ${pkgs.fuzzel}/bin/fuzzel --dmenu
+        [dmenu]
+        dmenu_command = ${pkgs.fuzzel}/bin/fuzzel --dmenu
       '';
     };
   });

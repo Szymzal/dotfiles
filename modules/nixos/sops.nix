@@ -1,9 +1,13 @@
-{ inputs, pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.sops;
-in
 {
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.sops;
+in {
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];

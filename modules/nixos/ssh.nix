@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-with lib;
-let
-  cfg = config.mypackages.ssh;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.ssh;
+in {
   options = {
     mypackages.ssh = {
       enable = mkEnableOption "Enable ssh server";

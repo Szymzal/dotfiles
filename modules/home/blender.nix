@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.blender;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.blender;
+in {
   options = {
     mypackages.blender = {
       enable = mkEnableOption "Enable Blender";

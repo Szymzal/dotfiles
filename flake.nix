@@ -37,18 +37,17 @@
     flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
   };
 
-  outputs = { flakelight, ... }@inputs:
-    (flakelight ./. ({ lib, ... }: {
-      inherit inputs;
+  outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {
+    inherit inputs;
 
-      outputs = {
-        overlay = (_: pkgs: (import ./pkgs { inherit pkgs; }));
-      };
+    outputs = {
+      overlay = _: pkgs: (import ./pkgs {inherit pkgs;});
+    };
 
-      withOverlays = [
-        inputs.nix-minecraft.overlay
-        (_: pkgs: (import ./pkgs { inherit pkgs; }))
-      ];
-      systems = lib.systems.flakeExposed;
-    }));
+    withOverlays = [
+      inputs.nix-minecraft.overlay
+      (_: pkgs: (import ./pkgs {inherit pkgs;}))
+    ];
+    systems = lib.systems.flakeExposed;
+  }));
 }

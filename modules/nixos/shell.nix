@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.shell;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.shell;
+in {
   options = {
     mypackages.shell = {
       enable = mkEnableOption "Enable shell";
@@ -24,7 +27,7 @@ in
       histSize = 10000;
       ohMyZsh = {
         enable = true;
-        plugins = [ "git" ];
+        plugins = ["git"];
         theme = "robbyrussell";
       };
       syntaxHighlighting.enable = true;
@@ -32,10 +35,11 @@ in
 
     # Configure new shell
     environment = {
-      systemPackages = with pkgs; lib.optionals (!cfg.disableBash) [
-        bash
-      ];
-      shells = with pkgs; [ zsh ];
+      systemPackages = with pkgs;
+        lib.optionals (!cfg.disableBash) [
+          bash
+        ];
+      shells = with pkgs; [zsh];
     };
   };
 }

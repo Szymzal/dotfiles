@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.networkmanager;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.networkmanager;
+in {
   options = {
     mypackages.networkmanager = {
       enable = mkEnableOption "Enable Network Manager";

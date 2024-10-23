@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.video-editing;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.video-editing;
+in {
   options = {
     mypackages.video-editing = {
       enable = mkEnableOption "Enable video editing program";

@@ -1,8 +1,10 @@
-{ inputs, osConfig, ... }:
-let
-  inherit (inputs) self;
-in
 {
+  inputs,
+  osConfig,
+  ...
+}: let
+  inherit (inputs) self;
+in {
   imports = [
     self.homeModules.modules
   ];

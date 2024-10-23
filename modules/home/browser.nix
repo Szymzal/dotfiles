@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.browser;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.browser;
+in {
   options = {
     mypackages.browser = {
       enable = mkEnableOption "Enable browser";
@@ -14,7 +16,7 @@ in
     programs.chromium = {
       enable = true;
       extensions = [
-        { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # Proton Pass
+        {id = "ghmbeldphafepmbegfdlkpapadhbakde";} # Proton Pass
       ];
       commandLineArgs = [
         "--enable-features=PulseaudioLoopbackForCast,PulseaudioLoopbackForScreenShare,WebRtcPipeWireCamera"

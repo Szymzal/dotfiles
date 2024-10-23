@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.games.terraria;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.games.terraria;
+in {
   options = {
     mypackages.games.terraria = {
       enable = mkEnableOption "Enable Terraria";

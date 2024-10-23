@@ -1,13 +1,16 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.mypackages.games.roblox;
   flatpakref = pkgs.fetchurl {
     url = "https://sober.vinegarhq.org/sober.flatpakref";
     hash = "sha256-VFRvboQ7IZwYDQvEcWimOuno7vIj+5EztOvxCHvwSN4=";
   };
-in
-{
+in {
   options = {
     mypackages.games.roblox = {
       enable = mkEnableOption "Enable Roblox";
@@ -19,7 +22,7 @@ in
   config = mkIf cfg.enable {
     mypackages.flatpak = {
       enable = true;
-      packages = [ ":${flatpakref}" ];
+      packages = [":${flatpakref}"];
     };
   };
 }

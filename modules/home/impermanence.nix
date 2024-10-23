@@ -1,10 +1,14 @@
-{ inputs, lib, config, osConfig, ... }:
-with lib;
-let
+{
+  inputs,
+  lib,
+  config,
+  osConfig,
+  ...
+}:
+with lib; let
   osCfg = osConfig.mypackages.impermanence;
   cfg = config.mypackages.impermanence;
-in
-{
+in {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
   ];
@@ -20,13 +24,13 @@ in
       };
       directories = mkOption {
         default = [];
-        example = [ "Downloads" "dev/project" ];
+        example = ["Downloads" "dev/project"];
         description = "Directories to persist. Directories will be appended to persistent-path option";
         type = types.listOf (types.either types.str types.attrs);
       };
       files = mkOption {
         default = [];
-        example = [ ".zshrc" ".ssh/id_rsa" ];
+        example = [".zshrc" ".ssh/id_rsa"];
         description = "Files to persist. File paths will be appended to persistent-path option";
         type = types.listOf types.str;
       };

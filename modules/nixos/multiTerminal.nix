@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.multiTerminal;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.multiTerminal;
+in {
   options = {
     mypackages.multiTerminal = {
       enable = mkEnableOption "Enable multi terminal";

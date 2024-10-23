@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.wireshark;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.wireshark;
+in {
   options = {
     mypackages.wireshark = {
       enable = mkEnableOption "Enable wireshark";

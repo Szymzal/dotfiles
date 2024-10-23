@@ -1,35 +1,35 @@
-{ stdenv
-, fetchFromGitHub
-, autoconf
-, automake
-, cmake
-, ninja
-, curl
-, bzip2
-, git
-, gperf
-, libtool
-, gnumake
-, perl
-, pkg-config
-, python3
-, zlib
-, expat
-, lsb-release
-, glew
-, freeimage
-, tbb
-, openal
-, xorg
-, sfml
-, systemd
-, mesa_glu
-, boost175
-, nss
-, ffmpeg
-, icu
+{
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  cmake,
+  ninja,
+  curl,
+  bzip2,
+  git,
+  gperf,
+  libtool,
+  gnumake,
+  perl,
+  pkg-config,
+  python3,
+  zlib,
+  expat,
+  lsb-release,
+  glew,
+  freeimage,
+  tbb,
+  openal,
+  xorg,
+  sfml,
+  systemd,
+  mesa_glu,
+  boost175,
+  nss,
+  ffmpeg,
+  icu,
 }:
-
 stdenv.mkDerivation (let
   version = "2.4.0-stable";
 in {
@@ -59,22 +59,22 @@ in {
     perl
     pkg-config
     python3
-    zlib                # zlib1g-dev
-    expat               # libexpat1-dev
+    zlib # zlib1g-dev
+    expat # libexpat1-dev
     lsb-release
-    glew                # libglew-dev
-    freeimage           # libfreeimage-dev
-    tbb                 # libtbb-dev
-    openal              # libopenal-dev
-    xorg.libXcursor     # libxcursor-dev
-    xorg.libXinerama    # libxinerama-dev
-    xorg.libXi          # libxi-dev
-    sfml                # libsfml-dev
-    xorg.libXrandr      # libxrandr-dev
-    systemd             # libudev-dev
-    mesa_glu            # libglu1-mesa-dev
-    boost175            # libboost-all-dev
-    nss                 # libnss3-dev
+    glew # libglew-dev
+    freeimage # libfreeimage-dev
+    tbb # libtbb-dev
+    openal # libopenal-dev
+    xorg.libXcursor # libxcursor-dev
+    xorg.libXinerama # libxinerama-dev
+    xorg.libXi # libxi-dev
+    sfml # libsfml-dev
+    xorg.libXrandr # libxrandr-dev
+    systemd # libudev-dev
+    mesa_glu # libglu1-mesa-dev
+    boost175 # libboost-all-dev
+    nss # libnss3-dev
     ffmpeg
     icu
   ];

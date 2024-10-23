@@ -1,10 +1,10 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "playit-agent";
   version = "0.15.21";
@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   cargoHash = "sha256-FXP6/7rK7IvXzWC7me2tySHbHnhaJ1Oqs0DJhq1ExJg=";
 

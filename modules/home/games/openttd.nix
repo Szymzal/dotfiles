@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-with lib;
-let
-  cfg = config.mypackages.games.openttd;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.games.openttd;
+in {
   options = {
     mypackages.games.openttd = {
       enable = mkEnableOption "Enable OpenTTD game";

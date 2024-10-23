@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.nix-helpers;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.nix-helpers;
+in {
   options = {
     mypackages.nix-helpers = {
       enable = mkEnableOption "Enable nix helpers";

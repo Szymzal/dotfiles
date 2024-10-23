@@ -1,8 +1,6 @@
-{ inputs, ... }:
-let
+{inputs, ...}: let
   inherit (inputs) self;
-in
-{
+in {
   imports = [
     self.homeModules.modules
   ];

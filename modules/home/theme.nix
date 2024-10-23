@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.theme;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.theme;
+in {
   options = {
     mypackages.theme = {
       enable = mkEnableOption "Enable theming";
@@ -76,18 +79,20 @@ in
 
   config = mkIf cfg.enable (let
     hyprcursor-theme = "${cfg.cursorTheme.name}-hyprcursor";
-  in
-  {
+  in {
     assertions = [
       {
-        assertion = (config.mypackages.wm.enable);
+        assertion = config.mypackages.wm.enable;
         message = "Enable Window Manager to get wallpaper";
       }
     ];
 
     stylix.base16Scheme = cfg.theme.base16-scheme-path;
 
-    stylix.polarity = if (cfg.prefer-dark-theme) then "dark" else "light";
+    stylix.polarity =
+      if (cfg.prefer-dark-theme)
+      then "dark"
+      else "light";
     stylix.image = config.mypackages.wm.wallpaper-path;
     stylix.cursor = {
       name = cfg.cursorTheme.name;

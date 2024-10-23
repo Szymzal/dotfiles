@@ -1,10 +1,11 @@
 # copied from: https://github.com/fufexan/dotfiles/blob/78ce01ba573e6eab975498899dc72b3ea1e8523e/pkgs/bibata-hyprcursor/default.nix
-{ stdenvNoCC
-, bibata-cursors
-, hyprcursor
-, util-linux
-, xcur2png
-, jq
+{
+  stdenvNoCC,
+  bibata-cursors,
+  hyprcursor,
+  util-linux,
+  xcur2png,
+  jq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bibata-hyprcursor";

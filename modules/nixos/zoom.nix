@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  myLib = config.lib.myLib;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  myLib = config.lib.myLib;
+in {
   config = mkIf (myLib.isEnabledOptionOnHomeConfig "mypackages.zoom.enable") {
     mypackages.unfree.allowed = mkIf (config.home-manager.useGlobalPkgs) [
       "zoom"

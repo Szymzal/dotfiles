@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.xbox;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.xbox;
+in {
   options = {
     mypackages.xbox = {
       enable = mkEnableOption "Enable support for xbox one/series controllers";

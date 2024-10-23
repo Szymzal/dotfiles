@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  myLib = config.lib.myLib;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  myLib = config.lib.myLib;
+in {
   config = mkIf (myLib.isEnabledOptionOnHomeConfig "mypackages.file-explorer.enable") {
     programs.thunar = {
       enable = true;

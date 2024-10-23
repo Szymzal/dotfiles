@@ -1,9 +1,12 @@
-{ lib, config, osConfig, ... }:
-with lib;
-let
-  cfg = config.mypackages.cd;
-in
 {
+  lib,
+  config,
+  osConfig,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.cd;
+in {
   options = {
     mypackages.cd = {
       enable = mkEnableOption "Enable cd replacement";

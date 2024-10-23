@@ -1,14 +1,14 @@
-{ stdenvNoCC
-, fetchFromGitHub
-, nodejs_18
-, yarn-berry
-, cacert
-, ffmpeg
-, musl
-, typescript
-, writeShellScript
+{
+  stdenvNoCC,
+  fetchFromGitHub,
+  nodejs_18,
+  yarn-berry,
+  cacert,
+  ffmpeg,
+  musl,
+  typescript,
+  writeShellScript,
 }:
-
 stdenvNoCC.mkDerivation (let
   version = "1.3.4";
   src = fetchFromGitHub {
@@ -24,19 +24,19 @@ in rec {
   pname = "media-scanner";
   inherit version src;
 
-  nativeBuildInputs = [ nodejs_18 yarn-berry ffmpeg ];
-  buildInputs = [ musl typescript ];
+  nativeBuildInputs = [nodejs_18 yarn-berry ffmpeg];
+  buildInputs = [musl typescript];
 
   yarnOfflineCache = stdenvNoCC.mkDerivation {
     name = "media-scanner-deps";
     inherit src;
 
-    nativeBuildInputs = [ yarn-berry ];
+    nativeBuildInputs = [yarn-berry];
 
     supportedArchitectures = builtins.toJSON {
-      os = [ "darwin" "linux" ];
-      cpu = [ "arm" "x64" ];
-      libc = [ "glibc" "musl" ];
+      os = ["darwin" "linux"];
+      cpu = ["arm" "x64"];
+      libc = ["glibc" "musl"];
     };
 
     NODE_EXTRA_CA_CERTS = "${cacert}/etc/ssl/certs/ca-bundle.crt";

@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.status-bar;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.status-bar;
+in {
   options = {
     mypackages.status-bar = {
       enable = mkEnableOption "Enable status bar";
@@ -24,12 +27,14 @@ in
           position = "top";
           height = 30;
           modules-left =
-          [] ++ optionals (config.mypackages.wm.preset == "hyprland") [
-            "hyprland/workspaces"
-          ] ++ optionals (config.mypackages.wm.preset == "river") [
-            "river/tags"
-          ];
-          modules-center = [ ];
+            []
+            ++ optionals (config.mypackages.wm.preset == "hyprland") [
+              "hyprland/workspaces"
+            ]
+            ++ optionals (config.mypackages.wm.preset == "river") [
+              "river/tags"
+            ];
+          modules-center = [];
           modules-right = [
             "pulseaudio"
             "temperature"
@@ -59,9 +64,9 @@ in
                 weeks = "<span color='#${config.lib.stylix.colors.base0D}'><b>W{}</b></span>";
                 weekdays = "<span color='#${config.lib.stylix.colors.base09}'><b>{}</b></span>";
                 today = "<span color='#${config.lib.stylix.colors.base08}'><b><u>{}</u></b></span>";
-                };
               };
-            actions =  {
+            };
+            actions = {
               on-click-right = "mode";
               on-click-forward = "tz_up";
               on-click-backward = "tz_down";

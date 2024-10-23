@@ -1,5 +1,8 @@
-{ vimUtils, luajitPackages, fetchFromGitHub }:
 {
+  vimUtils,
+  luajitPackages,
+  fetchFromGitHub,
+}: {
   lua-utils-nvim = vimUtils.buildVimPlugin {
     inherit (luajitPackages.lua-utils-nvim) pname version src;
   };

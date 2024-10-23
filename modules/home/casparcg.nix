@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.casparcg-client;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.casparcg-client;
+in {
   options = {
     mypackages.casparcg-client = {
       enable = mkEnableOption "Enable CasparCG Client";

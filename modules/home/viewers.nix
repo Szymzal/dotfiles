@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.viewers;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.viewers;
+in {
   options = {
     mypackages.viewers = {
       enableAll = mkEnableOption "Enable all viewers";
@@ -17,7 +20,8 @@ in
   };
 
   config = mkIf (cfg.enableAll || cfg.video.enable || cfg.image.enable) {
-    home.packages = []
+    home.packages =
+      []
       ++ optionals (cfg.enableAll || cfg.video.enable) [
         pkgs.mpv
       ]
@@ -26,7 +30,8 @@ in
       ];
 
     mypackages.impermanence = {
-      directories = []
+      directories =
+        []
         ++ optionals (cfg.enableAll || cfg.video.enable) [
           ".config/mpv"
         ];

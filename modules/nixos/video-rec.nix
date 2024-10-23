@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.video-recording;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.video-recording;
+in {
   options = {
     mypackages.video-recording = {
       enable = mkEnableOption "Enable video recording";

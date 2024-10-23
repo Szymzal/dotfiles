@@ -1,13 +1,14 @@
-{ lib, osConfig, ... }:
-with lib;
-let
-  cfg = osConfig.mypackages.games.lutris;
-in
 {
+  lib,
+  osConfig,
+  ...
+}:
+with lib; let
+  cfg = osConfig.mypackages.games.lutris;
+in {
   config = mkIf cfg.enable {
     home.sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-        "\${HOME}/.steam/root/compatibilitytools.d";
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
     };
 
     mypackages.impermanence.directories = [

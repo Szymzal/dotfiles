@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.notifications;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.notifications;
+in {
   options = {
     mypackages.notifications = {
       enable = mkEnableOption "Enable notification deamon";

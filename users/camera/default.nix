@@ -1,9 +1,12 @@
-{ pkgs, config, lib, ... }:
-with lib;
-let
-  cfg = config.myusers.camera;
-in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.myusers.camera;
+in {
   options = {
     myusers.camera = {
       enable = mkEnableOption "Enable Camera user";
@@ -16,14 +19,14 @@ in
     users.mutableUsers = false;
     users.users.camera = {
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = ["wheel" "networkmanager"];
       isNormalUser = true;
       initialPassword = "test";
       shell = pkgs.zsh;
     };
 
     home-manager.users.szymzal = {
-      imports = [ ./home.nix ];
+      imports = [./home.nix];
     };
   };
 }

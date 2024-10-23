@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.gtk;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.gtk;
+in {
   options = {
     mypackages.gtk = {
       enable = mkEnableOption "Enable gtk";

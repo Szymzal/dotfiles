@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.clipboard;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.clipboard;
+in {
   options = {
     mypackages.clipboard = {
       enable = mkEnableOption "Enable clipboard";

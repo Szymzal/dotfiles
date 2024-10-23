@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ../../modules/nixos/lib.nix
     ../../modules/nixos/cachix.nix

@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.nvidia;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.nvidia;
+in {
   options = {
     mypackages.nvidia = {
       enable = mkEnableOption "Enable support for NVIDIA GPUs";
@@ -21,7 +24,7 @@ in
       };
 
       boot.kernelPackages = pkgs.linuxPackages_zen;
-      boot.kernelParams = [ "nouveau.config=NvGspRm=1" ];
+      boot.kernelParams = ["nouveau.config=NvGspRm=1"];
 
       environment.systemPackages = with pkgs; [
         mesa
@@ -33,7 +36,7 @@ in
         enable32Bit = true;
       };
 
-      services.xserver.videoDrivers = [ "nvidia" ];
+      services.xserver.videoDrivers = ["nvidia"];
 
       hardware.nvidia = {
         modesetting.enable = true;
@@ -53,11 +56,13 @@ in
         }
       ];
 
-      mypackages.unfree.allowed = [
-        "nvidia-x11"
-      ] ++ lib.optionals config.hardware.nvidia.nvidiaSettings [
-        "nvidia-settings"
-      ];
+      mypackages.unfree.allowed =
+        [
+          "nvidia-x11"
+        ]
+        ++ lib.optionals config.hardware.nvidia.nvidiaSettings [
+          "nvidia-settings"
+        ];
     })
   ]);
 }

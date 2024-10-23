@@ -1,9 +1,12 @@
-{ lib, config, inputs, ... }:
-with lib;
-let
-  cfg = config.mypackages.flatpak;
-in
 {
+  lib,
+  config,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.flatpak;
+in {
   imports = [
     inputs.flatpak.homeManagerModules.default
   ];
@@ -13,7 +16,7 @@ in
       enable = mkEnableOption "Enable flatpak";
       packages = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -26,7 +29,6 @@ in
       };
       packages = cfg.packages;
     };
-
 
     mypackages.impermanence.directories = [
       ".local/share/flatpak"

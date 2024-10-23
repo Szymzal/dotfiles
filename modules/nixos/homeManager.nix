@@ -1,9 +1,13 @@
-{ lib, config, inputs, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.home-manager;
-in
 {
+  lib,
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.home-manager;
+in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];

@@ -1,13 +1,13 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, git
-, gnumake
-, boost175
-, qt6
-, vlc
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  gnumake,
+  boost175,
+  qt6,
+  vlc,
 }:
-
 stdenv.mkDerivation (let
   version = "2.3.0";
 in {
@@ -26,16 +26,18 @@ in {
     qt6.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    git
-    gnumake
-    boost175
-    vlc
-  ] ++ (with qt6; [
-    qtbase
-    qtwebsockets
-    qt5compat
-  ]);
+  buildInputs =
+    [
+      git
+      gnumake
+      boost175
+      vlc
+    ]
+    ++ (with qt6; [
+      qtbase
+      qtwebsockets
+      qt5compat
+    ]);
 
   cmakeDir = "../src";
 

@@ -33,7 +33,26 @@ return {
 					},
 				},
 
-				nil_ls = {},
+				nixd = {
+					settings = {
+						nixd = {
+							nixpkgs = {
+								expr = "import <nixpkgs> { }",
+							},
+							formatting = {
+								command = { "alejandra" },
+							},
+							options = {
+								nixos = {
+									expr = '(builtins.getFlake "/persist/nixos").nixosConfigurations.machine.options',
+								},
+								home_manager = {
+									expr = '(builtins.getFlake "/persist/nixos").homeConfigurations.szymzal.options',
+								},
+							},
+						},
+					},
+				},
 
 				html = {
 					filetypes = { "html" },

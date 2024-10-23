@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.genealogy;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.genealogy;
+in {
   options = {
     mypackages.genealogy = {
       enable = mkEnableOption "Enable genealogy software";

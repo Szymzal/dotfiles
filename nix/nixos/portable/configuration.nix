@@ -1,8 +1,10 @@
-{ inputs, pkgs, ... }:
-let
-  inherit (inputs) self;
-in
 {
+  inputs,
+  pkgs,
+  ...
+}: let
+  inherit (inputs) self;
+in {
   imports = [
     ./hardware-configuration.nix
     self.nixosModules.modules
@@ -30,7 +32,7 @@ in
 
   time.timeZone = "Europe/Warsaw";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   security.pam.loginLimits = [
     {

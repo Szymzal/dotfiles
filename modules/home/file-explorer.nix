@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.file-explorer;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.file-explorer;
+in {
   options = {
     mypackages.file-explorer = {
       enable = mkEnableOption "Enable file explorer";

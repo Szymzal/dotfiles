@@ -1,9 +1,13 @@
-{ lib, config, pkgs, inputs, ... }:
-with lib;
-let
-  cfg = config.mypackages.games.minecraft;
-in
 {
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.games.minecraft;
+in {
   imports = [
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
@@ -25,22 +29,26 @@ in
   };
 
   config = mkIf (cfg.client.enable || cfg.server.enable) {
-    environment.systemPackages = with pkgs; [
-      jdk8
-      jdk17
-      jdk21
-    ] ++ lib.optionals (cfg.client.enable) [
-      prismlauncher
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        jdk8
+        jdk17
+        jdk21
+      ]
+      ++ lib.optionals (cfg.client.enable) [
+        prismlauncher
+      ];
 
-    systemd.services = (lib.mapAttrs' (
-      name: conf: {
-        name = "minecraft-server-${name}";
-        value = {
-          startLimitIntervalSec = lib.mkForce 10;
-        };
-      }
-    ) cfg.server.servers);
+    systemd.services =
+      lib.mapAttrs' (
+        name: conf: {
+          name = "minecraft-server-${name}";
+          value = {
+            startLimitIntervalSec = lib.mkForce 10;
+          };
+        }
+      )
+      cfg.server.servers;
 
     services.minecraft-servers = mkIf cfg.server.enable {
       enable = true;

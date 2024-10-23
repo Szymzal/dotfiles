@@ -1,9 +1,13 @@
-{ lib, config, pkgs, inputs, ... }:
-with lib;
-let
-  cfg = config.mypackages.theme;
-in
 {
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.theme;
+in {
   imports = [
     inputs.stylix.nixosModules.stylix
   ];
@@ -81,7 +85,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = (config.mypackages.dm.enable);
+        assertion = config.mypackages.dm.enable;
         message = "Enable Display Manager to get wallpaper";
       }
     ];
@@ -89,7 +93,10 @@ in
     stylix = {
       enable = true;
       base16Scheme = cfg.theme.base16-scheme-path;
-      polarity = if (cfg.prefer-dark-theme) then "dark" else "light";
+      polarity =
+        if (cfg.prefer-dark-theme)
+        then "dark"
+        else "light";
       image = config.mypackages.dm.wallpaper-path;
       cursor = {
         name = cfg.cursorTheme.name;
@@ -98,11 +105,13 @@ in
       };
     };
 
-    environment.systemPackages = [
-      cfg.iconTheme.package
-    ] ++ lib.optionals cfg.cursorTheme.hyprcursor.enable [
-      cfg.cursorTheme.hyprcursor.package
-    ];
+    environment.systemPackages =
+      [
+        cfg.iconTheme.package
+      ]
+      ++ lib.optionals cfg.cursorTheme.hyprcursor.enable [
+        cfg.cursorTheme.hyprcursor.package
+      ];
 
     mypackages.gtk = {
       enable = true;

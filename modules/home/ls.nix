@@ -1,9 +1,12 @@
-{ lib, config, osConfig, ... }:
-with lib;
-let
-  cfg = config.mypackages.ls;
-in
 {
+  lib,
+  config,
+  osConfig,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.ls;
+in {
   options = {
     mypackages.ls = {
       enable = mkEnableOption "Enable ls replacement";

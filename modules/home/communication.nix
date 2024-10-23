@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.communication;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.communication;
+in {
   options = {
     mypackages.communication = {
       enable = mkEnableOption "Enable communication app (e.g. discord)";

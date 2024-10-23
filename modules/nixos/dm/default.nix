@@ -1,10 +1,13 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
   myLib = config.lib.myLib;
   cfg = config.mypackages.dm;
-in
-{
+in {
   options = {
     mypackages.dm = {
       enable = mkEnableOption "Enable Display Manager";
@@ -31,30 +34,35 @@ in
       xkb.layout = "pl";
     };
 
-    services.greetd =
-    let
-      cursors = if (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable) then ''
-        cursor {
-          default_monitor=${myLib.getPrimaryMonitor.connector}
-          no_hardware_cursors=true
-        }
-        env = WLR_NO_HARDWARE_CURSORS,1
+    services.greetd = let
+      cursors =
+        if (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable)
+        then ''
+          cursor {
+            default_monitor=${myLib.getPrimaryMonitor.connector}
+            no_hardware_cursors=true
+          }
+          env = WLR_NO_HARDWARE_CURSORS,1
 
-      '' else ''
-        cursor {
-          default_monitor=${myLib.getPrimaryMonitor.connector}
-        }
-      '';
+        ''
+        else ''
+          cursor {
+            default_monitor=${myLib.getPrimaryMonitor.connector}
+          }
+        '';
 
-      hyprcursor = if (config.mypackages.theme.cursorTheme.hyprcursor.enable) then ''
-        exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
-        env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
-        env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
-      '' else "";
+      hyprcursor =
+        if (config.mypackages.theme.cursorTheme.hyprcursor.enable)
+        then ''
+          exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
+          env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
+          env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+        ''
+        else "";
 
-      monitors = (lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (value:
-        "monitor=${value}\n"
-      )));
+      monitors = lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (
+        value: "monitor=${value}\n"
+      ));
 
       configFile = pkgs.writeText "hyprland.conf" ''
         input {
@@ -73,20 +81,20 @@ in
         env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
         exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
       '';
-    in
-    {
+    in {
       enable = true;
       settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
     };
 
-    programs.regreet = (let
+    programs.regreet = let
       theme = config.mypackages.theme;
     in {
       enable = true;
       package = pkgs.greetd.regreet.overrideAttrs (oldAttrs: {
         name = "regreet-patched";
-        patches = oldAttrs.patches
-          ++ [ ./cursor_size.patch ];
+        patches =
+          oldAttrs.patches
+          ++ [./cursor_size.patch];
       });
       iconTheme = {
         name = theme.iconTheme.name;
@@ -109,6 +117,6 @@ in
           cursor_theme_size = theme.cursorTheme.size;
         };
       };
-    });
+    };
   };
 }

@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.godot;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.godot;
+in {
   options = {
     mypackages.godot = {
       enable = mkEnableOption "Enable Godot engine";
@@ -16,7 +19,6 @@ in
     ];
 
     mypackages.impermanence.directories = [
-      
     ];
   };
 }

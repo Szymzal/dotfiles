@@ -1,6 +1,9 @@
-{ lib, osConfig, ... }:
-with lib;
 {
+  lib,
+  osConfig,
+  ...
+}:
+with lib; {
   config = mkIf osConfig.mypackages.networkmanager.enable {
     xdg.desktopEntries = {
       NetworkManager = {
@@ -9,7 +12,7 @@ with lib;
         exec = "nmtui";
         icon = "tdenetworkmanager";
         terminal = true;
-        categories = [ "Network" ];
+        categories = ["Network"];
       };
     };
   };

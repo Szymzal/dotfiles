@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }: 
-with lib;
-let
-  cfg = config.mypackages.sound;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.sound;
+in {
   options = {
     mypackages.sound = {
       enable = mkEnableOption "Enable sound";

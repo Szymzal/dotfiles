@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.compression;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.compression;
+in {
   options = {
     mypackages.compression = {
       enable = mkEnableOption "Enable compression tools";

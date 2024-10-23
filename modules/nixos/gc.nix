@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-with lib;
-let
-  cfg = config.mypackages.gc;
-in
 {
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.gc;
+in {
   options = {
     mypackages.gc = {
       enable = mkEnableOption "Enable gc for nix";

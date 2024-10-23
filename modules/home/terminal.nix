@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.terminal;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.terminal;
+in {
   options = {
     mypackages.terminal = {
       enable = mkEnableOption "Enable terminal";

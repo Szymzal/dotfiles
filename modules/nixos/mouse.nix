@@ -1,9 +1,12 @@
-{ lib, config, pkgs, ... }:
-with lib;
-let
-  cfg = config.mypackages.mouse;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.mypackages.mouse;
+in {
   options = {
     mypackages.mouse = {
       enable = mkEnableOption "Enable mouse software";

@@ -7,15 +7,15 @@
 #
 # Locks are modified to have only one version of Forge (1.20.1-47.3.1)
 # I didn't want to deal with many versions of Forge
-{ lib
-, stdenvNoCC
-, fetchurl
-, gameVersion
-, loaderVersion
-, jre_headless
-, jq
-}:
-let
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  gameVersion,
+  loaderVersion,
+  jre_headless,
+  jq,
+}: let
   minecraftInfo = (lib.importJSON ./lock_game.json).${gameVersion};
 
   forge-installer = "forge-${gameVersion}-${loaderVersion}-installer";
@@ -37,112 +37,116 @@ let
   loader = (lib.importJSON ./lock_launcher.json).${gameVersion}.${loaderVersion};
   libraries = minecraftInfo.libraries ++ loader.libraries;
   libraries_lock = lib.importJSON ./lock_libraries.json;
-  fetchedLibraries = lib.forEach libraries (l:
-    let
+  fetchedLibraries = lib.forEach libraries (
+    l: let
       library = libraries_lock.${l};
     in
-    fetchurl {
-      inherit (library) url sha1;
-    }
+      fetchurl {
+        inherit (library) url sha1;
+      }
   );
 in
-stdenvNoCC.mkDerivation {
-  pname = "forge-loader";
-  version = "${gameVersion}-${loaderVersion}";
+  stdenvNoCC.mkDerivation {
+    pname = "forge-loader";
+    version = "${gameVersion}-${loaderVersion}";
 
-  libraries = fetchedLibraries;
+    libraries = fetchedLibraries;
 
-  src = fetchurl {
-    name = forge-installer;
-    inherit (loader) url;
-    hash = loader.md5;
-  };
+    src = fetchurl {
+      name = forge-installer;
+      inherit (loader) url;
+      hash = loader.md5;
+    };
 
-  preferLocalBuild = true;
+    preferLocalBuild = true;
 
-  installPhase = if (loader.type == "installer") then (
-  let
-    libraries_path = lib.concatStringsSep " " (lib.forEach libraries (l: libraries_lock.${l}.path));
-  in
-  ''
-    LIB_PATHS=(${libraries_path})
+    installPhase =
+      if (loader.type == "installer")
+      then
+        (
+          let
+            libraries_path = lib.concatStringsSep " " (lib.forEach libraries (l: libraries_lock.${l}.path));
+          in ''
+            LIB_PATHS=(${libraries_path})
 
-    mkdir $out
+            mkdir $out
 
-    for i in $libraries; do
-      NIX_LIB=$(basename $i)
-      NIX_LIB_NAME="''${NIX_LIB:33}"
+            for i in $libraries; do
+              NIX_LIB=$(basename $i)
+              NIX_LIB_NAME="''${NIX_LIB:33}"
 
-      for l in ''${!LIB_PATHS[@]}; do
-        LIB="''${LIB_PATHS[$l]}"
-        LIB_NAME=$(basename $LIB)
+              for l in ''${!LIB_PATHS[@]}; do
+                LIB="''${LIB_PATHS[$l]}"
+                LIB_NAME=$(basename $LIB)
 
-        if [[ $LIB_NAME == $NIX_LIB_NAME ]]; then
-          mkdir -p "$out/libraries/$(dirname $LIB)"
-          ln -s $i $out/libraries/$LIB
+                if [[ $LIB_NAME == $NIX_LIB_NAME ]]; then
+                  mkdir -p "$out/libraries/$(dirname $LIB)"
+                  ln -s $i $out/libraries/$LIB
 
-          echo Linking library: $LIB_NAME
+                  echo Linking library: $LIB_NAME
 
-          break
-        fi
-      done
-    done
+                  break
+                fi
+              done
+            done
 
-    MOJMAP_DIR_NAME=$(basename $out/libraries/de/oceanlabs/mcp/mcp_config/${gameVersion}-*)
-    echo $MOJMAP_DIR_NAME
-    MOJMAP_DIR=$out/libraries/net/minecraft/server/$MOJMAP_DIR_NAME
-    mkdir -p "$MOJMAP_DIR"
+            MOJMAP_DIR_NAME=$(basename $out/libraries/de/oceanlabs/mcp/mcp_config/${gameVersion}-*)
+            echo $MOJMAP_DIR_NAME
+            MOJMAP_DIR=$out/libraries/net/minecraft/server/$MOJMAP_DIR_NAME
+            mkdir -p "$MOJMAP_DIR"
 
-    ln -s ${mappings} $MOJMAP_DIR/server-$MOJMAP_DIR_NAME-mappings.txt
+            ln -s ${mappings} $MOJMAP_DIR/server-$MOJMAP_DIR_NAME-mappings.txt
 
-    MINECRAFT_LIB=$out/libraries/net/minecraft/server/${gameVersion}
-    mkdir -p "$MINECRAFT_LIB"
+            MINECRAFT_LIB=$out/libraries/net/minecraft/server/${gameVersion}
+            mkdir -p "$MINECRAFT_LIB"
 
-    ln -s ${vanilla} $MINECRAFT_LIB/server-${gameVersion}.jar
+            ln -s ${vanilla} $MINECRAFT_LIB/server-${gameVersion}.jar
 
-    cp $src $out/forge-installer.jar
+            cp $src $out/forge-installer.jar
 
-    echo Patching forge installer...
-    pushd $out
+            echo Patching forge installer...
+            pushd $out
 
-    ${jre_headless}/bin/jar xf $out/forge-installer.jar install_profile.json
+            ${jre_headless}/bin/jar xf $out/forge-installer.jar install_profile.json
 
-    mv $out/install_profile.json $out/install_profile_original.json
+            mv $out/install_profile.json $out/install_profile_original.json
 
-    ${lib.getExe jq} 'del(.processors[] | select(.args[1]=="DOWNLOAD_MOJMAPS"))' $out/install_profile_original.json > $out/install_profile.json
-    mkdir -p $out/META-INF
-    touch $out/META-INF/FORGE.RSA
+            ${lib.getExe jq} 'del(.processors[] | select(.args[1]=="DOWNLOAD_MOJMAPS"))' $out/install_profile_original.json > $out/install_profile.json
+            mkdir -p $out/META-INF
+            touch $out/META-INF/FORGE.RSA
 
-    ${jre_headless}/bin/jar uf $out/forge-installer.jar install_profile.json META-INF/FORGE.RSA
+            ${jre_headless}/bin/jar uf $out/forge-installer.jar install_profile.json META-INF/FORGE.RSA
 
-    popd
+            popd
 
-    rm $out/install_profile.json
-    rm $out/install_profile_original.json
-    rm -rf $out/META-INF
+            rm $out/install_profile.json
+            rm $out/install_profile_original.json
+            rm -rf $out/META-INF
 
-    echo Running installer...
-    ${jre_headless}/bin/java -jar $out/forge-installer.jar --offline --installServer $out
+            echo Running installer...
+            ${jre_headless}/bin/java -jar $out/forge-installer.jar --offline --installServer $out
 
-    echo Cleaning up...
+            echo Cleaning up...
 
-    rm $out/run.bat
-    rm $out/run.sh
-    rm $out/user_jvm_args.txt
-    rm $out/forge-installer.jar
+            rm $out/run.bat
+            rm $out/run.sh
+            rm $out/user_jvm_args.txt
+            rm $out/forge-installer.jar
 
-    substituteInPlace $out/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt \
-      --replace libraries $out/libraries
-  '') else throw "Cannot work with other types of packaging than installer!";
+            substituteInPlace $out/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt \
+              --replace libraries $out/libraries
+          ''
+        )
+      else throw "Cannot work with other types of packaging than installer!";
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  meta = with lib; {
-    description = "Minecraft Server";
-    homepage = "https://minecraft.net";
-    license = licenses.unfreeRedistributable;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ infinidoge ];
-    mainProgram = "minecraft-server";
-  };
-}
+    meta = with lib; {
+      description = "Minecraft Server";
+      homepage = "https://minecraft.net";
+      license = licenses.unfreeRedistributable;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [infinidoge];
+      mainProgram = "minecraft-server";
+    };
+  }
