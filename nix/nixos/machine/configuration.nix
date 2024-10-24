@@ -36,6 +36,7 @@ in {
   ];
 
   hardware.enableAllFirmware = true;
+  nixpkgs.config.allowUnfree = true;
 
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/8A48821948820463";
