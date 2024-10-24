@@ -90,6 +90,7 @@ in {
     multiTerminal.enable = true;
     cachix.enable = true;
     cuda.enable = true;
+    virtualization.enable = true;
 
     monitors = [
       {
