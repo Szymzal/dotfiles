@@ -30,8 +30,12 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   boot.kernelParams = [
-    "reboot=acpi"
+    "nvme_core.default_ps_max_latency_us=0"
+    "pcie_aspm=off"
+    "pci=nocrs"
   ];
+
+  hardware.enableAllFirmware = true;
 
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/8A48821948820463";
