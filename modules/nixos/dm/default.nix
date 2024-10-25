@@ -58,6 +58,8 @@ in {
       settings.default_session.command = "${config.programs.river.package}/bin/river -c ${configFile} -log-level debug > /var/log/river.log 2>&1";
     };
 
+    mypackages.way-displays.enable = mkDefault true;
+
     programs.regreet = let
       theme = config.mypackages.theme;
     in {

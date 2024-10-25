@@ -49,6 +49,7 @@
     ../../modules/nixos/terminal.nix
     ../../modules/nixos/video-rec.nix
     ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/way-displays.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix

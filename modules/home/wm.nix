@@ -78,6 +78,7 @@ in {
           pamixer
           wlogout
           wlr-randr
+          way-displays
         ]
         ++ optionals (cfg.preset == "hyprland") [
           xdg-desktop-portal-hyprland
@@ -352,6 +353,7 @@ in {
           hide-cursor.when-typing = "enabled";
           keyboard-layout = "pl";
           spawn = [
+            "way-displays"
             "waybar"
             "rivertile"
           ];
@@ -376,36 +378,6 @@ in {
         systemd.enable = true;
 
         xwayland.enable = true;
-      };
-
-      services.kanshi = mkIf (cfg.preset == "river") {
-        enable = true;
-        settings =
-          [
-            {
-              profile.name = "default";
-              profile.outputs = lib.forEach monitors (
-                value: (mkIf value.enable {
-                  status = "enable";
-                  adaptiveSync = false;
-                  criteria = value.connector;
-                  position = "${builtins.toString value.position.x},${builtins.toString value.position.y}";
-                  scale = value.mode.scale;
-                  transform = "normal";
-                  mode = "${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate}Hz";
-                })
-              );
-            }
-          ]
-          ++ (lib.forEach monitors (
-            value: (mkIf (!value.enable) {
-              output = {
-                status = "disable";
-                criteria = value.connector;
-              };
-            })
-          ));
-        systemdTarget = "river-session.target";
       };
 
       services.hyprpaper = {

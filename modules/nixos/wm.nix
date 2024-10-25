@@ -17,6 +17,8 @@ in {
   config = mkIf cfg.enable {
     security.polkit.enable = true;
 
+    mypackages.way-displays.enable = mkDefault true;
+
     mypackages.cachix = {
       substituters = ["https://hyprland.cachix.org"];
       public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
