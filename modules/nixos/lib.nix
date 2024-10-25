@@ -14,7 +14,7 @@
     getOptionsFromHomeConfigs = configPath: lib.attrsets.mapAttrsToList (name: value: (lib.attrsets.getAttrFromPath (attrToList configPath) value)) config.home-manager.users;
     isEnabledOptionOnHomeConfig = option: (lib.lists.findSingle (value: value) false true (getOptionsFromHomeConfigs option));
     hyprlandMonitorsConfig = (
-      lib.forEach (config.mypackages.monitors) (
+      lib.forEach (config.mypackages.monitors.config) (
         value:
           if (value.enable)
           then "${value.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale}"
@@ -22,8 +22,8 @@
       )
     );
     getPrimaryMonitor =
-      if (config.mypackages.monitors != [])
-      then (builtins.head (builtins.filter (value: (value.enable && value.primary)) config.mypackages.monitors))
+      if (config.mypackages.monitors != {} && config.mypackages.monitors.config != [])
+      then (builtins.head (builtins.filter (value: (value.enable && value.primary)) config.mypackages.monitors.config))
       else {};
   };
 }

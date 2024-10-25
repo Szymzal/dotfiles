@@ -5,7 +5,6 @@
   ...
 }:
 with lib; let
-  # myLib = config.lib.myLib;
   cfg = config.mypackages.dm;
 in {
   options = {
@@ -35,27 +34,19 @@ in {
     };
 
     services.greetd = let
-      configFile = pkgs.writeShellScript "init-river-script" (''
-          export XDG_SESSION_TYPE="wayland"
-          export NIXOS_OZONE_WL="1"
-          export XDG_CURRENT_DESKTOP="river"
-        ''
-        + optionalString (config.mypackages.nvidia.enable && !config.mypackages.nvidia.open.enable) ''
-          export LIBVA_DRIVER_NAME="nvidia"
-        ''
-        + optionalString (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable) ''
-          export WLR_NO_HARDWARE_CURSORS="1"
-        ''
+      initScript = pkgs.writeShellScript "init-greetd-script" (
+        optionalString (config.mypackages.monitors != {} && config.mypackages.monitors.config != []) (let
+          primaryMonitor = config.lib.myLib.getPrimaryMonitor;
+        in ''
+          ${pkgs.wlr-randr}/bin/wlr-randr --output ${primaryMonitor.connector} --on --mode ${builtins.toString primaryMonitor.mode.width}x${builtins.toString primaryMonitor.mode.height}@${builtins.toString primaryMonitor.mode.rate}
+        '')
         + ''
-          riverctl keyboard-layout pl
-          riverctl xcursor-theme ${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
-
-          riverctl spawn "${config.programs.regreet.package}/bin/regreet; riverctl exit"
-          riverctl spawn ${pkgs.foot}
-        '');
+          ${config.programs.regreet.package}/bin/regreet
+        ''
+      );
     in {
       enable = true;
-      settings.default_session.command = "${config.programs.river.package}/bin/river -c ${configFile} -log-level debug > /var/log/river.log 2>&1";
+      settings.default_session.command = "${pkgs.cage}/bin/cage -s -m last -- sh -c ${initScript}";
     };
 
     mypackages.way-displays.enable = mkDefault true;

@@ -33,47 +33,60 @@ in {
       bindsTo = ["river-session.target"];
     };
 
-    systemd.services.way-displays = {
-      enable = true;
-
-      unitConfig = {
-        Description = "Output configuration";
-        After = ["greetd.service"];
-        PartOf = ["greetd.service"];
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-      };
-
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.way-displays}/bin/way-displays";
-        Restart = "always";
-      };
-
-      bindsTo = ["graphical.target"];
-    };
-
     environment.etc = {
-      "way-displays/cfg.yaml".text = ''
-        ARRANGE: ROW
-        ALIGN: MIDDLE
-        ORDER:
-          - 'DP-1'
-          - 'HDMI-A-1'
-        MODE:
-          - NAME_DESC: '27G2G4'
-            WIDTH: 1920
-            HEIGHT: 1080
-            HZ: 144
-          - NAME_DESC: 'PL2470H'
-            WIDTH: 1920
-            HEIGHT: 1080
-            HZ: 144
-        VRR_OFF:
-          - '27G2G4'
-          - 'PL2470H'
-        DISABLED:
-          - 'Unknown-*'
-      '';
+      "way-displays/cfg.yaml".text =
+        ''
+          ARRANGE: ROW
+          ALIGN: MIDDLE
+        ''
+        + optionalString (config.mypackages.monitors.order != [])
+        ''
+          ORDER:
+        ''
+        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.order) (
+          value: ''
+            - '${value}'
+          ''
+        )))
+        + optionalString (config.mypackages.monitors.config != [])
+        ''
+          MODE:
+        ''
+        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+          value:
+            if (value.enable)
+            then ''
+              - NAME_DESC: '${value.model}'
+                WIDTH: ${builtins.toString value.mode.width}
+                HEIGHT: ${builtins.toString value.mode.height}
+                HZ: ${builtins.toString value.mode.rate}
+            ''
+            else ""
+        )))
+        + optionalString (config.mypackages.monitors.config != [])
+        ''
+          VRR_OFF:
+        ''
+        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+          value:
+            if (value.enable)
+            then ''
+              - '${value.model}'
+            ''
+            else ""
+        )))
+        + optionalString (config.mypackages.monitors.config != [])
+        ''
+          DISABLED:
+        ''
+        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+          value:
+            if (!value.enable)
+            then ''
+              - '${value.connector}'
+            ''
+            else ""
+        )));
     };
   };
 }

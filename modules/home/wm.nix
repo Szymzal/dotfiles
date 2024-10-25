@@ -56,7 +56,7 @@ in {
         sleep 1
         hyprctl dispatch -- fullscreen
       '';
-      monitors = osConfig.mypackages.monitors;
+      monitors = osConfig.mypackages.monitors.config;
     in {
       # assertions = [
       #   {

@@ -97,37 +97,37 @@ in {
     cuda.enable = true;
     virtualization.enable = true;
 
-    monitors = [
-      {
-        enable = true;
-        primary = true;
-        connector = "DP-1";
-        position = {
-          x = 0;
-          y = 0;
-        };
-        mode = {
-          width = 1920;
-          height = 1080;
-          rate = 144.00101;
-          scale = 1.0;
-        };
-      }
-      {
-        enable = true;
-        connector = "HDMI-A-1";
-        position = {
-          x = 1920;
-          y = 0;
-        };
-        mode = {
-          width = 1920;
-          height = 1080;
-          rate = 143.99800;
-          scale = 1.0;
-        };
-      }
-    ];
+    monitors = {
+      order = [
+        "DP-1"
+        "HDMI-A-1"
+      ];
+      config = [
+        {
+          enable = true;
+          primary = true;
+          connector = "DP-1";
+          model = "27G2G4";
+          mode = {
+            width = 1920;
+            height = 1080;
+            rate = 144.001007;
+            scale = 1.0;
+          };
+        }
+        {
+          enable = true;
+          connector = "HDMI-A-1";
+          model = "PL2470H";
+          mode = {
+            width = 1920;
+            height = 1080;
+            rate = 143.998001;
+            scale = 1.0;
+          };
+        }
+      ];
+    };
 
     impermanence = {
       enable = true;
