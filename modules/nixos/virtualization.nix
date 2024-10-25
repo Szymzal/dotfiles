@@ -26,5 +26,7 @@ in {
         allowedUDPPorts = [53 67];
       };
     };
+
+    mypackages.impermanence.directories = ["/var/lib/libvirt"];
   };
 }
