@@ -14,7 +14,7 @@ in {
     grub = {
       enable = true;
       efiSupport = false;
-      bootDevice = "/dev/vda";
+      device = "/dev/vda";
     };
   };
 
