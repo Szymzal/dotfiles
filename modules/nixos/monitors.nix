@@ -76,16 +76,16 @@ in {
     };
   };
 
-  config = mkIf ((builtins.head cfg) != []) {
-    assertions = [
-      {
-        assertion = (builtins.head (builtins.filter (value: (value.enable && value.primary)) cfg)) != [];
-        message = "No primary monitors!";
-      }
-      {
-        assertion = (builtins.length (builtins.filter (value: (value.enable && value.primary)) cfg)) < 2;
-        message = "Multiple primary monitors!";
-      }
-    ];
+  config = mkIf (cfg != []) {
+    # assertions = [
+    #   {
+    #     assertion = (builtins.head (builtins.filter (value: (value.enable && value.primary)) cfg)) != [];
+    #     message = "No primary monitors!";
+    #   }
+    #   {
+    #     assertion = (builtins.length (builtins.filter (value: (value.enable && value.primary)) cfg)) < 2;
+    #     message = "Multiple primary monitors!";
+    #   }
+    # ];
   };
 }

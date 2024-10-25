@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  osConfig,
+  ...
+}: let
   inherit (inputs) self;
 in {
   imports = [
@@ -21,8 +25,12 @@ in {
     wm = {
       enable = true;
       preset = "river";
-      wallpaper-path = /persist/customization/wallpaper.jpg;
+      wallpaper-path = ../../wallpaper.jpg;
       splash = false;
+    };
+    theme = {
+      enable = true;
+      inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
     };
     file-explorer.enable = true;
     browser.enable = true;

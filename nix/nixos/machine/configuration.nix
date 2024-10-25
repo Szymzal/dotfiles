@@ -164,7 +164,10 @@ in {
     home-manager.enable = true;
     wireshark.enable = true;
     compression.enable = true;
-    nix-helpers.enable = true;
+    nix-helpers = {
+      enable = true;
+      flake-path = "/persist/nixos";
+    };
     android.enable = true;
     printing.enable = true;
     bluetooth.enable = true;

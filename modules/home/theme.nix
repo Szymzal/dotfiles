@@ -79,40 +79,44 @@ in {
 
   config = mkIf cfg.enable (let
     hyprcursor-theme = "${cfg.cursorTheme.name}-hyprcursor";
-  in {
-    assertions = [
+  in
+    mkMerge [
       {
-        assertion = config.mypackages.wm.enable;
-        message = "Enable Window Manager to get wallpaper";
+        # assertions = [
+        #   {
+        #     assertion = config.mypackages.wm.enable;
+        #     message = "Enable Window Manager to get wallpaper";
+        #   }
+        # ];
+
+        stylix.base16Scheme = cfg.theme.base16-scheme-path;
+
+        stylix.polarity =
+          if (cfg.prefer-dark-theme)
+          then "dark"
+          else "light";
+        stylix.image = config.mypackages.wm.wallpaper-path;
+        stylix.cursor = {
+          name = cfg.cursorTheme.name;
+          size = cfg.cursorTheme.size;
+          package = cfg.cursorTheme.package;
+        };
+
+        gtk = {
+          enable = true;
+          iconTheme = {
+            name = cfg.iconTheme.name;
+            package = cfg.iconTheme.package;
+          };
+        };
+
+        home.packages = [
+          cfg.iconTheme.package
+        ];
       }
-    ];
-
-    stylix.base16Scheme = cfg.theme.base16-scheme-path;
-
-    stylix.polarity =
-      if (cfg.prefer-dark-theme)
-      then "dark"
-      else "light";
-    stylix.image = config.mypackages.wm.wallpaper-path;
-    stylix.cursor = {
-      name = cfg.cursorTheme.name;
-      size = cfg.cursorTheme.size;
-      package = cfg.cursorTheme.package;
-    };
-
-    gtk = {
-      enable = true;
-      iconTheme = {
-        name = cfg.iconTheme.name;
-        package = cfg.iconTheme.package;
-      };
-    };
-
-    home.packages = [
-      cfg.iconTheme.package
-    ];
-
-    home.file.".icons/${hyprcursor-theme}".source = mkIf cfg.cursorTheme.hyprcursor.enable "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
-    xdg.dataFile."icons/${hyprcursor-theme}".source = mkIf cfg.cursorTheme.hyprcursor.enable "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
-  });
+      (mkIf cfg.cursorTheme.hyprcursor.enable {
+        home.file.".icons/${hyprcursor-theme}".source = "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
+        xdg.dataFile."icons/${hyprcursor-theme}".source = "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
+      })
+    ]);
 }

@@ -13,13 +13,13 @@ in {
         default = null;
         example = "Szymzal";
         description = "Username of git user";
-        type = types.str;
+        type = types.nullOr types.str;
       };
       userEmail = mkOption {
         default = null;
         example = "szymzal05@gmail.com";
         description = "Email of git user";
-        type = types.str;
+        type = types.nullOr types.str;
       };
     };
   };

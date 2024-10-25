@@ -21,6 +21,9 @@
           else "${value.connector},disable"
       )
     );
-    getPrimaryMonitor = builtins.head (builtins.filter (value: (value.enable && value.primary)) config.mypackages.monitors);
+    getPrimaryMonitor =
+      if (config.mypackages.monitors != [])
+      then (builtins.head (builtins.filter (value: (value.enable && value.primary)) config.mypackages.monitors))
+      else {};
   };
 }

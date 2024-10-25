@@ -14,6 +14,7 @@ in {
     grub = {
       enable = true;
       efiSupport = false;
+      bootDevice = "/dev/vda";
     };
   };
 
@@ -56,7 +57,7 @@ in {
     ssh.enable = true;
     networkmanager = {
       enable = true;
-      hostName = "portable-camera";
+      hostName = "portable";
     };
     gc.enable = true;
     editor.enable = true;
@@ -100,14 +101,35 @@ in {
     sound.enable = true;
     fonts.enable = true;
     shell.enable = true;
+    theme = {
+      enable = true;
+      prefer-dark-theme = true;
+      theme = {
+        base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
+      cursorTheme = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 16;
+        hyprcursor.enable = false;
+      };
+      iconTheme = {
+        name = "Papirus";
+        package = pkgs.papirus-icon-theme;
+      };
+    };
     wm.enable = true;
     dm = {
       enable = true;
-      wallpaper-path = /persist/customization/wallpaper.jpg;
+      wallpaper-path =
+        ../../../wallpaper.jpg;
     };
     home-manager.enable = true;
     compression.enable = true;
-    nix-helpers.enable = true;
+    nix-helpers = {
+      enable = true;
+      flake-path = "/etc/nixos";
+    };
   };
 
   myusers.camera.enable = true;

@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  myLib = config.lib.myLib;
+  # myLib = config.lib.myLib;
   cfg = config.mypackages.dm;
 in {
   options = {
@@ -17,7 +17,7 @@ in {
           /persist/nixos/wallpaper.png
         '';
         description = "Path to wallpaper (support for: png, jpg, jpeg, webp)";
-        type = types.path;
+        type = types.nullOr types.path;
       };
     };
   };
@@ -35,55 +35,72 @@ in {
     };
 
     services.greetd = let
-      cursors =
-        if (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable)
-        then ''
-          cursor {
-            default_monitor=${myLib.getPrimaryMonitor.connector}
-            no_hardware_cursors=true
-          }
-          env = WLR_NO_HARDWARE_CURSORS,1
-
+      # cursors =
+      #   if (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable)
+      #   then ''
+      #     cursor {
+      #       default_monitor=${myLib.getPrimaryMonitor.connector}
+      #       no_hardware_cursors=true
+      #     }
+      #     env = WLR_NO_HARDWARE_CURSORS,1
+      #
+      #   ''
+      #   else ''
+      #     cursor {
+      #       default_monitor=${myLib.getPrimaryMonitor.connector}
+      #     }
+      #   '';
+      #
+      # hyprcursor =
+      #   if (config.mypackages.theme.cursorTheme.hyprcursor.enable)
+      #   then ''
+      #     exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
+      #     env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
+      #     env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+      #   ''
+      #   else "";
+      #
+      # monitors = lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (
+      #   value: "monitor=${value}\n"
+      # ));
+      #
+      # configFile = pkgs.writeText "hyprland.conf" ''
+      #   input {
+      #     kb_layout=pl
+      #   }
+      #   misc {
+      #     disable_hyprland_logo=true
+      #     disable_splash_rendering=true
+      #   }
+      #   ${cursors}
+      #   ${monitors}
+      #   workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
+      #   windowrulev2=workspace 1,title:(.*)
+      #   ${hyprcursor}
+      #   env = XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
+      #   env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+      #   exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
+      # '';
+      configFile = pkgs.writeShellScript "init" (''
+          export XDG_SESSION_TYPE="wayland"
+          export NIXOS_OZONE_WL="1"
+          export XDG_CURRENT_DESKTOP="river"
         ''
-        else ''
-          cursor {
-            default_monitor=${myLib.getPrimaryMonitor.connector}
-          }
-        '';
-
-      hyprcursor =
-        if (config.mypackages.theme.cursorTheme.hyprcursor.enable)
-        then ''
-          exec-once=hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
-          env = HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}
-          env = HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
+        + optionalString (config.mypackages.nvidia.enable && !config.mypackages.nvidia.open.enable) ''
+          export LIBVA_DRIVER_NAME="nvidia"
         ''
-        else "";
+        + optionalString (config.mypackages.nvidia.enable && config.mypackages.nvidia.open.enable) ''
+          export WLR_NO_HARDWARE_CURSORS="1"
+        ''
+        + ''
+          riverctl keyboard-layout pl
+          riverctl xcursor-theme ${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}
 
-      monitors = lib.concatStrings (lib.forEach (myLib.hyprlandMonitorsConfig) (
-        value: "monitor=${value}\n"
-      ));
-
-      configFile = pkgs.writeText "hyprland.conf" ''
-        input {
-          kb_layout=pl
-        }
-        misc {
-          disable_hyprland_logo=true
-          disable_splash_rendering=true
-        }
-        ${cursors}
-        ${monitors}
-        workspace=1,monitor:${myLib.getPrimaryMonitor.connector},default:true
-        windowrulev2=workspace 1,title:(.*)
-        ${hyprcursor}
-        env = XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}
-        env = XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}
-        exec-once=${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
-      '';
+          riverctl spawn ${config.programs.regreet.package}/bin/regreet; riverctl exit
+        '');
     in {
       enable = true;
-      settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config ${configFile}";
+      settings.default_session.command = "${config.programs.river.package}/bin/river -c ${configFile}";
     };
 
     programs.regreet = let

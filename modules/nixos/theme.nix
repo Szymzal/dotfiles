@@ -83,12 +83,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = config.mypackages.dm.enable;
-        message = "Enable Display Manager to get wallpaper";
-      }
-    ];
+    # assertions = [
+    #   {
+    #     assertion = config.mypackages.dm.enable;
+    #     message = "Enable Display Manager to get wallpaper";
+    #   }
+    # ];
 
     stylix = {
       enable = true;

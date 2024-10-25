@@ -58,12 +58,12 @@ in {
       '';
       monitors = osConfig.mypackages.monitors;
     in {
-      assertions = [
-        {
-          assertion = (builtins.head monitors) != [];
-          message = "Please specify mypackages.monitors in nixos configuration!";
-        }
-      ];
+      # assertions = [
+      #   {
+      #     assertion = (builtins.head monitors) != [];
+      #     message = "Please specify mypackages.monitors in nixos configuration!";
+      #   }
+      # ];
 
       mypackages = {
         terminal.enable = mkDefault true;
@@ -77,11 +77,13 @@ in {
           killall
           pamixer
           wlogout
-          bibata-hyprcursor
           wlr-randr
         ]
         ++ optionals (cfg.preset == "hyprland") [
           xdg-desktop-portal-hyprland
+        ]
+        ++ optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
+          bibata-hyprcursor
         ];
 
       wayland.windowManager.hyprland = mkIf (cfg.preset == "hyprland") {

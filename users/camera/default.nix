@@ -25,7 +25,7 @@ in {
       shell = pkgs.zsh;
     };
 
-    home-manager.users.szymzal = {
+    home-manager.users.camera = {
       imports = [./home.nix];
     };
   };
