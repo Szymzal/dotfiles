@@ -75,7 +75,7 @@ in {
       };
       settings = {
         background = mkIf (!(isNull cfg.wallpaper-path)) {
-          path = cfg.wallpaper-path;
+          path = mkForce cfg.wallpaper-path;
         };
         GTK = {
           application_prefer_dark_theme = theme.prefer-dark-theme;
