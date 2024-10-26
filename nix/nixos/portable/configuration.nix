@@ -121,8 +121,10 @@ in {
     wm.enable = true;
     dm = {
       enable = true;
-      wallpaper-path =
-        ../../../wallpaper.jpg;
+      wallpaper-path = pkgs.fetchurl {
+        url = "https://wallpapers.com/images/featured/solid-color-background-8hx8sccuk0vb8hpx.jpg";
+        hash = "sha256-rxakSFAjnvFpXO0dEkdetiZpIDQxpQ0gPk/t1LRZszg=";
+      };
     };
     home-manager.enable = true;
     compression.enable = true;
