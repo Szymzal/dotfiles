@@ -14,8 +14,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    fonts.packages = with pkgs; [
-      (nerdfonts.override {fonts = ["FiraCode"];})
-    ];
+    fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        (nerdfonts.override {fonts = ["FiraCode"];})
+      ];
+    };
   };
 }
