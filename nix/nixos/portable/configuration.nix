@@ -13,8 +13,11 @@ in {
   boot.loader = {
     grub = {
       enable = true;
-      efiSupport = false;
-      device = "/dev/vda";
+      device = "nodev";
+      efiSupport = true;
+    };
+    efi = {
+      canTouchEfiVariables = true;
     };
   };
 
