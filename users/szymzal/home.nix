@@ -44,6 +44,7 @@ in {
     wm = {
       enable = true;
       preset = "river";
+      # TODO: make deriviation
       wallpaper-path = /persist/customization/wallpaper.jpg;
       splash = false;
     };

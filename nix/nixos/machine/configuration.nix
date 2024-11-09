@@ -26,7 +26,8 @@ in {
 
   boot.supportedFilesystems = ["ntfs"];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # TODO: FIX THIS KERNEL
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   boot.kernelParams = [
@@ -207,6 +208,7 @@ in {
     wm.enable = true;
     dm = {
       enable = true;
+      # TODO: make deriviation
       wallpaper-path = /persist/customization/wallpaper.jpg;
     };
     home-manager.enable = true;

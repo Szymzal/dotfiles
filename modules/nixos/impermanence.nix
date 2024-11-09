@@ -95,11 +95,7 @@ in {
             }
           ]
           ++ cfg.directories;
-        files =
-          [
-            "/etc/machine-id"
-          ]
-          ++ cfg.files;
+        files = cfg.files;
       }
       else throw "Please specify mypackages.impermanence.persistenceDir!";
 
