@@ -26,8 +26,8 @@ in {
 
   boot.supportedFilesystems = ["ntfs"];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0"
@@ -58,6 +58,54 @@ in {
   time.timeZone = "Europe/Warsaw";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  systemd = let
+    accounting = ''
+      DefaultCPUAccounting=yes
+      DefaultMemoryAccounting=yes
+      DefaultIOAccounting=yes
+    '';
+  in {
+    extraConfig = accounting;
+    user = {
+      extraConfig = accounting;
+      slices = {
+        "app".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "16%";
+        };
+        "background".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "8%";
+        };
+      };
+    };
+    services = {
+      "user@".serviceConfig.Delegate = true;
+      "config-mglru" = {
+        enable = true;
+        after = ["basic.target"];
+        wantedBy = ["sysinit.target"];
+        script = let
+          inherit (pkgs) coreutils;
+        in ''
+          ${coreutils}/bin/echo Y > /sys/kernel/mm/lru_gen/enabled
+          ${coreutils}/bin/echo 1000 > /sys/kernel/mm/lru_gen/min_ttl_ms
+        '';
+      };
+    };
+    slices."background".sliceConfig = {
+      ManagedOOMMemoryPressure = "kill";
+      ManagedOOMMemoryPressureLimit = "8%";
+    };
+    oomd = {
+      enable = true;
+      enableRootSlice = false;
+      enableSystemSlice = false;
+      enableUserSlices = false;
+      extraConfig.DefaultMemoryPressureDurationSec = "4s";
+    };
+  };
 
   security.pam.loginLimits = [
     {

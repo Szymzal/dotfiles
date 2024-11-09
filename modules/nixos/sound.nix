@@ -17,6 +17,19 @@ in {
     # NOTE: sound.enable only enables ALSA, but I have Pipewire instead
     # sound.enable = true;
 
+    boot.kernelParams = ["threadirqs"];
+    security = {
+      rtkit.enable = true;
+      pam.loginLimits = [
+        {
+          domain = "@audio";
+          type = "-";
+          item = "rtprio";
+          value = "90";
+        }
+      ];
+    };
+
     services = {
       pipewire = {
         enable = true;
@@ -28,6 +41,10 @@ in {
         };
         jack.enable = true;
       };
+      udev.extraRules = ''
+        DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
+        DEVPATH=="/devices/virtual/misc/hpet", OWNER="root", GROUP="audio", MODE="0660"
+      '';
     };
 
     environment.systemPackages = with pkgs; [
