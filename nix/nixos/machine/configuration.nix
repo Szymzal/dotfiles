@@ -125,6 +125,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
+    zotero
   ];
 
   mypackages = {
