@@ -7,13 +7,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "playit-agent";
-  version = "0.15.21";
+  version = "0.15.26";
 
   src = fetchFromGitHub {
     owner = "playit-cloud";
     repo = "playit-agent";
     rev = "v${version}";
-    hash = "sha256-N+NCEI0UjYadMSUZNLfT7N3fTdMwgxxTNqImsCkSmhg=";
+    hash = "sha256-zmiv007/am9KnxpauelNNrfdJuJSqmDspLKqP6pCjIs=";
   };
 
   OPENSSL_NO_VENDOR = 1;
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [pkg-config];
   buildInputs = [openssl];
 
-  cargoHash = "sha256-FXP6/7rK7IvXzWC7me2tySHbHnhaJ1Oqs0DJhq1ExJg=";
+  cargoHash = "sha256-JRsmZ5D/awsIjExGTDkzYkun6oeIpL1FkZJKzZf/XF0=";
 
   # tests connect to a server
   doCheck = false;

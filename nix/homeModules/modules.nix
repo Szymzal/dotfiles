@@ -40,6 +40,7 @@
     ../../modules/home/epic-games.nix
     ../../modules/home/genealogy.nix
     ../../modules/home/fonts.nix
+    ../../modules/home/zotero.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
