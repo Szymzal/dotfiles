@@ -21,7 +21,5 @@ in {
       overrideDevices = true;
       overrideFolders = true;
     };
-
-    mypackages.impermanence.directories = [".config/syncthing"];
   };
 }

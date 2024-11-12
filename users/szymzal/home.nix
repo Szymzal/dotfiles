@@ -48,8 +48,8 @@ in {
       preset = "river";
       wallpaper-path = pkgs.fetchurl {
         name = "wallpaper";
-        url = "https://blogger.googleusercontent.com/img/a/AVvXsEjwg2vHBZqvGkQYUVq6o43OIK5dz7ShydmR-ns1tBE6MGivSQPU5VhCQCRVsB9gGzf8St-1CcTrGvc7Suzdi3XVm1tsadXSGV2qYzo3RM2jzrEq6-18X6upzutCYi2ouWBmTxkq40S0znT1yAJqovD68oRYHVPEw3VMz8fXiH5M-luJbSLnPTR4cSnx734=s1600-rw";
-        hash = "sha256-3PzS16G5G7c3LBnW03eZl44Sl9JwzK4z0gUk6EI/JzY=";
+        url = "https://raw.githubusercontent.com/DenverCoder1/minimalistic-wallpaper-collection/main/images/dalle2-minimalistic-colorful-flat-mountain-landscape.png";
+        hash = "sha256-ON54b7rzocXoFXKQmfAuG4xXaC2AUH1r1x6m4YqnNIs=";
       };
       splash = false;
     };
