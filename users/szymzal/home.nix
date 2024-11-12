@@ -1,6 +1,7 @@
 {
   inputs,
   osConfig,
+  pkgs,
   ...
 }: let
   inherit (inputs) self;
@@ -26,6 +27,7 @@ in {
       enable = true;
       persistent-path = "/persist/home/szymzal";
       directories = [
+        "Documents"
         "speedrunigt"
         ".config/sops"
         ".ssh"
@@ -44,8 +46,11 @@ in {
     wm = {
       enable = true;
       preset = "river";
-      # TODO: make deriviation
-      wallpaper-path = /persist/customization/wallpaper.jpg;
+      wallpaper-path = pkgs.fetchurl {
+        name = "wallpaper";
+        url = "https://blogger.googleusercontent.com/img/a/AVvXsEjwg2vHBZqvGkQYUVq6o43OIK5dz7ShydmR-ns1tBE6MGivSQPU5VhCQCRVsB9gGzf8St-1CcTrGvc7Suzdi3XVm1tsadXSGV2qYzo3RM2jzrEq6-18X6upzutCYi2ouWBmTxkq40S0znT1yAJqovD68oRYHVPEw3VMz8fXiH5M-luJbSLnPTR4cSnx734=s1600-rw";
+        hash = "sha256-3PzS16G5G7c3LBnW03eZl44Sl9JwzK4z0gUk6EI/JzY=";
+      };
       splash = false;
     };
     coding.enable = true;

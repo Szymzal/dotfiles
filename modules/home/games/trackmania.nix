@@ -12,12 +12,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    mypackages.impermanence.directories = [
-      {
-        directory = "Documents/Trackmania";
-        method = "symlink";
-      }
-    ];
-  };
+  config =
+    mkIf cfg.enable {
+    };
 }

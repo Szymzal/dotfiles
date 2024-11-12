@@ -19,7 +19,6 @@ in {
     ];
 
     mypackages.impermanence.directories = [
-      "Documents/BlackmagicDesign"
       ".local/share/DaVinciResolve"
     ];
   };
