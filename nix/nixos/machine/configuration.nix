@@ -337,7 +337,7 @@ in {
                 enable-command-block = false;
                 hide-online-players = true;
                 max-players = 10;
-                online-mode = true;
+                online-mode = false;
                 spawn-protection = 0;
                 simulation-distance = 8;
                 view-distance = 16;
