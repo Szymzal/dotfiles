@@ -42,6 +42,8 @@
     ../../modules/home/fonts.nix
     ../../modules/home/zotero.nix
     ../../modules/home/syncthing.nix
+    ../../modules/home/sunshine.nix
+    ../../modules/home/localsend.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
