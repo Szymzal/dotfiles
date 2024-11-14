@@ -51,6 +51,8 @@
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/way-displays.nix
     ../../modules/nixos/syncthing.nix
+    ../../modules/nixos/sunshine.nix
+    ../../modules/nixos/localsend.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/lutris.nix

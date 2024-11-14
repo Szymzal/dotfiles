@@ -260,6 +260,8 @@ in {
     network-tools.enable = true;
     flatpak.enable = true;
     syncthing.enable = true;
+    sunshine.enable = true;
+    localsend.enable = true;
     games = {
       lutris.enable = true;
       minecraft = {
