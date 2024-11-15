@@ -208,7 +208,6 @@ in {
     wm.enable = true;
     dm = {
       enable = true;
-      # TODO: make deriviation
       wallpaper-path = pkgs.fetchurl {
         name = "wallpaper";
         url = "https://raw.githubusercontent.com/DenverCoder1/minimalistic-wallpaper-collection/main/images/dalle2-minimalistic-colorful-flat-mountain-landscape.png";
