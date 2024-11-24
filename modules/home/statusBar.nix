@@ -26,14 +26,9 @@ in {
           layer = "top";
           position = "top";
           height = 30;
-          modules-left =
-            []
-            ++ optionals (config.mypackages.wm.preset == "hyprland") [
-              "hyprland/workspaces"
-            ]
-            ++ optionals (config.mypackages.wm.preset == "river") [
-              "river/tags"
-            ];
+          modules-left = [
+            "river/tags"
+          ];
           modules-center = [];
           modules-right = [
             "pulseaudio"

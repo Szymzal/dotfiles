@@ -48,20 +48,6 @@ in {
           description = "Package of gtk cursor theme";
           type = types.package;
         };
-        hyprcursor = {
-          enable = mkEnableOption "Enable hyprcursor";
-          name = mkOption {
-            default = "Bibata-Modern-Classic-hyprcursor";
-          };
-          package = mkOption {
-            default = pkgs.bibata-hyprcursor;
-            example = literalExpression ''
-              pkgs.bibata-hyprcursor
-            '';
-            description = "Package for hyprcursor";
-            type = types.package;
-          };
-        };
       };
       iconTheme = {
         name = mkOption {
@@ -83,13 +69,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # assertions = [
-    #   {
-    #     assertion = config.mypackages.dm.enable;
-    #     message = "Enable Display Manager to get wallpaper";
-    #   }
-    # ];
-
     stylix = {
       enable = true;
       base16Scheme = cfg.theme.base16-scheme-path;
@@ -105,13 +84,9 @@ in {
       };
     };
 
-    environment.systemPackages =
-      [
-        cfg.iconTheme.package
-      ]
-      ++ lib.optionals cfg.cursorTheme.hyprcursor.enable [
-        cfg.cursorTheme.hyprcursor.package
-      ];
+    environment.systemPackages = [
+      cfg.iconTheme.package
+    ];
 
     mypackages.gtk = {
       enable = true;

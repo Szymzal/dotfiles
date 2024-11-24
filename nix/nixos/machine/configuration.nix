@@ -28,7 +28,6 @@ in {
 
   # TODO: FIX THIS KERNEL
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0"
@@ -244,11 +243,6 @@ in {
         name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
         size = 16;
-        hyprcursor = {
-          enable = true;
-          name = "Bibata-Modern-Classic-hyprcursor";
-          package = pkgs.bibata-hyprcursor;
-        };
       };
       iconTheme = {
         name = "Papirus";

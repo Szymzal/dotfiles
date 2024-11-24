@@ -8,7 +8,7 @@ with lib; let
   cfg = config.mypackages.flatpak;
 in {
   imports = [
-    inputs.flatpak.homeManagerModules.default
+    inputs.flatpak.homeManagerModules.declarative-flatpak
   ];
 
   options = {

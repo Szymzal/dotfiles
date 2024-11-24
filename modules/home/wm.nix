@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -7,22 +6,11 @@
   ...
 }:
 with lib; let
-  myLib = osConfig.lib.myLib;
   cfg = config.mypackages.wm;
 in {
-  imports = [
-    inputs.hyprland.homeManagerModules.default
-  ];
-
   options = {
     mypackages.wm = {
       enable = mkEnableOption "Enable window manager";
-      preset = mkOption {
-        default = "hyprland";
-        example = "river";
-        description = "What WM to choose";
-        type = types.enum ["river" "hyprland"];
-      };
       wallpaper-path = mkOption {
         default = null;
         example = literalExpression ''
@@ -49,22 +37,8 @@ in {
       screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
         ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/${config.mypackages.screenshot.savePicturesPath}/$(date '+%Y%m%d-%H:%M:%S').png
       '';
-      fakefullscreen-script = pkgs.writeShellScriptBin "fakefullscreen" ''
-        hyprctl dispatch -- setfloating
-        hyprctl dispatch -- resizeactive exact 100% 100%
-        hyprctl dispatch -- centerwindow
-        sleep 1
-        hyprctl dispatch -- fullscreen
-      '';
       monitors = osConfig.mypackages.monitors.config;
     in {
-      # assertions = [
-      #   {
-      #     assertion = (builtins.head monitors) != [];
-      #     message = "Please specify mypackages.monitors in nixos configuration!";
-      #   }
-      # ];
-
       mypackages = {
         terminal.enable = mkDefault true;
         status-bar.enable = mkDefault true;
@@ -72,149 +46,15 @@ in {
         notifications.enable = mkDefault true;
       };
 
-      home.packages = with pkgs;
-        [
-          killall
-          pamixer
-          wlogout
-          wlr-randr
-          way-displays
-        ]
-        ++ optionals (cfg.preset == "hyprland") [
-          xdg-desktop-portal-hyprland
-        ]
-        ++ optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
-          bibata-hyprcursor
-        ];
+      home.packages = with pkgs; [
+        killall
+        pamixer
+        wlogout
+        wlr-randr
+        way-displays
+      ];
 
-      wayland.windowManager.hyprland = mkIf (cfg.preset == "hyprland") {
-        enable = true;
-
-        settings = {
-          exec-once =
-            [
-              "waybar"
-            ]
-            ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
-              "hyprctl setcursor ${config.mypackages.theme.cursorTheme.hyprcursor.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}"
-            ];
-
-          input = {
-            kb_layout = "pl";
-          };
-
-          debug = {
-            disable_logs = false;
-          };
-
-          misc = {
-            disable_hyprland_logo = true;
-            layers_hog_keyboard_focus = true;
-            mouse_move_focuses_monitor = true;
-          };
-
-          cursor = {
-            # Cursor behavies really weird and can crash Hyprland. Don't touch it until https://github.com/hyprwm/Hyprland/issues/5776
-            # It also includes WLR_NO_HARDWARE_CURSORS on dm.nix
-            no_hardware_cursors = mkIf (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) true;
-            default_monitor = "${myLib.getPrimaryMonitor.connector}";
-          };
-
-          "$terminal" = "foot";
-          "$mod" = "SUPER";
-
-          env =
-            [
-              "XDG_SESSION_TYPE,wayland"
-              "NIXOS_OZONE_WL,1"
-              "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.name}"
-              "XCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
-            ]
-            ++ lib.optionals (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) [
-              "LIBVA_DRIVER_NAME,nvidia"
-            ]
-            ++ lib.optionals config.mypackages.browser.enable [
-              "MOZ_ENABLE_WAYLAND,0"
-            ]
-            ++ lib.optionals (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) [
-              "WLR_NO_HARDWARE_CURSORS,1"
-            ]
-            ++ lib.optionals (config.mypackages.theme.cursorTheme.hyprcursor.enable) [
-              "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}"
-              "HYPRCURSOR_SIZE,${builtins.toString config.mypackages.theme.cursorTheme.size}"
-            ];
-
-          monitor = myLib.hyprlandMonitorsConfig;
-          workspace = [
-            "1,monitor:${myLib.getPrimaryMonitor.connector},default:true"
-          ];
-
-          bind =
-            [
-              "$mod, Return, exec, $terminal"
-              "$mod, C, killactive"
-              "$mod SHIFT, C, exec, hyprctl kill"
-              "$mod, M, exit"
-              "$mod, Space, togglefloating"
-
-              "$mod, F, fullscreen"
-              "$mod SHIFT, F, exec, ${fakefullscreen-script}/bin/fakefullscreen"
-
-              "$mod, E, exec, killall bemoji || bemoji"
-              "$mod, D, exec, killall fuzzel || fuzzel"
-              "$mod, Q, exec, ${power-menu-script}/bin/power-menu"
-
-              "$mod, H, movefocus, l"
-              "$mod, L, movefocus, r"
-              "$mod, K, movefocus, u"
-              "$mod, J, movefocus, d"
-
-              "$mod SHIFT, H, movecurrentworkspacetomonitor, l"
-              "$mod SHIFT, L, movecurrentworkspacetomonitor, r"
-
-              "$mod, S, swapactiveworkspaces, DP-1 HDMI-A-1"
-
-              ",XF86AudioRaiseVolume, exec, pamixer -i 2"
-              ",XF86AudioLowerVolume, exec, pamixer -d 2"
-              ",XF86AudioMute, exec, pamixer -t"
-              ",XF86AudioMicMute, exec, pamixer --default-source -t"
-
-              "$mod, 1, workspace, 1"
-              "$mod, 2, workspace, 2"
-              "$mod, 3, workspace, 3"
-              "$mod, 4, workspace, 4"
-              "$mod, 5, workspace, 5"
-              "$mod, 6, workspace, 6"
-              "$mod, 7, workspace, 7"
-              "$mod, 8, workspace, 8"
-              "$mod, 9, workspace, 9"
-
-              "$mod SHIFT, 1, movetoworkspace, 1"
-              "$mod SHIFT, 2, movetoworkspace, 2"
-              "$mod SHIFT, 3, movetoworkspace, 3"
-              "$mod SHIFT, 4, movetoworkspace, 4"
-              "$mod SHIFT, 5, movetoworkspace, 5"
-              "$mod SHIFT, 6, movetoworkspace, 6"
-              "$mod SHIFT, 7, movetoworkspace, 7"
-              "$mod SHIFT, 8, movetoworkspace, 8"
-              "$mod SHIFT, 9, movetoworkspace, 9"
-            ]
-            ++ optionals (config.mypackages.screenshot.enable) [
-              "$mod, P, exec, ${screenshot-script}/bin/screenshot"
-            ]
-            ++ optionals (config.mypackages.browser.enable) [
-              "$mod, B, exec, ${lib.getExe config.programs.chromium.package}"
-            ];
-
-          bindm = [
-            # Move/Resize windows with mod + LMB/RMB
-            "$mod, mouse:272, movewindow"
-            "$mod, mouse:273, resizewindow"
-          ];
-        };
-      };
-
-      wayland.windowManager.river = mkIf (cfg.preset == "river") {
+      wayland.windowManager.river = {
         enable = true;
 
         settings = {

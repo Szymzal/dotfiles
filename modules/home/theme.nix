@@ -43,20 +43,6 @@ in {
           description = "Package of gtk cursor theme";
           type = types.package;
         };
-        hyprcursor = {
-          enable = mkEnableOption "Enable hyprcursor";
-          name = mkOption {
-            default = "Bibata-Modern-Classic-hyprcursor";
-          };
-          package = mkOption {
-            default = pkgs.bibata-hyprcursor;
-            example = literalExpression ''
-              pkgs.bibata-hyprcursor
-            '';
-            description = "Package for hyprcursor";
-            type = types.package;
-          };
-        };
       };
       iconTheme = {
         name = mkOption {
@@ -77,46 +63,32 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (let
-    hyprcursor-theme = "${cfg.cursorTheme.name}-hyprcursor";
-  in
-    mkMerge [
-      {
-        # assertions = [
-        #   {
-        #     assertion = config.mypackages.wm.enable;
-        #     message = "Enable Window Manager to get wallpaper";
-        #   }
-        # ];
+  config =
+    mkIf cfg.enable
+    {
+      stylix.base16Scheme = cfg.theme.base16-scheme-path;
 
-        stylix.base16Scheme = cfg.theme.base16-scheme-path;
+      stylix.polarity =
+        if (cfg.prefer-dark-theme)
+        then "dark"
+        else "light";
+      stylix.image = config.mypackages.wm.wallpaper-path;
+      stylix.cursor = {
+        name = cfg.cursorTheme.name;
+        size = cfg.cursorTheme.size;
+        package = cfg.cursorTheme.package;
+      };
 
-        stylix.polarity =
-          if (cfg.prefer-dark-theme)
-          then "dark"
-          else "light";
-        stylix.image = config.mypackages.wm.wallpaper-path;
-        stylix.cursor = {
-          name = cfg.cursorTheme.name;
-          size = cfg.cursorTheme.size;
-          package = cfg.cursorTheme.package;
+      gtk = {
+        enable = true;
+        iconTheme = {
+          name = cfg.iconTheme.name;
+          package = cfg.iconTheme.package;
         };
+      };
 
-        gtk = {
-          enable = true;
-          iconTheme = {
-            name = cfg.iconTheme.name;
-            package = cfg.iconTheme.package;
-          };
-        };
-
-        home.packages = [
-          cfg.iconTheme.package
-        ];
-      }
-      (mkIf cfg.cursorTheme.hyprcursor.enable {
-        home.file.".icons/${hyprcursor-theme}".source = "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
-        xdg.dataFile."icons/${hyprcursor-theme}".source = "${cfg.cursorTheme.hyprcursor.package}/share/icons/${hyprcursor-theme}";
-      })
-    ]);
+      home.packages = [
+        cfg.iconTheme.package
+      ];
+    };
 }

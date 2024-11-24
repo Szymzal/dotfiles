@@ -8,7 +8,7 @@ with lib; let
   cfg = config.mypackages.flatpak;
 in {
   imports = [
-    inputs.flatpak.nixosModules.default
+    inputs.flatpak.nixosModules.declarative-flatpak
   ];
 
   options = {

@@ -45,7 +45,6 @@ in {
     tmux.enable = true;
     wm = {
       enable = true;
-      preset = "river";
       wallpaper-path = pkgs.fetchurl {
         name = "wallpaper";
         url = "https://raw.githubusercontent.com/DenverCoder1/minimalistic-wallpaper-collection/main/images/dalle2-minimalistic-colorful-flat-mountain-landscape.png";

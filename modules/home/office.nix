@@ -15,7 +15,9 @@ in {
 
   config = mkIf (cfg.enable) {
     home.packages = with pkgs; [
-      libreoffice-fresh
+      # TODO: When fixed:
+      # https://nixpk.gs/pr-tracker.html?pr=357555
+      # libreoffice-fresh
       pdfarranger
     ];
 

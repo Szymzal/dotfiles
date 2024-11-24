@@ -50,7 +50,6 @@ in {
       };
 
       # Sometimes after update "ghost" monitor can appear
-      # which breaks Hyprland
       mypackages.monitors.config = [
         {
           enable = false;

@@ -25,7 +25,6 @@ in {
     tmux.enable = true;
     wm = {
       enable = true;
-      preset = "river";
       wallpaper-path = pkgs.fetchurl {
         url = "https://wallpapers.com/images/featured/solid-color-background-8hx8sccuk0vb8hpx.jpg";
         hash = "sha256-rxakSFAjnvFpXO0dEkdetiZpIDQxpQ0gPk/t1LRZszg=";

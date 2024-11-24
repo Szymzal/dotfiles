@@ -14,9 +14,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # NOTE: sound.enable only enables ALSA, but I have Pipewire instead
-    # sound.enable = true;
-
     boot.kernelParams = ["threadirqs"];
     security = {
       rtkit.enable = true;
@@ -40,6 +37,14 @@ in {
           support32Bit = true;
         };
         jack.enable = true;
+        extraConfig.pipewire."92-test-latency" = {
+          "context.properties" = {
+            "default.clock.rate" = 48000;
+            "default.clock.quantum" = 1024;
+            "default.clock.min-quantum" = 64;
+            "default.clock.max-quantum" = 8192;
+          };
+        };
       };
       udev.extraRules = ''
         DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
@@ -49,7 +54,6 @@ in {
 
     environment.systemPackages = with pkgs; [
       qpwgraph
-      # helvum
       pavucontrol
     ];
   };

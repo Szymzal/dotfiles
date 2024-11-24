@@ -21,7 +21,7 @@ in {
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -114,7 +114,6 @@ in {
         name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
         size = 16;
-        hyprcursor.enable = false;
       };
       iconTheme = {
         name = "Papirus";
