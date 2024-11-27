@@ -27,7 +27,7 @@ in {
   boot.supportedFilesystems = ["ntfs"];
 
   # TODO: FIX THIS KERNEL
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages-rt;
 
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0"
