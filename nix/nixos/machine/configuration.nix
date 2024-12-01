@@ -286,6 +286,47 @@ in {
               lib.mergeAttrsList (lib.flatten (evalDir from to from))
             ));
           in {
+            StarTechnology = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.3.1";
+                jre_headless = pkgs.jdk17;
+              };
+              serverProperties = {
+                server-port = 25565;
+                allow-flight = true;
+                allow-nether = true;
+                level-type = "skyblockbuilder\:skyblock";
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "peaceful";
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+                motd = "A Star technology Server";
+              };
+            };
+            BTW3 = {
+              enable = true;
+              autoStart = false;
+              openFirewall = true;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.legacyFabricServers.legacy-fabric-1_6_4.override {
+                loaderVersion = "0.15.6";
+              };
+              serverProperties = {
+                server-port = 25580;
+                allow-flight = true;
+                allow-nether = true;
+                difficulty = "relaxed";
+                gamemode = 0;
+                level-type = "DEFAULT";
+                spawn-protection = 0;
+              };
+            };
             exploria = {
               enable = true;
               autoStart = false;
@@ -323,7 +364,7 @@ in {
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
-                server-port = 25572;
+                server-port = 25573;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -331,7 +372,7 @@ in {
                 enable-command-block = false;
                 hide-online-players = true;
                 max-players = 10;
-                online-mode = false;
+                online-mode = true;
                 spawn-protection = 0;
                 simulation-distance = 8;
                 view-distance = 16;
@@ -353,7 +394,7 @@ in {
                 loaderVersion = "0.16.5";
               };
               serverProperties = {
-                server-port = 25565;
+                server-port = 25578;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
