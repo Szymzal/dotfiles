@@ -19,7 +19,7 @@ in {
     ];
 
     mypackages.impermanence.directories = [
-      ".config/blender"
+      ".config/ardour8"
     ];
   };
 }
