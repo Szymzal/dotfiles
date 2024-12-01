@@ -15,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      dotnetCorePackages.sdk_6_0_1xx
+      dotnetCorePackages.sdk_8_0_3xx
     ];
 
     mypackages.impermanence.directories = [

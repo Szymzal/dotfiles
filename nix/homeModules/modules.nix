@@ -29,7 +29,7 @@
     ../../modules/home/office.nix
     ../../modules/home/video-rec.nix
     ../../modules/home/shell.nix
-    ../../modules/home/networkmanager.nix
+    ../../modules/home/network-tools.nix
     ../../modules/home/videoediting.nix
     ../../modules/home/ldtk.nix
     ../../modules/home/flatpak.nix
@@ -45,6 +45,7 @@
     ../../modules/home/sunshine.nix
     ../../modules/home/localsend.nix
     ../../modules/home/sound.nix
+    ../../modules/home/audio-mix.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix

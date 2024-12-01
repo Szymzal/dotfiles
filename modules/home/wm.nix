@@ -165,7 +165,7 @@ in {
               "Super BTN_RIGHT" = "resize-view";
             };
           };
-          xcursor-theme = "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
+          xcursor-theme = mkForce "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
           rule-add = {
             "" = "ssd";
             "-app-id" = {

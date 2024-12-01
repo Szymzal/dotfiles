@@ -25,7 +25,7 @@
   sfml,
   systemd,
   mesa_glu,
-  boost175,
+  boost,
   nss,
   ffmpeg,
   icu,
@@ -73,7 +73,7 @@ in {
     xorg.libXrandr # libxrandr-dev
     systemd # libudev-dev
     mesa_glu # libglu1-mesa-dev
-    boost175 # libboost-all-dev
+    boost # libboost-all-dev
     nss # libnss3-dev
     ffmpeg
     icu

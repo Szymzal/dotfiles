@@ -116,11 +116,9 @@ in {
     }
   ];
 
-  networking = {
-    firewall.enable = true;
-    nftables.enable = true;
-    interfaces.enp3s0.wakeOnLan.enable = true;
-  };
+  # networking = {
+  #   interfaces.enp3s0.wakeOnLan.enable = true;
+  # };
 
   environment.systemPackages = with pkgs; [
     btop
@@ -131,9 +129,10 @@ in {
     unfree.allowed = [
       "forge-loader"
     ];
-    networkmanager = {
+    network = {
       enable = true;
       hostName = "machine";
+      wireless = false;
     };
     gc.enable = true;
     tailscale.enable = true;

@@ -4,7 +4,7 @@
   cmake,
   git,
   gnumake,
-  boost175,
+  boost,
   qt6,
   vlc,
 }:
@@ -30,7 +30,7 @@ in {
     [
       git
       gnumake
-      boost175
+      boost
       vlc
     ]
     ++ (with qt6; [

@@ -94,5 +94,6 @@ in {
     blender.enable = true;
     epic-games.enable = true;
     zotero.enable = true;
+    audio-mix.enable = true;
   };
 }

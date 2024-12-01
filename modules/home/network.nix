@@ -4,9 +4,16 @@
   ...
 }:
 with lib; {
-  config = mkIf osConfig.mypackages.network-tools.enable {
-    mypackages.impermanence.directories = [
-      ".config/filezilla"
-    ];
+  config = mkIf osConfig.mypackages.network.enable {
+    # xdg.desktopEntries = {
+    #   NetworkManager = {
+    #     name = "Network Manager Settings";
+    #     genericName = "Network";
+    #     exec = "nmtui";
+    #     icon = "tdenetworkmanager";
+    #     terminal = true;
+    #     categories = ["Network"];
+    #   };
+    # };
   };
 }
