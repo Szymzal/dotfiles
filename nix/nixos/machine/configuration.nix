@@ -289,14 +289,13 @@ in {
             StarTechnology = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.forgeServers.forge-1_20_1.override {
                 loaderVersion = "47.3.1";
                 jre_headless = pkgs.jdk17;
               };
               serverProperties = {
-                server-port = 25565;
+                server-port = 25566;
                 allow-flight = true;
                 allow-nether = true;
                 level-type = "skyblockbuilder\:skyblock";
@@ -312,13 +311,12 @@ in {
             BTW3 = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.legacyFabricServers.legacy-fabric-1_6_4.override {
                 loaderVersion = "0.15.6";
               };
               serverProperties = {
-                server-port = 25580;
+                server-port = 25565;
                 allow-flight = true;
                 allow-nether = true;
                 difficulty = "relaxed";
@@ -330,11 +328,10 @@ in {
             exploria = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx8G -Xms8G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
-                server-port = 25576;
+                server-port = 25568;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -349,6 +346,7 @@ in {
                 motd = "Some exploration";
               };
             };
+            # Prominence II
             minecraft-1-20-survival = let
               modpack = pkgs.fetchModrinthModpack {
                 url = "https://cdn.modrinth.com/data/EGs3lC8D/versions/ZmjQ66hF/Prominence%20II%20Hasturian%20Era%203.0.5h.mrpack";
@@ -360,11 +358,10 @@ in {
             in {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
-                server-port = 25573;
+                server-port = 25569;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -388,13 +385,12 @@ in {
             CreateServer = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1.override {
                 loaderVersion = "0.16.5";
               };
               serverProperties = {
-                server-port = 25578;
+                server-port = 25570;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -428,14 +424,13 @@ in {
             in {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.forgeServers.forge-1_20_1.override {
                 loaderVersion = "47.2.6";
                 jre_headless = pkgs.jdk17;
               };
               serverProperties = {
-                server-port = 25568;
+                server-port = 25571;
                 allow-flight = true;
                 allow-nether = false;
                 broadcast-console-to-ops = false;
@@ -458,11 +453,10 @@ in {
             games-datapack = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.fabricServers.fabric-1_20_6;
               serverProperties = {
-                server-port = 25566;
+                server-port = 25572;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -521,13 +515,12 @@ in {
             minecraft-1-21 = {
               enable = true;
               autoStart = false;
-              openFirewall = true;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.fabricServers.fabric-1_21.override {
                 loaderVersion = "0.15.11";
               };
               serverProperties = {
-                server-port = 25567;
+                server-port = 25573;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
