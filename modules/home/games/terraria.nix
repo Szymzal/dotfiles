@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib; let
@@ -14,15 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      dotnetCorePackages.sdk_8_0_3xx
-    ];
-
     mypackages.impermanence.directories = [
-      {
-        directory = ".local/share/Terraria";
-        method = "symlink";
-      }
+      ".local/share/Terraria" # TModLoader does not like symlinks :/
     ];
   };
 }
