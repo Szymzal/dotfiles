@@ -55,5 +55,6 @@
     ../../modules/home/games/ets2.nix
     ../../modules/home/games/openttd.nix
     ../../modules/home/games/trackmania.nix
+    ../../modules/home/games/lethal.nix
   ];
 }
