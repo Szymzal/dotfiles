@@ -89,6 +89,7 @@ in {
       ets2.enable = true;
       openttd.enable = true;
       trackmania.enable = true;
+      lethalCompany.enable = true;
     };
     zoom.enable = false; # use chromium for zoom PWA
     blender.enable = true;

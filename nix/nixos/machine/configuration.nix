@@ -26,9 +26,6 @@ in {
 
   boot.supportedFilesystems = ["ntfs"];
 
-  # TODO: FIX THIS KERNEL
-  # boot.kernelPackages = pkgs.linuxPackages-rt;
-
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0"
     "pcie_aspm=off"
@@ -115,10 +112,6 @@ in {
       value = "65536";
     }
   ];
-
-  # networking = {
-  #   interfaces.enp3s0.wakeOnLan.enable = true;
-  # };
 
   environment.systemPackages = with pkgs; [
     btop

@@ -17,5 +17,9 @@ in {
       # Mod loader
       r2modman
     ];
+
+    mypackages.impermanence.directories = [
+      ".config/r2modmanPlus-local"
+    ];
   };
 }
