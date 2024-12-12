@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = osConfig.mypackages.games.lutris;
+  cfg = osConfig.mypackages.games.steam;
 in {
   config = mkIf cfg.enable {
     home.sessionVariables = {
@@ -18,10 +18,6 @@ in {
       }
       {
         directory = ".local/share/Steam";
-        method = "symlink";
-      }
-      {
-        directory = ".local/share/lutris";
         method = "symlink";
       }
       {

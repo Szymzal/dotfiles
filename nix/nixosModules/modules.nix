@@ -55,7 +55,7 @@
     ../../modules/nixos/localsend.nix
 
     ../../modules/nixos/games/minecraft.nix
-    ../../modules/nixos/games/lutris.nix
+    ../../modules/nixos/games/steam.nix
 
     ../../users/szymzal
     ../../users/camera

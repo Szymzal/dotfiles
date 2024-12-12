@@ -5,17 +5,16 @@
   ...
 }:
 with lib; let
-  cfg = config.mypackages.games.lutris;
+  cfg = config.mypackages.games.steam;
 in {
   options = {
-    mypackages.games.lutris = {
-      enable = mkEnableOption "Enable Lutris launcher";
+    mypackages.games.steam = {
+      enable = mkEnableOption "Enable Steam launcher";
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      lutris
       steamtinkerlaunch
       protonup
       mangohud

@@ -50,7 +50,7 @@
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
     ../../modules/home/games/rocket-league
-    ../../modules/home/games/lutris.nix
+    ../../modules/home/games/steam.nix
     ../../modules/home/games/roblox.nix
     ../../modules/home/games/ets2.nix
     ../../modules/home/games/openttd.nix

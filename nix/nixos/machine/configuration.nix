@@ -32,6 +32,8 @@ in {
     "pci=nocrs"
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
 
@@ -61,12 +63,16 @@ in {
       DefaultCPUAccounting=yes
       DefaultMemoryAccounting=yes
       DefaultIOAccounting=yes
+      DefaultTaskAccounting=yes
     '';
   in {
     extraConfig = accounting;
     user = {
       extraConfig = accounting;
       slices = {
+        "user".sliceConfig = {
+          ManagedOOMSwap = "kill";
+        };
         "app".sliceConfig = {
           ManagedOOMMemoryPressure = "kill";
           ManagedOOMMemoryPressureLimit = "16%";
@@ -78,7 +84,11 @@ in {
       };
     };
     services = {
-      "user@".serviceConfig.Delegate = true;
+      "user@".serviceConfig = {
+        Delegate = true;
+        ManagedOOMMemoryPressure = "kill";
+        ManagedOOMMemoryPressureLimit = "50%";
+      };
       "config-mglru" = {
         enable = true;
         after = ["basic.target"];
@@ -100,7 +110,10 @@ in {
       enableRootSlice = false;
       enableSystemSlice = false;
       enableUserSlices = false;
-      extraConfig.DefaultMemoryPressureDurationSec = "4s";
+      extraConfig = {
+        SwapUsedLimitPercent = "90%";
+        DefaultMemoryPressureDurationSec = "4s";
+      };
     };
   };
 
@@ -248,7 +261,7 @@ in {
     sunshine.enable = false;
     localsend.enable = true;
     games = {
-      lutris.enable = false;
+      steam.enable = true;
       minecraft = {
         client.enable = true;
         server = {
