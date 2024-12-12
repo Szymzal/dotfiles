@@ -212,7 +212,7 @@ in {
       enable = true;
       flake-path = "/persist/nixos";
     };
-    android.enable = true;
+    android.enable = false;
     printing.enable = true;
     bluetooth.enable = true;
     xbox.enable = true;
@@ -244,11 +244,11 @@ in {
     mouse.enable = true;
     network-tools.enable = true;
     flatpak.enable = true;
-    syncthing.enable = true;
-    sunshine.enable = true;
+    syncthing.enable = false;
+    sunshine.enable = false;
     localsend.enable = true;
     games = {
-      lutris.enable = true;
+      lutris.enable = false;
       minecraft = {
         client.enable = true;
         server = {
