@@ -12,7 +12,9 @@ in {
     };
   };
 
-  config =
-    mkIf cfg.enable {
-    };
+  config = mkIf cfg.enable {
+    mypackages.impermanence.directories = [
+      "Documents/Trackmania2020"
+    ];
+  };
 }

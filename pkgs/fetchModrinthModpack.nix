@@ -13,6 +13,7 @@
   removeProjectIDs ? [],
   ...
 } @ args: let
+  # TODO: rewrite it
   # NOTE: fetchzip does fails with files with no read permission (modrinth.index.json)
   mrpack =
     if mrpackFile != null

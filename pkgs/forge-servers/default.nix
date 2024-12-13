@@ -44,6 +44,7 @@ with lib; let
   mkServer = gameVersion: (callPackage ./server.nix {
     inherit gameVersion;
     loaderVersion = latestVersion loader_versions.${gameVersion};
+    # TODO: More mature way to choose Java Version
     jre_headless = getJavaVersion 17;
     loaderDrv = ./derivation.nix;
     extraJavaArgs = "-Dlog4j.configurationFile=${./log4j.xml}";

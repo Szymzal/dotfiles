@@ -49,6 +49,7 @@ in {
         gleam
         vscode-langservers-extracted
         nodePackages."@astrojs/language-server"
+        # TODO: Update?
         nodePackages.typescript-language-server
         nodePackages.intelephense
         myNodePackages."@spyglassmc/language-server"
@@ -314,10 +315,5 @@ in {
         }
       '';
     };
-
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "intelephense"
-      ];
   };
 }

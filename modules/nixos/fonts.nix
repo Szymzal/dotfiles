@@ -10,6 +10,7 @@ in {
   options = {
     mypackages.fonts = {
       enable = mkEnableOption "Enable fonts";
+      # TODO: Add possibility to add custom fonts
     };
   };
 

@@ -17,8 +17,6 @@ in {
     };
   };
 
-  # APKs:
-  # https://www.apkmirror.com/apk/roblox-corporation/roblox/
   config = mkIf cfg.enable {
     mypackages.flatpak = {
       enable = true;

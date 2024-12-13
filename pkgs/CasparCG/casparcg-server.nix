@@ -31,14 +31,15 @@
   icu,
 }:
 stdenv.mkDerivation (let
-  version = "2.4.0-stable";
+  version = "2.4.1";
+  release = "stable";
 in {
   pname = "CasparCG-server";
   version = version;
   src = fetchFromGitHub {
     owner = "CasparCG";
     repo = "server";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${version}-${release}";
     hash = "sha256-CnXDlaNB3peQ7BHGhH2/CIW8pdjmEqyhCyuj6LyBO8o=";
   };
 
@@ -82,6 +83,7 @@ in {
   cmakeFlags = [
     "-DUSE_SYSTEM_FFMPEG=ON"
     "-DUSE_STATIC_BOOST=OFF"
+    # TODO: Make it work
     "-DENABLE_HTML=OFF" # until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
   ];
 

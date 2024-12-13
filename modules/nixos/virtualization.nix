@@ -16,6 +16,7 @@ in {
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
 
+    # TODO: Fix problem with networking
     networking.firewall.interfaces = {
       "virb*" = {
         allowedTCPPorts = [53];

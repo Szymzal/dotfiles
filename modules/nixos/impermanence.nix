@@ -83,9 +83,11 @@ in {
         directories =
           [
             "/var/log"
+            # TODO: Probably move it to bluetooth
             "/var/lib/bluetooth"
             "/var/lib/nixos"
             "/var/lib/systemd/coredump"
+            # TODO: Probably delete that
             "/etc/NetworkManager/system-connections"
             {
               directory = "/var/lib/colord";

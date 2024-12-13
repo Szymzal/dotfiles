@@ -26,6 +26,7 @@ in {
         pkgs.mpv
       ]
       ++ optionals (cfg.enableAll || cfg.image.enable) [
+        # TODO: Make desktop file with arguments
         pkgs.feh
       ];
 

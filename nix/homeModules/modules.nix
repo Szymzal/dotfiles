@@ -25,7 +25,6 @@
     ../../modules/home/calendar.nix
     ../../modules/home/casparcg.nix
     ../../modules/home/bottles.nix
-    ../../modules/home/network.nix
     ../../modules/home/office.nix
     ../../modules/home/video-rec.nix
     ../../modules/home/shell.nix
@@ -49,7 +48,7 @@
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
-    ../../modules/home/games/rocket-league
+    ../../modules/home/games/rocket-league.nix
     ../../modules/home/games/steam.nix
     ../../modules/home/games/roblox.nix
     ../../modules/home/games/ets2.nix

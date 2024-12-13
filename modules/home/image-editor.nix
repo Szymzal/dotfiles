@@ -15,14 +15,14 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      krita
+      # krita
       gimp
       inkscape
     ];
 
     mypackages.impermanence = {
       directories = [
-        ".local/share/krita"
+        # ".local/share/krita"
         ".config/GIMP"
         ".config/inkscape"
         "Pictures"

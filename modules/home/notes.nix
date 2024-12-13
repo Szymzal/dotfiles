@@ -18,16 +18,9 @@ in {
       obsidian
     ];
 
-    mypackages.impermanence = {
-      directories = [
-        ".config/obsidian"
-        "Notes"
-      ];
-    };
-
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "obsidian"
-      ];
+    mypackages.impermanence.directories = [
+      ".config/obsidian"
+      "Notes"
+    ];
   };
 }

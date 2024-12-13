@@ -67,6 +67,7 @@ in {
               "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 2'";
               "None XF86AudioLowerVolume" = "spawn 'pamixer -d 2'";
               "None XF86AudioMute" = "spawn 'pamixer -t'";
+              # TODO: Why it is not working?
               "None XF86AudioMicMute" = "spawn 'pamixer --default-source -t'";
             };
           in {

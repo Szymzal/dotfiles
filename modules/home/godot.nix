@@ -19,6 +19,7 @@ in {
     ];
 
     mypackages.impermanence.directories = [
+      # TODO: what directories should I include?
     ];
   };
 }

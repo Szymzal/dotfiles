@@ -77,6 +77,8 @@ in {
   };
 
   config = mkIf (cfg != []) {
+    # TODO: Fix this
+
     # assertions = [
     #   {
     #     assertion = (builtins.head (builtins.filter (value: (value.enable && value.primary)) cfg)) != [];

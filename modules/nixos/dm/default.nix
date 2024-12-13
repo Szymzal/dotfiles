@@ -49,8 +49,6 @@ in {
       settings.default_session.command = "${pkgs.cage}/bin/cage -s -m last -- sh -c ${initScript}";
     };
 
-    mypackages.way-displays.enable = mkDefault true;
-
     programs.regreet = let
       theme = config.mypackages.theme;
     in {

@@ -14,6 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # TODO: Maybe one day I will finish it :)
     environment.systemPackages = with pkgs; [
       # casparcg-server
       # casparcg-media-scanner
@@ -28,16 +29,13 @@ in {
         privateNetwork = true;
         hostAddress = "192.168.16.10";
         localAddress = "192.168.16.11";
-        config = {
-          config,
-          lib,
-          ...
-        }: {
+        config = {lib, ...}: {
           environment.systemPackages = with pkgs; [
             casparcg-server
           ];
 
           networking = {
+            # TODO: nftables?
             firewall = {
               enable = true;
             };

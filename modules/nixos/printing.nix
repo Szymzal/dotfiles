@@ -28,6 +28,7 @@ in {
 
       hardware.sane = {
         enable = true;
+        # TODO: Make is declarable
         brscan4 = {
           enable = true;
           netDevices = {

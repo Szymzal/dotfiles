@@ -43,6 +43,7 @@ in {
     systemd.network = {
       enable = true;
       wait-online.anyInterface = true;
+      # TODO: Make it declarable
       networks = let
         networkConfig = {
           DHCP = "yes";

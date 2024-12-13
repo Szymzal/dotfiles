@@ -16,6 +16,7 @@ in {
     services.syncthing = {
       enable = true;
       user = "szymzal";
+      # TODO: Make it configurable
       dataDir = "/home/szymzal/Documents";
       configDir = "/home/szymzal/.config/syncthing";
       overrideDevices = true;

@@ -60,10 +60,12 @@ in
 
     preferLocalBuild = true;
 
+    # TODO: Maybe automatic lock generation?
     installPhase =
       if (loader.type == "installer")
       then
         (
+          # TODO: Faster/better way to link libraries
           let
             libraries_path = lib.concatStringsSep " " (lib.forEach libraries (l: libraries_lock.${l}.path));
           in ''
@@ -137,6 +139,7 @@ in
               --replace libraries $out/libraries
           ''
         )
+      # TODO: Make other types of Forge
       else throw "Cannot work with other types of packaging than installer!";
 
     dontUnpack = true;

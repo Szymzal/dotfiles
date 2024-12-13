@@ -16,10 +16,7 @@ in {
   config = mkIf cfg.enable {
     programs.wireshark = {
       enable = true;
+      package = pkgs.wireshark;
     };
-
-    environment.systemPackages = with pkgs; [
-      wireshark
-    ];
   };
 }

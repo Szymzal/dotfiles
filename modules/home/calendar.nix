@@ -9,7 +9,7 @@ with lib; let
 in {
   options = {
     mypackages.calendar = {
-      enable = mkEnableOption "Enable cd replacement";
+      enable = mkEnableOption "Enable calendar";
     };
   };
 

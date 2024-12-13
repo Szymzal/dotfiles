@@ -14,6 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # TODO: Move to programs.tmux.enable
     environment.systemPackages = with pkgs; [
       tmux
     ];
