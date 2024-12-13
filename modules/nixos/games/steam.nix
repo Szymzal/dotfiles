@@ -24,7 +24,6 @@ in {
       enable = true;
       remotePlay.openFirewall = true;
       protontricks.enable = true;
-      gamescopeSession.enable = true;
       dedicatedServer.openFirewall = true;
     };
     programs.gamemode.enable = true;
