@@ -24,12 +24,14 @@ in {
       };
 
       # TODO: what should I do with this?
-      boot.kernelPackages = pkgs.linuxPackages_zen;
+      boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
       boot.kernelParams = ["nouveau.config=NvGspRm=1"];
 
       environment.systemPackages = with pkgs; [
         mesa
       ];
+
+      mypackages.cuda.enable = mkForce false;
     })
     (mkIf (!cfg.open.enable) {
       boot.kernelParams = ["nvidia_drm.fbdev=1" "nvidia_drm.modeset=1"];

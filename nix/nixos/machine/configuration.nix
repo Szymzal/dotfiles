@@ -147,7 +147,7 @@ in {
     git.enable = true;
     multiTerminal.enable = true;
     cachix.enable = true;
-    cuda.enable = true;
+    cuda.enable = false;
     virtualization.enable = true;
 
     monitors = {
@@ -232,7 +232,7 @@ in {
     video-recording.enable = true;
     nvidia = {
       enable = true;
-      open.enable = false;
+      open.enable = true;
     };
     cd.enable = true;
     ls.enable = true;
