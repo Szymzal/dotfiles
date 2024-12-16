@@ -63,7 +63,6 @@ in {
       DefaultCPUAccounting=yes
       DefaultMemoryAccounting=yes
       DefaultIOAccounting=yes
-      DefaultTaskAccounting=yes
     '';
   in {
     extraConfig = accounting;

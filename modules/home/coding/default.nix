@@ -25,6 +25,14 @@ in {
     programs.neovim = {
       enable = true;
 
+      # package = pkgs.neovim.overrideAttrs (e: neovim-unwrapped: {
+      #   inherit neovim-unwrapped;
+      #   postBuild = ''
+      #     substitute $out/share/applications/nvim.desktop \
+      #       --replace-warn 'nvim' 'awhatever'
+      #   '';
+      # });
+
       viAlias = true;
       vimAlias = true;
 

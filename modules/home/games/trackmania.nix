@@ -13,8 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    mypackages.impermanence.directories = [
-      "Documents/Trackmania2020"
-    ];
+    # mypackages.impermanence.directories = [
+    #   "Documents/Trackmania2020"
+    # ];
   };
 }

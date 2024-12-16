@@ -21,6 +21,16 @@ in {
 
     home.sessionVariables = {
       TERMINAL = "foot";
+      TERM = "foot";
+    };
+
+    systemd.user.services.foot = {
+      Service = {
+        ExecStart = mkForce (toString (pkgs.writeShellScript "foot-server" ''
+          PATH=$PATH:/etc/profiles/per-user/$USER/bin/:$HOME/.nix-profile/bin/:/run/current-system/sw/bin/
+          ${lib.getExe config.programs.foot.package} --server
+        ''));
+      };
     };
 
     home.packages = with pkgs; [
