@@ -42,6 +42,12 @@ in {
         enable = true;
         package = pkgs.kdePackages.sddm;
         theme = "catppuccin-mocha";
+        settings = {
+          Theme = {
+            CursorTheme = "${config.mypackages.theme.cursorTheme.name}";
+            CursorSize = config.mypackages.theme.cursorTheme.size;
+          };
+        };
         wayland = {
           enable = true;
           compositorCommand = let
@@ -82,54 +88,5 @@ in {
         (config.programs.river.package)
       ];
     };
-
-    # services.greetd = let
-    #   initScript = pkgs.writeShellScript "init-greetd-script" (
-    #     optionalString (config.mypackages.monitors != {} && config.mypackages.monitors.config != []) (let
-    #       primaryMonitor = config.lib.myLib.getPrimaryMonitor;
-    #     in ''
-    #       ${pkgs.wlr-randr}/bin/wlr-randr --output ${primaryMonitor.connector} --on --mode ${builtins.toString primaryMonitor.mode.width}x${builtins.toString primaryMonitor.mode.height}@${builtins.toString primaryMonitor.mode.rate}
-    #     '')
-    #     + ''
-    #       ${config.programs.regreet.package}/bin/regreet
-    #     ''
-    #   );
-    # in {
-    #   enable = true;
-    #   settings.default_session.command = "${pkgs.cage}/bin/cage -s -m last -- sh -c ${initScript}";
-    # };
-    #
-    # programs.regreet = let
-    #   theme = config.mypackages.theme;
-    # in {
-    #   enable = true;
-    #   package = pkgs.greetd.regreet.overrideAttrs (oldAttrs: {
-    #     name = "regreet-patched";
-    #     patches =
-    #       oldAttrs.patches
-    #       ++ [./cursor_size.patch];
-    #   });
-    #   iconTheme = {
-    #     name = theme.iconTheme.name;
-    #     package = theme.iconTheme.package;
-    #   };
-    #   cursorTheme = {
-    #     name = theme.cursorTheme.name;
-    #     package = mkForce theme.cursorTheme.package;
-    #   };
-    #   # copied (https://github.com/danth/stylix/blob/master/modules/gtk/hm.nix#L46)
-    #   theme = {
-    #     name = "adw-gtk3";
-    #   };
-    #   settings = {
-    #     background = mkIf (!(isNull cfg.wallpaper-path)) {
-    #       path = mkForce cfg.wallpaper-path;
-    #     };
-    #     GTK = {
-    #       application_prefer_dark_theme = theme.prefer-dark-theme;
-    #       cursor_theme_size = theme.cursorTheme.size;
-    #     };
-    #   };
-    # };
   };
 }
