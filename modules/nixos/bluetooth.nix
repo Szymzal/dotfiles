@@ -13,7 +13,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+    };
     services.blueman.enable = true;
+
+    mypackages.impermanence.directories = [
+      "/var/lib/bluetooth"
+    ];
   };
 }

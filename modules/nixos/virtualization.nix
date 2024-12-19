@@ -28,6 +28,6 @@ in {
       };
     };
 
-    mypackages.impermanence.directories = ["/var/lib/libvirt"];
+    mypackages.impermanence.directories = ["/var/lib/libvirt" "/var/lib/qemu"];
   };
 }

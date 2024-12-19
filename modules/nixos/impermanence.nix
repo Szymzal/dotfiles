@@ -83,18 +83,13 @@ in {
         directories =
           [
             "/var/log"
-            # TODO: Probably move it to bluetooth
-            "/var/lib/bluetooth"
             "/var/lib/nixos"
+            "/var/lib/nixos-containers"
+
             "/var/lib/systemd/coredump"
-            # TODO: Probably delete that
-            "/etc/NetworkManager/system-connections"
-            {
-              directory = "/var/lib/colord";
-              user = "colord";
-              group = "colord";
-              mode = "u=rwx,g=rx,o=";
-            }
+            "/var/lib/systemd/timers"
+            "/var/lib/machines"
+            "/etc/systemd/nspawn"
           ]
           ++ cfg.directories;
         files =

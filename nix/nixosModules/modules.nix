@@ -53,6 +53,7 @@
     ../../modules/nixos/syncthing.nix
     ../../modules/nixos/sunshine.nix
     ../../modules/nixos/localsend.nix
+    ../../modules/nixos/color.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix

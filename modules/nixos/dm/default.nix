@@ -88,5 +88,9 @@ in {
         (config.programs.river.package)
       ];
     };
+
+    mypackages.impermanence.directories = [
+      "/var/lib/sddm"
+    ];
   };
 }

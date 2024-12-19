@@ -34,6 +34,7 @@ in {
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
 
@@ -110,7 +111,6 @@ in {
       enableSystemSlice = false;
       enableUserSlices = false;
       extraConfig = {
-        SwapUsedLimitPercent = "90%";
         DefaultMemoryPressureDurationSec = "4s";
       };
     };
@@ -130,6 +130,7 @@ in {
   ];
 
   mypackages = {
+    color-managment.enable = true;
     ssh.enable = true;
     unfree.allowed = [
       "forge-loader"
