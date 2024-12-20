@@ -39,16 +39,5 @@ in {
     home.packages = with pkgs; [
       bemoji
     ];
-
-    mypackages.impermanence.directories = [
-      ".config/networkmanager-dmenu"
-    ];
-
-    home.file = {
-      ".config/networkmanager-dmenu/config.ini".text = ''
-        [dmenu]
-        dmenu_command = ${pkgs.fuzzel}/bin/fuzzel --dmenu
-      '';
-    };
   });
 }

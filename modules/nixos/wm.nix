@@ -34,7 +34,19 @@ in {
 
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
+      wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            output_name = "DP-1";
+            max_fps = 30;
+            exec_before = "";
+            exec_after = "";
+            chooser_type = "dmenu";
+            chooser_cmd = "${lib.getExe pkgs.fuzzel} --dmenu";
+          };
+        };
+      };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
       ];
