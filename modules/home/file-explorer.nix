@@ -15,13 +15,19 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      nemo-with-extensions
-      nemo-fileroller
       file-roller
     ];
 
     mypackages.impermanence.directories = [
-      ".config/nemo"
+      ".config/gtk-3.0/bookmarks"
+      ".config/Thunar"
+      ".config/xfce4"
     ];
+
+    home.file = {
+      ".config/xfce4/helpers.rc".text = ''
+        TerminalEmulator=${lib.getExe pkgs.foot}
+      '';
+    };
   };
 }
