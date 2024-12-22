@@ -292,6 +292,33 @@ in {
               lib.mergeAttrsList (lib.flatten (evalDir from to from))
             ));
           in {
+            PrehistoricWorld = {
+              enable = true;
+              autoStart = false;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.3.1";
+                jre_headless = pkgs.jdk17;
+              };
+              serverProperties = {
+                server-port = 25580;
+                allow-flight = true;
+                allow-nether = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+                motd = "Dino?";
+                white-list = true;
+              };
+              whitelist = {
+                Szymzal = "6b0d5a4e-7571-488b-8883-938221bc4d15";
+                Lyptor = "4184705d-89b1-48dd-9679-3a4e3174384f";
+                gofereekk = "4cbb859b-4008-4fb5-842b-61bba3820871";
+              };
+            };
             StarTechnology = {
               enable = true;
               autoStart = false;
