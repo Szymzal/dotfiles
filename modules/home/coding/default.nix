@@ -25,14 +25,6 @@ in {
     programs.neovim = {
       enable = true;
 
-      # package = pkgs.neovim.overrideAttrs (e: neovim-unwrapped: {
-      #   inherit neovim-unwrapped;
-      #   postBuild = ''
-      #     substitute $out/share/applications/nvim.desktop \
-      #       --replace-warn 'nvim' 'awhatever'
-      #   '';
-      # });
-
       viAlias = true;
       vimAlias = true;
 
@@ -186,16 +178,6 @@ in {
             # go plugin
             neotest-go
             nvim-dap-go
-
-            # ORG
-            neorg
-            {
-              name = "luarocks.nvim";
-              path = luarocks-nvim;
-            }
-            lua-utils-nvim
-            pathlib-nvim
-            nvim-nio
           ]
           ++ lib.optionals (config.mypackages.theme.enable) [
             {

@@ -22,6 +22,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # does not work with declarative-flatpak, but works with nix-flatpak
+    stylix.targets.gtk.flatpakSupport.enable = false;
+
     services.flatpak = {
       enableModule = true;
       remotes = {

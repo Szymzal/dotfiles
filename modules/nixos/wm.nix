@@ -27,9 +27,6 @@ in {
     programs.river = {
       enable = true;
       xwayland.enable = true;
-      extraPackages = with pkgs; [
-        hyprlock
-      ];
     };
 
     xdg.portal = {

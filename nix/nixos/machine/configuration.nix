@@ -232,6 +232,7 @@ in {
       enable = true;
       open.enable = false;
     };
+    onedrive.enable = true;
     cd.enable = true;
     ls.enable = true;
     find.enable = true;
