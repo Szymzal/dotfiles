@@ -80,6 +80,7 @@ in {
             # LazyVim
             LazyVim
             bufferline-nvim
+            blink-cmp
             cmp-buffer
             cmp-nvim-lsp
             cmp-path
@@ -89,6 +90,7 @@ in {
             dressing-nvim
             flash-nvim
             friendly-snippets
+            fzf-lua
             gitsigns-nvim
             indent-blankline-nvim
             lazydev-nvim
