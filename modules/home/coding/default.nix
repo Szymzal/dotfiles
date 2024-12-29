@@ -35,6 +35,7 @@ in {
         lua-language-server
         stylua
         lazygit
+        fzf
 
         # Telescope
         ripgrep
@@ -53,9 +54,6 @@ in {
         nodePackages.typescript-language-server
         nodePackages.intelephense
         myNodePackages."@spyglassmc/language-server"
-
-        # Neorg
-        luajit
 
         # Golang
         delve
@@ -81,51 +79,28 @@ in {
             LazyVim
             bufferline-nvim
             blink-cmp
-            cmp-buffer
-            cmp-nvim-lsp
-            cmp-path
-            cmp_luasnip
             conform-nvim
-            dashboard-nvim
-            dressing-nvim
             flash-nvim
             friendly-snippets
             fzf-lua
             gitsigns-nvim
-            indent-blankline-nvim
             lazydev-nvim
             lualine-nvim
-            {
-              name = "luvit-meta";
-              path = luvit-meta;
-            }
             neo-tree-nvim
-            neoconf-nvim
-            neodev-nvim
             noice-nvim
             nui-nvim
-            nvim-snippets
-            nvim-cmp
             nvim-lint
             nvim-lspconfig
-            nvim-notify
-            nvim-spectre
             nvim-treesitter
-            nvim-treesitter-context
             nvim-treesitter-textobjects
             nvim-ts-autotag
-            nvim-ts-context-commentstring
-            nvim-web-devicons
             persistence-nvim
             plenary-nvim
             snacks-nvim
             telescope-fzf-native-nvim
-            telescope-nvim
             todo-comments-nvim
             tokyonight-nvim
             trouble-nvim
-            vim-illuminate
-            vim-startuptime
             which-key-nvim
             {
               name = "grug-far.nvim";
@@ -148,23 +123,7 @@ in {
               path = mini-nvim;
             }
             {
-              name = "mini.bufremove";
-              path = mini-nvim;
-            }
-            {
-              name = "mini.comment";
-              path = mini-nvim;
-            }
-            {
-              name = "mini.indentscope";
-              path = mini-nvim;
-            }
-            {
               name = "mini.pairs";
-              path = mini-nvim;
-            }
-            {
-              name = "mini.surround";
               path = mini-nvim;
             }
             {
@@ -174,12 +133,7 @@ in {
 
             # rust plugin
             crates-nvim
-            neotest
             rustaceanvim
-
-            # go plugin
-            neotest-go
-            nvim-dap-go
           ]
           ++ lib.optionals (config.mypackages.theme.enable) [
             {
@@ -263,8 +217,6 @@ in {
                 tree-sitter-gomod
                 tree-sitter-gowork
                 tree-sitter-gosum
-                tree-sitter-norg
-                tree-sitter-norg-meta
                 tree-sitter-gleam
               ]))
             .dependencies;
@@ -273,6 +225,21 @@ in {
 
       ".config/nvim/lua/config".source = ./config/nvim/lua/config;
       ".config/nvim/lua/plugins".source = ./config/nvim/lua/plugins;
+      ".config/nvim/lua/extensions/completion.lua".text = ''
+        return {
+        	{
+        		"saghen/blink.cmp",
+        		opts = {
+        			fuzzy = {
+        				prebuilt_binaries = {
+        					download = false,
+        					force_version = "${pkgs.vimPlugins.blink-cmp.version}",
+        				},
+        			},
+        		},
+        	},
+        }
+      '';
       ".config/nvim/lua/extensions/core.lua".text = mkIf (config.mypackages.theme.enable) ''
         return {
           {
