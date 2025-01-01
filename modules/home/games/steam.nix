@@ -21,6 +21,10 @@ in {
         method = "symlink";
       }
       {
+        directory = ".steam";
+        method = "symlink";
+      }
+      {
         directory = "Games";
         method = "symlink";
       }
