@@ -9,4 +9,3 @@ You can use them, but I don't recommend.
 
 ## FIXES
 - [ ] https://github.com/NixOS/nixpkgs/issues/348386 (gimp)
-- [ ] Wait for LazyVim 14.2.0+ on upstream
