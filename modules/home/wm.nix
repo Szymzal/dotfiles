@@ -25,6 +25,12 @@ in {
         description = "Enable splashes on screens";
         type = types.bool;
       };
+      uwsm = mkOption {
+        default = true;
+        example = false;
+        description = "Enable UWSM intergration";
+        type = types.bool;
+      };
     };
   };
 
@@ -72,8 +78,8 @@ in {
             };
           in {
             launcher = {
-              "None B" = "spawn ${lib.getExe config.programs.chromium.package}";
-              "None T" = "spawn thunar";
+              "None B" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${lib.getExe config.programs.chromium.package}";
+              "None T" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "thunar";
               "None Escape" = "enter-mode normal";
             };
             passthrough = {
@@ -82,12 +88,12 @@ in {
             locked = mediaButtons;
             normal =
               {
-                "Super Return" = "spawn foot";
+                "Super Return" = if cfg.uwsm then "spawn uwsm app -T" else "spawn foot";
                 "Super Q" = "close";
 
-                "Super O" = "spawn ${power-menu-script}/bin/power-menu";
-                "Super D" = "spawn 'killall fuzzel || fuzzel'";
-                "Super P" = "spawn ${screenshot-script}/bin/screenshot";
+                "Super O" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}";
+                "Super D" = ''spawn 'killall fuzzel || fuzzel'' + optionalString cfg.uwsm '' --launch-prefix="uwsm app --" --log-no-syslog --log-level=warning' '';
+                "Super P" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}";
 
                 "Super Space" = "toggle-float";
 
@@ -194,9 +200,9 @@ in {
           hide-cursor.when-typing = "enabled";
           keyboard-layout = "pl";
           spawn = [
-            "way-displays"
-            "waybar"
-            "rivertile"
+            (lib.optionalString cfg.uwsm "uwsm app -t service -- " + "way-displays")
+            (lib.optionalString cfg.uwsm "uwsm app -- " + "waybar")
+            (lib.optionalString cfg.uwsm "uwsm app -t service -- " + "rivertile")
           ];
         };
 
@@ -208,9 +214,6 @@ in {
           }
           // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) {
             LIBVA_DRIVER_NAME = "nvidia";
-          }
-          // lib.optionalAttrs config.mypackages.browser.enable {
-            MOZ_ENABLE_WAYLAND = "0";
           }
           // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
             WLR_NO_HARDWARE_CURSORS = "1";

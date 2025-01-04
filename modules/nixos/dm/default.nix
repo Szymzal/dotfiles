@@ -37,7 +37,7 @@ in {
 
     services.displayManager = {
       enable = true;
-      defaultSession = "river";
+      #defaultSession = "river";
       sddm = {
         enable = true;
         package = pkgs.kdePackages.sddm;
@@ -84,9 +84,6 @@ in {
           in "${getExe pkgs.weston} --shell kiosk -c ${westonIni}";
         };
       };
-      sessionPackages = [
-        (config.programs.river.package)
-      ];
     };
 
     mypackages.impermanence.directories = [

@@ -13,7 +13,8 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (let
+  in {
     security.polkit.enable = true;
 
     mypackages.way-displays.enable = mkDefault true;
@@ -27,6 +28,25 @@ in {
     programs.river = {
       enable = true;
       xwayland.enable = true;
+    };
+
+    systemd = {
+      user.extraConfig = ''
+        DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
+      '';
+    };
+
+    # TODO: Why
+    services.displayManager.sessionPackages = mkForce [ ];
+    programs.uwsm = {
+      enable = true;
+      waylandCompositors = {
+        river = {
+          prettyName = "River";
+          comment = "River compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/river";
+        };
+      };
     };
 
     xdg.portal = {
@@ -48,5 +68,5 @@ in {
         xdg-desktop-portal-gtk
       ];
     };
-  };
+  });
 }
