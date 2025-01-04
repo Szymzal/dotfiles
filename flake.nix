@@ -27,11 +27,6 @@
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
   };
 
