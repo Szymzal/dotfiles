@@ -19,9 +19,6 @@ in {
 
       unitConfig = {
         Description = "Output configuration";
-        After = ["river-session.target"];
-        PartOf = ["river-session.target"];
-        ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
       serviceConfig = {
@@ -30,7 +27,7 @@ in {
         Restart = "always";
       };
 
-      bindsTo = ["river-session.target"];
+      bindsTo = ["graphical-session.target"];
     };
 
     environment.etc = {

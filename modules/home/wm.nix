@@ -64,6 +64,10 @@ in {
         enable = true;
 
         settings = {
+          spawn = [
+            (lib.optionalString cfg.uwsm "'uwsm app -- " + "waybar'")
+            (lib.optionalString cfg.uwsm "'uwsm app -t service -- " + "rivertile'")
+          ];
           declare-mode = [
             "passthrough"
             "launcher"
@@ -78,8 +82,8 @@ in {
             };
           in {
             launcher = {
-              "None B" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${lib.getExe config.programs.chromium.package}";
-              "None T" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "thunar";
+              "None B" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${lib.getExe config.programs.chromium.package}'";
+              "None T" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "thunar'";
               "None Escape" = "enter-mode normal";
             };
             passthrough = {
@@ -88,12 +92,15 @@ in {
             locked = mediaButtons;
             normal =
               {
-                "Super Return" = if cfg.uwsm then "spawn uwsm app -T" else "spawn foot";
+                "Super Return" =
+                  if cfg.uwsm
+                  then "spawn 'uwsm app -T'"
+                  else "spawn foot";
                 "Super Q" = "close";
 
-                "Super O" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}";
-                "Super D" = ''spawn 'killall fuzzel || fuzzel'' + optionalString cfg.uwsm '' --launch-prefix="uwsm app --" --log-no-syslog --log-level=warning' '';
-                "Super P" = "spawn " + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}";
+                "Super O" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}'";
+                "Super D" = ''spawn 'killall fuzzel || fuzzel '' + optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning' '';
+                "Super P" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}'";
 
                 "Super Space" = "toggle-float";
 
@@ -199,11 +206,6 @@ in {
           set-cursor-warp = "on-focus-change";
           hide-cursor.when-typing = "enabled";
           keyboard-layout = "pl";
-          spawn = [
-            (lib.optionalString cfg.uwsm "uwsm app -t service -- " + "way-displays")
-            (lib.optionalString cfg.uwsm "uwsm app -- " + "waybar")
-            (lib.optionalString cfg.uwsm "uwsm app -t service -- " + "rivertile")
-          ];
         };
 
         extraSessionVariables =
@@ -220,7 +222,6 @@ in {
           };
 
         systemd.enable = true;
-
         xwayland.enable = true;
       };
 

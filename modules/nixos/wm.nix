@@ -21,10 +21,6 @@ in {
 
     programs.xwayland.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      xwaylandvideobridge
-    ];
-
     programs.river = {
       enable = true;
       xwayland.enable = true;
@@ -37,14 +33,14 @@ in {
     };
 
     # TODO: Why
-    services.displayManager.sessionPackages = mkForce [ ];
+    # services.displayManager.sessionPackages = mkForce [ ];
     programs.uwsm = {
       enable = true;
       waylandCompositors = {
         river = {
           prettyName = "River";
           comment = "River compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/river";
+          binPath = "${config.programs.river.package}/share/wayland-sessions/river.desktop";
         };
       };
     };
