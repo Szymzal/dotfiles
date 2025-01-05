@@ -19,6 +19,8 @@ in {
 
       unitConfig = {
         Description = "Output configuration";
+        StopWhenUnneeded = true;
+        ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
       serviceConfig = {
@@ -27,7 +29,7 @@ in {
         Restart = "always";
       };
 
-      bindsTo = ["graphical-session.target"];
+      wantedBy = ["river-session.target"];
     };
 
     environment.etc = {
