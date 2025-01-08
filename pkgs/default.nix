@@ -6,6 +6,11 @@
     inherit stdenv;
   });
 
+  linux-show-player = pkgs.callPackage ./linux-show-player.nix {};
+  python3 = pkgs.python3 // { pkgs = {
+    jack-client = pkgs.python3.pkgs.callPackage ./pythonModules/jack-client.nix {};
+    pyalsa = pkgs.python3.pkgs.callPackage ./pythonModules/pyalsa.nix {};
+  } // pkgs.python3.pkgs; };
   playit-agent = pkgs.callPackage ./playit.nix {};
   forgeServers = pkgs.callPackage ./forge-servers/default.nix {};
   bibata-hyprcursor = pkgs.callPackage ./BibataCursor.nix {};
