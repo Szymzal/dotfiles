@@ -86,6 +86,26 @@ in
       "pyliblo3"
     ];
 
+    postInstall = ''
+      mkdir -p $out/share/applications
+      cp $src/dist/linuxshowplayer.desktop $out/share/applications/linuxshowplayer.desktop
+
+      mkdir -p $out/share/metainfo
+      cp $src/dist/linuxshowplayer.metainfo.xml $out/share/metainfo/linuxshowplayer.metainfo.xml
+
+      mkdir -p $out/share/icons/hicolor/512x512/apps
+      cp $src/dist/linuxshowplayer.png $out/share/icons/hicolor/512x512/apps/linuxshowplayer.png
+
+      mkdir -p $out/share/pixmaps
+      cp $src/dist/linuxshowplayer.png $out/share/pixmaps/linuxshowplayer.png
+
+      mkdir -p $out/share/icons/hicolor/512x512/mimetypes
+      cp $src/dist/application-x-linuxshowplayer.png $out/share/icons/hicolor/512x512/mimetypes/application-x-linuxshowplayer.png
+
+      mkdir -p $out/share/mime/packages
+      cp $src/dist/linuxshowplayer.xml $out/share/mime/packages/linuxshowplayer.xml
+    '';
+
     dontWrapQtApps = true;
     dontWrapGApps = true;
 

@@ -55,6 +55,7 @@
     ../../modules/nixos/localsend.nix
     ../../modules/nixos/color.nix
     ../../modules/nixos/onedrive.nix
+    ../../modules/nixos/ossia.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix

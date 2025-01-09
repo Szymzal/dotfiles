@@ -28,10 +28,12 @@ in {
 
   boot.kernelParams = [
     "pci=nocrs"
+    "vm.swappiness=10"
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
@@ -148,6 +150,7 @@ in {
     cachix.enable = true;
     cuda.enable = true;
     virtualization.enable = true;
+    ossia.enable = true;
 
     monitors = {
       order = [

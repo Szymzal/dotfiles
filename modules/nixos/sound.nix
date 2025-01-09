@@ -19,10 +19,22 @@ in {
       rtkit.enable = true;
       pam.loginLimits = [
         {
-          domain = "@audio";
+          domain = "@pipewire";
           type = "-";
           item = "rtprio";
-          value = "90";
+          value = "95";
+        }
+        {
+          domain = "@pipewire";
+          type = "-";
+          item = "nice";
+          value = "-19";
+        }
+        {
+          domain = "@pipewire";
+          type = "-";
+          item = "memlock";
+          value = "4194304";
         }
       ];
     };
@@ -43,10 +55,8 @@ in {
         extraConfig = {
           pipewire."92-dont-scratch" = {
             "context.properties" = {
-              "default.clock.rate" = 48000;
-              "default.clock.quantum" = 2048;
-              "default.clock.min-quantum" = 1024;
-              "default.clock.max-quantum" = 4096;
+              "log.level" = 3;
+              "loop.rt-pio" = 95;
             };
           };
         };
