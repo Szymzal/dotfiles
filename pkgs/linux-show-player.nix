@@ -8,6 +8,7 @@
   libjack2,
   ola,
   nix-update-script,
+  gst_all_1,
 }: let
   version = "0.6.4";
 in
@@ -26,12 +27,19 @@ in
       hash = "sha256-QgsgG+SeHT9bZgSkpo5AKpm/YIifn7qRfe/C3paMS5o=";
     };
 
-    nativeBuildInputs = [
-      qt5.wrapQtAppsHook
-      wrapGAppsHook3
+    nativeBuildInputs =
+      [
+        qt5.wrapQtAppsHook
+        wrapGAppsHook3
 
-      gobject-introspection
-    ];
+        gobject-introspection
+      ]
+      ++ (with gst_all_1; [
+        # GStreamer
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+      ]);
 
     build-system = with python3.pkgs; [poetry-core];
 
@@ -49,7 +57,20 @@ in
       jack-client
       mido
       pygobject3
-      pyqt5
+      (pyqt5.overrideAttrs (attrs: rec {
+        version = "5.15.11";
+        src = fetchPypi {
+          pname = "PyQt5";
+          inherit version;
+          hash = "sha256-/aRXQ+u0ontLGlHG2O9FXEwbXWEMkNKTTHgCtcFVfFI=";
+        };
+
+        patches =
+          attrs.patches
+          ++ [
+            # TODO: finish it?
+          ];
+      }))
       python-rtmidi
       requests
       sortedcontainers

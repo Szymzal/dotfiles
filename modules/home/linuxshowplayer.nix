@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  # pkgs,
   ...
 }:
 with lib; let
@@ -14,9 +14,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      linux-show-player
-    ];
+    # home.packages = with pkgs; [
+    #   linux-show-player
+    # ];
+
+    mypackages.flatpak = {
+      enable = true;
+      packages = [
+        "org.linuxshowplayer.LinuxShowPlayer"
+      ];
+    };
 
     mypackages.impermanence.directories = [
       ".config/LinuxShowPlayer"

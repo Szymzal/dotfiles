@@ -27,7 +27,7 @@
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
-    flatpak.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {

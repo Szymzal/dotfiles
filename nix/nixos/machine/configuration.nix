@@ -127,7 +127,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
-    linux-show-player
   ];
 
   mypackages = {
