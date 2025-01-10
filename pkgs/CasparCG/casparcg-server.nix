@@ -4,6 +4,7 @@
   fetchFromGitHub,
   fetchsvn,
   fetchpatch2,
+  fetchurl,
   autoconf,
   automake,
   cmake,
@@ -38,6 +39,17 @@
 stdenv.mkDerivation (let
   version = "2.4.2";
   release = "stable";
+
+  cef = libcef.overrideAttrs (attrs: rec {
+    version = "117.2.5";
+    gitRevision = "da4c36a";
+    chromiumVersion = "117.0.5938.152";
+
+    src = fetchurl {
+      url = "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_linux64_minimal.tar.bz2";
+      hash = "sha256-JmntPJ9jJ0D2w5g6bkcszBrkY2fb2fhsURvqAFV9Szc=";
+    };
+  });
 in {
   pname = "CasparCG-server";
   version = version;
@@ -130,6 +142,8 @@ in {
     ++ lib.optionals enable_html [
       "-DCEF_LIB_PATH=${libcef}/lib"
       "-DCEF_INCLUDE_PATH=${libcef}"
+      "-DCEF_RESOURCE_PATH=${libcef}/share/cef"
+      "-DCEF_BIN_PATH=${libcef}/share/cef"
       "-DENABLE_HTML=ON" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
       "-DUSE_SYSTEM_CEF=ON"
     ];
