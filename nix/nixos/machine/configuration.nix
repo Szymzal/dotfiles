@@ -127,6 +127,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
+    open-stage-control
   ];
 
   mypackages = {
@@ -588,7 +589,7 @@ in {
         };
       };
     };
-    casparcg.enable = false;
+    casparcg.enable = true;
   };
 
   myusers.szymzal.enable = true;

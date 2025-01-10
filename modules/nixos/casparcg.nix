@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     # TODO: Maybe one day I will finish it :)
     environment.systemPackages = with pkgs; [
-      # casparcg-server
+      casparcg-server
       # casparcg-media-scanner
     ];
 
@@ -24,27 +24,27 @@ in {
       "freeimage-unstable-2021-11-01"
     ];
 
-    containers = {
-      casparcg = {
-        privateNetwork = true;
-        hostAddress = "192.168.16.10";
-        localAddress = "192.168.16.11";
-        config = {lib, ...}: {
-          environment.systemPackages = with pkgs; [
-            casparcg-server
-          ];
-
-          networking = {
-            # TODO: nftables?
-            firewall = {
-              enable = true;
-            };
-            useHostResolvConf = lib.mkForce false;
-          };
-
-          system.stateVersion = "24.05";
-        };
-      };
-    };
+    # containers = {
+    #   casparcg = {
+    #     privateNetwork = true;
+    #     hostAddress = "192.168.16.10";
+    #     localAddress = "192.168.16.11";
+    #     config = {lib, ...}: {
+    #       environment.systemPackages = with pkgs; [
+    #         casparcg-server
+    #       ];
+    #
+    #       networking = {
+    #         # TODO: nftables?
+    #         firewall = {
+    #           enable = true;
+    #         };
+    #         useHostResolvConf = lib.mkForce false;
+    #       };
+    #
+    #       system.stateVersion = "24.05";
+    #     };
+    #   };
+    # };
   };
 }
