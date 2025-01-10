@@ -17,6 +17,8 @@ stdenvNoCC.mkDerivation (let
     rev = "v${version}";
     hash = "sha256-qWMukQYfOynTsEg48wdMlM6a3HPvNR/LlsIRZhO8L0g=";
   };
+
+  # Making a wrapper would be better option
   runScript = writeShellScript "caspar-scanner" ''
     ${nodejs_18}/bin/node OUTDIR/lib/caspar-scanner/src $@
   '';

@@ -29,7 +29,7 @@
   mesa_glu,
   boost,
   nss,
-  ffmpeg_6, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
+  ffmpeg_6-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
   icu,
 }:
 stdenv.mkDerivation (let
@@ -115,7 +115,7 @@ in {
     mesa_glu # libglu1-mesa-dev
     boost # libboost-all-dev
     nss # libnss3-dev
-    ffmpeg_6
+    ffmpeg_6-full
     icu
   ];
 

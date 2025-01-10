@@ -17,7 +17,7 @@ in {
     # TODO: Maybe one day I will finish it :)
     environment.systemPackages = with pkgs; [
       casparcg-server
-      # casparcg-media-scanner
+      casparcg-media-scanner
     ];
 
     nixpkgs.config.permittedInsecurePackages = [
