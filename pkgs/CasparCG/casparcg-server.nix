@@ -1,5 +1,6 @@
 {
   stdenv,
+  lib,
   fetchFromGitHub,
   fetchsvn,
   fetchpatch2,
@@ -31,6 +32,8 @@
   nss,
   ffmpeg_6-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
   icu,
+  libcef,
+  enable_html ? true,
 }:
 stdenv.mkDerivation (let
   version = "2.4.2";
@@ -119,20 +122,29 @@ in {
     icu
   ];
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_FFMPEG=ON"
-    "-DUSE_STATIC_BOOST=OFF"
-    # TODO: Make it work
-    "-DENABLE_HTML=OFF" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
-  ];
+  cmakeFlags =
+    [
+      "-DUSE_SYSTEM_FFMPEG=ON"
+      "-DUSE_STATIC_BOOST=OFF"
+    ]
+    ++ lib.optionals enable_html [
+      "-DENABLE_HTML=OFF" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
+      "-DUSE_SYSTEM_CEF=ON"
+      "-DCEF_LIB_PATH=${libcef}/lib"
+      "-DCEF_INCLUDE_PATH=${libcef}/include"
+    ];
 
-  patches = [
-    # FIX: Wait to it to be deployed: https://github.com/CasparCG/server/pull/1584
-    (fetchpatch2 {
-      url = "https://patch-diff.githubusercontent.com/raw/CasparCG/server/pull/1584.patch";
-      hash = "sha256-8XdluwjXrCjC7YkuKlMnm7d++fslcSthGR7iLTbw22Q=";
-    })
-  ];
+  patches =
+    [
+      # FIX: Wait to it to be deployed: https://github.com/CasparCG/server/pull/1584
+      (fetchpatch2 {
+        url = "https://patch-diff.githubusercontent.com/raw/CasparCG/server/pull/1584.patch";
+        hash = "sha256-8XdluwjXrCjC7YkuKlMnm7d++fslcSthGR7iLTbw22Q=";
+      })
+    ]
+    ++ lib.optionals enable_html [
+      ./custom_cef_binary.patch
+    ];
 
   cmakeDir = "../src";
 
