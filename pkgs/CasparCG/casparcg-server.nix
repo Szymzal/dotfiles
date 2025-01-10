@@ -129,7 +129,7 @@ in {
     ]
     ++ lib.optionals enable_html [
       "-DCEF_LIB_PATH=${libcef}/lib"
-      "-DCEF_INCLUDE_PATH=${libcef}/include"
+      "-DCEF_INCLUDE_PATH=${libcef}"
       "-DENABLE_HTML=ON" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
       "-DUSE_SYSTEM_CEF=ON"
     ];
