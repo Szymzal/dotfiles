@@ -143,7 +143,8 @@ in {
       "-DCEF_LIB_PATH=${libcef}/lib"
       "-DCEF_INCLUDE_PATH=${libcef}"
       "-DCEF_RESOURCE_PATH=${libcef}/share/cef"
-      "-DCEF_BIN_PATH=${libcef}/share/cef"
+      "-DCEF_LIBEXEC_PATH=${libcef}/libexec/cef"
+      "-DCEF_BIN_PATH=${libcef}/lib"
       "-DENABLE_HTML=ON" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
       "-DUSE_SYSTEM_CEF=ON"
     ];
@@ -167,6 +168,7 @@ in {
 
     mkdir -p $out/bin
     mv staging/bin/casparcg $out/bin/casparcg-server
+    mv staging/lib $out/lib/casparcg-server
 
     runHook postInstall
   '';

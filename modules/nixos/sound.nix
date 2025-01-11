@@ -57,6 +57,10 @@ in {
             "context.properties" = {
               "log.level" = 3;
               "loop.rt-pio" = 95;
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 1024;
+              "default.clock.min-quantum" = 512;
+              "default.clock.max-quantum" = 4096;
             };
           };
         };
