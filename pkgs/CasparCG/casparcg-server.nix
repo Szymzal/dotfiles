@@ -1,10 +1,10 @@
 {
   stdenv,
+  stdenvNoCC,
   lib,
   fetchFromGitHub,
   fetchsvn,
   fetchpatch2,
-  fetchurl,
   autoconf,
   automake,
   cmake,
@@ -40,15 +40,21 @@ stdenv.mkDerivation (let
   version = "2.4.2";
   release = "stable";
 
-  cef = libcef.overrideAttrs (attrs: rec {
-    version = "117.2.5";
-    gitRevision = "da4c36a";
-    chromiumVersion = "117.0.5938.152";
+  cef = stdenvNoCC.mkDerivation (let
+    LIB = "${libcef}/lib";
+    LIBEXEC = "${libcef}/libexec/cef";
+    SHARE = "${libcef}/share/cef";
+    OUT = "$out/lib/casparcg-cef";
+  in {
+    name = "casparcg-cef";
+    phases = ["installPhase"];
+    installPhase = ''
+      mkdir -p ${OUT}
 
-    src = fetchurl {
-      url = "https://cef-builds.spotifycdn.com/cef_binary_${version}+g${gitRevision}+chromium-${chromiumVersion}_linux64_minimal.tar.bz2";
-      hash = "sha256-JmntPJ9jJ0D2w5g6bkcszBrkY2fb2fhsURvqAFV9Szc=";
-    };
+      ln -s ${SHARE}/* ${OUT}/
+      ln -s ${LIBEXEC}/* ${OUT}/
+      ln -s ${LIB}/* ${OUT}/
+    '';
   });
 in {
   pname = "CasparCG-server";
@@ -139,15 +145,15 @@ in {
       "-DUSE_SYSTEM_FFMPEG=ON"
       "-DUSE_STATIC_BOOST=OFF"
     ]
-    ++ lib.optionals enable_html [
-      "-DCEF_LIB_PATH=${libcef}/lib"
+    ++ lib.optionals enable_html (let
+      OUT = "${cef}/lib/casparcg-cef";
+    in [
+      "-DCEF_LIB_PATH=${OUT}"
       "-DCEF_INCLUDE_PATH=${libcef}"
-      "-DCEF_RESOURCE_PATH=${libcef}/share/cef"
-      "-DCEF_LIBEXEC_PATH=${libcef}/libexec/cef"
-      "-DCEF_BIN_PATH=${libcef}/lib"
+      "-DCEF_BIN_PATH=${OUT}"
       "-DENABLE_HTML=ON" # TODO: until I find a way to install caspar-cef-117: https://github.com/CasparCG/server/blob/master/src/CMakeModules/Bootstrap_Linux.cmake#L62
       "-DUSE_SYSTEM_CEF=ON"
-    ];
+    ]);
 
   patches =
     [
@@ -168,8 +174,6 @@ in {
 
     mkdir -p $out/bin
     mv staging/bin/casparcg $out/bin/casparcg-server
-    mkdir -p $out/lib/casparcg-server
-    mv staging/lib $out/lib/casparcg-server
 
     runHook postInstall
   '';
