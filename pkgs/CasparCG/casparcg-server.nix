@@ -168,6 +168,7 @@ in {
 
     mkdir -p $out/bin
     mv staging/bin/casparcg $out/bin/casparcg-server
+    mkdir -p $out/lib/casparcg-server
     mv staging/lib $out/lib/casparcg-server
 
     runHook postInstall
