@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -13,6 +14,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      nyxt
+    ];
+
     programs.chromium = {
       enable = true;
       extensions = [
