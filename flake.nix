@@ -28,6 +28,11 @@
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {
@@ -35,6 +40,17 @@
 
     outputs = {
       overlay = _: pkgs: (import ./pkgs {inherit pkgs;});
+    };
+
+    perSystem = pkgs: {
+      packages.default =
+        (inputs.nvf.lib.neovimConfiguration {
+          inherit pkgs;
+          modules = [
+            ./modules/shared/nvf
+          ];
+        })
+        .neovim;
     };
 
     withOverlays = [

@@ -18,6 +18,16 @@ in {
     stylix.targets.vim.enable = mkIf (config.mypackages.theme.enable) false;
     stylix.targets.neovim.enable = mkIf (config.mypackages.theme.enable) false;
 
+    home.packages = [
+      (
+        inputs.nvf.lib.neovimConfiguration {
+          inherit pkgs;
+          modules = [../../shared/nvf];
+        }
+      )
+      .neovim
+    ];
+
     # nixd
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 

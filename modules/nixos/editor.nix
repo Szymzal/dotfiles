@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
@@ -14,10 +15,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment = {
-      systemPackages = with pkgs; [
-        neovim
-      ];
-    };
+    environment.systemPackages = [(
+    inputs.nvf.lib.neovimConfiguration {
+      inherit pkgs;
+      modules = [../shared/nvf];
+  }).neovim];
   };
 }
