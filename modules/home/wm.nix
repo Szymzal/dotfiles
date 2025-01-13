@@ -153,15 +153,14 @@ in {
                 let
                   loop = i: to: let
                     tags = "$((1 << (${builtins.toString i} - 1)))";
-                  in (
+                  in
                     {
                       "Super ${builtins.toString i}" = "set-focused-tags ${tags}";
                       "Super+Shift ${builtins.toString i}" = "set-view-tags ${tags}";
                       "Super+Control ${builtins.toString i}" = "toggle-focused-tags ${tags}";
                       "Super+Shift+Control ${builtins.toString i}" = "toggle-view-tags ${tags}";
                     }
-                    // lib.optionalAttrs (i < to) (loop (i + 1) to)
-                  );
+                    // lib.optionalAttrs (i < to) (loop (i + 1) to);
                 in
                   loop 1 9
               )
@@ -203,8 +202,8 @@ in {
           set-repeat = "50 300";
           default-layout = "rivertile";
           focus-follows-cursor = "normal";
-          set-cursor-warp = "on-focus-change";
-          hide-cursor.when-typing = "enabled";
+          set-cursor-warp = "on-output-change";
+          # hide-cursor.when-typing = "enabled";
           keyboard-layout = "pl";
         };
 
@@ -228,10 +227,10 @@ in {
       services.hyprpaper = {
         enable = true;
         settings = {
-          splash = cfg.splash;
+          inherit (cfg) splash;
           preload = ["${cfg.wallpaper-path}"];
           wallpaper = lib.forEach monitors (value:
-            if (value.enable)
+            if value.enable
             then "${value.connector},${cfg.wallpaper-path}"
             else "");
         };
