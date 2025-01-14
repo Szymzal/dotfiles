@@ -42,7 +42,6 @@
     visuals = {
       nvim-web-devicons.enable = true;
       nvim-cursorline.enable = true;
-      cinnamon-nvim.enable = true;
       fidget-nvim.enable = true;
 
       highlight-undo.enable = true;
@@ -65,7 +64,13 @@
 
     autopairs.nvim-autopairs.enable = true;
 
-    autocomplete.nvim-cmp.enable = true;
+    autocomplete.nvim-cmp = {
+      enable = true;
+      mappings = {
+        next = "<C-n>";
+        previous = "<C-p>";
+      };
+    };
     snippets.luasnip.enable = true;
 
     filetree = {
@@ -75,7 +80,14 @@
     };
 
     tabline = {
-      nvimBufferline.enable = true;
+      nvimBufferline = {
+        enable = true;
+        mappings = {
+          closeCurrent = "<leader>bd";
+          cycleNext = "<S-n>";
+          cyclePrevious = "<S-p>";
+        };
+      };
     };
 
     treesitter.context.enable = true;
@@ -153,7 +165,33 @@
         key = "<leader>e";
         mode = "n";
         silent = true;
+        desc = "Open NeoTree";
         action = ":Neotree<CR>";
+      }
+      # Windows
+      {
+        key = "<C-h>";
+        mode = "n";
+        desc = "Go to Left Window";
+        action = "<C-w>h";
+      }
+      {
+        key = "<C-j>";
+        mode = "n";
+        desc = "Go to Lower Window";
+        action = "<C-w>j";
+      }
+      {
+        key = "<C-k>";
+        mode = "n";
+        desc = "Go to Upper Window";
+        action = "<C-w>k";
+      }
+      {
+        key = "<C-l>";
+        mode = "n";
+        desc = "Go to Right Window";
+        action = "<C-w>l";
       }
     ];
   };
