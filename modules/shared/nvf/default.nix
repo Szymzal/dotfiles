@@ -3,6 +3,12 @@
     viAlias = true;
     vimAlias = true;
 
+    options = {
+      shiftwidth = 2;
+      tabstop = 2;
+      wrap = false;
+    };
+
     spellcheck = {
       enable = true;
     };
