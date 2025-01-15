@@ -11,27 +11,26 @@ in {
     self.nixosModules.modules
   ];
 
-  boot.loader = {
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-      useOSProber = true;
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
     };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
-    };
+    supportedFilesystems = ["ntfs"];
+    kernelParams = [
+      "pci=nocrs"
+      "vm.swappiness=10"
+    ];
+    kernelPackages = pkgs.linuxPackages_zen;
   };
-
-  boot.supportedFilesystems = ["ntfs"];
-
-  boot.kernelParams = [
-    "pci=nocrs"
-    "vm.swappiness=10"
-  ];
-
-  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
@@ -127,7 +126,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
-    open-stage-control
+    ffplayout
   ];
 
   mypackages = {
