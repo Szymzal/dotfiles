@@ -31,7 +31,7 @@
   mesa_glu,
   boost,
   nss,
-  ffmpeg_6-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
+  ffmpeg_4-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
   icu,
   libcef,
   enable_html ? true,
@@ -136,7 +136,7 @@ in {
     mesa_glu # libglu1-mesa-dev
     boost # libboost-all-dev
     nss # libnss3-dev
-    ffmpeg_6-full
+    ffmpeg_4-full
     icu
   ];
 
