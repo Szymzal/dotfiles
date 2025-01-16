@@ -25,6 +25,7 @@
   casparcg-client = pkgs.callPackage ./CasparCG/casparcg-client.nix {};
   casparcg-server = pkgs.callPackage ./CasparCG/casparcg-server.nix {};
   ffplayout = pkgs.callPackage ./ffplayout.nix {};
+  ontime = pkgs.callPackage ./ontime.nix {};
   vimPlugins = pkgs.vimPlugins // (pkgs.callPackage ./vimPlugins.nix {});
   myNodePackages = pkgs.callPackage ./nodePackages/node-packages.nix {
     nodeEnv = pkgs.callPackage ./nodePackages/node-env.nix {

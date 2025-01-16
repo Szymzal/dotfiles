@@ -129,6 +129,16 @@ in {
     ffplayout
   ];
 
+  users = {
+    users."ffpu" = {
+      isNormalUser = true;
+      group = "ffpu";
+      shell = lib.getExe' pkgs.shadow "nologin";
+      createHome = false;
+    };
+    groups."ffpu" = {};
+  };
+
   mypackages = {
     color-managment.enable = true;
     ssh.enable = true;
@@ -150,6 +160,7 @@ in {
     cuda.enable = true;
     virtualization.enable = true;
     ossia.enable = true;
+    ontime.server.enable = true;
 
     monitors = {
       order = [

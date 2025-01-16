@@ -3,17 +3,18 @@
   rustPlatform,
   fetchFromGitHub,
   buildNpmPackage,
+  ffmpeg,
+  makeWrapper,
 }:
 rustPlatform.buildRustPackage (let
   src = fetchFromGitHub {
     owner = "ffplayout";
     repo = "ffplayout";
     rev = "v${version}";
-    # hash = "sha256-u7flhAo+5i0cCoU2GGu9EfBhXnhGZWpchAYnMrt4IwI=";
-    hash = "sha256-OZgyTRcfyoayX0mg9x1cEKXudfVXiTu/Hbygd82vaOM=";
+    hash = "sha256-u7flhAo+5i0cCoU2GGu9EfBhXnhGZWpchAYnMrt4IwI=";
   };
 
-  version = "0.24.3";
+  version = "0.24.4";
 
   frontend = buildNpmPackage {
     pname = "ffplayout-frontend";
@@ -23,7 +24,6 @@ rustPlatform.buildRustPackage (let
 
     NUXT_TELEMETRY_DISABLED = 1;
 
-    # npmDepsHash = "sha256-DzpcaYItbxWCDX2haPMiOSuV7xpoYsZMiLB/w7YSJcI=";
     npmDepsHash = "sha256-DzpcaYItbxWCDX2haPMiOSuV7xpoYsZMiLB/w7YSJcI=";
   };
 in rec {
@@ -32,13 +32,29 @@ in rec {
 
   patches = [./remove_building_frontend.patch];
 
-  nativeBuildInputs = [];
-  buildInputs = [];
+  nativeBuildInputs = [makeWrapper];
 
-  # cargoHash = "sha256-pz1WS96o2k82gYDyMnggwOoBKlD4xv+DuVLKMCHKHk0=";
-  cargoHash = "sha256-yVFkaX2x7q97p8qaLkum75q861/BMasQFiJ9XHkjN7I=";
+  # Tests need ffmpeg in PATH
+  preBuild = ''
+    export PATH=$PATH:${ffmpeg}/bin
+  '';
+
+  cargoHash = "sha256-pz1WS96o2k82gYDyMnggwOoBKlD4xv+DuVLKMCHKHk0=";
 
   FRONTEND_DIR = "${frontend}/lib";
+
+  postInstall = ''
+    mkdir -p $out/lib/systemd/system
+    cp assets/ffplayout.service $out/lib/systemd/system/
+
+    substituteInPlace $out/lib/systemd/system/ffplayout.service \
+      --replace-fail "/usr" "$out"
+
+    wrapProgram $out/bin/ffplayout \
+    --prefix PATH ${lib.makeBinPath [
+      ffmpeg
+    ]}
+  '';
 
   meta = {
     description = "A 24/7 broadcasting solution. It can playout a folder containing audio or video clips, or play a JSON playlist for each day, keeping the current playlist editable.";
