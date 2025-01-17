@@ -129,6 +129,8 @@ in {
     ffplayout
   ];
 
+  networking.firewall.allowedUDPPorts = [5004 5005];
+
   users = {
     users."ffpu" = {
       isNormalUser = true;
