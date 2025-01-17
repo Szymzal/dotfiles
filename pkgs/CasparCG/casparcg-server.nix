@@ -177,4 +177,8 @@ in {
 
     runHook postInstall
   '';
+
+  meta = {
+    mainProgram = "casparcg-server";
+  };
 })
