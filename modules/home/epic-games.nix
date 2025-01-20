@@ -16,11 +16,11 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       legendary-gl
-      (pkgs.writeScriptBin "legendary-launch" ''
+      (pkgs.writeShellScriptBin "legendary-launch" ''
         json=$(${lib.getExe legendary-gl} launch "$1" --json --no-wine)
         what=$(${lib.getExe pkgs.jq} '(.game_parameters + .egl_parameters + .user_parameters) | join(" ")' <<< "$json")
         game_executable=$(${lib.getExe pkgs.jq} '.game_directory + "/" + .game_executable' <<< "$json")
-        run="${lib.getExe' pkgs.bottles "bottles-cli"} run --bottle \"Epic Games Games\" -e $game_executable --args $what"
+        run="${lib.getExe' pkgs.bottles "bottles-cli"} run --bottle \"Epic Games Games\" -e '$game_executable' --args $what"
         eval $run
       '')
     ];

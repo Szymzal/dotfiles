@@ -18,11 +18,16 @@ in {
       file-roller
     ];
 
-    mypackages.impermanence.directories = [
-      ".config/gtk-3.0/bookmarks"
-      ".config/Thunar"
-      ".config/xfce4"
-    ];
+    mypackages.impermanence = {
+      directories = [
+        ".config/gtk-3.0/bookmarks"
+        ".config/Thunar"
+        ".config/xfce4"
+      ];
+      files = [
+        ".config/mimeapps.list"
+      ];
+    };
 
     home.file = {
       ".config/xfce4/helpers.rc".text = ''
