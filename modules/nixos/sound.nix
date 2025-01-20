@@ -55,7 +55,7 @@ in {
         extraConfig = {
           pipewire."92-dont-scratch" = {
             "context.properties" = {
-              "log.level" = 3;
+              # "log.level" = 3;
               "loop.rt-pio" = 95;
               "default.clock.rate" = 48000;
               "default.clock.quantum" = 1024;
