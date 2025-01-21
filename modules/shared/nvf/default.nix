@@ -30,15 +30,23 @@
       enableExtraDiagnostics = true;
 
       nix.enable = true;
-      markdown.enable = true;
+      markdown = {
+        enable = true;
+        extensions.render-markdown-nvim.enable = true;
+      };
 
       bash.enable = true;
       css.enable = true;
-      html.enable = true;
+      html = {
+        enable = true;
+        treesitter.enable = true;
+      };
       ts.enable = true;
       go.enable = true;
       lua.enable = true;
       python.enable = true;
+      php.enable = true;
+      wgsl.enable = true;
       rust = {
         enable = true;
         crates.enable = true;
@@ -134,6 +142,7 @@
         leap.enable = true;
         precognition.enable = true;
       };
+      images.image-nvim.enable = true;
     };
 
     notes = {
