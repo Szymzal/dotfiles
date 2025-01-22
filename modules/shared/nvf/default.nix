@@ -9,10 +9,6 @@
       wrap = false;
     };
 
-    spellcheck = {
-      enable = true;
-    };
-
     lsp = {
       enable = true;
       formatOnSave = true;
@@ -142,7 +138,7 @@
         leap.enable = true;
         precognition.enable = true;
       };
-      images.image-nvim.enable = true;
+      images.image-nvim.enable = false;
     };
 
     notes = {
