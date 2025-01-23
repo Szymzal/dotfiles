@@ -126,7 +126,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
-    ffplayout
+    # ffplayout
   ];
 
   networking.firewall = {
@@ -164,7 +164,7 @@ in {
     cuda.enable = true;
     virtualization.enable = true;
     ossia.enable = true;
-    ontime.server.enable = true;
+    ontime.server.enable = false;
 
     monitors = {
       order = [

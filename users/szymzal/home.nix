@@ -71,7 +71,7 @@ in {
     video-recording.enable = true;
     calendar.enable = false;
     bottles.enable = true;
-    casparcg-client.enable = true;
+    casparcg-client.enable = false;
     video-editing.enable = true;
     ldtk.enable = true;
     flatpak.enable = true;
