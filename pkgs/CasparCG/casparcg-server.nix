@@ -29,9 +29,9 @@
   sfml,
   systemd,
   mesa_glu,
-  boost,
+  boost186, # FIX: Something is wrong with boost 1.87?
   nss,
-  ffmpeg_4-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
+  ffmpeg-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
   icu,
   libcef,
   enable_html ? true,
@@ -58,7 +58,7 @@ stdenv.mkDerivation (let
   });
 in {
   pname = "CasparCG-server";
-  version = version;
+  inherit version;
   src = fetchFromGitHub {
     owner = "CasparCG";
     repo = "server";
@@ -87,7 +87,7 @@ in {
     expat # libexpat1-dev
     lsb-release
     glew # libglew-dev
-    (freeimage.overrideAttrs (attrs: {
+    (freeimage.overrideAttrs {
       src = fetchsvn {
         url = "svn://svn.code.sf.net/p/freeimage/svn/";
         rev = "1909";
@@ -124,7 +124,7 @@ in {
         })
         ./CVE-2023-47997.patch # Modified https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2023-47997.patch
       ];
-    })) # libfreeimage-dev
+    }) # libfreeimage-dev
     tbb # libtbb-dev
     openal # libopenal-dev
     xorg.libXcursor # libxcursor-dev
@@ -134,9 +134,9 @@ in {
     xorg.libXrandr # libxrandr-dev
     systemd # libudev-dev
     mesa_glu # libglu1-mesa-dev
-    boost # libboost-all-dev
+    boost186 # libboost-all-dev
     nss # libnss3-dev
-    ffmpeg_4-full
+    ffmpeg-full
     icu
   ];
 
@@ -162,6 +162,7 @@ in {
         url = "https://patch-diff.githubusercontent.com/raw/CasparCG/server/pull/1584.patch";
         hash = "sha256-8XdluwjXrCjC7YkuKlMnm7d++fslcSthGR7iLTbw22Q=";
       })
+      ./fix_ffmpeg7.1_build.patch
     ]
     ++ lib.optionals enable_html [
       ./custom_cef_binary.patch

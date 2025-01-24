@@ -10,10 +10,12 @@ in {
     self.homeModules.modules
   ];
 
-  home.username = "szymzal";
-  home.homeDirectory = "/home/szymzal";
+  home = {
+    username = "szymzal";
+    homeDirectory = "/home/szymzal";
 
-  home.stateVersion = "23.11";
+    stateVersion = "23.11";
+  };
 
   programs.home-manager.enable = true;
 
@@ -71,7 +73,7 @@ in {
     video-recording.enable = true;
     calendar.enable = false;
     bottles.enable = true;
-    casparcg-client.enable = false;
+    casparcg-client.enable = true;
     video-editing.enable = true;
     ldtk.enable = true;
     flatpak.enable = true;

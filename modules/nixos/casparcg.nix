@@ -14,10 +14,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO: Maybe one day I will finish it :)
     environment.systemPackages = with pkgs; [
-      # casparcg-server
-      # casparcg-media-scanner
+      casparcg-server
+      casparcg-media-scanner
     ];
 
     nixpkgs.config.permittedInsecurePackages = [

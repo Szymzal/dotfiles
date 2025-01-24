@@ -29,10 +29,7 @@
 
     flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf.url = "github:NotAShelf/nvf";
   };
 
   outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {

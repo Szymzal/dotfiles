@@ -3,6 +3,8 @@
     viAlias = true;
     vimAlias = true;
 
+    lazy.enable = true;
+
     options = {
       shiftwidth = 2;
       tabstop = 2;
@@ -74,6 +76,7 @@
 
     autopairs.nvim-autopairs.enable = true;
 
+    # FIX: nvim-cmp cannot find luasnip module?
     autocomplete.nvim-cmp = {
       enable = true;
       mappings = {
@@ -82,6 +85,7 @@
       };
     };
     snippets.luasnip.enable = true;
+    lazy.plugins.luasnip.event = "BufEnter";
 
     filetree = {
       neo-tree = {
