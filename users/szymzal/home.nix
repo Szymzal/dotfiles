@@ -60,7 +60,7 @@ in {
     communication.enable = true;
     browser.enable = true;
     viewers.enableAll = true;
-    image-editors.enable = true;
+    image-editors.enable = false; # TODO: Revert
     screenshot = {
       enable = true;
       savePicturesPath = "Pictures/Screenshots";
