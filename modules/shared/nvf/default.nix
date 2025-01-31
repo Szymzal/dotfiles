@@ -98,8 +98,8 @@
         enable = true;
         mappings = {
           closeCurrent = "<leader>bd";
-          cycleNext = "<S-n>";
-          cyclePrevious = "<S-p>";
+          cycleNext = "<S-l>";
+          cyclePrevious = "<S-h>";
         };
       };
     };

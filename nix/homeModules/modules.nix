@@ -47,6 +47,7 @@
     ../../modules/home/audio-mix.nix
     ../../modules/home/onedrive.nix
     ../../modules/home/linuxshowplayer.nix
+    ../../modules/home/gstreamer.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
