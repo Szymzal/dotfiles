@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  inputs,
   ...
 }:
 with lib; let
@@ -14,8 +14,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      # nyxt
+    home.packages = [
+      inputs.zen-browser.packages."x86_64-linux".default
     ];
 
     programs.chromium = {
@@ -30,6 +30,8 @@ in {
 
     mypackages.impermanence = {
       directories = [
+        ".zen"
+        ".mozilla"
         ".config/chromium"
         ".local/share/applications" # PWAs
         "Downloads"
