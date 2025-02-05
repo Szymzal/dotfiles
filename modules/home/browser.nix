@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 with lib; let
@@ -14,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       inputs.zen-browser.packages."x86_64-linux".default
       firefox
     ];
