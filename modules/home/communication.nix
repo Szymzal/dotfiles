@@ -15,14 +15,12 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      webcord
-      # element-desktop
+      (webcord.override {electron = pkgs.electron_32;}) # NOTE: Downgraded electron to make screen share work again
     ];
 
     mypackages.impermanence = {
       directories = [
         ".config/WebCord"
-        # ".config/Element"
       ];
     };
   };
