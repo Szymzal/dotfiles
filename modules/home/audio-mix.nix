@@ -15,8 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # FIX: https://github.com/NixOS/nixpkgs/issues/368134
-      # ardour
+      ardour
     ];
 
     mypackages.impermanence.directories = [
