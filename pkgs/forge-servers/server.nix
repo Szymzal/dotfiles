@@ -13,7 +13,7 @@
 }:
 (
   writeShellScriptBin "minecraft-server" ''
-    exec ${lib.getExe jre_headless} ${extraJavaArgs} $@ @${loader}/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt nogui ${extraMinecraftArgs}''
+    exec ${lib.getExe jre_headless} ${extraJavaArgs} $@ @${loader}/lib/minecraft/forge/${loaderVersion}/libraries/net/minecraftforge/forge/${gameVersion}-${loaderVersion}/unix_args.txt nogui ${extraMinecraftArgs}''
 )
 // rec {
   pname = "minecraft-server";

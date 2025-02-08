@@ -56,7 +56,7 @@ in {
 
   time.timeZone = "Europe/Warsaw";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command" "flakes" "pipe-operators"];
 
   systemd = let
     accounting = ''
@@ -476,7 +476,7 @@ in {
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.forgeServers.forge-1_20_1.override {
-                loaderVersion = "47.2.6";
+                loaderVersion = "47.3.1";
                 jre_headless = pkgs.jdk17;
               };
               serverProperties = {

@@ -8,7 +8,7 @@
   jre_headless,
 }:
 with lib; let
-  loader_versions = lib.importJSON ./lock_launcher.json;
+  loader_versions = lib.importJSON ./lock_versions.json;
 
   # Older Minecraft versions that were written for Java 8, required Java 8.
   # Mojang has since rewritten a lot of their codebase so that Java versions
