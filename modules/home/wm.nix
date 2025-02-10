@@ -229,10 +229,10 @@ in {
         settings = {
           inherit (cfg) splash;
           preload = ["${cfg.wallpaper-path}"];
-          wallpaper = lib.forEach monitors (value:
+          wallpaper = filter (x: x != null) (lib.forEach monitors (value:
             if value.enable
             then "${value.connector},${cfg.wallpaper-path}"
-            else "");
+            else null));
         };
       };
 
