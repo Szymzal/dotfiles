@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [pkg-config];
   buildInputs = [openssl];
 
-  cargoHash = "sha256-JRsmZ5D/awsIjExGTDkzYkun6oeIpL1FkZJKzZf/XF0=";
+  cargoHash = "sha256-UTKCWXDELy56oHiahD6ABFUUCtRMP3Q2KWsw5cNbjbc=";
 
   # tests connect to a server
   doCheck = false;

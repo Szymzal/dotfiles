@@ -6,6 +6,7 @@
     pkgs.suitesparse.override {
       inherit stdenv;
     };
+  basedpyright = pkgs.callPackage ./basedpyright.nix {};
 
   linux-show-player = pkgs.callPackage ./linux-show-player.nix {};
   python3 =
