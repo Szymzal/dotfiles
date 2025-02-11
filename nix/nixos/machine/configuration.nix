@@ -29,7 +29,8 @@ in {
       "pci=nocrs"
       "vm.swappiness=10"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    # FIX: For some reason on 6.13.1 Hyprland is slow :(
+    # kernelPackages = pkgs.linuxPackages_latest;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -146,7 +147,7 @@ in {
     git.enable = true;
     multiTerminal.enable = true;
     cachix.enable = true;
-    cuda.enable = false;
+    cuda.enable = true;
     virtualization.enable = true;
     ossia.enable = true;
     ontime.server.enable = false;
@@ -233,7 +234,7 @@ in {
     video-recording.enable = true;
     nvidia = {
       enable = true;
-      open.enable = true;
+      open.enable = false;
     };
     onedrive.enable = false;
     cd.enable = true;

@@ -244,6 +244,10 @@ in {
               kb_layout = "pl";
             };
 
+            debug = {
+              disable_logs = false;
+            };
+
             cursor = {
               no_hardware_cursors = true;
             };
@@ -257,6 +261,9 @@ in {
             env = [
               "XDG_SESSION_TYPE,wayland"
               "NIXOS_OZONE_WL,1"
+              "LIBVA_DRIVER_NAME,nvidia"
+              "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+              "NVD_BACKEND,direct"
             ];
 
             "$terminal" = "foot";

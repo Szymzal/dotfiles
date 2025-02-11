@@ -23,8 +23,6 @@ in {
         enable32Bit = true;
       };
 
-      # TODO: what should I do with this?
-      boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
       boot.kernelParams = ["nouveau.config=NvGspRm=1"];
 
       environment.systemPackages = with pkgs; [
