@@ -236,12 +236,41 @@ in {
 
           settings = {
             exec-once = [
+              "${lib.getExe pkgs.way-displays}"
               "waybar"
             ];
 
             input = {
               kb_layout = "pl";
             };
+
+            cursor = {
+              no_hardware_cursors = true;
+              use_cpu_buffer = 0;
+            };
+
+            debug = {
+              disable_logs = false;
+            };
+
+            misc = {
+              disable_hyprland_logo = true;
+              layers_hog_keyboard_focus = true;
+              mouse_move_focuses_monitor = true;
+            };
+
+            render = {
+              explicit_sync = 0;
+            };
+
+            env = [
+              "XDG_SESSION_TYPE,wayland"
+              "NIXOS_OZONE_WL,1"
+              "LIBVA_DRIVER_NAME,nvidia"
+              "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+              "NVD_BACKEND,direct"
+              "GBM_BACKEND,nvidia-drm"
+            ];
 
             "$terminal" = "foot";
             "$mod" = "SUPER";

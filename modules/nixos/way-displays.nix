@@ -13,7 +13,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     systemd.user.services.way-displays = {
       enable = true;
 
@@ -42,7 +42,7 @@ in {
         ''
           ORDER:
         ''
-        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.order) (
+        + (lib.concatStrings (lib.forEach config.mypackages.monitors.order (
           value: ''
             - '${value}'
           ''
@@ -51,9 +51,9 @@ in {
         ''
           MODE:
         ''
-        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+        + (lib.concatStrings (lib.forEach config.mypackages.monitors.config (
           value:
-            if (value.enable)
+            if value.enable
             then ''
               - NAME_DESC: '${value.model}'
                 WIDTH: ${builtins.toString value.mode.width}
@@ -66,9 +66,9 @@ in {
         ''
           VRR_OFF:
         ''
-        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+        + (lib.concatStrings (lib.forEach config.mypackages.monitors.config (
           value:
-            if (value.enable)
+            if value.enable
             then ''
               - '${value.model}'
             ''
@@ -78,7 +78,7 @@ in {
         ''
           DISABLED:
         ''
-        + (lib.concatStrings (lib.forEach (config.mypackages.monitors.config) (
+        + (lib.concatStrings (lib.forEach config.mypackages.monitors.config (
           value:
             if (!value.enable)
             then ''
