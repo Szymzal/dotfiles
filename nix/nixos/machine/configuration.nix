@@ -126,22 +126,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     btop
-    # ffplayout
   ];
-
-  networking.firewall = {
-    allowedUDPPorts = [5004 5005];
-  };
-
-  users = {
-    users."ffpu" = {
-      isNormalUser = true;
-      group = "ffpu";
-      shell = lib.getExe' pkgs.shadow "nologin";
-      createHome = false;
-    };
-    groups."ffpu" = {};
-  };
 
   mypackages = {
     color-managment.enable = true;

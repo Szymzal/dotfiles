@@ -246,11 +246,6 @@ in {
 
             cursor = {
               no_hardware_cursors = true;
-              use_cpu_buffer = 0;
-            };
-
-            debug = {
-              disable_logs = false;
             };
 
             misc = {
@@ -259,25 +254,58 @@ in {
               mouse_move_focuses_monitor = true;
             };
 
-            render = {
-              explicit_sync = 0;
-            };
-
             env = [
               "XDG_SESSION_TYPE,wayland"
               "NIXOS_OZONE_WL,1"
-              "LIBVA_DRIVER_NAME,nvidia"
-              "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-              "NVD_BACKEND,direct"
-              "GBM_BACKEND,nvidia-drm"
             ];
 
             "$terminal" = "foot";
             "$mod" = "SUPER";
 
-            bind = [
-              "$mod, Return, exec, $terminal"
-              "$mod, Q, killactive"
+            bind =
+              [
+                "$mod, Return, exec, $terminal"
+                "$mod, Q, killactive"
+                "$mod SHIFT, Q, exec, hyprctl kill"
+                ("$mod, O, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}")
+
+                (''$mod, D, exec, killall fuzzel || fuzzel '' + optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning'')
+
+                "$mod, Space, togglefloating"
+                "$mod, F, fullscreen"
+
+                "$mod, H, movefocus, l"
+                "$mod, L, movefocus, r"
+                "$mod, K, movefocus, u"
+                "$mod, J, movefocus, d"
+
+                "$mod SHIFT, H, movecurrentworkspacetomonitor, l"
+                "$mod SHIFT, L, movecurrentworkspacetomonitor, r"
+
+                ",XF86AudioRaiseVolume, exec, pamixer -i 2"
+                ",XF86AudioLowerVolume, exec, pamixer -d 2"
+                ",XF86AudioMute, exec, pamixer -t"
+
+                ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}")
+              ]
+              ++ (
+                # workspaces
+                # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+                builtins.concatLists (builtins.genList (
+                    i: let
+                      ws = i + 1;
+                    in [
+                      "$mod, code:1${toString i}, workspace, ${toString ws}"
+                      "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+                    ]
+                  )
+                  9)
+              );
+
+            bindm = [
+              # Move/Resize windows with mod + LMB/RMB
+              "$mod, mouse:272, movewindow"
+              "$mod, mouse:273, resizewindow"
             ];
           };
         };
