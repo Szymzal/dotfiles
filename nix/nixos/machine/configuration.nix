@@ -29,7 +29,7 @@ in {
       "pci=nocrs"
       "vm.swappiness=10"
     ];
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
