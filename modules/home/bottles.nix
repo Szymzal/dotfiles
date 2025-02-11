@@ -22,5 +22,12 @@ in {
         }
       ];
     };
+
+    mypackages.flatpak = {
+      enable = true;
+      packages = [
+        "com.usebottles.bottles"
+      ];
+    };
   };
 }

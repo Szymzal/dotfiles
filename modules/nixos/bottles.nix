@@ -14,8 +14,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      bottles
-    ];
+    # environment.systemPackages = with pkgs; [
+    #   bottles
+    # ];
   };
 }
