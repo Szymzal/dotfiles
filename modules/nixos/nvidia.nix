@@ -56,7 +56,7 @@ in {
       mypackages.monitors.config = [
         {
           enable = false;
-          connector = "Unknown-*";
+          connector = "!Unknown-*";
         }
       ];
 

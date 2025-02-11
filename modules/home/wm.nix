@@ -60,168 +60,198 @@ in {
         way-displays
       ];
 
-      wayland.windowManager.river = {
-        enable = true;
+      wayland.windowManager = {
+        river = {
+          enable = true;
 
-        settings = {
-          spawn = [
-            (lib.optionalString cfg.uwsm "'uwsm app -- " + "waybar'")
-            (lib.optionalString cfg.uwsm "'uwsm app -t service -- " + "rivertile'")
-          ];
-          declare-mode = [
-            "passthrough"
-            "launcher"
-          ];
-          map = let
-            mediaButtons = {
-              "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 2'";
-              "None XF86AudioLowerVolume" = "spawn 'pamixer -d 2'";
-              "None XF86AudioMute" = "spawn 'pamixer -t'";
-              # TODO: Why it is not working?
-              "None XF86AudioMicMute" = "spawn 'pamixer --default-source -t'";
-            };
-          in {
-            launcher = {
-              "None B" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${lib.getExe config.programs.chromium.package}'";
-              "None T" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "thunar'";
-              "None Escape" = "enter-mode normal";
-            };
-            passthrough = {
-              "Super F11" = "enter-mode normal";
-            };
-            locked = mediaButtons;
-            normal =
-              {
-                "Super Return" =
-                  if cfg.uwsm
-                  then "spawn 'uwsm app -T'"
-                  else "spawn foot";
-                "Super Q" = "close";
+          settings = {
+            spawn = [
+              (lib.optionalString cfg.uwsm "'uwsm app -- " + "waybar'")
+              (lib.optionalString cfg.uwsm "'uwsm app -t service -- " + "rivertile'")
+            ];
+            declare-mode = [
+              "passthrough"
+              "launcher"
+            ];
+            map = let
+              mediaButtons = {
+                "None XF86AudioRaiseVolume" = "spawn 'pamixer -i 2'";
+                "None XF86AudioLowerVolume" = "spawn 'pamixer -d 2'";
+                "None XF86AudioMute" = "spawn 'pamixer -t'";
+                # TODO: Why it is not working?
+                "None XF86AudioMicMute" = "spawn 'pamixer --default-source -t'";
+              };
+            in {
+              launcher = {
+                "None B" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${lib.getExe config.programs.chromium.package}'";
+                "None T" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "thunar'";
+                "None Escape" = "enter-mode normal";
+              };
+              passthrough = {
+                "Super F11" = "enter-mode normal";
+              };
+              locked = mediaButtons;
+              normal =
+                {
+                  "Super Return" =
+                    if cfg.uwsm
+                    then "spawn 'uwsm app -T'"
+                    else "spawn foot";
+                  "Super Q" = "close";
 
-                "Super O" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}'";
-                "Super D" = ''spawn 'killall fuzzel || fuzzel '' + optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning' '';
-                "Super P" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}'";
+                  "Super O" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}'";
+                  "Super D" = ''spawn 'killall fuzzel || fuzzel '' + optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning' '';
+                  "Super P" = "spawn '" + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}'";
 
-                "Super Space" = "toggle-float";
+                  "Super Space" = "toggle-float";
 
-                "Super J" = "focus-view next";
-                "Super K" = "focus-view previous";
+                  "Super J" = "focus-view next";
+                  "Super K" = "focus-view previous";
 
-                "Super+Shift J" = "swap next";
-                "Super+Shift K" = "swap previous";
+                  "Super+Shift J" = "swap next";
+                  "Super+Shift K" = "swap previous";
 
-                "Super Period" = "focus-output next";
-                "Super Comma" = "focus-output previous";
+                  "Super Period" = "focus-output next";
+                  "Super Comma" = "focus-output previous";
 
-                "Super+Shift Period" = "send-to-output next";
-                "Super+Shift Comma" = "send-to-output previous";
+                  "Super+Shift Period" = "send-to-output next";
+                  "Super+Shift Comma" = "send-to-output previous";
 
-                "Super T" = "zoom";
+                  "Super T" = "zoom";
 
-                "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
-                "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";
+                  "Super H" = "send-layout-cmd rivertile 'main-ratio -0.05'";
+                  "Super L" = "send-layout-cmd rivertile 'main-ratio +0.05'";
 
-                "Super+Shift H" = "send-layout-cmd rivertile 'main-count +1'";
-                "Super+Shift L" = "send-layout-cmd rivertile 'main-count -1'";
+                  "Super+Shift H" = "send-layout-cmd rivertile 'main-count +1'";
+                  "Super+Shift L" = "send-layout-cmd rivertile 'main-count -1'";
 
-                "Super+Alt H" = "move left 100";
-                "Super+Alt J" = "move down 100";
-                "Super+Alt K" = "move up 100";
-                "Super+Alt L" = "move right 100";
+                  "Super+Alt H" = "move left 100";
+                  "Super+Alt J" = "move down 100";
+                  "Super+Alt K" = "move up 100";
+                  "Super+Alt L" = "move right 100";
 
-                "Super+Alt+Control H" = "snap left";
-                "Super+Alt+Control J" = "snap down";
-                "Super+Alt+Control K" = "snap up";
-                "Super+Alt+Control L" = "snap right";
+                  "Super+Alt+Control H" = "snap left";
+                  "Super+Alt+Control J" = "snap down";
+                  "Super+Alt+Control K" = "snap up";
+                  "Super+Alt+Control L" = "snap right";
 
-                "Super+Alt+Shift H" = "resize horizontal -100";
-                "Super+Alt+Shift J" = "resize vertical 100";
-                "Super+Alt+Shift K" = "resize vertical -100";
-                "Super+Alt+Shift L" = "resize horizontal 100";
+                  "Super+Alt+Shift H" = "resize horizontal -100";
+                  "Super+Alt+Shift J" = "resize vertical 100";
+                  "Super+Alt+Shift K" = "resize vertical -100";
+                  "Super+Alt+Shift L" = "resize horizontal 100";
 
-                "Super F" = "toggle-fullscreen";
+                  "Super F" = "toggle-fullscreen";
 
-                "Super Up" = "send-layout-cmd rivertile 'main-location top'";
-                "Super Right" = "send-layout-cmd rivertile 'main-location right'";
-                "Super Down" = "send-layout-cmd rivertile 'main-location bottom'";
-                "Super Left" = "send-layout-cmd rivertile 'main-location left'";
+                  "Super Up" = "send-layout-cmd rivertile 'main-location top'";
+                  "Super Right" = "send-layout-cmd rivertile 'main-location right'";
+                  "Super Down" = "send-layout-cmd rivertile 'main-location bottom'";
+                  "Super Left" = "send-layout-cmd rivertile 'main-location left'";
 
-                "Super F11" = "enter-mode passthrough";
-                "Super Z" = "enter-mode launcher";
-              }
-              // (
-                let
-                  loop = i: to: let
-                    tags = "$((1 << (${builtins.toString i} - 1)))";
+                  "Super F11" = "enter-mode passthrough";
+                  "Super Z" = "enter-mode launcher";
+                }
+                // (
+                  let
+                    loop = i: to: let
+                      tags = "$((1 << (${builtins.toString i} - 1)))";
+                    in
+                      {
+                        "Super ${builtins.toString i}" = "set-focused-tags ${tags}";
+                        "Super+Shift ${builtins.toString i}" = "set-view-tags ${tags}";
+                        "Super+Control ${builtins.toString i}" = "toggle-focused-tags ${tags}";
+                        "Super+Shift+Control ${builtins.toString i}" = "toggle-view-tags ${tags}";
+                      }
+                      // lib.optionalAttrs (i < to) (loop (i + 1) to);
                   in
-                    {
-                      "Super ${builtins.toString i}" = "set-focused-tags ${tags}";
-                      "Super+Shift ${builtins.toString i}" = "set-view-tags ${tags}";
-                      "Super+Control ${builtins.toString i}" = "toggle-focused-tags ${tags}";
-                      "Super+Shift+Control ${builtins.toString i}" = "toggle-view-tags ${tags}";
-                    }
-                    // lib.optionalAttrs (i < to) (loop (i + 1) to);
-                in
-                  loop 1 9
-              )
-              // (let
-                allTags = "$(((1 << 32) - 1))";
-              in {
-                "Super 0" = "set-focused-tags ${allTags}";
-                "Super+Shift 0" = "set-view-tags ${allTags}";
-              })
-              // mediaButtons;
-          };
-          map-pointer = {
-            normal = {
-              "Super BTN_LEFT" = "move-view";
-              "Super BTN_RIGHT" = "resize-view";
+                    loop 1 9
+                )
+                // (let
+                  allTags = "$(((1 << 32) - 1))";
+                in {
+                  "Super 0" = "set-focused-tags ${allTags}";
+                  "Super+Shift 0" = "set-view-tags ${allTags}";
+                })
+                // mediaButtons;
             };
-          };
-          xcursor-theme = mkForce "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
-          rule-add = {
-            "" = "ssd";
-            "-app-id" = {
-              "'bar'" = "csd";
-              "float" = "float";
-              "'org.gnome.FileRoller'" = "float";
-              "'org.pulseaudio.pavucontrol'" = "float";
-              "'blueman-manager'" = "float";
-              "'firefox'" = {
-                "-title" = {
-                  "'Picture-in-Picture'" = "float";
-                };
+            map-pointer = {
+              normal = {
+                "Super BTN_LEFT" = "move-view";
+                "Super BTN_RIGHT" = "resize-view";
               };
             };
-            "-title" = {
-              "'MainPicker'" = "float";
+            xcursor-theme = mkForce "${config.mypackages.theme.cursorTheme.name} ${builtins.toString config.mypackages.theme.cursorTheme.size}";
+            rule-add = {
+              "" = "ssd";
+              "-app-id" = {
+                "'bar'" = "csd";
+                "float" = "float";
+                "'org.gnome.FileRoller'" = "float";
+                "'org.pulseaudio.pavucontrol'" = "float";
+                "'blueman-manager'" = "float";
+                "'firefox'" = {
+                  "-title" = {
+                    "'Picture-in-Picture'" = "float";
+                  };
+                };
+              };
+              "-title" = {
+                "'MainPicker'" = "float";
+              };
             };
+            border-color-focused = "0x${config.lib.stylix.colors.base0D}";
+            border-color-unfocused = "0x${config.lib.stylix.colors.base03}";
+            set-repeat = "50 300";
+            default-layout = "rivertile";
+            focus-follows-cursor = "normal";
+            set-cursor-warp = "on-output-change";
+            # hide-cursor.when-typing = "enabled";
+            keyboard-layout = "pl";
           };
-          border-color-focused = "0x${config.lib.stylix.colors.base0D}";
-          border-color-unfocused = "0x${config.lib.stylix.colors.base03}";
-          set-repeat = "50 300";
-          default-layout = "rivertile";
-          focus-follows-cursor = "normal";
-          set-cursor-warp = "on-output-change";
-          # hide-cursor.when-typing = "enabled";
-          keyboard-layout = "pl";
+
+          extraSessionVariables =
+            {
+              XDG_SESSION_TYPE = "wayland";
+              # XDG_CURRENT_DESKTOP = "river";
+              NIXOS_OZONE_WL = "1";
+            }
+            // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) {
+              LIBVA_DRIVER_NAME = "nvidia";
+              __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+              NVD_BACKEND = "direct";
+            }
+            // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
+              WLR_NO_HARDWARE_CURSORS = "1";
+            };
+
+          systemd.enable = true;
+          xwayland.enable = true;
         };
 
-        extraSessionVariables =
-          {
-            XDG_SESSION_TYPE = "wayland";
-            XDG_CURRENT_DESKTOP = "river";
-            NIXOS_OZONE_WL = "1";
-          }
-          // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && !osConfig.mypackages.nvidia.open.enable) {
-            LIBVA_DRIVER_NAME = "nvidia";
-          }
-          // lib.optionalAttrs (osConfig.mypackages.nvidia.enable && osConfig.mypackages.nvidia.open.enable) {
-            WLR_NO_HARDWARE_CURSORS = "1";
-          };
+        hyprland = {
+          enable = true;
+          # Use package from NixOS Module
+          package = null;
+          portalPackage = null;
+          systemd.variables = ["--all"];
 
-        systemd.enable = true;
-        xwayland.enable = true;
+          settings = {
+            exec-once = [
+              "waybar"
+            ];
+
+            input = {
+              kb_layout = "pl";
+            };
+
+            "$terminal" = "foot";
+            "$mod" = "SUPER";
+
+            bind = [
+              "$mod, Return, exec, $terminal"
+              "$mod, Q, killactive"
+            ];
+          };
+        };
       };
 
       services.hyprpaper = {

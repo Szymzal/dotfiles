@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 with lib; let
@@ -13,24 +14,34 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (let
-  in {
+  config = mkIf cfg.enable {
     security.polkit.enable = true;
 
     mypackages.way-displays.enable = mkDefault true;
 
-    programs.xwayland.enable = true;
-
-    programs.river = {
-      enable = true;
+    programs = {
       xwayland.enable = true;
+      river = {
+        enable = true;
+        xwayland.enable = true;
+      };
+      hyprland = {
+        enable = true;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      };
     };
 
-    systemd = {
-      user.extraConfig = ''
-        DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
-      '';
+    mypackages.cachix = {
+      substituters = ["https://hyprland.cachix.org"];
+      public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
+
+    # systemd = {
+    #   user.extraConfig = ''
+    #     DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
+    #   '';
+    # };
 
     # TODO: Why
     # services.displayManager.sessionPackages = mkForce [ ];
@@ -64,5 +75,5 @@ in {
         xdg-desktop-portal-gtk
       ];
     };
-  });
+  };
 }
