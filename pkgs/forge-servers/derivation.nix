@@ -36,25 +36,19 @@
   inherit (minecraftInfo) libraries;
   libraries_lock = lib.importJSON ./lock_libraries.json;
 
-  fetchedLibraries = libraries
-  |> (x: lib.forEach x (
-    l: let
-      library = libraries_lock.${l};
-    in
-      {
-        lib = fetchurl {
-          inherit (library) url sha1;
-        };
-        inherit (library) path;
-      }
-    ))
-  |> (x: lib.forEach x (l: let 
-       dirPath = lib.removeSuffix "${l.lib.name}" l.path;
-     in ''
-       mkdir -p $LIB/${dirPath}
-       ln -s ${l.lib} $LIB/${l.path}
-     ''))
-  |> lib.concatStrings;
+fetchedLibraries =
+  libraries
+  |> map (l: libraries_lock.${l})
+  |> map (l: {
+    lib = fetchurl {
+      inherit (l) url sha1;
+    };
+    inherit (l) path;
+  })
+  |> lib.concatMapStrings (l: ''
+    mkdir -p $(dirname $LIB/${l.path})
+    ln -s ${l.lib} $LIB/${l.path}
+  '');
 in
   stdenvNoCC.mkDerivation {
     pname = "forge-loader";
