@@ -27,7 +27,7 @@ in {
           position = "top";
           height = 30;
           modules-left = [
-            "river/tags"
+            "hyprland/workspaces"
           ];
           modules-center = [];
           modules-right = [
