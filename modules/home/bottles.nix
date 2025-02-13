@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -22,8 +23,8 @@ in {
       ];
     };
 
-    mypackages.flatpak.packages = [
-      "com.usebottles.bottles"
+    home.packages = with pkgs; [
+      bottles
     ];
   };
 }
