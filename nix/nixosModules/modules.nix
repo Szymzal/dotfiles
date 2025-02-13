@@ -34,7 +34,6 @@
     ../../modules/nixos/gtk.nix
     ../../modules/nixos/theme.nix
     ../../modules/nixos/mouse.nix
-    ../../modules/nixos/bottles.nix
     ../../modules/nixos/network.nix
     ../../modules/nixos/printing.nix
     ../../modules/nixos/bluetooth.nix
