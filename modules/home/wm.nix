@@ -3,6 +3,7 @@
   lib,
   config,
   osConfig,
+  inputs,
   ...
 }:
 with lib; let
@@ -232,6 +233,9 @@ in {
           # Use package from NixOS Module
           package = null;
           portalPackage = null;
+          plugins = [
+            inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+          ];
           systemd.variables = ["--all"];
 
           settings = {
@@ -256,6 +260,21 @@ in {
               disable_hyprland_logo = true;
               layers_hog_keyboard_focus = true;
               mouse_move_focuses_monitor = true;
+            };
+
+            animations = {
+              enabled = false;
+            };
+
+            plugin = {
+              split-monitor-workspaces = {
+                count = 9;
+              };
+            };
+
+            general = {
+              gaps_in = 2;
+              gaps_out = 5;
             };
 
             env = [
@@ -286,8 +305,8 @@ in {
                 "$mod, K, movefocus, u"
                 "$mod, J, movefocus, d"
 
-                "$mod SHIFT, H, movecurrentworkspacetomonitor, l"
-                "$mod SHIFT, L, movecurrentworkspacetomonitor, r"
+                "$mod SHIFT, H, split-changemonitor, prev"
+                "$mod SHIFT, L, split-changemonitor, next"
 
                 ",XF86AudioRaiseVolume, exec, pamixer -i 2"
                 ",XF86AudioLowerVolume, exec, pamixer -d 2"
@@ -302,8 +321,8 @@ in {
                     i: let
                       ws = i + 1;
                     in [
-                      "$mod, code:1${toString i}, workspace, ${toString ws}"
-                      "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+                      "$mod, code:1${toString i}, split-workspace, ${toString ws}"
+                      "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
                     ]
                   )
                   9)

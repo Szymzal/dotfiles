@@ -34,6 +34,10 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     hyprland.url = "github:hyprwm/Hyprland";
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {

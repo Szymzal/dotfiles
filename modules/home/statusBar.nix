@@ -36,6 +36,18 @@ in {
             "clock"
           ];
 
+          "hyprland/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              urgent = "";
+              active = "";
+              visible = "";
+              default = "";
+              empty = "";
+            };
+            all-outputs = false;
+          };
+
           temperature = {
             tooltip = false;
           };
