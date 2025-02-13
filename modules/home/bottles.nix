@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  osConfig,
   ...
 }:
 with lib; let
@@ -13,7 +12,7 @@ in {
     };
   };
 
-  config = mkIf (osConfig.mypackages.bottles.enable && cfg.enable) {
+  config = mkIf cfg.enable {
     mypackages.impermanence = {
       directories = [
         {

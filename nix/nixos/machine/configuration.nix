@@ -240,7 +240,6 @@ in {
     cd.enable = true;
     ls.enable = true;
     find.enable = true;
-    bottles.enable = true;
     theme = {
       enable = true;
       prefer-dark-theme = true;
