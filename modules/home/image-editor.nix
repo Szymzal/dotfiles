@@ -17,7 +17,6 @@ in {
     home.packages = with pkgs; [
       # krita
 
-      # FIX: https://github.com/NixOS/nixpkgs/issues/348386
       gimp
       inkscape
     ];
