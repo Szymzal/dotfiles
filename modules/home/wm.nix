@@ -266,6 +266,10 @@ in {
               enabled = false;
             };
 
+            render = {
+              explicit_sync = 0;
+            };
+
             plugin = {
               split-monitor-workspaces = {
                 count = 9;
