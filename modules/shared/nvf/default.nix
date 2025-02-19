@@ -53,7 +53,7 @@
 
     visuals = {
       nvim-web-devicons.enable = true;
-      nvim-cursorline.enable = true;
+      nvim-cursorline.enable = false;
       fidget-nvim.enable = true;
 
       highlight-undo.enable = true;
@@ -85,7 +85,6 @@
       };
     };
     snippets.luasnip.enable = true;
-    lazy.plugins.luasnip.event = "BufEnter";
 
     filetree = {
       neo-tree = {
@@ -107,8 +106,8 @@
     treesitter.context.enable = true;
 
     binds = {
-      whichKey.enable = true;
-      cheatsheet.enable = true;
+      whichKey.enable = false;
+      cheatsheet.enable = false;
     };
 
     telescope.enable = true;
@@ -117,10 +116,6 @@
       enable = true;
       gitsigns.enable = true;
       gitsigns.codeActions.enable = false;
-    };
-
-    minimap = {
-      codewindow.enable = true;
     };
 
     dashboard = {
@@ -138,9 +133,9 @@
     utility = {
       surround.enable = true;
       motion = {
-        hop.enable = true;
-        leap.enable = true;
-        precognition.enable = true;
+        hop.enable = false;
+        leap.enable = false;
+        precognition.enable = false;
       };
       images.image-nvim.enable = false;
     };
