@@ -2,7 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flakelight = {
       url = "github:nix-community/flakelight";
@@ -10,7 +11,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,7 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.11";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
@@ -50,7 +51,7 @@
     perSystem = pkgs: {
       packages.default =
         (inputs.nvf.lib.neovimConfiguration {
-          inherit pkgs;
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
           modules = [
             ./modules/shared/nvf
           ];
