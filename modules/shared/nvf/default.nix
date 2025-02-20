@@ -82,6 +82,10 @@
 
     autocomplete.blink-cmp = {
       enable = true;
+      mappings = {
+        next = "<C-n>";
+        previous = "<C-p>";
+      };
       setupOpts.signature.enabled = true;
     };
     snippets.luasnip.enable = true;
