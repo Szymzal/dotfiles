@@ -16,7 +16,6 @@
       formatOnSave = true;
       lightbulb.enable = true;
       trouble.enable = true;
-      lspSignature.enable = true;
       otter-nvim.enable = true;
       lsplines.enable = true;
     };
@@ -51,12 +50,17 @@
       };
     };
 
+    debugger = {
+      nvim-dap = {
+        enable = true;
+        ui.enable = true;
+      };
+    };
+
     visuals = {
       nvim-web-devicons.enable = true;
-      nvim-cursorline.enable = false;
       fidget-nvim.enable = true;
 
-      highlight-undo.enable = true;
       indent-blankline.enable = true;
     };
 
@@ -76,13 +80,9 @@
 
     autopairs.nvim-autopairs.enable = true;
 
-    # FIX: nvim-cmp cannot find luasnip module?
-    autocomplete.nvim-cmp = {
+    autocomplete.blink-cmp = {
       enable = true;
-      mappings = {
-        next = "<C-n>";
-        previous = "<C-p>";
-      };
+      setupOpts.signature.enabled = true;
     };
     snippets.luasnip.enable = true;
 
@@ -106,8 +106,8 @@
     treesitter.context.enable = true;
 
     binds = {
-      whichKey.enable = false;
-      cheatsheet.enable = false;
+      whichKey.enable = true;
+      cheatsheet.enable = true;
     };
 
     telescope.enable = true;
@@ -132,11 +132,6 @@
 
     utility = {
       surround.enable = true;
-      motion = {
-        hop.enable = false;
-        leap.enable = false;
-        precognition.enable = false;
-      };
       images.image-nvim.enable = false;
     };
 
