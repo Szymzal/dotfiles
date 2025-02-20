@@ -29,7 +29,7 @@ in {
     ];
 
     # nixd
-    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    # nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     # copied from: https://github.com/LazyVim/LazyVim/discussions/1972
     # programs.neovim = {
