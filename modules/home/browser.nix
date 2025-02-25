@@ -20,6 +20,16 @@ in {
       package
     ];
 
+    # programs.firefox = {
+    #   enable = true;
+    #   inherit package;
+    #   policies = {
+    #     Preferences = {
+    #       "widget.use-xdg-desktop-portal.file-picker" = 1;
+    #     };
+    #   };
+    # };
+
     xdg = {
       mime = {
         enable = mkDefault true;

@@ -86,7 +86,6 @@ in {
     {
       stylix = {
         base16Scheme = cfg.theme.base16-scheme-path;
-
         polarity =
           if cfg.prefer-dark-theme
           then "dark"

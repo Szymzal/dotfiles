@@ -29,8 +29,6 @@ in {
       "pci=nocrs"
       "vm.swappiness=10"
     ];
-    # FIX: For some reason on 6.13.1 Hyprland is slow :(
-    # kernelPackages = pkgs.linuxPackages_latest;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
