@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }:
 with lib; let
@@ -14,11 +13,48 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      inputs.zen-browser.packages."x86_64-linux".default
-      firefox
+  config = mkIf cfg.enable (let
+    package = inputs.zen-browser.packages."x86_64-linux".default;
+  in {
+    home.packages = [
+      package
     ];
+
+    xdg = {
+      mime = {
+        enable = mkDefault true;
+      };
+      mimeApps = let
+        desktopFile = "zen.desktop";
+      in {
+        enable = mkDefault true;
+        associations.added = {
+          "x-scheme-handler/http" = [desktopFile];
+          "x-scheme-handler/https" = [desktopFile];
+          "x-scheme-handler/chrome" = [desktopFile];
+          "text/html" = [desktopFile];
+          "application/pdf" = [desktopFile];
+          "application/x-extension-htm" = [desktopFile];
+          "application/x-extension-html" = [desktopFile];
+          "application/x-extension-shtml" = [desktopFile];
+          "application/xhtml+xml" = [desktopFile];
+          "application/x-extension-xhtml" = [desktopFile];
+          "application/x-extension-xht" = [desktopFile];
+        };
+        defaultApplications = {
+          "x-scheme-handler/http" = [desktopFile];
+          "x-scheme-handler/https" = [desktopFile];
+          "x-scheme-handler/chrome" = [desktopFile];
+          "text/html" = [desktopFile];
+          "application/x-extension-htm" = [desktopFile];
+          "application/x-extension-html" = [desktopFile];
+          "application/x-extension-shtml" = [desktopFile];
+          "application/xhtml+xml" = [desktopFile];
+          "application/x-extension-xhtml" = [desktopFile];
+          "application/x-extension-xht" = [desktopFile];
+        };
+      };
+    };
 
     programs.chromium = {
       enable = true;
@@ -43,5 +79,5 @@ in {
     home.activation.symlinks = hm.dag.entryAfter ["writeBoundary"] ''
       run ln -sfn $HOME/Downloads $HOME/Pobrane
     '';
-  };
+  });
 }

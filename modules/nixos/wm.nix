@@ -47,5 +47,8 @@ in {
     xdg.portal = {
       enable = true;
     };
+
+    programs.hyprlock.enable = true;
+    services.hypridle.enable = true;
   };
 }

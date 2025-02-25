@@ -247,8 +247,14 @@ in {
         base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
       };
       cursorTheme = {
-        name = "Bibata-Modern-Classic";
-        package = pkgs.bibata-cursors;
+        xcursor = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
+        hyprcursor = {
+          name = "Bibata-Modern-Classic-hyprcursor";
+          package = pkgs.bibata-hyprcursor;
+        };
         size = 16;
       };
       iconTheme = {
@@ -269,30 +275,28 @@ in {
         server = {
           enable = true;
           servers = let
-            copyFiles = from: to: (let
-              evalDir = (
-                prefix: to: dir: (
+            copyFiles = from: to: (
+              let
+                evalDir = prefix: to: dir: (
                   lib.mapAttrsToList
                   (
                     path: type: (
                       let
                         diffPath = builtins.replaceStrings ["${prefix}"] [""] "${dir}";
                         diffPathRemovedDep = builtins.unsafeDiscardStringContext diffPath;
-                      in (
+                      in
                         if (type == "directory")
                         then (evalDir prefix to "${prefix}${diffPath}/${path}")
                         else {
                           "${to}${diffPathRemovedDep}/${path}" = "${prefix}${diffPath}/${path}";
                         }
-                      )
                     )
                   )
                   (builtins.readDir dir)
-                )
-              );
-            in (
-              lib.mergeAttrsList (lib.flatten (evalDir from to from))
-            ));
+                );
+              in
+                lib.mergeAttrsList (lib.flatten (evalDir from to from))
+            );
           in {
             PrehistoricWorld = {
               enable = true;
@@ -570,18 +574,16 @@ in {
                 motd = "Some survival";
               };
               symlinks = {
-                mods = (
-                  let
-                    modpack = pkgs.fetchModrinthModpack {
-                      url = "https://cdn.modrinth.com/data/lezk3Nxv/versions/6DfeUJhQ/NMI%201.21%201.1.0.mrpack";
-                      hash = "sha512-s4aHltlOta1RkPBCHQBwUYRysFAESXhD8uy4z6aJghyHCeuAd2KRQkQWouNgKhnH899b4+15RsbkmQJJSyr1RA==";
-                      removeProjectIDs = [
-                        "ZjwW8Q6n"
-                        "2RuZIzOq"
-                      ];
-                    };
-                  in "${modpack}/mods"
-                );
+                mods = let
+                  modpack = pkgs.fetchModrinthModpack {
+                    url = "https://cdn.modrinth.com/data/lezk3Nxv/versions/6DfeUJhQ/NMI%201.21%201.1.0.mrpack";
+                    hash = "sha512-s4aHltlOta1RkPBCHQBwUYRysFAESXhD8uy4z6aJghyHCeuAd2KRQkQWouNgKhnH899b4+15RsbkmQJJSyr1RA==";
+                    removeProjectIDs = [
+                      "ZjwW8Q6n"
+                      "2RuZIzOq"
+                    ];
+                  };
+                in "${modpack}/mods";
               };
             };
           };

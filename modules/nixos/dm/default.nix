@@ -44,7 +44,7 @@ in {
         theme = "catppuccin-mocha";
         settings = {
           Theme = {
-            CursorTheme = "${config.mypackages.theme.cursorTheme.name}";
+            CursorTheme = "${config.mypackages.theme.cursorTheme.xcursor.name}";
             CursorSize = config.mypackages.theme.cursorTheme.size;
           };
         };
@@ -76,7 +76,7 @@ in {
                     keymap_options = xcfg.xkb.options;
                   };
                   shell = {
-                    cursor-theme = "${config.mypackages.theme.cursorTheme.name}";
+                    cursor-theme = "${config.mypackages.theme.cursorTheme.xcursor.name}";
                     cursor-size = config.mypackages.theme.cursorTheme.size;
                   };
                 })

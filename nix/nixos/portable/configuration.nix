@@ -111,8 +111,14 @@ in {
         base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
       };
       cursorTheme = {
-        name = "Bibata-Modern-Classic";
-        package = pkgs.bibata-cursors;
+        xcursor = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
+        hyprcursor = {
+          name = "Bibata-Modern-Classic-hyprcursor";
+          package = pkgs.bibata-hyprcursor;
+        };
         size = 16;
       };
       iconTheme = {

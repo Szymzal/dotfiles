@@ -8,6 +8,7 @@
 }:
 with lib; let
   cfg = config.mypackages.wm;
+  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.wm = {
@@ -41,9 +42,6 @@ in {
       power-menu-script = pkgs.writeShellScriptBin "power-menu" ''
         killall wlogout || ${pkgs.wlogout}/bin/wlogout
       '';
-      screenshot-script = pkgs.writeShellScriptBin "screenshot" ''
-        ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -o -r -c '#ff0000ff')" - | ${pkgs.satty}/bin/satty --filename - --fullscreen --output-filename ~/${config.mypackages.screenshot.savePicturesPath}/$(date '+%Y%m%d-%H:%M:%S').png
-      '';
       monitors = osConfig.mypackages.monitors.config;
     in {
       mypackages = {
@@ -51,14 +49,16 @@ in {
         status-bar.enable = mkDefault true;
         launcher.enable = mkDefault true;
         notifications.enable = mkDefault true;
+        screenshot.enable = mkDefault true;
       };
 
       home.packages = with pkgs; [
         killall
         pamixer
-        wlogout
         wlr-randr
         way-displays
+        config.mypackages.theme.cursorTheme.xcursor.package
+        config.mypackages.theme.cursorTheme.hyprcursor.package
       ];
 
       wayland.windowManager = {
@@ -119,6 +119,10 @@ in {
               "LIBVA_DRIVER_NAME,nvidia"
               "__GLX_VENDOR_LIBRARY_NAME,nvidia"
               "NVD_BACKEND,direct"
+              "XCURSOR_THEME,${config.mypackages.theme.cursorTheme.xcursor.name}"
+              "XCURSOR_SIZE,${toString config.mypackages.theme.cursorTheme.size}"
+              "HYPRCURSOR_THEME,${config.mypackages.theme.cursorTheme.hyprcursor.name}"
+              "HYPRCURSOR_SIZE,${toString config.mypackages.theme.cursorTheme.size}"
             ];
 
             "$terminal" = "foot";
@@ -148,7 +152,7 @@ in {
                 ",XF86AudioLowerVolume, exec, pamixer -d 2"
                 ",XF86AudioMute, exec, pamixer -t"
 
-                ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe screenshot-script}")
+                ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe pkgs-unstable.grimblast} --notify --openfile --freeze copysave area")
               ]
               ++ (
                 # workspaces
@@ -187,104 +191,153 @@ in {
 
       xdg.portal = {
         enable = true;
-        extraPortals = [(inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland.override {hyprland = config.wayland.windowManager.hyprland.finalPackage;})];
+        extraPortals = [(inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland.override {hyprland = config.wayland.windowManager.hyprland.finalPackage;}) pkgs.xdg-desktop-portal-gtk];
         configPackages = lib.mkDefault [config.wayland.windowManager.hyprland.finalPackage];
       };
 
-      home.file = {
-        ".config/wlogout/style.css".text = let
-          # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L3
-          pow = let
-            pow' = base: exponent: value:
-              if exponent == 0
-              then 1
-              else if exponent <= 1
-              then value
-              else (pow' base (exponent - 1) (value * base));
-          in
-            base: exponent: pow' base exponent base;
-          # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L38
-          hex-to-dec = v: let
-            hexToInt = {
-              "0" = 0;
-              "1" = 1;
-              "2" = 2;
-              "3" = 3;
-              "4" = 4;
-              "5" = 5;
-              "6" = 6;
-              "7" = 7;
-              "8" = 8;
-              "9" = 9;
-              "a" = 10;
-              "b" = 11;
-              "c" = 12;
-              "d" = 13;
-              "e" = 14;
-              "f" = 15;
+      services.hypridle = {
+        enable = true;
+        settings = {
+          listener = mkForce [
+            {
+              timeout = 900;
+              on-timeout = "hyprlock";
+            }
+          ];
+        };
+      };
+
+      programs = {
+        hyprlock = {
+          enable = true;
+          settings = {
+            general = {
+              no_fade_out = true;
             };
-            chars = stringToCharacters v;
-            charsLen = length chars;
-          in
-            foldl
-            (a: v: a + v)
-            0
-            (imap0
-              (k: v: hexToInt."${v}" * (pow 16 (charsLen - k - 1)))
-              chars);
-          hex-to-rgb = hex: "${toString (hex-to-dec (builtins.substring 0 2 hex))}, ${toString (hex-to-dec (builtins.substring 2 2 hex))}, ${toString (hex-to-dec (builtins.substring 4 2 hex))}";
-        in ''
-          * {
-            background-image: none;
-            box-shadow: none;
-          }
+          };
+        };
+        wlogout = {
+          enable = true;
+          layout = [
+            {
+              label = "shutdown";
+              action = "systemctl poweroff";
+              text = "Shutdown";
+              keybind = "s";
+            }
+            {
+              label = "reboot";
+              action = "systemctl reboot";
+              text = "Reboot";
+              keybind = "r";
+            }
+            {
+              label = "lock";
+              action = "loginctl lock-session";
+              text = "Lock";
+              keybind = "l";
+            }
+            {
+              label = "logout";
+              action = "${lib.getExe pkgs.uwsm} stop";
+              text = "Logout";
+              keybind = "e";
+            }
+          ];
+          style = let
+            # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L3
+            pow = let
+              pow' = base: exponent: value:
+                if exponent == 0
+                then 1
+                else if exponent <= 1
+                then value
+                else (pow' base (exponent - 1) (value * base));
+            in
+              base: exponent: pow' base exponent base;
+            # copied from https://gist.github.com/corpix/f761c82c9d6fdbc1b3846b37e1020e11#file-numbers-nix-L38
+            hex-to-dec = v: let
+              hexToInt = {
+                "0" = 0;
+                "1" = 1;
+                "2" = 2;
+                "3" = 3;
+                "4" = 4;
+                "5" = 5;
+                "6" = 6;
+                "7" = 7;
+                "8" = 8;
+                "9" = 9;
+                "a" = 10;
+                "b" = 11;
+                "c" = 12;
+                "d" = 13;
+                "e" = 14;
+                "f" = 15;
+              };
+              chars = stringToCharacters v;
+              charsLen = length chars;
+            in
+              foldl
+              (a: v: a + v)
+              0
+              (imap0
+                (k: v: hexToInt."${v}" * (pow 16 (charsLen - k - 1)))
+                chars);
+            hex-to-rgb = hex: "${toString (hex-to-dec (builtins.substring 0 2 hex))}, ${toString (hex-to-dec (builtins.substring 2 2 hex))}, ${toString (hex-to-dec (builtins.substring 4 2 hex))}";
+          in ''
+            * {
+              background-image: none;
+              box-shadow: none;
+            }
 
-          window {
-            background-color: rgba(${hex-to-rgb config.lib.stylix.colors.base00}, 0.9);
-          }
+            window {
+              background-color: rgba(${hex-to-rgb config.lib.stylix.colors.base00}, 0.9);
+            }
 
-          button {
-            border-radius: 0;
-            border-color: black;
-            text-decoration-color: #${config.lib.stylix.colors.base05};
-            color: #${config.lib.stylix.colors.base05};
-            background-color: #${config.lib.stylix.colors.base01};
-            border-style: solid;
-            border-width: 1px;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 25%;
-          }
+            button {
+              border-radius: 0;
+              border-color: black;
+              text-decoration-color: #${config.lib.stylix.colors.base05};
+              color: #${config.lib.stylix.colors.base05};
+              background-color: #${config.lib.stylix.colors.base01};
+              border-style: solid;
+              border-width: 1px;
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 25%;
+            }
 
-          button:focus, button:active, button:hover {
-            background-color: #${config.lib.stylix.colors.base02};
-            outline-style: none;
-          }
+            button:focus, button:active, button:hover {
+              background-color: #${config.lib.stylix.colors.base02};
+              outline-style: none;
+            }
 
-          #lock {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/lock.png"));
-          }
+            #lock {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/lock.png"));
+            }
 
-          #logout {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/logout.png"));
-          }
+            #logout {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/logout.png"));
+            }
 
-          #suspend {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/suspend.png"));
-          }
+            #suspend {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/suspend.png"));
+            }
 
-          #hibernate {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/hibernate.png"));
-          }
+            #hibernate {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/hibernate.png"));
+            }
 
-          #shutdown {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png"));
-          }
+            #shutdown {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/shutdown.png"));
+            }
 
-          #reboot {
-              background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png"));
-          }
-        '';
+            #reboot {
+                background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/reboot.png"));
+            }
+          '';
+        };
       };
     });
 }

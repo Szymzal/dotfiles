@@ -24,9 +24,6 @@ in {
         ".config/Thunar"
         ".config/xfce4"
       ];
-      files = [
-        ".config/mimeapps.list"
-      ];
     };
 
     home.file = {

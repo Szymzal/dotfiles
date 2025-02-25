@@ -28,25 +28,43 @@ in {
         };
       };
       cursorTheme = {
-        name = mkOption {
-          default = "Catppuccin-Mocha-Dark-Cursors";
-          example = "Catppuccin-Mocha-Dark-Cursors";
-          description = "Name of gtk cursor theme";
-          type = types.str;
+        xcursor = {
+          name = mkOption {
+            default = "Catppuccin-Mocha-Dark-Cursors";
+            example = "Catppuccin-Mocha-Dark-Cursors";
+            description = "Name of xcursor/gtk cursor theme";
+            type = types.str;
+          };
+          package = mkOption {
+            default = pkgs.catppuccin-cursors.mochaDark;
+            example = literalExpression ''
+              pkgs.catppuccin-cursors.mochaDark
+            '';
+            description = "Package of xcursor/gtk cursor theme";
+            type = types.package;
+          };
+        };
+        hyprcursor = {
+          name = mkOption {
+            default = "Bibata-Modern-Classic-hyprcursor";
+            example = "Bibata-Modern-Classic-hyprcursor";
+            description = "Name of hyprcursor theme";
+            type = types.str;
+          };
+          package = mkOption {
+            default = pkgs.bibata-hyprcursor;
+            example = literalExpression ''
+              pkgs.bibata-hyprcursor
+            '';
+            description = "Package of hyprcursor theme";
+            type = types.package;
+          };
         };
         size = mkOption {
           default = 24;
           example = 48;
           description = "Size of cursor";
           type = types.ints.unsigned;
-        };
-        package = mkOption {
-          default = pkgs.catppuccin-cursors.mochaDark;
-          example = literalExpression ''
-            pkgs.catppuccin-cursors.mochaDark
-          '';
-          description = "Package of gtk cursor theme";
-          type = types.package;
         };
       };
       iconTheme = {
@@ -73,14 +91,13 @@ in {
       enable = true;
       base16Scheme = cfg.theme.base16-scheme-path;
       polarity =
-        if (cfg.prefer-dark-theme)
+        if cfg.prefer-dark-theme
         then "dark"
         else "light";
       image = config.mypackages.dm.wallpaper-path;
       cursor = {
-        name = cfg.cursorTheme.name;
-        size = cfg.cursorTheme.size;
-        package = cfg.cursorTheme.package;
+        inherit (cfg.cursorTheme) size;
+        inherit (cfg.cursorTheme.xcursor) name package;
       };
     };
 
@@ -90,15 +107,13 @@ in {
 
     mypackages.gtk = {
       enable = true;
-      prefer-dark-theme = cfg.prefer-dark-theme;
+      inherit (cfg) prefer-dark-theme;
       cursorTheme = {
-        name = cfg.cursorTheme.name;
-        package = cfg.cursorTheme.package;
-        size = cfg.cursorTheme.size;
+        inherit (cfg.cursorTheme) size;
+        inherit (cfg.cursorTheme.xcursor) name package;
       };
       iconTheme = {
-        name = cfg.iconTheme.name;
-        package = cfg.iconTheme.package;
+        inherit (cfg.iconTheme) name package;
       };
     };
   };
