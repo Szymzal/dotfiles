@@ -80,6 +80,7 @@ in {
     godot.enable = true;
     playit.enable = true;
     genealogy.enable = true;
+    password-manager.enable = true;
     linux-show-player.enable = true;
     theme = {
       enable = true;
