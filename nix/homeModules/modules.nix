@@ -49,6 +49,7 @@
     ../../modules/home/linuxshowplayer.nix
     ../../modules/home/gstreamer.nix
     ../../modules/home/password-manager.nix
+    ../../modules/home/mail-calendar.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
