@@ -922,11 +922,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1740659022,
-        "narHash": "sha256-eUbuxeOQFKZln1ctHDgJDyRzvEK8XkjG6pMVkONQEBA=",
+        "lastModified": 1740429830,
+        "narHash": "sha256-W3ygdI8/+NtSnY3FMTaUVrRYZ7XH5RXiDKX3FTHeIbw=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "7e53fc47243448fdd01adf2a5b780831853c5dca",
+        "rev": "4dd71a77c04facd6cffe0d2737d198b8aeb7f16b",
         "type": "github"
       },
       "original": {
