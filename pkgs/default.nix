@@ -7,4 +7,5 @@
   casparcg-server = pkgs.callPackage ./CasparCG/casparcg-server.nix {};
   ontime = pkgs.callPackage ./ontime.nix {};
   fetchModrinthModpack = pkgs.callPackage ./fetchModrinthModpack.nix {};
+  gstarcad = pkgs.callPackage ./GstarCAD {};
 }

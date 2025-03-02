@@ -4,3 +4,4 @@ logs
 temp
 git_new
 git_old
+*.deb

@@ -100,5 +100,6 @@ in {
     epic-games.enable = true;
     zotero.enable = false;
     audio-mix.enable = true;
+    cad.enable = true;
   };
 }
