@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -12,7 +13,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
 
@@ -27,6 +28,10 @@ in {
         allowedUDPPorts = [53 67];
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      swtpm
+    ];
 
     mypackages.impermanence.directories = ["/var/lib/libvirt" "/var/lib/qemu"];
   };
