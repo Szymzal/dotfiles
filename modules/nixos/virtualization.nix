@@ -14,7 +14,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        swtpm.enable = true;
+      };
+    };
+
     programs.virt-manager.enable = true;
 
     # TODO: Fix problem with networking
@@ -28,10 +35,6 @@ in {
         allowedUDPPorts = [53 67];
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      swtpm
-    ];
 
     mypackages.impermanence.directories = ["/var/lib/libvirt" "/var/lib/qemu"];
   };
