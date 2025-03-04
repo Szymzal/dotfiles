@@ -22,6 +22,10 @@ in {
       };
     };
 
+    environment.systemPackages = with pkgs; [
+      virtiofsd
+    ];
+
     programs.virt-manager.enable = true;
 
     # TODO: Fix problem with networking
