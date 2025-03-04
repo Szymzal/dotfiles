@@ -101,5 +101,6 @@ in {
     zotero.enable = false;
     audio-mix.enable = true;
     cad.enable = false;
+    email.enable = true;
   };
 }
