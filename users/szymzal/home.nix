@@ -102,5 +102,6 @@ in {
     audio-mix.enable = true;
     cad.enable = false;
     email.enable = true;
+    showExperiments.enable = true;
   };
 }

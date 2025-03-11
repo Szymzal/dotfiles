@@ -14,10 +14,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # home.packages = with pkgs; [
-    #   linux-show-player
-    # ];
-
     mypackages.flatpak = {
       enable = true;
       packages = [
