@@ -57,7 +57,7 @@ in {
     coding.enable = true;
     notes.enable = true;
     file-explorer.enable = true;
-    communication.enable = true;
+    communication.enable = false;
     browser.enable = true;
     viewers.enableAll = true;
     image-editors.enable = true;

@@ -15,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      (webcord.override {electron = pkgs.electron_32;}) # NOTE: Downgraded electron to make screen share work again
+      webcord
     ];
 
     mypackages.impermanence = {
