@@ -6,8 +6,8 @@ index cae37cc46..fa0c7fbd8 100644
  
  if (ENABLE_HTML)
      if (USE_SYSTEM_CEF)
--        set(CEF_LIB_PATH "/usr/lib/casparcg-cef-117")
--        set(CEF_INCLUDE_PATH "/usr/include/casparcg-cef-117")
+-        set(CEF_LIB_PATH "/usr/lib/casparcg-cef-131")
+-        set(CEF_INCLUDE_PATH "/usr/include/casparcg-cef-131")
 -
          set(CEF_LIB
              "-Wl,-rpath,${CEF_LIB_PATH} ${CEF_LIB_PATH}/libcef.so"
