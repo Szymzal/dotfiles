@@ -96,16 +96,22 @@ in {
 
   installPhase = ''
     mkdir -p $out/bin
-
     cp build/Chataigne $out/bin
+
+    mkdir -p $out/share/applications
+    cp $src/Builds/LinuxMakefile/Chataigne.AppDir/chataigne.desktop $out/share/applications
+
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    cp $src/Builds/LinuxMakefile/Chataigne.AppDir/usr/share/icons/hicolor/256x256/apps/chataigne.png $out/share/icons/hicolor/256x256/apps
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/Chataigne --set LD_LIBRARY_PATH ${lib.makeLibraryPath [
+    wrapProgram $out/bin/Chataigne \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
       servus
       SDL2
     ]}
-  ''; # TODO: FIX IT
+  '';
 
   meta = {
     mainProgram = "Chataigne";
