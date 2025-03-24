@@ -42,7 +42,7 @@
       go.enable = true;
       lua.enable = true;
       python.enable = true;
-      php.enable = true;
+      php.enable = false; # TODO: Revert
       wgsl.enable = false; # wgsl-analyzer is not yet in stable
       rust = {
         enable = true;

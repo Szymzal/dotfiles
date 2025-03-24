@@ -52,6 +52,7 @@
     ../../modules/home/cad.nix
     ../../modules/home/email.nix
     ../../modules/home/shows.nix
+    ../../modules/home/qgis.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix

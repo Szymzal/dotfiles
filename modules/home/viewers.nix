@@ -21,8 +21,7 @@ in {
 
   config = mkIf (cfg.enableAll || cfg.video.enable || cfg.image.enable) {
     home.packages =
-      []
-      ++ optionals (cfg.enableAll || cfg.video.enable) [
+      optionals (cfg.enableAll || cfg.video.enable) [
         pkgs.mpv
       ]
       ++ optionals (cfg.enableAll || cfg.image.enable) [
@@ -31,11 +30,9 @@ in {
       ];
 
     mypackages.impermanence = {
-      directories =
-        []
-        ++ optionals (cfg.enableAll || cfg.video.enable) [
-          ".config/mpv"
-        ];
+      directories = optionals (cfg.enableAll || cfg.video.enable) [
+        ".config/mpv"
+      ];
     };
   };
 }

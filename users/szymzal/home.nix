@@ -103,5 +103,6 @@ in {
     cad.enable = false;
     email.enable = true;
     showExperiments.enable = true;
+    qgis.enable = true;
   };
 }
