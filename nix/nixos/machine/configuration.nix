@@ -353,7 +353,7 @@ in {
                 loaderVersion = "0.15.6";
               };
               serverProperties = {
-                server-port = 25565;
+                server-port = 25569;
                 allow-flight = true;
                 allow-nether = true;
                 difficulty = "relaxed";
@@ -398,7 +398,7 @@ in {
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
               serverProperties = {
-                server-port = 25569;
+                server-port = 25579;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -557,7 +557,7 @@ in {
                 loaderVersion = "0.15.11";
               };
               serverProperties = {
-                server-port = 25573;
+                server-port = 25565;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -570,18 +570,6 @@ in {
                 simulation-distance = 8;
                 view-distance = 16;
                 motd = "Some survival";
-              };
-              symlinks = {
-                mods = let
-                  modpack = pkgs.fetchModrinthModpack {
-                    url = "https://cdn.modrinth.com/data/lezk3Nxv/versions/6DfeUJhQ/NMI%201.21%201.1.0.mrpack";
-                    hash = "sha512-s4aHltlOta1RkPBCHQBwUYRysFAESXhD8uy4z6aJghyHCeuAd2KRQkQWouNgKhnH899b4+15RsbkmQJJSyr1RA==";
-                    removeProjectIDs = [
-                      "ZjwW8Q6n"
-                      "2RuZIzOq"
-                    ];
-                  };
-                in "${modpack}/mods";
               };
             };
           };
