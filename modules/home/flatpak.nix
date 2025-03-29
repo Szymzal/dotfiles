@@ -21,13 +21,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # does not work with declarative-flatpak, but works with nix-flatpak
-    # stylix.targets.gtk.flatpakSupport.enable = false;
-
     services.flatpak = {
-      # remotes = [{
-      #   name = "flathub"; = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      # }];
       packages = cfg.packages;
     };
 

@@ -15,7 +15,8 @@ in {
   options = {
     mypackages.games.minecraft = {
       client = {
-        enable = mkEnableOption "Enable Minecraft Client";
+        java.enable = mkEnableOption "Enable Minecraft Java Edition Client";
+        bedrock.enable = mkEnableOption "Enable Minecraft Bedrock Client";
       };
       server = {
         enable = mkEnableOption "Enable Minecraft Server";
@@ -28,10 +29,9 @@ in {
     };
   };
 
-  config = mkIf (cfg.client.enable || cfg.server.enable) {
+  config = mkIf (cfg.client.java.enable || cfg.client.bedrock.enable || cfg.server.enable) {
     environment.systemPackages = with pkgs;
-      []
-      ++ lib.optionals (cfg.client.enable) [
+      lib.optionals cfg.client.java.enable [
         (prismlauncher.override {
           gamemodeSupport = true;
           glfw3-minecraft = glfw3-minecraft.overrideAttrs (attrs: let
@@ -56,7 +56,7 @@ in {
 
     systemd.services =
       lib.mapAttrs' (
-        name: conf: {
+        name: _: {
           name = "minecraft-server-${name}";
           value = {
             startLimitIntervalSec = lib.mkForce 10;
@@ -76,11 +76,11 @@ in {
       };
     };
 
-    mypackages.impermanence.directories = lib.optionals (cfg.server.enable) [
+    mypackages.impermanence.directories = lib.optionals cfg.server.enable [
       "/srv/minecraft"
     ];
 
-    mypackages.unfree.allowed = mkIf (cfg.server.enable) [
+    mypackages.unfree.allowed = mkIf cfg.server.enable [
       "minecraft-server"
     ];
   };

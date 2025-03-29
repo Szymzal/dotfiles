@@ -4,12 +4,16 @@
   ...
 }:
 with lib; {
-  config = mkIf osConfig.mypackages.games.minecraft.client.enable {
-    mypackages.impermanence.directories = [
+  config = mkIf (osConfig.mypackages.games.minecraft.client.java.enable || osConfig.mypackages.games.minecraft.client.bedrock.enable) {
+    mypackages.impermanence.directories = optionals osConfig.mypackages.games.minecraft.client.java.enable [
       {
         directory = ".local/share/PrismLauncher";
         method = "symlink";
       }
+    ];
+
+    mypackages.flatpak.packages = optionals osConfig.mypackages.games.minecraft.client.bedrock.enable [
+      "io.mrarm.mcpelauncher"
     ];
   };
 }

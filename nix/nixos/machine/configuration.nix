@@ -269,7 +269,10 @@ in {
     games = {
       steam.enable = true;
       minecraft = {
-        client.enable = true;
+        client = {
+          java.enable = true;
+          bedrock.enable = true;
+        };
         server = {
           enable = true;
           servers = let
