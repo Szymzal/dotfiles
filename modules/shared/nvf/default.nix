@@ -48,6 +48,7 @@
         enable = true;
         crates.enable = true;
       };
+      java.enable = true;
     };
 
     debugger = {
