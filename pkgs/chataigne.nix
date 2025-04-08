@@ -21,7 +21,7 @@
   makeWrapper,
 }:
 stdenv.mkDerivation (let
-  version = "1.9.25b10";
+  version = "1.9.24";
 
   juce-patched = juce.overrideAttrs (_: {
     src = fetchFromGitHub {
@@ -61,7 +61,7 @@ in {
     owner = "benkuper";
     repo = "Chataigne";
     rev = "${version}";
-    hash = "sha256-nFTQRzjYS8vtIuuf9HJjI1bcPcOuFKgTAH1NCtTMlm8=";
+    hash = "sha256-6F3EKc4FCjcVJiozcFh3fN2WudTnt2mjgsRyL/7dBOU=";
     fetchSubmodules = true;
   };
 

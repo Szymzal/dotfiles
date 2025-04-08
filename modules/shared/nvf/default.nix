@@ -17,7 +17,6 @@
       lightbulb.enable = true;
       trouble.enable = true;
       otter-nvim.enable = true;
-      lsplines.enable = true;
     };
 
     languages = {

@@ -30,7 +30,7 @@
 
     flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
-    nvf.url = "github:NotAShelf/nvf";
+    nvf.url = "github:NotAShelf/nvf/?ref=585dfca7ca75c8190bd1596f3ebc6fde6751c7a5";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 

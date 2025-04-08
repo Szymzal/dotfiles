@@ -556,11 +556,9 @@ in {
               enable = true;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
-              package = pkgs.fabricServers.fabric-1_21.override {
-                loaderVersion = "0.15.11";
-              };
+              package = pkgs.fabricServers.fabric-1_21_5;
               serverProperties = {
-                server-port = 25565;
+                server-port = 25590;
                 allow-flight = true;
                 broadcast-console-to-ops = false;
                 broadcast-rcon-to-ops = false;
@@ -568,7 +566,7 @@ in {
                 enable-command-block = false;
                 hide-online-players = true;
                 max-players = 10;
-                online-mode = true;
+                online-mode = false;
                 spawn-protection = 0;
                 simulation-distance = 8;
                 view-distance = 16;
