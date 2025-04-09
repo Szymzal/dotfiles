@@ -94,6 +94,10 @@ in {
               mouse_move_focuses_monitor = true;
             };
 
+            ecosystem = {
+              no_update_news = true;
+            };
+
             animations = {
               enabled = false;
             };
