@@ -104,5 +104,6 @@ in {
     email.enable = true;
     showExperiments.enable = true;
     qgis.enable = true;
+    plakativ.enable = true;
   };
 }

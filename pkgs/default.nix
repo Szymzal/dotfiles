@@ -9,4 +9,5 @@
   fetchModrinthModpack = pkgs.callPackage ./fetchModrinthModpack.nix {};
   gstarcad = pkgs.callPackage ./GstarCAD {};
   chataigne = pkgs.callPackage ./chataigne.nix {};
+  plakativ = pkgs.callPackage ./plakativ.nix {};
 }
