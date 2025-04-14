@@ -10,4 +10,7 @@
   gstarcad = pkgs.callPackage ./GstarCAD {};
   chataigne = pkgs.callPackage ./chataigne.nix {};
   plakativ = pkgs.callPackage ./plakativ.nix {};
+  sunshine = pkgs.sunshine.overrideAttrs (attrs: {
+    buildInputs = attrs.buildInputs ++ [pkgs.cudaPackages.cuda_cudart];
+  });
 }

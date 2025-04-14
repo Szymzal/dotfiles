@@ -264,7 +264,7 @@ in {
     network-tools.enable = true;
     flatpak.enable = true;
     syncthing.enable = false;
-    sunshine.enable = false;
+    sunshine.enable = true;
     localsend.enable = true;
     games = {
       steam.enable = true;
