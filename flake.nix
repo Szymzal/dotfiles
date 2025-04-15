@@ -45,7 +45,10 @@
     inherit inputs;
 
     outputs = {
-      overlay = _: pkgs: (import ./pkgs {inherit pkgs;});
+      overlay = _: pkgs: (import ./pkgs {
+        inherit pkgs;
+        pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+      });
     };
 
     perSystem = pkgs: {
@@ -61,7 +64,10 @@
 
     withOverlays = [
       inputs.nix-minecraft.overlay
-      (_: pkgs: (import ./pkgs {inherit pkgs;}))
+      (_: pkgs: (import ./pkgs {
+        inherit pkgs;
+        pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+      }))
     ];
     systems = lib.systems.flakeExposed;
   }));

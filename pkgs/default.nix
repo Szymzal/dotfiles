@@ -1,4 +1,7 @@
-{pkgs}: {
+{
+  pkgs,
+  pkgs-unstable,
+}: {
   playit-agent = pkgs.callPackage ./playit.nix {};
   forgeServers = pkgs.callPackage ./forge-servers/default.nix {};
   bibata-hyprcursor = pkgs.callPackage ./BibataCursor.nix {};
@@ -13,4 +16,6 @@
   sunshine = pkgs.sunshine.overrideAttrs (attrs: {
     buildInputs = attrs.buildInputs ++ [pkgs.cudaPackages.cuda_cudart];
   });
+
+  # inherit (pkgs-unstable) pipewire;
 }

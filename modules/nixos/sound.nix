@@ -2,10 +2,12 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.sound;
+  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.sound = {
@@ -42,6 +44,7 @@ in {
     services = {
       pipewire = {
         enable = true;
+        package = pkgs-unstable.pipewire;
         audio.enable = true;
         pulse.enable = true;
         alsa = {
