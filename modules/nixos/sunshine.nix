@@ -18,6 +18,21 @@ in {
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
+      applications = {
+        apps = [
+          {
+            name = "Desktop";
+            image-path = "desktop.png";
+          }
+          {
+            name = "Steam Big Picture";
+            detached = [
+              "setsid steam steam://open/bigpicture"
+            ];
+            image-path = "steam.png";
+          }
+        ];
+      };
     };
   };
 }

@@ -225,7 +225,7 @@ in {
       enable = true;
       flake-path = "/persist/nixos";
     };
-    android.enable = false;
+    android.enable = true;
     printing.enable = true;
     bluetooth.enable = true;
     xbox.enable = true;
