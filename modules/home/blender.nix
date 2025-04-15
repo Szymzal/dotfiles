@@ -15,8 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # FIX: To fix gcc 14
-      # blender
+      blender
     ];
 
     mypackages.impermanence.directories = [
