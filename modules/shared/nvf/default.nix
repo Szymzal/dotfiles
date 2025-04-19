@@ -42,7 +42,7 @@
       lua.enable = true;
       python.enable = true;
       php.enable = false; # TODO: Revert
-      wgsl.enable = false; # wgsl-analyzer is not yet in stable
+      wgsl.enable = true;
       rust = {
         enable = true;
         crates.enable = true;

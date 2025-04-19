@@ -18,6 +18,9 @@ in {
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
+      settings = {
+        output_name = 1;
+      };
       applications = {
         apps = [
           {
