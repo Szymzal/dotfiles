@@ -28,15 +28,15 @@
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
-    flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    flatpak.url = "github:gmodena/nix-flatpak/latest";
 
-    nvf.url = "github:NotAShelf/nvf/?ref=585dfca7ca75c8190bd1596f3ebc6fde6751c7a5";
+    nvf.url = "github:NotAShelf/nvf/585dfca7ca75c8190bd1596f3ebc6fde6751c7a5";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/8c97cb7858e5d6c35d1a055930904346fb4248db";
     split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
+      url = "github:Duckonaut/split-monitor-workspaces/ab1accb4d2f4c72e63124f40681ad73bb02ac0f4";
       inputs.hyprland.follows = "hyprland";
     };
   };

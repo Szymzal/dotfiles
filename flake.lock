@@ -526,6 +526,7 @@
       "original": {
         "owner": "hyprwm",
         "repo": "Hyprland",
+        "rev": "8c97cb7858e5d6c35d1a055930904346fb4248db",
         "type": "github"
       }
     },
@@ -938,8 +939,8 @@
       },
       "original": {
         "owner": "NotAShelf",
-        "ref": "585dfca7ca75c8190bd1596f3ebc6fde6751c7a5",
         "repo": "nvf",
+        "rev": "585dfca7ca75c8190bd1596f3ebc6fde6751c7a5",
         "type": "github"
       }
     },
@@ -1043,6 +1044,7 @@
       "original": {
         "owner": "Duckonaut",
         "repo": "split-monitor-workspaces",
+        "rev": "ab1accb4d2f4c72e63124f40681ad73bb02ac0f4",
         "type": "github"
       }
     },
