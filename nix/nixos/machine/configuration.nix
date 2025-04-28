@@ -268,6 +268,7 @@ in {
     localsend.enable = true;
     games = {
       steam.enable = true;
+      factorio.enable = true;
       minecraft = {
         client = {
           java.enable = true;

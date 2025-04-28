@@ -90,6 +90,7 @@ in {
       terraria.enable = true;
       rocket-league.enable = true;
       roblox.enable = true;
+      factorio.enable = true;
       ets2.enable = true;
       openttd.enable = true;
       trackmania.enable = true;

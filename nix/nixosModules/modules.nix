@@ -59,6 +59,7 @@
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix
+    ../../modules/nixos/games/factorio.nix
 
     ../../users/szymzal
     ../../users/camera
