@@ -930,17 +930,16 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1743917753,
-        "narHash": "sha256-rtMPRr5aqspypIdCfU8KjuKGlFkBEYnC5sv/sjZW2AQ=",
+        "lastModified": 1745819184,
+        "narHash": "sha256-+v+MOVFYDQCJdP67gLrIdrLGKqBUp37KGhvcqd9ZFqA=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "585dfca7ca75c8190bd1596f3ebc6fde6751c7a5",
+        "rev": "efa859381f60132db976d2501bfdb4e6f8d5a8c5",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "585dfca7ca75c8190bd1596f3ebc6fde6751c7a5",
         "type": "github"
       }
     },

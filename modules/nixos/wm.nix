@@ -7,7 +7,6 @@
 }:
 with lib; let
   cfg = config.mypackages.wm;
-  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.wm = {
@@ -41,7 +40,7 @@ in {
 
     programs.uwsm = {
       enable = true;
-      package = pkgs-unstable.uwsm;
+      package = pkgs.pkgs-unstable.uwsm;
     };
 
     xdg.portal = {

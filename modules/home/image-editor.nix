@@ -2,12 +2,10 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.image-editors;
-  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.image-editors = {
@@ -20,7 +18,7 @@ in {
       [
         inkscape
       ]
-      ++ (with pkgs-unstable; [
+      ++ (with pkgs.pkgs-unstable; [
         gimp3
       ]);
 

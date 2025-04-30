@@ -2,12 +2,10 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.password-manager;
-  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.password-manager = {
@@ -16,7 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs-unstable; [
+    home.packages = with pkgs.pkgs-unstable; [
       proton-pass
     ];
 

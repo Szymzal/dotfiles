@@ -15,10 +15,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [(
-    inputs.nvf.lib.neovimConfiguration {
-      inherit pkgs;
-      modules = [../shared/nvf];
-  }).neovim];
+    environment.systemPackages = [
+      (
+        inputs.nvf.lib.neovimConfiguration {
+          pkgs = pkgs.pkgs-unstable;
+          modules = [../shared/nvf];
+        }
+      )
+      .neovim
+    ];
   };
 }

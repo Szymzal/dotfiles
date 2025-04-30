@@ -18,7 +18,7 @@ in {
     package =
       (
         inputs.nvf.lib.neovimConfiguration {
-          inherit pkgs;
+          pkgs = pkgs.pkgs-unstable;
           modules = [../../shared/nvf];
         }
       )

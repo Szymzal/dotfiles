@@ -17,5 +17,5 @@
     buildInputs = attrs.buildInputs ++ [pkgs.cudaPackages.cuda_cudart];
   });
 
-  inherit (pkgs-unstable) wgsl-analyzer;
+  inherit pkgs-unstable;
 }

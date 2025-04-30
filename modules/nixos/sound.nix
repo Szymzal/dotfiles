@@ -2,12 +2,10 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.sound;
-  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.sound = {

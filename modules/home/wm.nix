@@ -8,7 +8,6 @@
 }:
 with lib; let
   cfg = config.mypackages.wm;
-  pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     mypackages.wm = {
@@ -156,7 +155,7 @@ in {
                 ",XF86AudioLowerVolume, exec, pamixer -d 2"
                 ",XF86AudioMute, exec, pamixer -t"
 
-                ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe pkgs-unstable.grimblast} --notify --openfile --freeze copysave area")
+                ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe pkgs.pkgs-unstable.grimblast} --notify --openfile --freeze copysave area")
               ]
               ++ (
                 # workspaces
