@@ -71,7 +71,7 @@ in {
 
           settings = {
             exec-once = [
-              "${lib.getExe pkgs.way-displays}"
+              # "${lib.getExe pkgs.way-displays}"
               "waybar"
             ];
 

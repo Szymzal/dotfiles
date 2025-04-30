@@ -21,10 +21,6 @@ in {
 
     programs = {
       xwayland.enable = true;
-      river = {
-        enable = true;
-        xwayland.enable = true;
-      };
       hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
