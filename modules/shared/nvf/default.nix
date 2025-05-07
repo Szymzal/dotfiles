@@ -41,11 +41,12 @@
       go.enable = true;
       lua.enable = true;
       python.enable = true;
-      php.enable = false; # TODO: Revert
+      php.enable = true;
       wgsl.enable = true;
       rust = {
         enable = true;
         crates.enable = true;
+        dap.enable = true;
       };
       java.enable = true;
     };
