@@ -95,6 +95,7 @@ in {
       openttd.enable = true;
       trackmania.enable = true;
       lethalCompany.enable = true;
+      overcooked2.enable = true;
     };
     zoom.enable = false; # use chromium for zoom PWA
     blender.enable = true;

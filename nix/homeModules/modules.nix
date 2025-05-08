@@ -65,5 +65,6 @@
     ../../modules/home/games/trackmania.nix
     ../../modules/home/games/lethal.nix
     ../../modules/home/games/factorio.nix
+    ../../modules/home/games/overcooked2.nix
   ];
 }
