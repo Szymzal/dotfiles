@@ -48,6 +48,12 @@
         dap.enable = true;
       };
       java.enable = true;
+      dart = {
+        enable = true;
+        flutter-tools = {
+          enable = true;
+        };
+      };
     };
 
     debugger = {
@@ -137,7 +143,6 @@
 
     utility = {
       surround.enable = true;
-      vim-wakatime.enable = true;
       images.image-nvim.enable = false;
     };
 
