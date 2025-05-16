@@ -62,6 +62,6 @@
     ../../modules/nixos/games/factorio.nix
 
     ../../users/szymzal
-    ../../users/camera
+    ../../users/admin
   ];
 }

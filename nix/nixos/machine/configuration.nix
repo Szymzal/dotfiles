@@ -26,6 +26,7 @@ in {
     };
     supportedFilesystems = ["ntfs"];
     kernelParams = [
+      "reboot=acpi"
       "pci=nocrs"
       "vm.swappiness=10"
     ];
