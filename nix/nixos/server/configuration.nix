@@ -7,6 +7,7 @@
 in {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
     self.nixosModules.modules
   ];
 
@@ -177,10 +178,6 @@ in {
         rootSubvolume = "root";
         daysToDeleteOldRoots = 7;
       };
-    };
-    disko = {
-      enable = true;
-      devices = import ./disko.nix;
     };
     cd.enable = true;
     ls.enable = true;
