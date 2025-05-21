@@ -42,7 +42,7 @@ in {
 
     systemd.network = {
       enable = true;
-      wait-online.anyInterface = true;
+      wait-online.enable = false;
       # TODO: Make it declarable
       networks = let
         networkConfig = {

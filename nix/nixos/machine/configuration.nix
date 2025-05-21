@@ -23,9 +23,11 @@ in {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
+      timeout = 1;
     };
     supportedFilesystems = ["ntfs"];
     kernelParams = [
+      "quiet"
       "reboot=acpi"
       "pci=nocrs"
       "vm.swappiness=10"
