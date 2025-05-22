@@ -97,12 +97,6 @@
     };
     snippets.luasnip.enable = true;
 
-    filetree = {
-      neo-tree = {
-        enable = true;
-      };
-    };
-
     tabline = {
       nvimBufferline = {
         enable = true;
@@ -144,6 +138,7 @@
     utility = {
       surround.enable = true;
       images.image-nvim.enable = false;
+      oil-nvim.enable = true;
     };
 
     notes = {
@@ -178,11 +173,10 @@
 
     keymaps = [
       {
-        key = "<leader>e";
+        key = "-";
         mode = "n";
-        silent = true;
-        desc = "Open NeoTree";
-        action = ":Neotree<CR>";
+        desc = "Open Oil";
+        action = "<CMD>Oil<CR>";
       }
       # Windows
       {
