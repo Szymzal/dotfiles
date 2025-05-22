@@ -1,9 +1,42 @@
-{
+_: {
   config.vim = {
     viAlias = true;
     vimAlias = true;
 
-    lazy.enable = true;
+    lazy = {
+      enable = true;
+      plugins = {
+        # neovim-project = {
+        #   package = pkgs.vimPlugins.neovim-project;
+        #   setupModule = "neovim-project";
+        #   setupOpts = {
+        #     projects = [
+        #       "~/dev/*"
+        #       "/persist/nixos"
+        #     ];
+        #     picker = {
+        #       type = "telescope";
+        #     };
+        #   };
+        #
+        #   after = ''
+        #     vim.opt.sessionsoptions:append("globals")
+        #   '';
+        #
+        #   lazy = false;
+        #   priority = 100;
+        #
+        #   keys = [
+        #     {
+        #       key = "<leader>fp";
+        #       mode = "n";
+        #       desc = "Show Neovim Project Manager";
+        #       action = "<CMD>NeovimProjectDiscover<CR>";
+        #     }
+        #   ];
+        # };
+      };
+    };
 
     options = {
       shiftwidth = 2;
@@ -71,6 +104,8 @@
       nvim-cursorline.enable = true;
     };
 
+    session.nvim-session-manager.enable = false;
+
     statusline = {
       lualine = {
         enable = true;
@@ -132,7 +167,7 @@
     };
 
     projects = {
-      project-nvim.enable = true;
+      project-nvim.enable = false;
     };
 
     utility = {
@@ -202,6 +237,13 @@
         mode = "n";
         desc = "Go to Right Window";
         action = "<C-w>l";
+      }
+      # Misc
+      {
+        key = "<C-i>";
+        mode = "n";
+        desc = "Finish search";
+        action = "<CMD>noh<CR>";
       }
     ];
   };

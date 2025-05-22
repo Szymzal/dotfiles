@@ -49,12 +49,14 @@
 
     perSystem = pkgs: {
       packages.default =
-        (inputs.nvf.lib.neovimConfiguration {
-          pkgs = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+        (inputs.nvf.lib.neovimConfiguration (let
+          pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+        in {
+          pkgs = pkgs-unstable;
           modules = [
-            ./modules/shared/nvf
+            (import ./modules/shared/nvf {pkgs = pkgs-unstable;})
           ];
-        })
+        }))
         .neovim;
     };
 

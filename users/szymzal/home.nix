@@ -107,5 +107,6 @@ in {
     showExperiments.enable = true;
     qgis.enable = true;
     plakativ.enable = true;
+    scripts.enable = true;
   };
 }

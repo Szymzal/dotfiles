@@ -54,6 +54,7 @@
     ../../modules/home/shows.nix
     ../../modules/home/qgis.nix
     ../../modules/home/plakativ.nix
+    ../../modules/home/scripts.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
