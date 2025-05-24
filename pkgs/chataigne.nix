@@ -1,8 +1,9 @@
 {
   lib,
   stdenv,
+  callPackage,
+  fetchurl,
   fetchFromGitHub,
-  juce,
   pkg-config,
   alsa-lib,
   freetype,
@@ -23,7 +24,12 @@
 stdenv.mkDerivation (let
   version = "1.9.24";
 
-  juce-patched = juce.overrideAttrs (_: {
+  juce_7 = callPackage (fetchurl {
+    url = "https://raw.githubusercontent.com/NixOS/nixpkgs/e307440e58d0ae7feeec3571c206cbdc29c73e91/pkgs/development/misc/juce/default.nix";
+    hash = "sha256-PIE8pXGsr119y7vtC6Wr8XoD1HZ9Cp18i9bl/RHAw9U=";
+  }) {};
+
+  juce-patched = juce_7.overrideAttrs (_: {
     src = fetchFromGitHub {
       owner = "benkuper";
       repo = "JUCE";

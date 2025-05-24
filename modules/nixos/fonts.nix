@@ -18,8 +18,7 @@ in {
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
-        # nerd-fonts.fira-code
-        (nerdfonts.override {fonts = ["FiraCode"];}) # TODO: Update to format mensioned above after 25.05
+        nerd-fonts.fira-code
         fira-code
       ];
     };

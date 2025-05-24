@@ -104,7 +104,7 @@ in {
     audio-mix.enable = true;
     cad.enable = false;
     email.enable = true;
-    showExperiments.enable = true;
+    showExperiments.enable = false;
     qgis.enable = true;
     plakativ.enable = true;
     scripts.enable = true;

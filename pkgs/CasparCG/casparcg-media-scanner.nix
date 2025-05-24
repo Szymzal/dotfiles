@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   fetchFromGitHub,
-  nodejs_18,
+  nodejs_20,
   yarn-berry,
   cacert,
   ffmpeg,
@@ -18,15 +18,17 @@ stdenvNoCC.mkDerivation (let
     hash = "sha256-qWMukQYfOynTsEg48wdMlM6a3HPvNR/LlsIRZhO8L0g=";
   };
 
+  node = nodejs_20;
+
   # Making a wrapper would be better option
   runScript = writeShellScript "caspar-scanner" ''
-    ${nodejs_18}/bin/node OUTDIR/lib/caspar-scanner/src $@
+    ${node}/bin/node OUTDIR/lib/caspar-scanner/src $@
   '';
 in rec {
   pname = "media-scanner";
   inherit version src;
 
-  nativeBuildInputs = [nodejs_18 yarn-berry ffmpeg];
+  nativeBuildInputs = [node yarn-berry ffmpeg];
   buildInputs = [musl typescript];
 
   yarnOfflineCache = stdenvNoCC.mkDerivation {

@@ -2,6 +2,8 @@
   stdenv,
   stdenvNoCC,
   lib,
+  callPackage,
+  fetchurl,
   fetchFromGitHub,
   fetchsvn,
   fetchpatch2,
@@ -26,14 +28,13 @@
   tbb,
   openal,
   xorg,
-  sfml,
+  sfml_2,
   systemd,
   mesa_glu,
   boost186, # FIX: Something is wrong with boost 1.87?
   nss,
-  ffmpeg-full, # FIX: FFMPEG 7 does not work see: https://github.com/CasparCG/server/issues/1586
+  ffmpeg-full,
   icu,
-  libcef,
   enable_html ? true,
 }:
 stdenv.mkDerivation (let
@@ -79,10 +80,15 @@ stdenv.mkDerivation (let
     ];
   });
 
+  libcef-121 = callPackage (fetchurl {
+    url = "https://raw.githubusercontent.com/NixOS/nixpkgs/374e6bcc403e02a35e07b650463c01a52b13a7c8/pkgs/development/libraries/libcef/default.nix";
+    hash = "sha256-dCQStQlDnaIClhSBDH+Nwqr3OeI0rrZRDmnhJXf34nE=";
+  }) {};
+
   cef = stdenvNoCC.mkDerivation (let
-    LIB = "${libcef}/lib";
-    LIBEXEC = "${libcef}/libexec/cef";
-    SHARE = "${libcef}/share/cef";
+    LIB = "${libcef-121}/lib";
+    LIBEXEC = "${libcef-121}/libexec/cef";
+    SHARE = "${libcef-121}/share/cef";
     OUT = "$out/lib/casparcg-cef";
   in {
     name = "casparcg-cef";
@@ -134,7 +140,7 @@ in {
     xorg.libXcursor # libxcursor-dev
     xorg.libXinerama # libxinerama-dev
     xorg.libXi # libxi-dev
-    sfml # libsfml-dev
+    sfml_2 # libsfml-dev
     xorg.libXrandr # libxrandr-dev
     systemd # libudev-dev
     mesa_glu # libglu1-mesa-dev
@@ -151,18 +157,21 @@ in {
 
     substituteInPlace $BOOTSTRAP_PATH \
       --replace-fail $CEF_LIB_REPLACE ${cef_out} \
-      --replace-fail $CEF_INCLUDE_REPLACE ${libcef}
+      --replace-fail $CEF_INCLUDE_REPLACE ${libcef-121}
   ''; # Fix to be able to use custom CEF binary
 
   cmakeFlags =
     [
       "-DUSE_SYSTEM_FFMPEG=ON"
       "-DUSE_STATIC_BOOST=OFF"
+      "-DUSE_SYSTEM_CEF=ON"
     ]
     ++ lib.optionals enable_html [
       "-DCEF_BIN_PATH=${cef_out}"
       "-DENABLE_HTML=ON"
-      "-DUSE_SYSTEM_CEF=ON"
+    ]
+    ++ lib.optionals (!enable_html) [
+      "-DENABLE_HTML=OFF"
     ];
 
   patches = [

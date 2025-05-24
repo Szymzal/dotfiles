@@ -20,7 +20,7 @@ in {
     ];
 
     nixpkgs.config.permittedInsecurePackages = [
-      "freeimage-unstable-2021-11-01"
+      "freeimage-3.18.0-unstable-2024-04-18"
     ];
 
     # containers = {

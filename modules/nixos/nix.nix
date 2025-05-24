@@ -26,7 +26,7 @@ in {
 
     environment = {
       sessionVariables = {
-        FLAKE = cfg.flake-path;
+        NH_FLAKE = cfg.flake-path;
       };
       systemPackages = with pkgs; [
         nvd

@@ -63,7 +63,8 @@ in {
       wayland.windowManager = {
         hyprland = {
           enable = true;
-          package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+          package = null;
+          portalPackage = null;
           plugins = [
             inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
           ];
@@ -190,12 +191,6 @@ in {
             then "${value.connector},${cfg.wallpaper-path}"
             else null));
         };
-      };
-
-      xdg.portal = {
-        enable = true;
-        extraPortals = [(inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland.override {hyprland = config.wayland.windowManager.hyprland.finalPackage;}) pkgs.xdg-desktop-portal-gtk];
-        configPackages = lib.mkDefault [config.wayland.windowManager.hyprland.finalPackage];
       };
 
       services.hypridle = {
