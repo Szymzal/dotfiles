@@ -9,6 +9,8 @@
   fetchpatch2,
   autoconf,
   automake,
+  makeBinaryWrapper,
+  ndi,
   cmake,
   ninja,
   curl,
@@ -116,6 +118,7 @@ in {
   nativeBuildInputs = [
     cmake
     ninja
+    makeBinaryWrapper
   ];
 
   buildInputs = [
@@ -192,6 +195,11 @@ in {
     mv staging/bin/casparcg $out/bin/casparcg-server
 
     runHook postInstall
+  '';
+
+  postFixup = ''
+    wrapProgram $out/bin/casparcg-server \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ndi]}
   '';
 
   meta = {

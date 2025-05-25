@@ -6,6 +6,22 @@
 }:
 with lib; let
   cfg = config.mypackages.video-recording;
+
+  distroav = pkgs.obs-studio-plugins.obs-ndi.overrideAttrs (_: rec {
+    pname = "distroav";
+    version = "6.0.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "DistroAV";
+      repo = "DistroAV";
+      rev = version;
+      sha256 = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
+    };
+
+    patches = [
+      ../../pkgs/hardcode-ndi-path.patch
+    ];
+  });
 in {
   options = {
     mypackages.video-recording = {
@@ -23,6 +39,9 @@ in {
     programs.obs-studio = {
       enable = true;
       enableVirtualCamera = true;
+      plugins = [
+        distroav
+      ];
     };
 
     boot = {
