@@ -30,9 +30,9 @@
     flatpak.url = "github:gmodena/nix-flatpak/latest";
     nvf.url = "github:NotAShelf/nvf";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    hyprland.url = "github:hyprwm/Hyprland/8c97cb7858e5d6c35d1a055930904346fb4248db";
+    hyprland.url = "github:hyprwm/Hyprland";
     split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces/ab1accb4d2f4c72e63124f40681ad73bb02ac0f4";
+      url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
   };
