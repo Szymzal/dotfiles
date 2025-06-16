@@ -157,6 +157,8 @@ in {
                 ",XF86AudioMute, exec, pamixer -t"
 
                 ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe pkgs.pkgs-unstable.grimblast} --notify --openfile --freeze copysave area")
+
+                "$mod, Z, submap, apps"
               ]
               ++ (
                 # workspaces
@@ -178,6 +180,23 @@ in {
               "$mod, mouse:273, resizewindow"
             ];
           };
+          # TODO: Why there is no package for thunar?
+          extraConfig = ''
+            submap = apps
+
+            bind = , B, exec, ${optionalString cfg.uwsm "uwsm app -- "}${getExe inputs.zen-browser.packages."${pkgs.system}".default}
+            bind = , B, submap, reset
+            ${optionalString config.mypackages.file-explorer.enable "bind = , F, exec, ${optionalString cfg.uwsm "uwsm app -- "}thunar"}
+            ${optionalString config.mypackages.file-explorer.enable "bind = , F, submap, reset"}
+            bind = , T, exec, ${optionalString cfg.uwsm "uwsm app -- "}${getExe config.programs.foot.package} ${getExe pkgs.btop}
+            bind = , T, submap, reset
+            ${optionalString config.mypackages.file-explorer.enable "bind = , N, exec, ${optionalString cfg.uwsm "uwsm app -- "}${getExe config.programs.foot.package} ${getExe config.programs.nnn.package}"}
+            ${optionalString config.mypackages.file-explorer.enable "bind = , N, submap, reset"}
+
+            bind = , escape, submap, reset
+
+            submap = reset
+          '';
         };
       };
 

@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 with lib; let
@@ -14,21 +15,11 @@ in {
   };
 
   config = mkIf cfg.enable (let
-    package = inputs.zen-browser.packages."x86_64-linux".default;
+    package = inputs.zen-browser.packages."${pkgs.system}".default;
   in {
     home.packages = [
       package
     ];
-
-    # programs.firefox = {
-    #   enable = true;
-    #   inherit package;
-    #   policies = {
-    #     Preferences = {
-    #       "widget.use-xdg-desktop-portal.file-picker" = 1;
-    #     };
-    #   };
-    # };
 
     xdg = {
       mime = {

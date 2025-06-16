@@ -37,7 +37,6 @@ in {
 
     services.displayManager = {
       enable = true;
-      #defaultSession = "river";
       sddm = {
         enable = true;
         package = pkgs.kdePackages.sddm;
