@@ -13,10 +13,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      # TODO: Update to v2
-      ags
-    ];
-  };
+  config =
+    mkIf cfg.enable {
+    };
 }

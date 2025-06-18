@@ -31,6 +31,7 @@
     nvf.url = "github:NotAShelf/nvf";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland.url = "github:hyprwm/Hyprland";
+    astral.url = "github:Aylur/astral";
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";

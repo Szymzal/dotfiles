@@ -3,40 +3,7 @@ _: {
     viAlias = true;
     vimAlias = true;
 
-    lazy = {
-      enable = true;
-      plugins = {
-        # neovim-project = {
-        #   package = pkgs.vimPlugins.neovim-project;
-        #   setupModule = "neovim-project";
-        #   setupOpts = {
-        #     projects = [
-        #       "~/dev/*"
-        #       "/persist/nixos"
-        #     ];
-        #     picker = {
-        #       type = "telescope";
-        #     };
-        #   };
-        #
-        #   after = ''
-        #     vim.opt.sessionsoptions:append("globals")
-        #   '';
-        #
-        #   lazy = false;
-        #   priority = 100;
-        #
-        #   keys = [
-        #     {
-        #       key = "<leader>fp";
-        #       mode = "n";
-        #       desc = "Show Neovim Project Manager";
-        #       action = "<CMD>NeovimProjectDiscover<CR>";
-        #     }
-        #   ];
-        # };
-      };
-    };
+    lazy.enable = true;
 
     options = {
       shiftwidth = 2;
@@ -87,6 +54,7 @@ _: {
           enable = true;
         };
       };
+      vala.enable = true;
     };
 
     debugger = {
