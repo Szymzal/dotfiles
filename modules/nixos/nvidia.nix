@@ -48,11 +48,9 @@ in {
       services.xserver.videoDrivers = ["nvidia"];
 
       hardware.nvidia = {
-        powerManagement.enable = false;
-        powerManagement.finegrained = false;
-        open = true;
         nvidiaSettings = true;
         nvidiaPersistenced = true;
+        open = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
 
