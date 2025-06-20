@@ -32,7 +32,13 @@ in {
       mypackages.cuda.enable = mkForce false;
     })
     (mkIf (!cfg.open.enable) {
-      boot.kernelParams = ["nvidia_drm.fbdev=1" "nvidia_drm.modeset=1"];
+      boot = {
+        kernelParams = ["nvidia_drm.fbdev=1"];
+        initrd.kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" "i2c-nvidia_gpu"];
+        extraModulePackages = [
+          config.boot.kernelPackages.nvidia_x11
+        ];
+      };
 
       hardware.graphics = {
         enable = true;
@@ -42,11 +48,11 @@ in {
       services.xserver.videoDrivers = ["nvidia"];
 
       hardware.nvidia = {
-        modesetting.enable = true;
         powerManagement.enable = false;
         powerManagement.finegrained = false;
-        open = false;
+        open = true;
         nvidiaSettings = true;
+        nvidiaPersistenced = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
 
