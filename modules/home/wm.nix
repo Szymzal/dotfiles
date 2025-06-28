@@ -51,6 +51,11 @@ in {
         screenshot.enable = mkDefault true;
       };
 
+      home.file.".config/gromit-mpx.ini".text = lib.generators.toINI {} {
+        General.ShowIntroOnStartup = false;
+        Drawing.Opacity = 0.0;
+      };
+
       home.packages = with pkgs; [
         killall
         pamixer
@@ -129,6 +134,18 @@ in {
               "HYPRCURSOR_SIZE,${toString config.mypackages.theme.cursorTheme.size}"
             ];
 
+            workspace = [
+              "special:gromit, gapin:0, gapsout:0, on-created-empty: ${getExe pkgs.gromit-mpx} -a"
+            ];
+
+            windowrule = [
+              "noblur, class:(Gromit-mpx)"
+              "opacity 1 override, 1 override, class:(Gromit-mpx)"
+              "noshadow, class:(Gromit-mpx)"
+              "size 100% 100%, class:(Gromit-mpx)"
+              "center, class:(Gromit-mpx)"
+            ];
+
             "$terminal" = "foot";
             "$mod" = "SUPER";
 
@@ -157,6 +174,10 @@ in {
                 ",XF86AudioMute, exec, pamixer -t"
 
                 ("$mod, P, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe pkgs.pkgs-unstable.grimblast} --notify --openfile --freeze copysave area")
+                "$mod, M, togglespecialworkspace, gromit"
+                ", F8, exec, ${getExe pkgs.gromit-mpx} --clear"
+                ", F7, exec, ${getExe pkgs.gromit-mpx} --undo"
+                "SHIFT, F7, exec, ${getExe pkgs.gromit-mpx} --redo"
 
                 "$mod, Z, submap, apps"
               ]
