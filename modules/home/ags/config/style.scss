@@ -71,7 +71,7 @@ window.Bar {
     margin-left: 0;
   }
 
-  .AudioSlider {
+  .Audio {
     * {
       all: unset;
     }
@@ -95,8 +95,9 @@ window.Bar {
       border-radius: $radius;
     }
 
-    slider {
+    label {
       background-color: $fg;
+      color: black;
       border-radius: $radius;
       min-height: 1em;
       min-width: 1em;
