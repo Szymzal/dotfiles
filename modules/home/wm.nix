@@ -97,6 +97,7 @@ in {
               disable_hyprland_logo = true;
               layers_hog_keyboard_focus = true;
               mouse_move_focuses_monitor = true;
+              enable_anr_dialog = false;
             };
 
             ecosystem = {
