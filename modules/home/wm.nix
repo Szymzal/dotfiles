@@ -71,7 +71,7 @@ in {
           package = null;
           portalPackage = null;
           plugins = [
-            inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+            inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
           ];
           systemd.variables = ["--all"];
 
@@ -107,12 +107,12 @@ in {
               enabled = false;
             };
 
-            render = {
-              explicit_sync = 0;
-            };
+            # render = {
+            #   explicit_sync = 0;
+            # };
 
             plugin = {
-              split-monitor-workspaces = {
+              hyprsplit = {
                 count = 9;
               };
             };
@@ -166,8 +166,11 @@ in {
                 "$mod, K, movefocus, u"
                 "$mod, J, movefocus, d"
 
-                "$mod SHIFT, H, split-changemonitor, prev"
-                "$mod SHIFT, L, split-changemonitor, next"
+                "$mod SHIFT, H, movewindow, mon:+1"
+                "$mod SHIFT, L, movewindow, mon:-1"
+
+                "$mod SHIFT, G, split:grabroguewindows"
+                "$mod, S, split:swapactiveworkspaces, current +1"
 
                 ",XF86AudioRaiseVolume, exec, pamixer -i 2"
                 ",XF86AudioLowerVolume, exec, pamixer -d 2"
@@ -188,8 +191,8 @@ in {
                     i: let
                       ws = i + 1;
                     in [
-                      "$mod, code:1${toString i}, split-workspace, ${toString ws}"
-                      "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
+                      "$mod, code:1${toString i}, split:workspace, ${toString ws}"
+                      "$mod SHIFT, code:1${toString i}, split:movetoworkspace, ${toString ws}"
                     ]
                   )
                   9)

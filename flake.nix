@@ -32,8 +32,8 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland.url = "github:hyprwm/Hyprland";
     astal.url = "github:Aylur/astal";
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
   };
