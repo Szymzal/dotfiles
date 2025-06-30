@@ -107,10 +107,6 @@ in {
               enabled = false;
             };
 
-            # render = {
-            #   explicit_sync = 0;
-            # };
-
             plugin = {
               hyprsplit = {
                 count = 9;
