@@ -15,13 +15,14 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      webcord
+      # webcord
+      beeper
     ];
 
-    mypackages.impermanence = {
-      directories = [
-        ".config/WebCord"
-      ];
-    };
+    # mypackages.impermanence = {
+    #   directories = [
+    #     ".config/WebCord"
+    #   ];
+    # };
   };
 }
