@@ -19,6 +19,7 @@ in {
     ];
 
     mypackages.impermanence.directories = [
+      ".local/share/QGIS"
     ];
   };
 }
