@@ -56,6 +56,7 @@
     ../../modules/nixos/onedrive.nix
     ../../modules/nixos/ossia.nix
     ../../modules/nixos/ontime.nix
+    ../../modules/nixos/keyring.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix

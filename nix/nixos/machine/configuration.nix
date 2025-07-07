@@ -278,6 +278,7 @@ in {
     syncthing.enable = false;
     sunshine.enable = true;
     localsend.enable = true;
+    keyring.enable = true;
     games = {
       steam.enable = true;
       factorio.enable = true;
