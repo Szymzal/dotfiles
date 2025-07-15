@@ -2,26 +2,15 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.video-recording;
-
-  distroav = pkgs.obs-studio-plugins.obs-ndi.overrideAttrs (_: rec {
-    pname = "distroav";
-    version = "6.0.0";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "DistroAV";
-      repo = "DistroAV";
-      rev = version;
-      sha256 = "sha256-pr/5XCLo5fzergIQrYFC9o9K+KuP4leDk5/oRe5ct9Q=";
-    };
-
-    patches = [
-      ../../pkgs/hardcode-ndi-path.patch
-    ];
-  });
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
 in {
   options = {
     mypackages.video-recording = {
@@ -32,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     programs.obs-studio = {
       enable = true;
-      plugins = [
+      plugins = with pkgs-unstable.obs-studio-plugins; [
         distroav
       ];
     };
