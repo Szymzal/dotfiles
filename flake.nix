@@ -58,7 +58,10 @@
         in {
           pkgs = pkgs-unstable;
           modules = [
-            (import ./modules/shared/nvf {pkgs = pkgs-unstable;})
+            (import ./modules/shared/nvf {
+              pkgs = pkgs-unstable;
+              lib = inputs.nixpkgs-unstable.lib;
+            })
           ];
         }))
         .neovim;

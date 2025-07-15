@@ -19,7 +19,12 @@ in {
       (
         inputs.nvf.lib.neovimConfiguration {
           pkgs = pkgs.pkgs-unstable;
-          modules = [(import ../../shared/nvf {pkgs = pkgs.pkgs-unstable;})];
+          modules = [
+            (import ../../shared/nvf {
+              pkgs = pkgs.pkgs-unstable;
+              lib = inputs.nixpkgs-unstable.lib;
+            })
+          ];
         }
       )
       .neovim;
