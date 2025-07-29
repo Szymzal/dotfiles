@@ -28,13 +28,15 @@ in {
 
       hardware.sane = {
         enable = true;
+        openFirewall = true;
         # TODO: Make is declarable
         brscan4 = {
           enable = true;
           netDevices = {
             Brother = {
+              name = "Home";
               model = "DCP-J105";
-              ip = "172.20.60.5";
+              ip = "10.128.64.5";
             };
           };
         };
