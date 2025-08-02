@@ -119,7 +119,17 @@
           next = "<C-n>";
           previous = "<C-p>";
         };
-        setupOpts.signature.enabled = true;
+        setupOpts = {
+          completion = {
+            list = {
+              selection = {
+                preselect = false;
+                auto_insert = true;
+              };
+            };
+          };
+          signature.enabled = true;
+        };
       };
       snippets.luasnip.enable = true;
 
