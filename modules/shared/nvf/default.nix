@@ -21,6 +21,25 @@
         lightbulb.enable = true;
         trouble.enable = true;
         otter-nvim.enable = true;
+        servers = {
+          # https://github.com/NotAShelf/nvf/issues/986#issuecomment-3062223200
+          html = {
+            enable = true;
+            cmd = ["${lib.getExe' pkgs.vscode-langservers-extracted "vscode-html-language-server"}" "--stdio"];
+            init_options.provideFormatter = true;
+            filetypes = ["html"];
+          };
+          emmet = {
+            enable = true;
+            cmd = ["${lib.getExe pkgs.emmet-ls}" "--stdio"];
+            filetypes = [
+              "html"
+              "css"
+              "javascript"
+              "typescript"
+            ];
+          };
+        };
       };
 
       languages = {
