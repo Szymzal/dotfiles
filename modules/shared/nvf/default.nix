@@ -78,6 +78,10 @@
           };
         };
         vala.enable = true;
+        elixir = {
+          enable = true;
+          elixir-tools.enable = true;
+        };
       };
 
       debugger = {
