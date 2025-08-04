@@ -211,8 +211,6 @@ in {
             ${optionalString config.mypackages.file-explorer.enable "bind = , F, submap, reset"}
             bind = , T, exec, ${optionalString cfg.uwsm "uwsm app -- "}${getExe config.programs.foot.package} ${getExe pkgs.btop}
             bind = , T, submap, reset
-            ${optionalString config.mypackages.file-explorer.enable "bind = , N, exec, ${optionalString cfg.uwsm "uwsm app -- "}${getExe config.programs.foot.package} ${getExe config.programs.nnn.package}"}
-            ${optionalString config.mypackages.file-explorer.enable "bind = , N, submap, reset"}
 
             bind = , escape, submap, reset
 

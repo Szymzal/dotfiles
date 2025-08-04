@@ -18,24 +18,6 @@ in {
       file-roller
     ];
 
-    programs.nnn = {
-      enable = true;
-      extraPackages = with pkgs; [
-        util-linux
-        pmount
-      ];
-      plugins = {
-        # src =
-        #   (pkgs.fetchFromGitHub {
-        #     owner = "jarun";
-        #     repo = "nnn";
-        #     rev = "v5.1";
-        #     sha256 = "";
-        #   })
-        #   + "/plugins";
-      };
-    };
-
     mypackages.impermanence = {
       directories = [
         ".config/gtk-3.0/bookmarks"
