@@ -21,6 +21,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs-unstable; [
       davinci-resolve
+      kdePackages.kdenlive
     ];
 
     mypackages.impermanence.directories = [
