@@ -2,10 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.epic-games;
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+  };
 in {
   options = {
     mypackages.epic-games = {
@@ -14,7 +18,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-unstable; [
       (heroic.override {
         extraPkgs = pkgs: [
           pkgs.gamescope
