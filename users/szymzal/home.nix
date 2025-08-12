@@ -30,7 +30,6 @@ in {
       persistent-path = "/persist/home/szymzal";
       directories = [
         "Documents"
-        "speedrunigt"
         ".config/sops"
         ".ssh"
         {
