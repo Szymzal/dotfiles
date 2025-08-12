@@ -98,7 +98,7 @@ in {
     };
     zoom.enable = false; # use chromium for zoom PWA
     blender.enable = true;
-    epic-games.enable = false;
+    epic-games.enable = true;
     zotero.enable = false;
     audio-mix.enable = false;
     cad.enable = false;
