@@ -40,7 +40,7 @@ in {
         ".cargo"
       ];
     };
-    ags.enable = true;
+    ags.enable = false;
     launcher.enable = true;
     status-bar.enable = true;
     terminal.enable = true;
@@ -73,15 +73,15 @@ in {
     video-recording.enable = true;
     calendar.enable = false;
     bottles.enable = true;
-    casparcg-client.enable = true;
+    casparcg-client.enable = false;
     video-editing.enable = true;
-    ldtk.enable = true;
+    ldtk.enable = false;
     flatpak.enable = true;
-    godot.enable = true;
+    godot.enable = false;
     playit.enable = true;
     genealogy.enable = true;
     password-manager.enable = true;
-    linux-show-player.enable = true;
+    linux-show-player.enable = false;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;
@@ -91,22 +91,22 @@ in {
       rocket-league.enable = true;
       roblox.enable = true;
       factorio.enable = true;
-      ets2.enable = true;
-      openttd.enable = true;
+      ets2.enable = false;
+      openttd.enable = false;
       trackmania.enable = true;
-      lethalCompany.enable = true;
+      lethalCompany.enable = false;
       overcooked2.enable = true;
     };
     zoom.enable = false; # use chromium for zoom PWA
     blender.enable = true;
     epic-games.enable = false;
     zotero.enable = false;
-    audio-mix.enable = true;
+    audio-mix.enable = false;
     cad.enable = false;
-    email.enable = true;
+    email.enable = false;
     showExperiments.enable = false;
-    qgis.enable = true;
-    plakativ.enable = true;
+    qgis.enable = false;
+    plakativ.enable = false;
     scripts.enable = true;
   };
 }

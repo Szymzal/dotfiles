@@ -40,11 +40,11 @@ in {
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
 
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-uuid/8A48821948820463";
-    fsType = "ntfs-3g";
-    options = ["rw" "gid=100" "uid=1000" "noatime"];
-  };
+  # fileSystems."/mnt/data" = {
+  #   device = "/dev/disk/by-uuid/8A48821948820463";
+  #   fsType = "ntfs-3g";
+  #   options = ["rw" "gid=100" "uid=1000" "noatime"];
+  # };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -159,7 +159,7 @@ in {
     cachix.enable = true;
     cuda.enable = true;
     virtualization.enable = true;
-    ossia.enable = true;
+    ossia.enable = false;
     ontime.server.enable = false;
 
     monitors = {
@@ -285,7 +285,7 @@ in {
       minecraft = {
         client = {
           java.enable = true;
-          bedrock.enable = true;
+          bedrock.enable = false;
         };
         server = {
           enable = true;
@@ -314,7 +314,7 @@ in {
             );
           in {
             PrehistoricWorld = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.forgeServers.forge-1_20_1.override {
@@ -341,7 +341,7 @@ in {
               };
             };
             StarTechnology = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.forgeServers.forge-1_20_1.override {
@@ -363,7 +363,7 @@ in {
               };
             };
             BTW3 = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.legacyFabricServers.legacy-fabric-1_6_4.override {
@@ -380,7 +380,7 @@ in {
               };
             };
             exploria = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx8G -Xms8G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
               package = pkgs.fabricServers.fabric-1_20_1;
@@ -401,16 +401,8 @@ in {
               };
             };
             # Prominence II
-            minecraft-1-20-survival = let
-              modpack = pkgs.fetchModrinthModpack {
-                url = "https://cdn.modrinth.com/data/EGs3lC8D/versions/ZmjQ66hF/Prominence%20II%20Hasturian%20Era%203.0.5h.mrpack";
-                hash = "sha512-gnWhh9ZVYNt21+Vt6E2aXgGWKb/28QnDIQJ4B2+5lruXSR8FyKqGDxd5+DZJDFhly3nb6T6rFfeXsjxzKR7Npg==";
-                removeProjectIDs = [
-                  "tJzrFuyy"
-                ];
-              };
-            in {
-              enable = true;
+            minecraft-1-20-survival = {
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1;
@@ -429,15 +421,9 @@ in {
                 view-distance = 16;
                 motd = "Some survival";
               };
-              # symlinks = {
-              #   mods = "${modpack}/mods";
-              # };
-              # files = (copyFiles "${modpack}/config" "config")
-              #   // (copyFiles "${modpack}/defaultconfigs" "defaultconfigs")
-              #   // (copyFiles "${modpack}/mods" "mods");
             };
             CreateServer = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx8G -Xms8G";
               package = pkgs.fabricServers.fabric-1_20_1.override {
@@ -459,13 +445,11 @@ in {
                 motd = "Create Modpack Created by US :)";
               };
               symlinks = {
-                mods = (
-                  let
-                    modpack = pkgs.fetchModrinthModpack {
-                      mrpackFile = ./CreateModpackv1.mrpack;
-                    };
-                  in "${modpack}/mods"
-                );
+                mods = let
+                  modpack = pkgs.fetchModrinthModpack {
+                    mrpackFile = ./CreateModpackv1.mrpack;
+                  };
+                in "${modpack}/mods";
               };
             };
             TerraFirmaGreg = let
@@ -476,7 +460,7 @@ in {
                 hash = "sha256-k5OU6HBnf3Y9Zf7ZV/TA5ck2H/g7hnwW/0e/vYcn8wI=";
               };
             in {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.forgeServers.forge-1_20_1.override {
@@ -505,7 +489,7 @@ in {
                 // (copyFiles "${modpack}/defaultconfigs" "defaultconfigs");
             };
             games-datapack = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.fabricServers.fabric-1_20_6;
@@ -567,7 +551,7 @@ in {
               };
             };
             minecraft-1-21 = {
-              enable = true;
+              enable = false;
               autoStart = false;
               jvmOpts = "-Xmx4G -Xms4G";
               package = pkgs.fabricServers.fabric-1_21_5;
@@ -591,7 +575,7 @@ in {
         };
       };
     };
-    casparcg.enable = true;
+    casparcg.enable = false;
   };
 
   myusers.szymzal.enable = true;
