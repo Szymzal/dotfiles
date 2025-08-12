@@ -30,6 +30,7 @@ in {
     mypackages.bottles.enable = true;
     mypackages.impermanence.directories = [
       ".config/legendary"
+      ".config/heroic"
     ];
   };
 }
