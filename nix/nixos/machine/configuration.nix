@@ -2,13 +2,13 @@
   lib,
   inputs,
   pkgs,
-  config,
   ...
 }: let
   inherit (inputs) self;
 in {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
     self.nixosModules.modules
   ];
 
@@ -39,12 +39,6 @@ in {
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
   nixpkgs.config.allowUnfree = true;
-
-  # fileSystems."/mnt/data" = {
-  #   device = "/dev/disk/by-uuid/8A48821948820463";
-  #   fsType = "ntfs-3g";
-  #   options = ["rw" "gid=100" "uid=1000" "noatime"];
-  # };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -132,14 +126,8 @@ in {
     pmount
   ];
 
-  environment.etc."current-system-packages".text = let
-    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-    sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-    formatted = builtins.concatStringsSep "\n" sortedUnique;
-  in
-    formatted;
-
   mypackages = {
+    disko.enable = true;
     color-managment.enable = true;
     ssh.enable = true;
     unfree.allowed = [
