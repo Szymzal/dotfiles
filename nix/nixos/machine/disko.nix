@@ -7,16 +7,12 @@
         content = {
           type = "gpt";
           partitions = {
-            # grub
-            MBR = {
-              type = "EF02";
-              size = "1M";
-              priority = 1;
-            };
             ESP = {
-              type = "EF00";
-              size = "1G";
+              priority = 1;
               name = "ESP";
+              start = "1M";
+              end = "1G";
+              type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -48,11 +44,13 @@
           type = "gpt";
           partitions = {
             main = {
-              type = "btrfs";
-              extraArgs = ["-f"];
               size = "100%";
-              mountOptions = ["compress=zstd" "noatime"];
-              mountpoint = "/mnt/data";
+	      content = {
+                type = "btrfs";
+                extraArgs = ["-f"];
+                mountOptions = ["compress=zstd" "noatime"];
+                mountpoint = "/mnt/data";
+              };
             };
           };
         };

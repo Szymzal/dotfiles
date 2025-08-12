@@ -14,11 +14,8 @@ in {
 
   boot = {
     loader = {
-      grub = {
+      systemd-boot = {
         enable = true;
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
       };
       efi = {
         canTouchEfiVariables = true;
@@ -127,7 +124,6 @@ in {
   ];
 
   mypackages = {
-    disko.enable = true;
     color-managment.enable = true;
     ssh.enable = true;
     unfree.allowed = [
