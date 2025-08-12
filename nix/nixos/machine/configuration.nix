@@ -22,7 +22,7 @@ in {
       };
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+        # efiSysMountPoint = "/boot/efi";
       };
       timeout = 1;
     };

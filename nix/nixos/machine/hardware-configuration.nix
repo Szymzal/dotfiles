@@ -16,33 +16,33 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
-    fsType = "btrfs";
-    options = ["subvol=root" "noatime"];
-  };
-
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
-    fsType = "btrfs";
-    options = ["subvol=persist" "noatime"];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
-    fsType = "btrfs";
-    options = ["subvol=nix" "noatime"];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/80D2-19A5";
-    fsType = "vfat";
-  };
-
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/3A2A-E18E";
-    fsType = "vfat";
-  };
+  # fileSystems."/" = {
+  #   device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
+  #   fsType = "btrfs";
+  #   options = ["subvol=root" "noatime"];
+  # };
+  #
+  # fileSystems."/persist" = {
+  #   device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
+  #   fsType = "btrfs";
+  #   options = ["subvol=persist" "noatime"];
+  # };
+  #
+  # fileSystems."/nix" = {
+  #   device = "/dev/disk/by-uuid/e9c92766-e5ce-4135-a24b-5f212fabdcd3";
+  #   fsType = "btrfs";
+  #   options = ["subvol=nix" "noatime"];
+  # };
+  #
+  # fileSystems."/boot" = {
+  #   device = "/dev/disk/by-uuid/80D2-19A5";
+  #   fsType = "vfat";
+  # };
+  #
+  # fileSystems."/boot/efi" = {
+  #   device = "/dev/disk/by-uuid/3A2A-E18E";
+  #   fsType = "vfat";
+  # };
 
   swapDevices = [
     {device = "/dev/disk/by-uuid/299af4b9-9492-4d25-b63b-a3ee53db313c";}
