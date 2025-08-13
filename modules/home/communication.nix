@@ -16,10 +16,12 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       beeper
+      discord
     ];
 
     mypackages.impermanence = {
       directories = [
+        ".config/discord"
         ".config/BeeperTexts"
       ];
     };
