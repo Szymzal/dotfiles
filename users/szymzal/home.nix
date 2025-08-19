@@ -100,7 +100,7 @@ in {
     blender.enable = true;
     epic-games.enable = true;
     zotero.enable = false;
-    audio-mix.enable = false;
+    audio-mix.enable = true;
     cad.enable = false;
     email.enable = false;
     showExperiments.enable = false;
