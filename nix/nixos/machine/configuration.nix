@@ -121,6 +121,7 @@ in {
   environment.systemPackages = with pkgs; [
     btop
     pmount
+    cifs-utils
   ];
 
   mypackages = {
