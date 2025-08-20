@@ -76,7 +76,7 @@ in {
     video-editing.enable = true;
     ldtk.enable = false;
     flatpak.enable = true;
-    godot.enable = false;
+    godot.enable = true;
     playit.enable = true;
     genealogy.enable = true;
     password-manager.enable = true;
