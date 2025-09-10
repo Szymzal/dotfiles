@@ -2,15 +2,10 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.video-recording;
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit (pkgs) system;
-    config.allowUnfree = true;
-  };
 in {
   options = {
     mypackages.video-recording = {
@@ -28,9 +23,6 @@ in {
     programs.obs-studio = {
       enable = true;
       enableVirtualCamera = true;
-      plugins = with pkgs-unstable.obs-studio-plugins; [
-        distroav
-      ];
     };
 
     boot = {
