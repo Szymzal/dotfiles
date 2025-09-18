@@ -366,7 +366,7 @@
               function()
                 local jdtls = require("jdtls")
 
-                local root_dir = jdtls.setup.find_root({ "mvnw", "gradlew", ".git" })
+                local root_dir = jdtls.setup.find_root({ "mvnw", "gradlew", ".git", "gradle" })
 
                 local cmd = {
                   "${lib.getExe pkgs.jdt-language-server}",
