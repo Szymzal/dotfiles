@@ -58,6 +58,7 @@
     ../../modules/nixos/ontime.nix
     ../../modules/nixos/keyring.nix
     ../../modules/nixos/disko.nix
+    ../../modules/nixos/ghidra.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix

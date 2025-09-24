@@ -264,6 +264,7 @@ in {
     sunshine.enable = true;
     localsend.enable = true;
     keyring.enable = true;
+    ghidra.enable = true;
     games = {
       steam.enable = true;
       factorio.enable = true;
