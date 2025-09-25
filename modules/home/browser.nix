@@ -26,7 +26,7 @@ in {
         enable = mkDefault true;
       };
       mimeApps = let
-        desktopFile = "zen.desktop";
+        desktopFile = "zen-beta.desktop";
       in {
         enable = mkDefault true;
         associations.added = {
