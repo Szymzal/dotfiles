@@ -2,10 +2,14 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.genealogy;
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+  };
 in {
   options = {
     mypackages.genealogy = {
@@ -14,7 +18,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-unstable; [
       gramps
     ];
 
