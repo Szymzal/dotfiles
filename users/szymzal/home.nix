@@ -104,7 +104,7 @@ in {
     cad.enable = false;
     email.enable = false;
     showExperiments.enable = false;
-    qgis.enable = false;
+    qgis.enable = true;
     plakativ.enable = false;
     scripts.enable = true;
   };
