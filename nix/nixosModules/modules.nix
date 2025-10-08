@@ -59,6 +59,7 @@
     ../../modules/nixos/keyring.nix
     ../../modules/nixos/disko.nix
     ../../modules/nixos/ghidra.nix
+    ../../modules/nixos/winboat.nix
 
     ../../modules/nixos/games/minecraft.nix
     ../../modules/nixos/games/steam.nix
