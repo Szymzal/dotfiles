@@ -10,6 +10,7 @@ with lib; {
         directory = ".local/share/PrismLauncher";
         method = "symlink";
       }
+      "speedrunigt"
     ];
 
     mypackages.flatpak.packages = optionals osConfig.mypackages.games.minecraft.client.bedrock.enable [
