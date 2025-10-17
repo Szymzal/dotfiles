@@ -20,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs-unstable.davinci-resolve
+      # pkgs.davinci-resolve
       pkgs.kdePackages.kdenlive
     ];
 
