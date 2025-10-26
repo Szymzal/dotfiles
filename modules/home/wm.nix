@@ -78,7 +78,7 @@ in {
           settings = {
             exec-once = [
               # "${lib.getExe pkgs.way-displays}"
-              "waybar"
+              # "waybar"
             ];
 
             input = {

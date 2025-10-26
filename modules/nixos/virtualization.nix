@@ -14,22 +14,25 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMFFull.override {
-              secureBoot = true;
-              tpmSupport = true;
-              tlsSupport = true;
-              httpSupport = true;
-            })
+    virtualisation = {
+      vmware.host.enable = false;
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          swtpm.enable = true;
+          ovmf = {
+            enable = true;
+            packages = [
+              (pkgs.OVMFFull.override {
+                secureBoot = true;
+                tpmSupport = true;
+                tlsSupport = true;
+                httpSupport = true;
+              })
             .fd
-          ];
+            ];
+          };
         };
       };
     };

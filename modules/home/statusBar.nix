@@ -2,10 +2,14 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.status-bar;
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+  };
 in {
   options = {
     mypackages.status-bar = {
@@ -18,8 +22,71 @@ in {
       pavucontrol
     ];
 
-    programs.waybar = {
+    programs.hyprpanel = {
       enable = true;
+      package = pkgs-unstable.hyprpanel;
+      settings = {
+        theme = {
+          font = {
+            size = "0.8rem";
+            weight = 600;
+          };
+          bar.floating = true;
+        };
+        bar = {
+          customModules = {
+            storage.paths = [
+              "/"
+            ];
+            microphone.label = true;
+            netstat = {
+              label = true;
+              dynamicIcon = false;
+            };
+            kbLayout.label = false;
+            updates.label = false;
+            weather.label = false;
+            hyprsunset.label = false;
+          };
+          clock.format = "%a %d %b - %k:%M:%S";
+
+          layouts = {
+            "*" = {
+              left = [
+                "dashboard"
+                "workspaces"
+                "windowtitle"
+              ];
+              middle = [
+                "media"
+              ];
+              right = [
+                "volume"
+                "systray"
+                "clock"
+                "notifications"
+              ];
+            };
+          };
+        };
+        menus = {
+          clock.weather = {
+            location = "98-235";
+            unit = "metric";
+          };
+
+          volume.raiseMaximumVolume = true;
+          dashboard = {
+            shortcuts.enabled = false;
+            directories.enabled = false;
+            powermenu.logout = "${lib.getExe pkgs.uwsm} stop";
+          };
+        };
+      };
+    };
+
+    programs.waybar = {
+      enable = false;
 
       settings = {
         mainBar = {
