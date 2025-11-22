@@ -265,7 +265,6 @@ in {
     localsend.enable = true;
     keyring.enable = true;
     ghidra.enable = true;
-    winboat.enable = true;
     games = {
       steam.enable = true;
       factorio.enable = true;
