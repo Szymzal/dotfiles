@@ -73,7 +73,7 @@ in {
           plugins = [
             inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
           ];
-          systemd.variables = ["--all"];
+          systemd.enable = false;
 
           settings = {
             exec-once = [
