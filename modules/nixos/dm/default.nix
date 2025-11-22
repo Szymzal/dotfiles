@@ -2,11 +2,20 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mypackages.dm;
 in {
+  disabledModules = [
+    "${inputs.nixpkgs}/nixos/modules/programs/wayland/uwsm.nix"
+  ];
+
+  imports = [
+    "${inputs.nixpkgs-unstable}/nixos/modules/programs/wayland/uwsm.nix"
+  ];
+
   options = {
     mypackages.dm = {
       enable = mkEnableOption "Enable Display Manager";
