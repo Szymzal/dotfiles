@@ -29,7 +29,7 @@ in {
         Restart = "always";
       };
 
-      wantedBy = ["hyprland-session.target"];
+      wantedBy = ["graphical-session.target"];
     };
 
     environment.etc = {
