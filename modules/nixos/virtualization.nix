@@ -15,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation = {
-      vmware.host.enable = false;
+      vmware.host.enable = true;
       libvirtd = {
         enable = true;
         qemu = {
