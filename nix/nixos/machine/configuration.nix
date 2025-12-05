@@ -50,7 +50,11 @@ in {
 
   time.timeZone = "Europe/Warsaw";
 
-  nix.settings.experimental-features = ["nix-command" "flakes" "pipe-operators"];
+  nix.settings = {
+    cores = 3;
+    max-jobs = 2;
+    experimental-features = ["nix-command" "flakes" "pipe-operators"];
+  };
 
   systemd = let
     accounting = ''
@@ -59,7 +63,6 @@ in {
       DefaultIOAccounting=yes
     '';
   in {
-    extraConfig = accounting;
     user = {
       extraConfig = accounting;
       slices = {

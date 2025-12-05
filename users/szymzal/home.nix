@@ -67,7 +67,7 @@ in {
     cd.enable = true;
     ls.enable = true;
     find.enable = true;
-    notifications.enable = true;
+    notifications.enable = false;
     office.enable = true;
     video-recording.enable = true;
     calendar.enable = false;

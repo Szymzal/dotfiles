@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       steamtinkerlaunch
-      protonup
+      protonup-ng
       mangohud
     ];
 

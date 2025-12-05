@@ -40,16 +40,8 @@ in {
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
 
-  systemd = let
-    accounting = ''
-      DefaultCPUAccounting=yes
-      DefaultMemoryAccounting=yes
-      DefaultIOAccounting=yes
-    '';
-  in {
-    extraConfig = accounting;
+  systemd = {
     user = {
-      extraConfig = accounting;
       slices = {
         "user".sliceConfig = {
           ManagedOOMSwap = "kill";
