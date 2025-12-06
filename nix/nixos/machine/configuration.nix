@@ -24,6 +24,7 @@ in {
       timeout = 1;
     };
     supportedFilesystems = ["ntfs"];
+    kernelPackages = pkgs.linuxPackages_6_17;
     kernelParams = [
       "quiet"
       "reboot=acpi"
@@ -161,6 +162,10 @@ in {
           primary = true;
           connector = "DP-1";
           model = "27G2G4";
+          position = {
+            x = 0;
+            y = 0;
+          };
           mode = {
             width = 1920;
             height = 1080;
@@ -172,6 +177,10 @@ in {
           enable = true;
           connector = "HDMI-A-1";
           model = "PL2470H";
+          position = {
+            x = 1920;
+            y = 0;
+          };
           mode = {
             width = 1920;
             height = 1080;

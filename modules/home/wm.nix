@@ -7,6 +7,7 @@
   ...
 }:
 with lib; let
+  myLib = osConfig.lib.myLib;
   cfg = config.mypackages.wm;
 in {
   options = {
@@ -133,6 +134,8 @@ in {
 
             "$terminal" = "foot";
             "$mod" = "SUPER";
+
+            monitor = myLib.hyprlandMonitorsConfig;
 
             bind =
               [

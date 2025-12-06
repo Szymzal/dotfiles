@@ -31,7 +31,7 @@
     nvf.url = "github:NotAShelf/nvf";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     astal.url = "github:Aylur/astal";

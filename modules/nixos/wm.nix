@@ -17,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     security.polkit.enable = true;
 
-    mypackages.way-displays.enable = mkDefault true;
+    # mypackages.way-displays.enable = mkDefault true;
 
     programs = {
       xwayland.enable = true;

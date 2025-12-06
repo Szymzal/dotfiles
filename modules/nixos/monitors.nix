@@ -38,6 +38,20 @@ in {
               description = "Name of connector which monitor is connected";
               type = types.str;
             };
+            position = {
+              x = mkOption {
+                default = 0;
+                example = 1920;
+                description = "X position of logical monitor";
+                type = types.int;
+              };
+              y = mkOption {
+                default = 0;
+                example = 1080;
+                description = "Y position of logical monitor";
+                type = types.int;
+              };
+            };
             model = mkOption {
               default = null;
               example = "27G2G4";
