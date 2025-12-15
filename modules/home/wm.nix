@@ -10,6 +10,10 @@ with lib; let
   myLib = osConfig.lib.myLib;
   cfg = config.mypackages.wm;
 in {
+  imports = [
+    inputs.mango.hmModules.mango
+  ];
+
   options = {
     mypackages.wm = {
       enable = mkEnableOption "Enable window manager";
@@ -62,11 +66,110 @@ in {
         pamixer
         wlr-randr
         way-displays
+        cliphist
         config.mypackages.theme.cursorTheme.xcursor.package
         config.mypackages.theme.cursorTheme.hyprcursor.package
       ];
 
       wayland.windowManager = {
+        mango = {
+          enable = true;
+          settings = ''
+            exec-once=waybar
+
+            env=GTK_THEME,Adwaita:dark
+            env=XCURSOR_SIZE,16
+
+            env=XDG_CURRENT_DESKTOP,wlroots
+            env=NIXOS_OZONE_WL,1
+            env=LIBVA_DRIVER_NAME,nvidia
+            env=__GLX_VENDOR_LIBRARY_NAME,nvidia
+            env=NVD_BACKEND,direct
+
+            monitorrule=DP-1,0.55,1,tile,0,1,0,0,1920,1080,144
+            monitorrule=HDMI-A-1,0.55,1,tile,0,1,1920,0,1920,1080,144
+
+            allow_tearing=1
+            xkb_rules_layout=pl
+            adaptive_sync=1
+            allow_lock_transparent=1
+            cursor_size=16
+            cursor_theme=Bibata-Modern-Classic
+            enable_hotarea=0
+
+            # Cycle through layouts
+            bind=SUPER,n,switch_layout
+
+            # Set specific layout
+            bind=SUPER,t,setlayout,tile
+            bind=SUPER,s,setlayout,scroller
+
+            bind=SUPER,Return,spawn,${optionalString cfg.uwsm "uwsm app -- "}foot
+            bind=SUPER,q,killclient,
+            bind=SUPER+SHIFT,q,quit
+            bind=SUPER,o,spawn,${optionalString cfg.uwsm "uwsm app -- "}${getExe power-menu-script}
+
+            bind=SUPER,d,spawn_shell,killall fuzzel || fuzzel ${optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning''}
+
+            bind=SUPER,space,togglefloating
+            bind=SUPER,f,togglefullscreen
+
+            bind=SUPER,h,focusdir,l
+            bind=SUPER,l,focusdir,r
+            bind=SUPER,k,focusdir,u
+            bind=SUPER,j,focusdir,d
+
+            bind=SUPER+SHIFT,h,tagmon,l
+            bind=SUPER+SHIFT,l,tagmon,r
+            bind=SUPER+SHIFT,j,tagmon,u
+            bind=SUPER+SHIFT,k,tagmon,d
+
+            bind=NONE,XF86AudioRaiseVolume,spawn,pamixer -i 2
+            bind=NONE,XF86AudioLowerVolume,spawn,pamixer -d 2
+            bind=NONE,XF86AudioMute,spawn,pamixer -t
+
+            bind=SUPER,p,spawn,${optionalString cfg.uwsm "uwsm app -- "}${getExe pkgs.pkgs-unstable.grimblast} --notify --openfile --freeze copysave area
+
+            ${
+              # workspaces
+              # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+              builtins.concatStringsSep "" (builtins.genList (
+                  i: let
+                    ws = i + 1;
+                  in ''
+                    bind=SUPER,${toString ws},view,${toString ws}
+                    bind=SUPER+SHIFT,${toString ws},tag,${toString ws}
+                  ''
+                )
+                9)
+            }
+
+            # Move window with Super + Left Click
+            mousebind=SUPER,btn_left,moveresize,curmove
+
+            # Resize window with Super + Right Click
+            mousebind=SUPER,btn_right,moveresize,curresize
+
+            bind=SUPER,z,setkeymode,apps
+            keymode=apps
+            bind=NONE,b,spawn,${optionalString cfg.uwsm "uwsm app -- "}${getExe inputs.zen-browser.packages."${pkgs.system}".default}
+            bind=NONE,b,setkeymode,default
+            ${optionalString config.mypackages.file-explorer.enable "bind=NONE,f,spawn,${optionalString cfg.uwsm "uwsm app -- "}thunar"}
+            ${optionalString config.mypackages.file-explorer.enable "bind=NONE,f,setkeymode,default"}
+            bind=NONE,t,spawn,${optionalString cfg.uwsm "uwsm app -- "}${getExe config.programs.foot.package} ${getExe pkgs.btop}
+            bind=NONE,t,setkeymode,default
+            bind=NONE,Escape,setkeymode,default
+          '';
+          autostart_sh = ''
+            # Keep clipboard content after app closes
+            wl-clip-persist --clipboard regular --reconnect-tries 0 &
+
+            # Watch clipboard and store history
+            wl-paste --type text --watch cliphist store &
+
+            uwsm finalize
+          '';
+        };
         hyprland = {
           enable = true;
           package = null;

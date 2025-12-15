@@ -68,7 +68,7 @@ in {
         ''
         + (lib.concatStrings (lib.forEach config.mypackages.monitors.config (
           value:
-            if value.enable
+            if (value.enable && !value.vrr)
             then ''
               - '${value.model}'
             ''

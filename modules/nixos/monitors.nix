@@ -38,6 +38,12 @@ in {
               description = "Name of connector which monitor is connected";
               type = types.str;
             };
+            vrr = mkOption {
+              default = true;
+              example = false;
+              description = "Enable VRR for the monitor";
+              type = types.bool;
+            };
             position = {
               x = mkOption {
                 default = 0;

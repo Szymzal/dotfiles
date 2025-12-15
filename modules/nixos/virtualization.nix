@@ -43,6 +43,6 @@ in {
       };
     };
 
-    mypackages.impermanence.directories = ["/var/lib/libvirt" "/var/lib/qemu"];
+    mypackages.impermanence.directories = ["/var/lib/libvirt" "/var/lib/qemu" "/run/vmware" "/etc/vmware"];
   };
 }

@@ -162,6 +162,7 @@ in {
           primary = true;
           connector = "DP-1";
           model = "27G2G4";
+          vrr = true;
           position = {
             x = 0;
             y = 0;
@@ -177,6 +178,7 @@ in {
           enable = true;
           connector = "HDMI-A-1";
           model = "PL2470H";
+          vrr = false;
           position = {
             x = 1920;
             y = 0;

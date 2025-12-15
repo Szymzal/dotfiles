@@ -8,6 +8,10 @@
 with lib; let
   cfg = config.mypackages.wm;
 in {
+  imports = [
+    inputs.mango.nixosModules.mango
+  ];
+
   options = {
     mypackages.wm = {
       enable = mkEnableOption "Enable Window Manager";
@@ -17,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     security.polkit.enable = true;
 
-    # mypackages.way-displays.enable = mkDefault true;
+    mypackages.way-displays.enable = mkDefault true;
 
     programs = {
       xwayland.enable = true;
@@ -37,10 +41,20 @@ in {
     programs.uwsm = {
       enable = true;
       package = pkgs.pkgs-unstable.uwsm;
+      waylandCompositors = {
+        mango = {
+          prettyName = "MangoWC";
+          comment = "Mango Wayland Compositor";
+          binPath = "/run/current-system/sw/bin/mango";
+        };
+      };
     };
+
+    programs.mango.enable = true;
 
     xdg.portal = {
       enable = true;
+      wlr.enable = true;
     };
 
     programs.hyprlock.enable = true;

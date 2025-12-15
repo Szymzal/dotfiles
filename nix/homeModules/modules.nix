@@ -56,6 +56,7 @@
     ../../modules/home/plakativ.nix
     ../../modules/home/scripts.nix
     ../../modules/home/ghidra.nix
+    ../../modules/home/virtualization.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix
