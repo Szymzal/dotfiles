@@ -15,6 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation = {
+      podman.enable = true;
       vmware.host.enable = true;
       libvirtd = {
         enable = true;

@@ -108,5 +108,6 @@ in {
     qgis.enable = true;
     plakativ.enable = false;
     scripts.enable = true;
+    distrobox.enable = true;
   };
 }
