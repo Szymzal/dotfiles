@@ -81,6 +81,7 @@ in {
     genealogy.enable = true;
     password-manager.enable = true;
     linux-show-player.enable = false;
+    rclone.enable = true;
     theme = {
       enable = true;
       inherit (osConfig.mypackages.theme) prefer-dark-theme theme iconTheme cursorTheme;

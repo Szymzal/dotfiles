@@ -150,6 +150,7 @@ in {
     virtualization.enable = true;
     ossia.enable = false;
     ontime.server.enable = false;
+    connect.enable = true;
 
     monitors = {
       order = [
