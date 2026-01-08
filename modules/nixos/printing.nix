@@ -55,7 +55,7 @@ in {
       ];
 
       mypackages.impermanence.directories = [
-        "/etc/cups"
+        "/var/lib/cups"
       ];
     };
 }

@@ -24,7 +24,6 @@ in {
       timeout = 1;
     };
     supportedFilesystems = ["ntfs"];
-    kernelPackages = pkgs.linuxPackages_6_17;
     kernelParams = [
       "quiet"
       "reboot=acpi"

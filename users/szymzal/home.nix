@@ -27,15 +27,12 @@ in {
     };
     impermanence = {
       enable = true;
-      persistent-path = "/persist/home/szymzal";
+      persistent-path = "/persist";
       directories = [
         "Documents"
         ".config/sops"
         ".ssh"
-        {
-          directory = "dev";
-          method = "symlink";
-        }
+        "dev"
         ".cargo"
       ];
     };

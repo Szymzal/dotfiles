@@ -12,22 +12,10 @@ in {
     };
 
     mypackages.impermanence.directories = [
-      {
-        directory = ".config/steamtinkerlaunch";
-        method = "symlink";
-      }
-      {
-        directory = ".local/share/Steam";
-        method = "symlink";
-      }
-      {
-        directory = ".steam";
-        method = "symlink";
-      }
-      {
-        directory = "Games";
-        method = "symlink";
-      }
+      ".config/steamtinkerlaunch"
+      ".local/share/Steam"
+      ".steam"
+      "Games"
     ];
   };
 }

@@ -14,10 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     mypackages.impermanence.directories = [
-      {
-        directory = ".local/share/Rocket League";
-        method = "symlink";
-      }
+      ".local/share/Rocket League"
     ];
   };
 }

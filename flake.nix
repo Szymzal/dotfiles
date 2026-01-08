@@ -58,7 +58,7 @@
     perSystem = pkgs: {
       packages.default =
         (inputs.nvf.lib.neovimConfiguration (let
-          pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system};
+          pkgs-unstable = inputs.nvf.inputs.nixpkgs.legacyPackages.${pkgs.system};
         in {
           pkgs = pkgs-unstable;
           modules = [

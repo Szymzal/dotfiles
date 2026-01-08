@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   config,
   osConfig,
@@ -9,16 +8,12 @@ with lib; let
   osCfg = osConfig.mypackages.impermanence;
   cfg = config.mypackages.impermanence;
 in {
-  imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-  ];
-
   options = {
     mypackages.impermanence = {
       enable = mkEnableOption "Enable impermanence";
       persistent-path = mkOption {
         default = "${osCfg.persistenceDir}/home";
-        example = "/persist/home/szymzal";
+        example = "/persist/home";
         description = "Path to persist all folders";
         type = types.str;
       };
@@ -41,7 +36,6 @@ in {
     home.persistence."${cfg.persistent-path}" = {
       directories = cfg.directories;
       files = cfg.files;
-      allowOther = true;
     };
   };
 }

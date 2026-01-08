@@ -16,10 +16,7 @@ in {
   config = mkIf cfg.enable {
     mypackages.impermanence = {
       directories = [
-        {
-          directory = ".local/share/bottles";
-          method = "symlink";
-        }
+        ".local/share/bottles"
       ];
     };
 

@@ -6,10 +6,7 @@
 with lib; {
   config = mkIf (osConfig.mypackages.games.minecraft.client.java.enable || osConfig.mypackages.games.minecraft.client.bedrock.enable) {
     mypackages.impermanence.directories = optionals osConfig.mypackages.games.minecraft.client.java.enable [
-      {
-        directory = ".local/share/PrismLauncher";
-        method = "symlink";
-      }
+      ".local/share/PrismLauncher"
       "speedrunigt"
     ];
 
