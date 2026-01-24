@@ -20,8 +20,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      # pkgs.davinci-resolve
-      pkgs.kdePackages.kdenlive
+      pkgs-unstable.davinci-resolve
+      # pkgs.kdePackages.kdenlive
+      pkgs.ffmpeg-full
     ];
 
     mypackages.impermanence.directories = [

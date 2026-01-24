@@ -31,12 +31,16 @@
     nvf.url = "github:NotAShelf/nvf";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
-      url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
+      # url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
+      # FIXME: Wait for it to be resolved:
+      # - https://github.com/hyprwm/Hyprland/discussions/13043
+      # - https://github.com/hyprwm/Hyprland/pull/13048
+      url = "github:hyprwm/Hyprland/efe665b4558370af6e89921c487cd92890183961";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     astal.url = "github:Aylur/astal";
     hyprsplit = {
-      url = "github:shezdy/hyprsplit";
+      url = "github:shezdy/hyprsplit/18fd958b946aa05196d5341fccfd4c63130918b0";
       inputs.hyprland.follows = "hyprland";
     };
     mango = {

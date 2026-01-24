@@ -83,7 +83,7 @@ in {
       enableRootSlice = false;
       enableSystemSlice = false;
       enableUserSlices = false;
-      extraConfig = {
+      settings.OOM = {
         DefaultMemoryPressureDurationSec = "4s";
       };
     };

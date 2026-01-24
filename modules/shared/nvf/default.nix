@@ -67,7 +67,7 @@
         wgsl.enable = true;
         rust = {
           enable = true;
-          crates.enable = true;
+          extensions.crates-nvim.enable = true;
           dap.enable = true;
         };
         java.enable = false;

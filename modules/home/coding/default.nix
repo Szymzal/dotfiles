@@ -32,14 +32,14 @@ in {
     stylix.targets.vim.enable = mkIf config.mypackages.theme.enable false;
     stylix.targets.neovim.enable = mkIf config.mypackages.theme.enable false;
 
-    home.packages = with pkgs; [
+    home.packages = [
       package
-      jetbrains.idea-community-bin
+      #pkgs.jetbrains.idea-oss
     ];
 
     mypackages.impermanence.directories = [
-      ".config/JetBrains"
-      ".local/share/JetBrains"
+      # ".config/JetBrains"
+      # ".local/share/JetBrains"
     ];
 
     xdg = {

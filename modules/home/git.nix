@@ -28,10 +28,11 @@ in {
     programs.git = {
       enable = true;
 
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
-
-      extraConfig = {
+      settings = {
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        };
         init.defaultBranch = "main";
       };
     };
