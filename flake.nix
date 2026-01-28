@@ -28,7 +28,7 @@
     stylix.url = "github:danth/stylix/release-25.11";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     flatpak.url = "github:gmodena/nix-flatpak/latest";
-    nvf.url = "github:NotAShelf/nvf";
+    nvf.url = "github:NotAShelf/nvf/v0.8";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
       url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
