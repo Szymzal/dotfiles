@@ -42,6 +42,7 @@ in {
       enable = true;
       package = pkgs.pkgs-unstable.uwsm;
       waylandCompositors = {
+        hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
         mango = {
           prettyName = "MangoWC";
           comment = "Mango Wayland Compositor";
