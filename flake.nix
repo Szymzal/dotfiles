@@ -31,17 +31,18 @@
     nvf.url = "github:NotAShelf/nvf/v0.8";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
-      url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
+      url = "github:hyprwm/Hyprland/v0.53.0";
+      # url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
       # FIXME: Wait for it to be resolved:
       # - https://github.com/hyprwm/Hyprland/discussions/13043
       # - https://github.com/hyprwm/Hyprland/pull/13048
       # url = "github:hyprwm/Hyprland/efe665b4558370af6e89921c487cd92890183961";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     astal.url = "github:Aylur/astal";
     hyprsplit = {
       # url = "github:shezdy/hyprsplit/18fd958b946aa05196d5341fccfd4c63130918b0";
-      url = "github:shezdy/hyprsplit/d8585473531b24c23794b060d9fe2f5f89b05563";
+      # url = "github:shezdy/hyprsplit/d8585473531b24c23794b060d9fe2f5f89b05563";
+      url = "github:shezdy/hyprsplit/v0.53.0";
       inputs.hyprland.follows = "hyprland";
     };
     mango = {
@@ -69,7 +70,7 @@
           modules = [
             (import ./modules/shared/nvf {
               pkgs = pkgs-unstable;
-              lib = inputs.nixpkgs-unstable.lib;
+              inherit (inputs.nixpkgs-unstable) lib;
             })
           ];
         }))
