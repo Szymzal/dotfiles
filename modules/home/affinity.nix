@@ -20,6 +20,7 @@ in {
     ];
 
     mypackages.impermanence.directories = [
+      ".local/share/affinity-v3"
     ];
   };
 }
