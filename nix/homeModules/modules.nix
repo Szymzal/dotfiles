@@ -60,6 +60,7 @@
     ../../modules/home/rclone.nix
     ../../modules/home/connect.nix
     ../../modules/home/distrobox.nix
+    ../../modules/home/affinity.nix
 
     ../../modules/home/games/minecraft.nix
     ../../modules/home/games/terraria.nix

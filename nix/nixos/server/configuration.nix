@@ -40,6 +40,11 @@ in {
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
 
+  mypackages.cachix = {
+    substituters = ["https://cache.garnix.org"];
+    public-keys = ["cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="];
+  };
+
   systemd = {
     user = {
       slices = {
