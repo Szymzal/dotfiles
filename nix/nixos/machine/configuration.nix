@@ -575,7 +575,7 @@ in {
         };
       };
     };
-    casparcg.enable = true;
+    casparcg.enable = false;
   };
 
   myusers.szymzal.enable = true;
