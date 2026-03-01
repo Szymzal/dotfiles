@@ -1,12 +1,7 @@
 {
   stdenv,
-  stdenvNoCC,
   lib,
-  callPackage,
-  fetchurl,
   fetchFromGitHub,
-  fetchsvn,
-  fetchpatch2,
   autoconf,
   automake,
   makeBinaryWrapper,
@@ -26,81 +21,53 @@
   expat,
   lsb-release,
   glew,
-  freeimage,
+  cef-binary,
   tbb,
   openal,
   xorg,
   sfml_2,
   systemd,
   mesa_glu,
-  boost186, # FIX: Something is wrong with boost 1.87?
+  boost188,
   nss,
-  ffmpeg-full,
+  ffmpeg_7-full,
   icu,
+  simde,
   enable_html ? true,
 }:
 stdenv.mkDerivation (let
-  version = "2.4.3";
+  version = "2.5.0";
   release = "stable";
+  cefVersion = "142.0.17";
 
-  freeimage-patched = freeimage.overrideAttrs (_: {
-    src = fetchsvn {
-      url = "svn://svn.code.sf.net/p/freeimage/svn/";
-      rev = "1909";
-      hash = "sha256-xgOFjonh/1oKUM6je8fMeswYp8Z9kwva5Cm05Wqu9AY=";
+  # https://github.com/CasparCG/dependencies/releases/download/cef/cef_binary_142.0.17+g60aac24+chromium-142.0.7444.176_linux64_minimal.tar.bz2
+  cef-bin = cef-binary.override {
+    version = cefVersion;
+    gitRevision = "60aac24";
+    chromiumVersion = "142.0.7444.176";
+    srcHashes = {
+      aarch64-linux = "";
+      x86_64-linux = "sha256-HYnhmy9EYQX5of5v3Ja87YYkm1iEJB3MQBO3yU2r9CQ=";
     };
+  };
 
-    patches = [
-      # Updated Original Patch
-      ./unbundle.diff
-
-      # Patches from Fedora
-      # CVE-2020-29292
-      (fetchpatch2 {
-        url = "https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2020-24292.patch";
-        hash = "sha256-U2TjHrV0PQrqnMic0+VWF3mBdZvu6CN+/+vpeNolGXU=";
-      })
-      # CVE-2020-29293
-      (fetchpatch2 {
-        url = "https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2020-24293.patch";
-        hash = "sha256-kmY584C17Xi4+qqJAnN0M/3OB4K4Sa4M3jdJwvx32ig=";
-      })
-      # CVE-2020-29295
-      (fetchpatch2 {
-        url = "https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2020-24295.patch";
-        hash = "sha256-B4Ls9lyizdgkEqyYDkIpqOBcWkekbYRhuadQJchtt30=";
-      })
-      ./CVE-2021-33367.patch # Modified https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2021-33367.patch
-      ./CVE-2021-40263.patch # Modified https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2021-40263.patch
-      ./CVE-2021-40266.patch # Modified https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2021-40266.patch
-      # CVE-2023-47995
-      (fetchpatch2 {
-        url = "https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2023-47995.patch";
-        hash = "sha256-aET+Is8Mr9E+NV0VOQg1auodyuAAyrU8uM7wLl4HHSc=";
-      })
-      ./CVE-2023-47997.patch # Modified https://src.fedoraproject.org/rpms/freeimage/raw/rawhide/f/CVE-2023-47997.patch
-    ];
-  });
-
-  libcef-121 = callPackage (fetchurl {
-    url = "https://raw.githubusercontent.com/NixOS/nixpkgs/374e6bcc403e02a35e07b650463c01a52b13a7c8/pkgs/development/libraries/libcef/default.nix";
-    hash = "sha256-dCQStQlDnaIClhSBDH+Nwqr3OeI0rrZRDmnhJXf34nE=";
-  }) {};
-
-  cef = stdenvNoCC.mkDerivation (let
-    LIB = "${libcef-121}/lib";
-    LIBEXEC = "${libcef-121}/libexec/cef";
-    SHARE = "${libcef-121}/share/cef";
+  cef = stdenv.mkDerivation (let
     OUT = "$out/lib/casparcg-cef";
   in {
     name = "casparcg-cef";
-    phases = ["installPhase"];
+    src = cef-bin;
+
+    nativeBuildInputs = [cmake ninja];
+
+    ninjaFlags = ["libcef_dll_wrapper"];
+
     installPhase = ''
       mkdir -p ${OUT}
 
-      ln -s ${SHARE}/* ${OUT}/
-      ln -s ${LIBEXEC}/* ${OUT}/
-      ln -s ${LIB}/* ${OUT}/
+      cp /build/cef-binary-${cefVersion}/build/libcef_dll_wrapper/libcef_dll_wrapper.a ${OUT}
+
+      ln -s ${cef-bin}/Release/* ${OUT}/
+      ln -s ${cef-bin}/Resources/* ${OUT}/
     '';
   });
 
@@ -112,7 +79,7 @@ in {
     owner = "CasparCG";
     repo = "server";
     rev = "refs/tags/v${version}-${release}";
-    hash = "sha256-w0jBb4xdYyzNR7pYo9fg07jJ78k8DhROGog+VlohG3Y=";
+    hash = "sha256-1Ch0S5Iwk0knxisI/IgMgklUpAZiiq0VdO98j3yZj+w=";
   };
 
   nativeBuildInputs = [
@@ -137,7 +104,6 @@ in {
     expat # libexpat1-dev
     lsb-release
     glew # libglew-dev
-    freeimage-patched # libfreeimage-dev
     tbb # libtbb-dev
     openal # libopenal-dev
     xorg.libXcursor # libxcursor-dev
@@ -147,21 +113,23 @@ in {
     xorg.libXrandr # libxrandr-dev
     systemd # libudev-dev
     mesa_glu # libglu1-mesa-dev
-    boost186 # libboost-all-dev
+    boost188 # libboost-all-dev
     nss # libnss3-dev
-    ffmpeg-full
+    ffmpeg_7-full # FFMPEG 8.0 removed libpostproc
     icu
+    simde
   ];
 
-  preBuild = lib.optionals enable_html ''
+  # Fix to be able to use custom CEF binary
+  preConfigure = lib.optionals enable_html ''
     BOOTSTRAP_PATH=/build/source/src/CMakeModules/Bootstrap_Linux.cmake
-    CEF_LIB_REPLACE=$(cat $BOOTSTRAP_PATH | grep "set(CEF_LIB_PATH \"/" | cut -d "\"" -f2)
-    CEF_INCLUDE_REPLACE=$(cat $BOOTSTRAP_PATH | grep "set(CEF_INCLUDE_PATH \"/" | cut -d "\"" -f2)
+    CEF_LIB_REPLACE=$(cat $BOOTSTRAP_PATH | grep "/usr/lib/casparcg-cef-" | cut -d "\"" -f2)
+    CEF_INCLUDE_REPLACE=$(cat $BOOTSTRAP_PATH | grep "/usr/include/casparcg-cef-" | cut -d "\"" -f2)
 
     substituteInPlace $BOOTSTRAP_PATH \
       --replace-fail $CEF_LIB_REPLACE ${cef_out} \
-      --replace-fail $CEF_INCLUDE_REPLACE ${libcef-121}
-  ''; # Fix to be able to use custom CEF binary
+      --replace-fail $CEF_INCLUDE_REPLACE ${cef-bin}
+  '';
 
   cmakeFlags =
     [
@@ -177,22 +145,13 @@ in {
       "-DENABLE_HTML=OFF"
     ];
 
-  patches = [
-    # FIX: Wait to it to be deployed: https://github.com/CasparCG/server/pull/1584
-    (fetchpatch2 {
-      url = "https://patch-diff.githubusercontent.com/raw/CasparCG/server/pull/1584.patch";
-      hash = "sha256-8XdluwjXrCjC7YkuKlMnm7d++fslcSthGR7iLTbw22Q=";
-    })
-    ./fix_ffmpeg7.1_build.patch # FIX: Temporary fix, we don't know what consequences it will have. See: https://github.com/CasparCG/server/issues/1586
-  ];
-
   cmakeDir = "../src";
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    mv staging/bin/casparcg $out/bin/casparcg-server
+    mv shell/casparcg $out/bin/casparcg-server
 
     runHook postInstall
   '';

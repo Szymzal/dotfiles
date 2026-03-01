@@ -9,7 +9,7 @@
   vlc,
 }:
 stdenv.mkDerivation (let
-  version = "2.3.0";
+  version = "2.3.1";
 in {
   pname = "CasparCG-client";
   inherit version;
@@ -17,7 +17,7 @@ in {
     owner = "CasparCG";
     repo = "client";
     rev = "refs/tags/v${version}";
-    hash = "sha256-Hf+L3PZl7W9kEUZ4a9HDTpwoD4i8oLrxFfMhc2f5nqs=";
+    hash = "sha256-G1BiGq88z1gQfbQETyvsv6hlPfgk78vETI4CFPwyzJg=";
     fetchSubmodules = true;
   };
 
