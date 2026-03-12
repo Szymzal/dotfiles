@@ -471,5 +471,9 @@ in {
           '';
         };
       };
+
+      mypackages.impermanence.directories = [
+        ".config/wayscriber"
+      ];
     });
 }
