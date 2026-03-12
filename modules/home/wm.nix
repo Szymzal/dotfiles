@@ -69,6 +69,7 @@ in {
         cliphist
         config.mypackages.theme.cursorTheme.xcursor.package
         config.mypackages.theme.cursorTheme.hyprcursor.package
+        pkgs-unstable.wayscriber
       ];
 
       wayland.windowManager = {
@@ -183,6 +184,7 @@ in {
             exec-once = [
               # "${lib.getExe pkgs.way-displays}"
               # "waybar"
+              "${lib.getExe pkgs.pkgs-unstable.wayscriber} -d"
             ];
 
             input = {
@@ -248,6 +250,8 @@ in {
                 ("$mod, O, exec, " + optionalString cfg.uwsm "uwsm app -- " + "${getExe power-menu-script}")
 
                 (''$mod, D, exec, killall fuzzel || fuzzel '' + optionalString cfg.uwsm ''--launch-prefix="uwsm app -- " --log-no-syslog --log-level=warning'')
+
+                "$mod, M, exec, pkill -SIGUSR1 wayscriber"
 
                 "$mod, Space, togglefloating"
                 "$mod, F, fullscreen"
