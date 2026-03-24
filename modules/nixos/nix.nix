@@ -24,6 +24,11 @@ in {
       enable = true;
     };
 
+    nix.settings = {
+      download-speed = 15000;
+      http-connections = 10;
+    };
+
     environment = {
       sessionVariables = {
         NH_FLAKE = cfg.flake-path;
