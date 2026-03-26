@@ -104,7 +104,7 @@ in {
 
     programs.fuse.userAllowOther = true;
 
-    boot.initrd.postDeviceCommands =
+    boot.initrd.postResumeCommands =
       mkIf
       (
         cfg.wipeOnBoot.enable
