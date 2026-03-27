@@ -10,6 +10,7 @@ with lib; let
 in {
   imports = [
     inputs.mango.nixosModules.mango
+    inputs.updated-flake.nixosModules.niri
   ];
 
   options = {

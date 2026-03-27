@@ -275,7 +275,7 @@ in {
     network-tools.enable = true;
     flatpak.enable = true;
     syncthing.enable = false;
-    sunshine.enable = true;
+    sunshine.enable = false;
     localsend.enable = true;
     keyring.enable = true;
     ghidra.enable = true;

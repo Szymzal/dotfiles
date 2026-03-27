@@ -50,6 +50,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     affinity-nix.url = "github:mrshmllow/affinity-nix";
+
+    updated-flake.url = "path:./flake-part";
   };
 
   outputs = {flakelight, ...} @ inputs: (flakelight ./. ({lib, ...}: {
