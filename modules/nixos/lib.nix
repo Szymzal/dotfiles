@@ -19,7 +19,7 @@
         then "${value.connector},${builtins.toString value.mode.width}x${builtins.toString value.mode.height}@${builtins.toString value.mode.rate},${builtins.toString value.position.x}x${builtins.toString value.position.y},${builtins.toString value.mode.scale},vrr,${
           builtins.toString (
             if value.vrr
-            then 2
+            then 0
             else 0
           )
         }"
