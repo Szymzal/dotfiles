@@ -9,12 +9,17 @@
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
     };
 
-    environment.sessionVariables = {
-      GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      LIBVA_DRIVER_NAME = "nvidia";
+    environment = {
+      systemPackages = [
+        pkgs.bibata-cursors
+      ];
+      sessionVariables = {
+        GBM_BACKEND = "nvidia-drm";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        LIBVA_DRIVER_NAME = "nvidia";
 
-      NVD_BACKEND = "direct";
+        NVD_BACKEND = "direct";
+      };
     };
   };
 
@@ -38,6 +43,11 @@
             repeat-rate = 40;
             repeat-delay = 250;
           };
+        };
+
+        cursor = {
+          xcursor-theme = "Bibata-Modern-Classic";
+          xcursor-size = 16;
         };
 
         layout = {
@@ -131,6 +141,17 @@
           ];
         };
 
+        outputs = {
+          DP-1 = {
+            mode = "1920x1080@144.001";
+            "position x=0 y=0" = null;
+          };
+          HDMI-A-1 = {
+            mode = "1920x1080@143.998";
+            "position x=1920 y=0" = null;
+          };
+        };
+
         animations = {off = null;};
 
         spawn-at-startup = [
@@ -142,6 +163,7 @@
               hash = "sha256-ON54b7rzocXoFXKQmfAuG4xXaC2AUH1r1x6m4YqnNIs=";
             }} -m fill"
           ))
+          (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia)
         ];
       };
     };

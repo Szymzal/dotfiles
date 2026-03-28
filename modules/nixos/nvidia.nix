@@ -46,7 +46,7 @@ in {
         enable32Bit = true;
       };
 
-      environment.sessionVariables."__EGL_VENDOR_LIBRARY_FILENAMES" = "${config.hardware.nvidia.package}/share/glvnd/egl_vendor.d/10_nvidia.json";
+      # environment.sessionVariables."__EGL_VENDOR_LIBRARY_FILENAMES" = "${config.hardware.nvidia.package}/share/glvnd/egl_vendor.d/10_nvidia.json";
 
       services.xserver.videoDrivers = ["nvidia"];
 
