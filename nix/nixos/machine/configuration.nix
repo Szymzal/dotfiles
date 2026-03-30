@@ -10,6 +10,7 @@ in {
     ./hardware-configuration.nix
     ./disko.nix
     self.nixosModules.modules
+    inputs.updated-flake.nixosModules.options
   ];
 
   boot = {
@@ -30,7 +31,10 @@ in {
       "pci=nocrs"
       "vm.swappiness=10"
     ];
+    plymouth.enable = true;
   };
+
+  services.dbus.implementation = "broker";
 
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
@@ -220,7 +224,7 @@ in {
         };
       };
     };
-    wm.enable = true;
+    wm.enable = false;
     dm = {
       enable = true;
       wallpaper-path = pkgs.fetchurl {

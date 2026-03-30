@@ -91,12 +91,12 @@ in {
             "/var/lib/machines"
             "/etc/systemd/nspawn"
           ]
-          ++ cfg.directories;
+          ++ cfg.directories ++ config.persistence.system.directories;
         files =
           [
             "/etc/machine-id"
           ]
-          ++ cfg.files;
+          ++ cfg.files ++ config.persistence.system.files;
       }
       else throw "Please specify mypackages.impermanence.persistenceDir!";
 

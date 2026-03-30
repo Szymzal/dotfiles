@@ -34,8 +34,8 @@ in {
 
   config = mkIf (cfg.enable && osCfg.enable) {
     home.persistence."${cfg.persistent-path}" = {
-      directories = cfg.directories;
-      files = cfg.files;
+      directories = cfg.directories ++ osConfig.persistence.user.directories;
+      files = cfg.files ++ osConfig.persistence.user.files;
     };
   };
 }

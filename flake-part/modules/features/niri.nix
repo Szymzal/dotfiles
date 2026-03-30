@@ -4,9 +4,18 @@
   ...
 }: {
   flake.nixosModules.niri = {pkgs, ...}: {
-    programs.niri = {
-      enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+    imports = [
+      self.nixosModules.noctalia
+    ];
+
+    security.polkit.enable = true;
+    programs = {
+      niri = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+        useNautilus = false;
+      };
+      xwayland.enable = true;
     };
 
     environment = {

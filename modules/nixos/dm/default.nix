@@ -39,6 +39,7 @@ in {
       (catppuccin-sddm.override
         {
           flavor = "mocha";
+          accent = "mauve";
           font = "${config.stylix.fonts.sansSerif.name}";
           fontSize = "${toString config.stylix.fonts.sizes.applications}";
         })
@@ -49,7 +50,7 @@ in {
       sddm = {
         enable = true;
         package = pkgs.kdePackages.sddm;
-        theme = "catppuccin-mocha";
+        theme = "catppuccin-mocha-mauve";
         settings = {
           Theme = {
             CursorTheme = "${config.mypackages.theme.cursorTheme.xcursor.name}";

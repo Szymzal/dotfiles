@@ -9,6 +9,7 @@
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
     nvf.url = "github:NotAShelf/nvf/v0.8";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
