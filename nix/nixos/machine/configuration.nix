@@ -17,22 +17,30 @@ in {
     loader = {
       systemd-boot = {
         enable = true;
-        consoleMode = "auto";
+        consoleMode = "max";
       };
       efi = {
         canTouchEfiVariables = true;
       };
-      timeout = 1;
+      timeout = 0;
     };
     supportedFilesystems = ["ntfs"];
     kernelParams = [
       "quiet"
+      "udev.log_level=3"
+      "systemd.show_status=auto"
       "reboot=acpi"
       "pci=nocrs"
       "vm.swappiness=10"
     ];
     plymouth.enable = true;
+    consoleLogLevel = 3;
+    initrd.verbose = false;
   };
+
+  persistence.user.directories = [
+    ".cache"
+  ];
 
   services.dbus.implementation = "broker";
 

@@ -33,8 +33,8 @@ in {
     })
     (mkIf (!cfg.open.enable) {
       boot = {
-        kernelParams = ["nvidia_drm.fbdev=1"];
-        initrd.kernelModules = ["nvidia" "nvidiafb" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" "i2c-nvidia_gpu"];
+        kernelParams = ["nvidia_drm.fbdev=1" "nvidia_drm.modeset=1"];
+        initrd.kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" "i2c-nvidia_gpu"];
         blacklistedKernelModules = ["nouveau"];
         extraModulePackages = [
           config.boot.kernelPackages.nvidia_x11
