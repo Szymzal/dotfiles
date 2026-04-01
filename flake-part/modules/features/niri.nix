@@ -13,9 +13,14 @@
       niri = {
         enable = true;
         package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
-        useNautilus = false;
+        useNautilus = true;
       };
       xwayland.enable = true;
+    };
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
     };
 
     environment = {
