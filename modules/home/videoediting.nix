@@ -3,6 +3,7 @@
   config,
   pkgs,
   inputs,
+  osConfig,
   ...
 }:
 with lib; let

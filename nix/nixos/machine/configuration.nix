@@ -2,6 +2,7 @@
   lib,
   inputs,
   pkgs,
+  config,
   ...
 }: let
   inherit (inputs) self;
@@ -11,6 +12,7 @@ in {
     ./disko.nix
     self.nixosModules.modules
     inputs.updated-flake.nixosModules.options
+    inputs.updated-flake.nixosModules.ollama
   ];
 
   boot = {
@@ -134,7 +136,7 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
-    btop
+    (btop.override {cudaSupport = config.mypackages.nvidia.enable;})
     pmount
     cifs-utils
   ];

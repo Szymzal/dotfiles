@@ -22,7 +22,7 @@ in {
       "libcufft"
     ];
 
-    nixpkgs.config.cudaSupport = true;
+    # nixpkgs.config.cudaSupport = true;
 
     mypackages.cachix = {
       substituters = ["https://nix-community.cachix.org"];

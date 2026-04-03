@@ -22,7 +22,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs-unstable; [
       (blender.override {
-        jackaudioSupport = true;
+        # jackaudioSupport = true;
         cudaSupport = osConfig.mypackages.nvidia.enable;
       })
     ];
