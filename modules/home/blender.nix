@@ -2,16 +2,16 @@
   lib,
   config,
   pkgs,
-  inputs,
+  # inputs,
   osConfig,
   ...
 }:
 with lib; let
   cfg = config.mypackages.blender;
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit (pkgs) system;
-    config.allowUnfree = true;
-  };
+  # pkgs-unstable = import inputs.nixpkgs-unstable {
+  #   inherit (pkgs) system;
+  #   config.allowUnfree = true;
+  # };
 in {
   options = {
     mypackages.blender = {
@@ -20,7 +20,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs-unstable; [
+    home.packages = with pkgs; [
       (blender.override {
         # jackaudioSupport = true;
         cudaSupport = osConfig.mypackages.nvidia.enable;
