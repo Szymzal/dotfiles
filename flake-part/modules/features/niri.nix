@@ -47,10 +47,10 @@
       settings = {
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
-        prefer-no-csd = null;
+        prefer-no-csd = _: {};
 
         input = {
-          focus-follows-mouse = null;
+          focus-follows-mouse = _: {};
 
           keyboard = {
             xkb.layout = "pl";
@@ -72,41 +72,41 @@
         };
 
         hotkey-overlay = {
-          skip-at-startup = null;
-          hide-not-bound = null;
+          skip-at-startup = _: {};
+          hide-not-bound = _: {};
         };
 
         binds = {
           "Mod+Return".spawn-sh = lib.getExe pkgs.foot;
 
-          "Mod+Q".close-window = null;
-          "Mod+F".fullscreen-window = null;
-          "Mod+G".maximize-column = null;
-          "Mod+Space".toggle-window-floating = null;
-          "Mod+C".center-column = null;
+          "Mod+Q".close-window = _: {};
+          "Mod+F".fullscreen-window = _: {};
+          "Mod+G".maximize-column = _: {};
+          "Mod+Space".toggle-window-floating = _: {};
+          "Mod+C".center-column = _: {};
 
-          "Mod+H".focus-column-left = null;
-          "Mod+L".focus-column-right = null;
-          "Mod+K".focus-window-up = null;
-          "Mod+J".focus-window-down = null;
+          "Mod+H".focus-column-left = _: {};
+          "Mod+L".focus-column-right = _: {};
+          "Mod+K".focus-window-up = _: {};
+          "Mod+J".focus-window-down = _: {};
 
-          "Mod+Left".move-workspace-to-monitor-left = null;
-          "Mod+Right".move-workspace-to-monitor-right = null;
-          "Mod+Up".move-workspace-to-monitor-up = null;
-          "Mod+Down".move-workspace-to-monitor-down = null;
+          "Mod+Left".move-workspace-to-monitor-left = _: {};
+          "Mod+Right".move-workspace-to-monitor-right = _: {};
+          "Mod+Up".move-workspace-to-monitor-up = _: {};
+          "Mod+Down".move-workspace-to-monitor-down = _: {};
 
-          "Mod+Shift+H".move-column-left = null;
-          "Mod+Shift+L".move-column-right = null;
-          "Mod+Shift+K".move-window-up = null;
-          "Mod+Shift+J".move-window-down = null;
+          "Mod+Shift+H".move-column-left = _: {};
+          "Mod+Shift+L".move-column-right = _: {};
+          "Mod+Shift+K".move-window-up = _: {};
+          "Mod+Shift+J".move-window-down = _: {};
 
-          "Mod+Ctrl+H".focus-monitor-left = null;
-          "Mod+Ctrl+L".focus-monitor-right = null;
-          "Mod+Ctrl+K".focus-monitor-up = null;
-          "Mod+Ctrl+J".focus-monitor-down = null;
+          "Mod+Ctrl+H".focus-monitor-left = _: {};
+          "Mod+Ctrl+L".focus-monitor-right = _: {};
+          "Mod+Ctrl+K".focus-monitor-up = _: {};
+          "Mod+Ctrl+J".focus-monitor-down = _: {};
 
-          "Mod+1".focus-workspace-up = null;
-          "Mod+2".focus-workspace-down = null;
+          "Mod+1".focus-workspace-up = _: {};
+          "Mod+2".focus-workspace-down = _: {};
 
           "XF86AudioRaiseVolume".spawn-sh = "${lib.getExe pkgs.pamixer} -i 2";
           "XF86AudioLowerVolume".spawn-sh = "${lib.getExe pkgs.pamixer} -d 2";
@@ -164,7 +164,7 @@
           };
         };
 
-        animations = {off = null;};
+        animations = {off = _: {};};
 
         spawn-at-startup = [
           (lib.getExe (
