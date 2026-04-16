@@ -13,6 +13,7 @@ in {
     self.nixosModules.modules
     inputs.updated-flake.nixosModules.options
     inputs.updated-flake.nixosModules.ollama
+    inputs.updated-flake.nixosModules.teams
   ];
 
   boot = {
