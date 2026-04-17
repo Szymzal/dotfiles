@@ -27,7 +27,11 @@ in {
       };
       timeout = 0;
     };
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = {
+      exfat = true;
+      btrfs = true;
+      ntfs = true;
+    };
     kernelParams = [
       "quiet"
       "udev.log_level=3"
@@ -65,10 +69,13 @@ in {
 
   time.timeZone = "Europe/Warsaw";
 
+  programs.ccache.enable = true;
+
   nix.settings = {
     cores = 3;
     max-jobs = 2;
     experimental-features = ["nix-command" "flakes" "pipe-operators"];
+    extra-sandbox-paths = [config.programs.ccache.cacheDir];
   };
 
   systemd = let
@@ -219,6 +226,9 @@ in {
         rootSubvolume = "root";
         daysToDeleteOldRoots = 7;
       };
+      directories = [
+        config.programs.ccache.cacheDir
+      ];
     };
 
     sound.enable = true;
