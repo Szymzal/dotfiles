@@ -27,16 +27,6 @@ in {
           {
             name = "Desktop";
             image-path = "desktop.png";
-            prep-cmd = [
-              {
-                do = "${getExe pkgs.way-displays} -s DISABLED HDMI-A-1";
-                undo = "${getExe pkgs.way-displays} -d DISABLED HDMI-A-1";
-              }
-              {
-                do = "${getExe' config.programs.hyprland.package "hyprctl"} dispatch split:grabroguewindows";
-                undo = "";
-              }
-            ];
           }
           {
             name = "Steam Big Picture";

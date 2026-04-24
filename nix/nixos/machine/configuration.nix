@@ -36,8 +36,8 @@ in {
       "quiet"
       "udev.log_level=3"
       "systemd.show_status=auto"
-      "reboot=acpi"
-      "pci=nocrs"
+      # "reboot=acpi"
+      # "pci=nocrs"
       "vm.swappiness=10"
     ];
     plymouth.enable = true;
@@ -300,7 +300,7 @@ in {
     network-tools.enable = true;
     flatpak.enable = true;
     syncthing.enable = false;
-    sunshine.enable = false;
+    sunshine.enable = true;
     localsend.enable = true;
     keyring.enable = true;
     ghidra.enable = true;
