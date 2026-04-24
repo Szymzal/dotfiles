@@ -1,13 +1,8 @@
-{
-  self,
-  pkgs,
-  ...
-}: {
-  flake.nixosModules.machineConfiguration = {...}: {
+{self, ...}: {
+  flake.nixosModules.vicariusConfiguration = {pkgs, ...}: {
     imports = [
       self.nixosModules.options
       self.nixosModules.vicuriusHardware
-      self.nixosModules.niri
       self.nixosModules.neovim
     ];
 
@@ -16,18 +11,16 @@
     services.dbus.implementation = "broker";
 
     boot.plymouth.enable = true;
-
-    nixpkgs.config.allowUnfree = true;
-
-    i18n = {
-      defaultLocale = "en_US.UTF-8";
-      extraLocaleSettings = {
-        LC_TIME = "pl_PL.UTF-8";
-      };
+    boot.supportedFilesystems = {
+      ntfs = true;
+      exfat = true;
+      btrfs = true;
     };
 
+    nixpkgs.config.allowUnfree = true;
+    hardware.enableAllFirmware = true;
+
     services = {
-      desktopManger.plasma6.enable = true;
       tailscale = {
         enable = true;
         openFirewall = true;
@@ -35,12 +28,87 @@
     };
 
     environment.systemPackages = with pkgs; [
-      foot
-      git
-      chromium
       ffmpeg
       btop
-      tmux
     ];
+
+    # Bootloader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
+    # Use latest kernel.
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+
+    networking.hostName = "vicarius"; # Define your hostname.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+    # Enable networking
+    networking.networkmanager.enable = true;
+
+    # Set your time zone.
+    time.timeZone = "Europe/Warsaw";
+
+    # Select internationalisation properties.
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "pl_PL.UTF-8";
+      LC_IDENTIFICATION = "pl_PL.UTF-8";
+      LC_MEASUREMENT = "pl_PL.UTF-8";
+      LC_MONETARY = "pl_PL.UTF-8";
+      LC_NAME = "pl_PL.UTF-8";
+      LC_NUMERIC = "pl_PL.UTF-8";
+      LC_PAPER = "pl_PL.UTF-8";
+      LC_TELEPHONE = "pl_PL.UTF-8";
+      LC_TIME = "pl_PL.UTF-8";
+    };
+
+    # Enable the X11 windowing system.
+    # You can disable this if you're only using the Wayland session.
+    services.xserver.enable = true;
+
+    # Enable the KDE Plasma Desktop Environment.
+    services.displayManager.sddm.enable = true;
+    services.desktopManager.plasma6.enable = true;
+
+    # Configure keymap in X11
+    services.xserver.xkb = {
+      layout = "pl";
+      variant = "";
+    };
+
+    # Configure console keymap
+    console.keyMap = "pl2";
+
+    # Enable CUPS to print documents.
+    services.printing.enable = true;
+
+    # Enable sound with pipewire.
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.szymzal = {
+      isNormalUser = true;
+      description = "Szymzal";
+      extraGroups = ["networkmanager" "wheel"];
+      packages = with pkgs; [
+        kdePackages.kate
+      ];
+    };
+
+    # Install firefox.
+    programs.firefox.enable = true;
+    programs.chromium.enable = true;
+    programs.foot.enable = true;
+    programs.git.enable = true;
+    programs.tmux.enable = true;
+    system.stateVersion = "25.11";
   };
 }

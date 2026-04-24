@@ -3,9 +3,9 @@
   inputs,
   ...
 }: {
-  flake.nixosConfigurations.machine = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.vicarius = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.machineConfiguration
+      self.nixosModules.vicariusConfiguration
     ];
   };
 }
