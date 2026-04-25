@@ -4,6 +4,7 @@
       self.nixosModules.options
       self.nixosModules.vicuriusHardware
       self.nixosModules.neovim
+      self.nixosModules.niri
     ];
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -32,9 +33,29 @@
       btop
     ];
 
+    time.hardwareClockInLocalTime = true;
+
     # Bootloader.
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot = {
+      enable = true;
+      configurationLimit = 3;
+    };
     boot.loader.efi.canTouchEfiVariables = true;
+
+    programs.nh = {
+      enable = true;
+    };
+
+    nix.settings = {
+      download-speed = 15000;
+      http-connections = 10;
+    };
+
+    environment = {
+      sessionVariables = {
+        NH_FLAKE = "/etc/nixos/dotfiles/flake-part";
+      };
+    };
 
     # Use latest kernel.
     boot.kernelPackages = pkgs.linuxPackages_latest;
