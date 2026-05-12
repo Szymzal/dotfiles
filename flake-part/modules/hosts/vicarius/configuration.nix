@@ -5,6 +5,7 @@
       self.nixosModules.vicuriusHardware
       self.nixosModules.neovim
       self.nixosModules.niri
+      self.nixosModules.qurio
     ];
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -130,6 +131,7 @@
     programs.foot.enable = true;
     programs.git.enable = true;
     programs.tmux.enable = true;
+
     system.stateVersion = "25.11";
   };
 }
