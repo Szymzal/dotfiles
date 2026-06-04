@@ -62,7 +62,6 @@
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
     networking.hostName = "vicarius"; # Define your hostname.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Enable networking
     networking.networkmanager.enable = true;
@@ -87,7 +86,7 @@
 
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
-    services.xserver.enable = true;
+    services.xserver.enable = false;
 
     # Enable the KDE Plasma Desktop Environment.
     services.displayManager.sddm.enable = true;
@@ -115,10 +114,10 @@
       pulse.enable = true;
     };
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.szymzal = {
       isNormalUser = true;
       description = "Szymzal";
+      shell = pkgs.zsh;
       extraGroups = ["networkmanager" "wheel"];
       packages = with pkgs; [
         kdePackages.kate
@@ -131,6 +130,9 @@
     programs.foot.enable = true;
     programs.git.enable = true;
     programs.tmux.enable = true;
+    programs.zsh.enable = true;
+
+    fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
     system.stateVersion = "25.11";
   };
