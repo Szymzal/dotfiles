@@ -59,7 +59,8 @@
     };
 
     # Use latest kernel.
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages;
 
     networking.hostName = "vicarius"; # Define your hostname.
 
@@ -104,6 +105,21 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
+    # Enable OpenGL / Graphics
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # For modern Intel CPUs (Broadwell and newer)
+        intel-vaapi-driver # Fallback driver
+        libvdpau-va-gl
+      ];
+    };
+
+    # Force apps to use the modern Intel media driver
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "iHD";
+    };
+
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -112,13 +128,28 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+
+      wireplumber.extraConfig."10-disable-suspend" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              {"node.name" = "~alsa_output.*";}
+            ];
+            actions = {
+              update-props = {
+                "session.suspend-timeout-seconds" = 0;
+              };
+            };
+          }
+        ];
+      };
     };
 
     users.users.szymzal = {
       isNormalUser = true;
       description = "Szymzal";
       shell = pkgs.zsh;
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["networkmanager" "wheel" "audio"];
       packages = with pkgs; [
         kdePackages.kate
       ];
