@@ -32,6 +32,12 @@
     environment.systemPackages = with pkgs; [
       ffmpeg
       btop
+      nmap
+      jdk8
+      chromium
+      qpwgraph
+      mpv
+      wl-clipboard
     ];
 
     time.hardwareClockInLocalTime = true;
@@ -121,27 +127,131 @@
     };
 
     # Enable sound with pipewire.
-    services.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
+    boot.kernelParams = [
+      "threadirqs"
+      "snd_hda_intel.power_save=0"
+      "snd_hda_intel.power_save_controller=N"
+      "snd_hda_intel.position_fix=1"
+      "snd_intel_dspcfg.dsp_driver=1"
+      "intel_idle.max_cstate=1"
+      "processor.max_cstate=1"
+      "preempt=full"
+    ];
+    security = {
+      rtkit.enable = true;
+      pam.loginLimits = [
+        {
+          domain = "@audio";
+          type = "-";
+          item = "rtprio";
+          value = "89";
+        }
+        {
+          domain = "@audio";
+          type = "-";
+          item = "nice";
+          value = "-19";
+        }
+        {
+          domain = "@audio";
+          type = "-";
+          item = "memlock";
+          value = "4194304";
+        }
+      ];
+    };
 
-      wireplumber.extraConfig."10-disable-suspend" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [
-              {"node.name" = "~alsa_output.*";}
-            ];
-            actions = {
-              update-props = {
-                "session.suspend-timeout-seconds" = 0;
-              };
+    systemd.user.extraConfig = ''
+      DefaultLimitRTPRIO=95
+      DefaultLimitMEMLOCK=4194304
+    '';
+
+    systemd.user.services = {
+      pipewire.serviceConfig = {
+        CPUSchedulingPolicy = "rr";
+        CPUSchedulingPriority = 88;
+        LimitRTPRIO = 95;
+        LimitMEMLOCK = 4194304;
+      };
+      pipewire-pulse.serviceConfig = {
+        CPUSchedulingPolicy = "rr";
+        CPUSchedulingPriority = 88;
+        LimitRTPRIO = 95;
+        LimitMEMLOCK = 4194304;
+      };
+      wireplumber.serviceConfig = {
+        CPUSchedulingPolicy = "rr";
+        CPUSchedulingPriority = 88;
+        LimitRTPRIO = 95;
+        LimitMEMLOCK = 4194304;
+      };
+    };
+
+    services = {
+      pipewire = {
+        enable = true;
+        audio.enable = true;
+        pulse.enable = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+        jack.enable = true;
+        wireplumber = {
+          enable = true;
+        };
+        extraConfig = {
+          pipewire."92-dont-scratch" = {
+            "context.properties" = {
+              "log.level" = 3;
+              "default.clock.rate" = 48000;
+              "default.clock.allowed-rates" = [44100 48000];
+              "default.clock.quantum" = 1024;
+              "default.clock.min-quantum" = 32;
+              "default.clock.max-quantum" = 8129;
             };
-          }
-        ];
+          };
+        };
+      };
+      udev.extraRules = ''
+        DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"
+        DEVPATH=="/devices/virtual/misc/hpet", OWNER="root", GROUP="audio", MODE="0660"
+      '';
+    };
+
+    powerManagement.cpuFreqGovernor = "performance";
+
+    services.pulseaudio.enable = false;
+    services.pipewire = {
+      wireplumber.extraConfig = {
+        "51-alsa-headroom" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [{"node.name" = "~alsa_input.*";} {"node.name" = "~alsa_output.*";}];
+              actions = {
+                update-props = {
+                  "api.alsa.disable-tsched" = true;
+                  "api.alsa.period-size" = 1024;
+                  "api.alsa.headroom" = 1024;
+                };
+              };
+            }
+          ];
+        };
+        "10-disable-suspend" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [
+                {"node.name" = "~alsa_output.*";}
+              ];
+              actions = {
+                update-props = {
+                  "session.suspend-timeout-seconds" = 0;
+                };
+              };
+            }
+          ];
+        };
       };
     };
 

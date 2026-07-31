@@ -147,6 +147,7 @@
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
         obs-teleport
+        obs-pipewire-audio-capture
       ];
     };
   };
