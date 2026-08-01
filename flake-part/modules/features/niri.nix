@@ -110,6 +110,7 @@
           "Mod+Shift+Minus".set-window-height = "-5%";
           "Mod+Shift+Equal".set-window-height = "+5%";
 
+          "Mod+P".screenshot = _: {};
           "Mod+D".spawn-sh = "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia} ipc call launcher toggle";
           "Mod+O".spawn-sh = "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia} ipc call sessionMenu toggle";
           "Mod+Z".spawn-sh = self.mkWhichKeyExe pkgs [
