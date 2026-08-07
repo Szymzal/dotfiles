@@ -14,11 +14,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.adb.enable = true;
-
     environment.systemPackages = with pkgs; [
       jmtpfs
       scrcpy
+      android-tools
     ];
   };
 }

@@ -2,6 +2,7 @@
   inputs,
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -104,35 +105,53 @@ in {
 
     programs.fuse.userAllowOther = true;
 
-    boot.initrd.postResumeCommands =
-      mkIf
+    boot.initrd.systemd.services.impermanence-root-wipe =
+      lib.mkIf
       (
         cfg.wipeOnBoot.enable
         && (myLib.mkThrowNull cfg.wipeOnBoot.virtualGroup "Please specify mypackages.impermanence.wipeOnBoot.virtualGroup!")
       )
-      (mkAfter ''
-        mkdir /btrfs_tmp
-        mount ${cfg.wipeOnBoot.virtualGroup}/${cfg.wipeOnBoot.rootSubvolume} /btrfs_tmp
-        if [[ -e /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume} ]]; then
-          mkdir -p /btrfs_tmp/old_roots
-          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-          mv /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume} "/btrfs_tmp/old_roots/$timestamp"
-        fi
+      {
+        description = "Rollback BTRFS root subvolume for impermanence";
+        wantedBy = ["initrd.target"];
 
-        delete_subvolume_recursively() {
-          IFS=$'\n'
-          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-            delete_subvolume_recursively "/btrfs_tmp/$i"
+        after = ["initrd-root-device.target"];
+        before = ["sysroot.mount"];
+
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+
+        path = with pkgs; [
+          coreutils
+          btrfs-progs
+          findutils
+          util-linux
+        ];
+
+        script = ''
+          mkdir /btrfs_tmp
+          mount ${cfg.wipeOnBoot.virtualGroup}/${cfg.wipeOnBoot.rootSubvolume} /btrfs_tmp
+          if [[ -e /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume} ]]; then
+            mkdir -p /btrfs_tmp/old_roots
+            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+            mv /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume} "/btrfs_tmp/old_roots/$timestamp"
+          fi
+
+          delete_subvolume_recursively() {
+            IFS=$'\n'
+            for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+              delete_subvolume_recursively "/btrfs_tmp/$i"
+            done
+            btrfs subvolume delete "$1"
+          }
+
+          for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +${builtins.toString cfg.wipeOnBoot.daysToDeleteOldRoots}); do
+            delete_subvolume_recursively "$i"
           done
-          btrfs subvolume delete "$1"
-        }
 
-        for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +${builtins.toString cfg.wipeOnBoot.daysToDeleteOldRoots}); do
-          delete_subvolume_recursively "$i"
-        done
-
-        btrfs subvolume create /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume}
-        umount /btrfs_tmp
-      '');
+          btrfs subvolume create /btrfs_tmp/${cfg.wipeOnBoot.rootSubvolume}
+          umount /btrfs_tmp
+        '';
+      };
   };
 }

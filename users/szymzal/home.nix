@@ -37,7 +37,7 @@ in {
       ];
     };
     ags.enable = false;
-    affinity.enable = false;
+    affinity.enable = true;
     launcher.enable = true;
     status-bar.enable = true;
     terminal.enable = true;

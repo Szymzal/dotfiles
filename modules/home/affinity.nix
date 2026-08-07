@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
@@ -16,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.affinity-nix.packages.${pkgs.system}.v3
+      pkgs.affinity-v3
     ];
 
     mypackages.impermanence.directories = [

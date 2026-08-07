@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flakelight = {
@@ -11,7 +11,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,13 +25,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix/release-26.05";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     flatpak.url = "github:gmodena/nix-flatpak/latest";
-    nvf.url = "github:NotAShelf/nvf/v0.8";
+    nvf.url = "github:NotAShelf/nvf/v26.07";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.53.1";
+      url = "github:hyprwm/Hyprland/v0.56.2";
       # url = "github:hyprwm/Hyprland/386376400119dd46a767c9f8c8791fd22c7b6e61";
       # FIXME: Wait for it to be resolved:
       # - https://github.com/hyprwm/Hyprland/discussions/13043
@@ -40,9 +40,8 @@
     };
     astal.url = "github:Aylur/astal";
     hyprsplit = {
-      # url = "github:shezdy/hyprsplit/18fd958b946aa05196d5341fccfd4c63130918b0";
-      # url = "github:shezdy/hyprsplit/d8585473531b24c23794b060d9fe2f5f89b05563";
-      url = "github:shezdy/hyprsplit/v0.53.1";
+      # url = "github:shezdy/hyprsplit/v0.53.1";
+      url = "github:cryeprecision/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
     mango = {
@@ -81,6 +80,7 @@
     };
 
     withOverlays = [
+      inputs.affinity-nix.overlays.default
       inputs.nix-minecraft.overlay
       (_: pkgs: (import ./pkgs {
         inherit pkgs;
