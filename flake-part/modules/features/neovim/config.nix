@@ -37,7 +37,7 @@
           enable = true;
           treesitter.enable = true;
         };
-        ts.enable = true;
+        typescript.enable = true;
         go.enable = true;
         lua.enable = true;
         python.enable = true;

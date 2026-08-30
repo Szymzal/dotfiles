@@ -50,6 +50,11 @@
             repeat-rate = 40;
             repeat-delay = 250;
           };
+
+          touchpad = {
+            tap = _: {};
+            natural-scroll = _: {};
+          };
         };
 
         cursor = {
@@ -67,6 +72,12 @@
         hotkey-overlay = {
           skip-at-startup = _: {};
           hide-not-bound = _: {};
+        };
+
+        gestures = {
+          hot-corners = {
+            off = _: {};
+          };
         };
 
         binds = {

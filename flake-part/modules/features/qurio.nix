@@ -140,7 +140,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-      nodejs_20
+      nodejs
     ];
 
     programs.obs-studio = {
