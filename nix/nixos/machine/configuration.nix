@@ -1,0 +1,607 @@
+{
+  lib,
+  inputs,
+  pkgs,
+  config,
+  ...
+}: let
+  inherit (inputs) self;
+in {
+  imports = [
+    ./hardware-configuration.nix
+    ./disko.nix
+    self.nixosModules.modules
+    inputs.updated-flake.nixosModules.options
+    inputs.updated-flake.nixosModules.ollama
+    inputs.updated-flake.nixosModules.teams
+  ];
+
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+      timeout = 0;
+    };
+    supportedFilesystems = {
+      exfat = true;
+      btrfs = true;
+      ntfs = true;
+    };
+    kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+      "systemd.show_status=auto"
+      # "reboot=acpi"
+      # "pci=nocrs"
+      "vm.swappiness=10"
+    ];
+    plymouth.enable = true;
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+  };
+
+  persistence.user.directories = [
+    ".cache"
+  ];
+
+  services.dbus.implementation = "broker";
+
+  powerManagement.cpuFreqGovernor = "performance";
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableAllFirmware = true;
+  nixpkgs.config.allowUnfree = true;
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "pl_PL.UTF-8";
+    };
+  };
+
+  console = {
+    keyMap = "pl";
+  };
+
+  time.timeZone = "Europe/Warsaw";
+
+  programs.ccache.enable = true;
+
+  nix.settings = {
+    cores = 3;
+    max-jobs = 2;
+    experimental-features = ["nix-command" "flakes" "pipe-operators"];
+    extra-sandbox-paths = [config.programs.ccache.cacheDir];
+  };
+
+  systemd = let
+    accounting = ''
+      DefaultCPUAccounting=yes
+      DefaultMemoryAccounting=yes
+      DefaultIOAccounting=yes
+    '';
+  in {
+    user = {
+      extraConfig = accounting;
+      slices = {
+        "user".sliceConfig = {
+          ManagedOOMSwap = "kill";
+        };
+        "app".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "16%";
+        };
+        "background".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "8%";
+        };
+      };
+    };
+    services = {
+      "user@".serviceConfig = {
+        Delegate = true;
+        ManagedOOMMemoryPressure = "kill";
+        ManagedOOMMemoryPressureLimit = "50%";
+      };
+      "config-mglru" = {
+        enable = true;
+        after = ["basic.target"];
+        wantedBy = ["sysinit.target"];
+        script = let
+          inherit (pkgs) coreutils;
+        in ''
+          ${coreutils}/bin/echo Y > /sys/kernel/mm/lru_gen/enabled
+          ${coreutils}/bin/echo 1000 > /sys/kernel/mm/lru_gen/min_ttl_ms
+        '';
+      };
+    };
+    slices."background".sliceConfig = {
+      ManagedOOMMemoryPressure = "kill";
+      ManagedOOMMemoryPressureLimit = "8%";
+    };
+    oomd = {
+      enable = true;
+      enableRootSlice = false;
+      enableSystemSlice = false;
+      enableUserSlices = false;
+      settings.OOM = {
+        DefaultMemoryPressureDurationSec = "4s";
+      };
+    };
+  };
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "65536";
+    }
+  ];
+
+  environment.systemPackages = with pkgs; [
+    (btop.override {cudaSupport = config.mypackages.nvidia.enable;})
+    pmount
+    cifs-utils
+  ];
+
+  mypackages = {
+    color-managment.enable = true;
+    ssh.enable = true;
+    unfree.allowed = [
+      "forge-loader"
+    ];
+    network = {
+      enable = true;
+      hostName = "machine";
+      wireless = false;
+    };
+    gc.enable = true;
+    tailscale.enable = true;
+    editor.enable = true;
+    clipboard.enable = true;
+    git.enable = true;
+    multiTerminal.enable = true;
+    cachix.enable = true;
+    cuda.enable = true;
+    virtualization.enable = true;
+    ossia.enable = false;
+    ontime.server.enable = false;
+    connect.enable = true;
+
+    monitors = {
+      order = [
+        "DP-1"
+        "HDMI-A-1"
+      ];
+      config = [
+        {
+          enable = true;
+          primary = true;
+          connector = "DP-1";
+          model = "27G2G4";
+          vrr = true;
+          position = {
+            x = 0;
+            y = 0;
+          };
+          mode = {
+            width = 1920;
+            height = 1080;
+            rate = 144.001007;
+            scale = 1.0;
+          };
+        }
+        {
+          enable = true;
+          connector = "HDMI-A-1";
+          model = "PL2470H";
+          vrr = false;
+          position = {
+            x = 1920;
+            y = 0;
+          };
+          mode = {
+            width = 1920;
+            height = 1080;
+            rate = 143.998001;
+            scale = 1.0;
+          };
+        }
+      ];
+    };
+
+    impermanence = {
+      enable = true;
+      fileSystem = "/persist";
+      persistenceDir = "/persist/system";
+      disableSudoLecture = true;
+      wipeOnBoot = {
+        enable = true;
+        virtualGroup = "/dev/main_vg";
+        rootSubvolume = "root";
+        daysToDeleteOldRoots = 7;
+      };
+      directories = [
+        config.programs.ccache.cacheDir
+      ];
+    };
+
+    sound.enable = true;
+    fonts.enable = true;
+    shell.enable = true;
+    sops = {
+      enable = true;
+      defaultSopsFile = ../../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
+      keyFile = "/persist/home/szymzal/.config/sops/age/keys.txt";
+      secrets = {
+        password = {
+          neededForUsers = true;
+        };
+      };
+    };
+    wm.enable = false;
+    dm = {
+      enable = true;
+      wallpaper-path = pkgs.fetchurl {
+        name = "wallpaper";
+        url = "https://raw.githubusercontent.com/DenverCoder1/minimalistic-wallpaper-collection/main/images/dalle2-minimalistic-colorful-flat-mountain-landscape.png";
+        hash = "sha256-ON54b7rzocXoFXKQmfAuG4xXaC2AUH1r1x6m4YqnNIs=";
+      };
+    };
+    home-manager.enable = true;
+    wireshark.enable = true;
+    compression.enable = true;
+    nix-helpers = {
+      enable = true;
+      flake-path = "/persist/nixos";
+    };
+    android.enable = true;
+    printing.enable = true;
+    bluetooth.enable = true;
+    xbox.enable = true;
+    video-recording.enable = true;
+    nvidia = {
+      enable = true;
+      open.enable = false;
+    };
+    onedrive.enable = false;
+    cd.enable = true;
+    ls.enable = true;
+    find.enable = true;
+    theme = {
+      enable = true;
+      prefer-dark-theme = true;
+      theme = {
+        base16-scheme-path = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      };
+      cursorTheme = {
+        xcursor = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
+        hyprcursor = {
+          name = "Bibata-Modern-Classic-hyprcursor";
+          package = pkgs.bibata-hyprcursor;
+        };
+        size = 16;
+      };
+      iconTheme = {
+        name = "Papirus";
+        package = pkgs.papirus-icon-theme;
+      };
+    };
+    mouse.enable = true;
+    network-tools.enable = true;
+    flatpak.enable = true;
+    syncthing.enable = false;
+    sunshine.enable = true;
+    localsend.enable = true;
+    keyring.enable = true;
+    ghidra.enable = true;
+    games = {
+      steam.enable = true;
+      factorio.enable = true;
+      minecraft = {
+        client = {
+          java.enable = true;
+          bedrock.enable = false;
+        };
+        server = {
+          enable = true;
+          servers = let
+            copyFiles = from: to: (
+              let
+                evalDir = prefix: to: dir: (
+                  lib.mapAttrsToList
+                  (
+                    path: type: (
+                      let
+                        diffPath = builtins.replaceStrings ["${prefix}"] [""] "${dir}";
+                        diffPathRemovedDep = builtins.unsafeDiscardStringContext diffPath;
+                      in
+                        if (type == "directory")
+                        then (evalDir prefix to "${prefix}${diffPath}/${path}")
+                        else {
+                          "${to}${diffPathRemovedDep}/${path}" = "${prefix}${diffPath}/${path}";
+                        }
+                    )
+                  )
+                  (builtins.readDir dir)
+                );
+              in
+                lib.mergeAttrsList (lib.flatten (evalDir from to from))
+            );
+          in {
+            PrehistoricWorld = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.3.1";
+                jre_headless = pkgs.jdk17;
+              };
+              serverProperties = {
+                server-port = 25580;
+                allow-flight = true;
+                allow-nether = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+                motd = "Dino?";
+                white-list = true;
+              };
+              whitelist = {
+                Szymzal = "6b0d5a4e-7571-488b-8883-938221bc4d15";
+                Lyptor = "4184705d-89b1-48dd-9679-3a4e3174384f";
+                gofereekk = "4cbb859b-4008-4fb5-842b-61bba3820871";
+              };
+            };
+            StarTechnology = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.3.1";
+                jre_headless = pkgs.jdk17;
+              };
+              serverProperties = {
+                server-port = 25566;
+                allow-flight = true;
+                allow-nether = true;
+                level-type = "skyblockbuilder\:skyblock";
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "peaceful";
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+                motd = "A Star technology Server";
+              };
+            };
+            BTW3 = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.legacyFabricServers.legacy-fabric-1_6_4.override {
+                loaderVersion = "0.15.6";
+              };
+              serverProperties = {
+                server-port = 25569;
+                allow-flight = true;
+                allow-nether = true;
+                difficulty = "relaxed";
+                gamemode = 0;
+                level-type = "DEFAULT";
+                spawn-protection = 0;
+              };
+            };
+            exploria = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx8G -Xms8G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+              package = pkgs.fabricServers.fabric-1_20_1;
+              serverProperties = {
+                server-port = 25568;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = false;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Some exploration";
+              };
+            };
+            # Prominence II
+            minecraft-1-20-survival = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.fabricServers.fabric-1_20_1;
+              serverProperties = {
+                server-port = 25579;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = false;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Some survival";
+              };
+            };
+            CreateServer = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx8G -Xms8G";
+              package = pkgs.fabricServers.fabric-1_20_1.override {
+                loaderVersion = "0.16.5";
+              };
+              serverProperties = {
+                server-port = 25570;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = true;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = true;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Create Modpack Created by US :)";
+              };
+              symlinks = {
+                mods = let
+                  modpack = pkgs.fetchModrinthModpack {
+                    mrpackFile = ./CreateModpackv1.mrpack;
+                  };
+                in "${modpack}/mods";
+              };
+            };
+            TerraFirmaGreg = let
+              gameVersion = "1.20.x";
+              modpackVersion = "0.7.12";
+              modpack = pkgs.fetchzip {
+                url = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/${modpackVersion}/TerraFirmaGreg-${gameVersion}-${modpackVersion}-server.zip";
+                hash = "sha256-k5OU6HBnf3Y9Zf7ZV/TA5ck2H/g7hnwW/0e/vYcn8wI=";
+              };
+            in {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.forgeServers.forge-1_20_1.override {
+                loaderVersion = "47.3.1";
+                jre_headless = pkgs.jdk17;
+              };
+              serverProperties = {
+                server-port = 25571;
+                allow-flight = true;
+                allow-nether = false;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "normal";
+                level-type = "tfc\:overworld";
+                max-chained-neighbor-updates = 1000000;
+                max-players = 5;
+                online-mode = true;
+                spawn-protection = 0;
+              };
+              symlinks = {
+                "mods" = "${modpack}/mods";
+                "kubejs" = "${modpack}/kubejs";
+              };
+              files =
+                (copyFiles "${modpack}/config" "config")
+                // (copyFiles "${modpack}/defaultconfigs" "defaultconfigs");
+            };
+            games-datapack = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.fabricServers.fabric-1_20_6;
+              serverProperties = {
+                server-port = 25572;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "peaceful";
+                enable-command-block = true;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = false;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Minigames server created for you :)";
+              };
+              symlinks = {
+                # nix run github:Infinidoge/nix-minecraft#nix-modrinth-prefetch -- versionid
+                mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+                  SkinRestorer = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/ghrZDhGW/versions/SMwzLRyJ/skin-restorer-1.2.4.jar";
+                    sha512 = "316df038d4209ae6d1586a9b4f001b5f8e9fc26214c6784bd967c9781099996b76417cebbacc726cc410a54e8fa5328da7797c5da8912b298811bb42f008a6d6";
+                  };
+                  Lithium = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/bAbb09VF/lithium-fabric-mc1.20.6-0.12.3.jar";
+                    sha512 = "cda611c684636309322f0f406c9f0146552019e5dd10a53b8942c1b0d9df47e2d39abed557cf84e58348c3ad127c83c7e370f1ac79d9a6fad21d845eba4941ed";
+                  };
+                  FerriteCore = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/uXXizFIs/versions/i9RcCdZv/ferritecore-6.1.1-fabric.jar";
+                    sha512 = "d07ebedcab096389ceaf17dd7463c165c9455c24300d494e1f394c3e4ed2d43686e35a4fd87280eda2bf4c96695da3e0183a3474016c8d7d13b56c6e04c2acef";
+                  };
+                  ModernFix = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/nmDcB62a/versions/xlt4bcjj/modernfix-fabric-5.17.3%2Bmc1.20.6.jar";
+                    sha512 = "7aea7801f240a011120d32d4b6e7e2ab999b154c5c4f40ef72b1b784e9b8a0d99325a877db26036114f4c46f90cbdae9bfd709bb552ad386ea81d7548a3e5c8e";
+                  };
+                  ServerCore = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/4WWQxlQP/versions/aU1Fp6PB/servercore-fabric-1.5.2%2B1.20.6.jar";
+                    sha512 = "74d58f2f2c35818259f7c7eda1ddd636c2045b8dc864f8e949ad91f154e9dbce1df22cacd7ce9be873779ae77dafecd0a2ca98d1751ad0c259510e9b819fe618";
+                  };
+                  VMP = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/wnEe9KBa/versions/83ET13o3/vmp-fabric-mc1.20.6-0.2.0%2Bbeta.7.155-all.jar";
+                    sha512 = "3b94d1cb477bfadfa7315664571e745029f764d168511b2848f0a3cb8aaf54da8f12caa921a1e7abf2c5906326fb1159a8fd457b35281a0fb4221fbb98465bcb";
+                  };
+                  C2ME = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/VSNURh3q/versions/1jjyJyVe/c2me-fabric-mc1.20.6-0.2.0%2Balpha.11.95.jar";
+                    sha512 = "ea496fb616bfc65d00e067bfc46a5d409c13d3ec187397ebe0cced59badd27b73cb818f9c769266d99c25bc3ae32fc4309e4f716be9bb3209171dda49f797b54";
+                  };
+                  FabricAPI = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/MtIGbixh/fabric-api-0.99.4%2B1.20.6.jar";
+                    sha512 = "8a016df8989b082694d484f51c7d2207eca3af722cfe573dad093f2087832117e7a4c89a969eb84aaa6460956dec6352494a425a7e6e46c26eb8d5bc779da2bf";
+                  };
+                  Axiom = pkgs.fetchurl {
+                    url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/sJP1pto6/Axiom-3.0.0-for-MC1.20.6.jar";
+                    sha512 = "b5cb5edb5705534c86243c03735cea4c808161b84bbcbd638b86e16990c88a0ab6f2c56449d218ce6c1ceb7ff194b43e3dae83f10123ce6bc3bcea81ba2af1cc";
+                  };
+                });
+              };
+            };
+            minecraft-1-21 = {
+              enable = false;
+              autoStart = false;
+              jvmOpts = "-Xmx4G -Xms4G";
+              package = pkgs.fabricServers.fabric-1_21_5;
+              serverProperties = {
+                server-port = 25590;
+                allow-flight = true;
+                broadcast-console-to-ops = false;
+                broadcast-rcon-to-ops = false;
+                difficulty = "hard";
+                enable-command-block = false;
+                hide-online-players = true;
+                max-players = 10;
+                online-mode = false;
+                spawn-protection = 0;
+                simulation-distance = 8;
+                view-distance = 16;
+                motd = "Some survival";
+              };
+            };
+          };
+        };
+      };
+    };
+    casparcg.enable = false;
+  };
+
+  myusers.szymzal.enable = true;
+}

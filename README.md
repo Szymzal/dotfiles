@@ -1,19 +1,11 @@
-# dotfiles
+# Hi, welcome to my world!
+Those are my dotfiles for my NixOS system
 
-Osobiste pliki konfiguracyjne dla Linuxa (Manjaro)
+You can use them, but I don't recommend.
 
-# Instalacja
+## TODO
+- [ ] Split bundles of apps
+- [ ] Move to nix-flatpak?
 
-Sklonuj repozytorium
-
-```
-mkdir ~/.dotfiles
-git clone https://github.com/Szymzal/dotfiles ~/.dotfiles
-```
-
-A następnie uruchom `installer.sh`:
-
-```
-cd .dotfiles
-./installer.sh
-```
+## FIXES
+- [ ] https://github.com/NixOS/nixpkgs/issues/348386 (gimp)
