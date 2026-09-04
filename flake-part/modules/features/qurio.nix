@@ -1,10 +1,6 @@
-{inputs, ...}: {
-  flake.nixosModules.qurio = {
-    pkgs,
-    lib,
-    ...
-  }: let
-    networkInterface = "enp2s0";
+{
+  flake.nixosModules.qurio = {pkgs, ...}: let
+    networkInterface = "enp0s13f0u1c2";
     internetInterface = "wlp0s20f3";
     hostIP = "10.250.50.1";
   in {
@@ -41,33 +37,35 @@
         ];
       };
 
-      firewall.interfaces = {
-        "${networkInterface}" = {
-          allowedUDPPorts = [
-            67
-            68
-            53
-            123
-          ];
-        };
-        "vlan-game" = {
-          allowedTCPPorts = [
-            80 # Captive Portal
-            53 # DNS
-            3000 # Qurio
-          ];
-          allowedUDPPorts = [
-            67 # DHCP
-            68 # DHCP
-            53 # DNS
-          ];
-        };
-        "vlan-net" = {
-          allowedUDPPorts = [
-            67 # DHCP
-            68 # DHCP
-            53 # DNS
-          ];
+      firewall = {
+        interfaces = {
+          "${networkInterface}" = {
+            allowedUDPPorts = [
+              67
+              68
+              53
+              123
+            ];
+          };
+          "vlan-game" = {
+            allowedTCPPorts = [
+              80 # Captive Portal
+              53 # DNS
+              3000 # Qurio
+            ];
+            allowedUDPPorts = [
+              67 # DHCP
+              68 # DHCP
+              53 # DNS
+            ];
+          };
+          "vlan-net" = {
+            allowedUDPPorts = [
+              67 # DHCP
+              68 # DHCP
+              53 # DNS
+            ];
+          };
         };
       };
 
@@ -99,6 +97,8 @@
 
           dhcp-option = [
             "tag:game,option:dns-server,${hostIP}"
+            "tag:game,3"
+            "tag:game,6,${hostIP}"
             "tag:net,option:dns-server,8.8.8.8,1.1.1.1"
             "tag:mgmt,option:dns-server,8.8.8.8"
           ];
@@ -107,14 +107,16 @@
             "/pool.ntp.org/10.250.49.1"
             "/arubanetworks.com/0.0.0.0"
             "/activate.arubanetworks.com/0.0.0.0"
-            "/#/${hostIP}"
+
+            # Game
+            "/qurio.game/${hostIP}"
           ];
         };
       };
 
       nginx = {
         enable = true;
-        virtualHosts."captiveportal" = {
+        virtualHosts."proxy" = {
           default = true;
           listen = [
             {
@@ -123,19 +125,20 @@
             }
           ];
           locations = {
+            "~* /(generate_204|gen_204)" = {
+              return = 204;
+            };
+            "~* /hotspot-detect\.html" = {
+              return = "200 '<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>'";
+            };
+            "~* /connecttest\.txt" = {
+              return = "200 'Microsoft Connect Test'";
+            };
             "/" = {
-              return = "302 http://gamemaster:3000";
+              proxyPass = "http://127.0.0.1:3000";
             };
           };
         };
-      };
-
-      chrony = {
-        enable = true;
-        extraConfig = ''
-          allow 10.250.49.0/24
-          local stratum 10
-        '';
       };
     };
 

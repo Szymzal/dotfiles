@@ -5,44 +5,34 @@
       self.nixosModules.primusHardware
       self.nixosModules.neovim
       self.nixosModules.niri
-      # self.nixosModules.qurio
+      self.nixosModules.teams
+      self.nixosModules.qurio
     ];
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
-    services.dbus.implementation = "broker";
-
-    boot.plymouth.enable = true;
-    boot.supportedFilesystems = {
-      ntfs = true;
-      exfat = true;
-      btrfs = true;
+    boot = {
+      plymouth.enable = true;
+      supportedFilesystems = {
+        ntfs = true;
+        exfat = true;
+        btrfs = true;
+      };
     };
 
     nixpkgs.config.allowUnfree = true;
-    hardware.enableAllFirmware = true;
-    hardware.bluetooth.enable = true;
+    hardware = {
+      enableAllFirmware = true;
+      bluetooth.enable = true;
+    };
 
     services = {
+      dbus.implementation = "broker";
       tailscale = {
         enable = true;
         openFirewall = true;
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      ffmpeg
-      btop
-      nmap
-      jdk8
-      chromium
-      qpwgraph
-      mpv
-      wl-clipboard
-      obs-studio
-      fd
-      localsend
-    ];
 
     time.hardwareClockInLocalTime = true;
 
@@ -53,16 +43,27 @@
     };
     boot.loader.efi.canTouchEfiVariables = true;
 
-    programs.nh = {
-      enable = true;
-    };
-
     nix.settings = {
       download-speed = 15000;
       http-connections = 10;
     };
 
     environment = {
+      systemPackages = with pkgs; [
+        ffmpeg
+        btop
+        nmap
+        jdk8
+        chromium
+        qpwgraph
+        mpv
+        wl-clipboard
+        obs-studio
+        fd
+        localsend
+        wlr-randr
+        wdisplays
+      ];
       sessionVariables = {
         NH_FLAKE = "/etc/nixos/dotfiles/flake-part";
       };
@@ -153,22 +154,26 @@
       extraGroups = ["networkmanager" "wheel" "audio"];
       packages = with pkgs; [
         kdePackages.kate
+        prismlauncher
       ];
     };
 
-    programs.firefox.enable = true;
-    programs.chromium.enable = true;
-    programs.foot = {
-      enable = true;
-      settings = {
-        main = {
-          font = "FiraCode Nerd Font:size=12";
+    programs = {
+      nh.enable = true;
+      firefox.enable = true;
+      chromium.enable = true;
+      foot = {
+        enable = true;
+        settings = {
+          main = {
+            font = "FiraCode Nerd Font:size=12";
+          };
         };
       };
+      git.enable = true;
+      tmux.enable = true;
+      zsh.enable = true;
     };
-    programs.git.enable = true;
-    programs.tmux.enable = true;
-    programs.zsh.enable = true;
 
     fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
