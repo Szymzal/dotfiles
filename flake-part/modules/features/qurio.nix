@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.qurio = {pkgs, ...}: let
+  flake.nixosModules.qurio = {
+    pkgs,
+    lib,
+    ...
+  }: let
     networkInterface = "enp0s13f0u1c2";
     internetInterface = "wlp0s20f3";
     hostIP = "10.250.50.1";
@@ -125,20 +129,30 @@
             }
           ];
           locations = {
-            "~* /(generate_204|gen_204)" = {
-              return = 204;
-            };
-            "~* /hotspot-detect\.html" = {
-              return = "200 '<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>'";
-            };
-            "~* /connecttest\.txt" = {
-              return = "200 'Microsoft Connect Test'";
-            };
             "/" = {
               proxyPass = "http://127.0.0.1:3000";
             };
           };
         };
+      };
+    };
+
+    boot.kernel.sysctl."net.ipv4.ip_nonlocal_bind" = 1;
+
+    systemd = {
+      targets.qurio = {
+        description = "Qurio game network services";
+        wants = ["dnsmasq.service" "nginx.service"];
+      };
+
+      services = let
+        tie = {
+          wantedBy = lib.mkForce ["qurio.target"];
+          partOf = ["qurio.target"];
+        };
+      in {
+        dnsmasq = tie;
+        nginx = tie;
       };
     };
 

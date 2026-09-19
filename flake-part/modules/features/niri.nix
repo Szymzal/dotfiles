@@ -6,6 +6,7 @@
   flake.nixosModules.niri = {pkgs, ...}: {
     imports = [
       self.nixosModules.noctalia
+      self.nixosModules.desktopApps
     ];
 
     security.polkit.enable = true;
@@ -33,8 +34,11 @@
   perSystem = {
     pkgs,
     lib,
+    system,
     ...
-  }: {
+  }: let
+    noctalia = lib.getExe self.packages.${system}.noctalia;
+  in {
     packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       settings = {
@@ -112,9 +116,11 @@
           "Mod+1".focus-workspace-up = _: {};
           "Mod+2".focus-workspace-down = _: {};
 
-          "XF86AudioRaiseVolume".spawn-sh = "${lib.getExe pkgs.pamixer} -i 2";
-          "XF86AudioLowerVolume".spawn-sh = "${lib.getExe pkgs.pamixer} -d 2";
-          "XF86AudioMute".spawn-sh = "${lib.getExe pkgs.pamixer} -t";
+          XF86AudioRaiseVolume.spawn-sh = "${noctalia} msg volume-up";
+          XF86AudioLowerVolume.spawn-sh = "${noctalia} msg volume-down";
+          XF86AudioMute.spawn-sh = "${noctalia} msg volume-mute";
+          XF86MonBrightnessUp.spawn-sh = "${noctalia} msg brightness-up";
+          XF86MonBrightnessDown.spawn-sh = "${noctalia} msg brightness-down";
 
           "Mod+Minus".set-column-width = "-5%";
           "Mod+Equal".set-column-width = "+5%";
@@ -122,23 +128,23 @@
           "Mod+Shift+Equal".set-window-height = "+5%";
 
           "Mod+P".screenshot = _: {};
-          "Mod+D".spawn-sh = "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia} ipc call launcher toggle";
-          "Mod+O".spawn-sh = "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia} ipc call sessionMenu toggle";
+          "Mod+D".spawn-sh = "${noctalia} msg panel-toggle launcher";
+          "Mod+O".spawn-sh = "${noctalia} msg panel-toggle control-center";
           "Mod+Z".spawn-sh = self.mkWhichKeyExe pkgs [
             {
               key = "b";
               desc = "Browser";
-              cmd = "zen-beta";
+              cmd = "${lib.getExe self.packages.${system}.browser}";
             }
             {
               key = "f";
               desc = "File Explorer";
-              cmd = "thunar";
+              cmd = "${lib.getExe self.packages.${system}.fileExplorer}";
             }
             {
               key = "t";
               desc = "Process Manager";
-              cmd = "btop";
+              cmd = "foot btop";
             }
             {
               key = "s";
@@ -181,7 +187,6 @@
               hash = "sha256-ON54b7rzocXoFXKQmfAuG4xXaC2AUH1r1x6m4YqnNIs=";
             }} -m fill"
           ))
-          (lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia)
         ];
       };
     };
