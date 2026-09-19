@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.nixosModules.primusConfiguration = {pkgs, ...}: {
+  flake.nixosModules.primusConfiguration = {
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
       self.nixosModules.options
       self.nixosModules.primusHardware
@@ -128,6 +132,17 @@
     # Force apps to use the modern Intel media driver
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "iHD";
+    };
+
+    networking.nftables.enable = true;
+    networking.networkmanager.wifi.backend = "iwd";
+    systemd = {
+      network.wait-online.enable = false;
+      services = {
+        "systemd-backlight@backlight:intel_backlight".enable = false;
+        NetworkManager-wait-online.enable = false;
+        "network-local-commands".serviceConfig.TimeoutSec = "5s";
+      };
     };
 
     services = {

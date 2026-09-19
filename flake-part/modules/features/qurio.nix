@@ -5,42 +5,57 @@
     ...
   }: let
     networkInterface = "enp0s13f0u1c2";
-    internetInterface = "wlp0s20f3";
+    internetInterface = "wlan0";
     hostIP = "10.250.50.1";
   in {
+    systemd.network = {
+      enable = true;
+      wait-online.enable = false;
+
+      netdevs = {
+        "20-vlan-net" = {
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "vlan-net";
+          };
+          vlanConfig.Id = 10;
+        };
+        "20-vlan-game" = {
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "vlan-game";
+          };
+          vlanConfig.Id = 20;
+        };
+      };
+
+      networks = {
+        "20-usb-eth" = {
+          matchConfig.Name = networkInterface;
+          address = ["10.250.49.1/24"];
+          vlan = ["vlan-net" "vlan-game"];
+          linkConfig.RequiredForOnline = "no";
+        };
+        "30-vlan-net" = {
+          matchConfig.Name = "vlan-net";
+          address = ["10.250.51.1/24"];
+          linkConfig.RequiredForOnline = "no";
+        };
+        "30-vlan-game" = {
+          matchConfig.Name = "vlan-game";
+          address = ["${hostIP}/24"];
+          linkConfig.RequiredForOnline = "no";
+        };
+      };
+    };
+
+    networking.networkmanager.unmanaged = [
+      "interface-name:${networkInterface}"
+      "interface-name:vlan-net"
+      "interface-name:vlan-game"
+    ];
+
     networking = {
-      vlans = {
-        "vlan-net" = {
-          id = 10;
-          interface = "${networkInterface}";
-        };
-        "vlan-game" = {
-          id = 20;
-          interface = "${networkInterface}";
-        };
-      };
-
-      interfaces = {
-        "${networkInterface}".ipv4.addresses = [
-          {
-            address = "10.250.49.1";
-            prefixLength = 24;
-          }
-        ];
-        "vlan-net".ipv4.addresses = [
-          {
-            address = "10.250.51.1";
-            prefixLength = 24;
-          }
-        ];
-        "vlan-game".ipv4.addresses = [
-          {
-            address = "${hostIP}";
-            prefixLength = 24;
-          }
-        ];
-      };
-
       firewall = {
         interfaces = {
           "${networkInterface}" = {
@@ -74,9 +89,21 @@
       };
 
       nat = {
-        enable = true;
         internalInterfaces = ["vlan-net" networkInterface];
         externalInterface = internetInterface;
+      };
+      nftables = {
+        tables = {
+          nat = {
+            family = "ip";
+            content = ''
+              chain postrouting {
+                type nat hook postrouting priority 100; policy accept;
+                iifname { ${networkInterface}, "vlan-net" } oifname "${internetInterface}" masquerade
+              }
+            '';
+          };
+        };
       };
     };
 
