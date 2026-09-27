@@ -73,6 +73,7 @@
         ]
         ++ (with pkgs-unstable; [
           (blender.withPackages (ps: [ps.setuptools]))
+          bottles
         ]);
       sessionVariables = {
         NH_FLAKE = "/etc/nixos/dotfiles/flake-part";
