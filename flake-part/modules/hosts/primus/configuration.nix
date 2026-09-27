@@ -1,9 +1,11 @@
-{self, ...}: {
-  flake.nixosModules.primusConfiguration = {
-    pkgs,
-    lib,
-    ...
-  }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.primusConfiguration = {pkgs, ...}: let
+    pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
     imports = [
       self.nixosModules.options
       self.nixosModules.primusHardware
@@ -53,21 +55,25 @@
     };
 
     environment = {
-      systemPackages = with pkgs; [
-        ffmpeg
-        btop
-        nmap
-        jdk8
-        chromium
-        qpwgraph
-        mpv
-        wl-clipboard
-        obs-studio
-        fd
-        localsend
-        wlr-randr
-        wdisplays
-      ];
+      systemPackages = with pkgs;
+        [
+          ffmpeg
+          btop
+          nmap
+          jdk8
+          chromium
+          qpwgraph
+          mpv
+          wl-clipboard
+          obs-studio
+          fd
+          localsend
+          wlr-randr
+          wdisplays
+        ]
+        ++ (with pkgs-unstable; [
+          blender
+        ]);
       sessionVariables = {
         NH_FLAKE = "/etc/nixos/dotfiles/flake-part";
       };

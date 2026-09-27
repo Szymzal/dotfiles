@@ -177,17 +177,6 @@
         };
 
         animations = {off = _: {};};
-
-        spawn-at-startup = [
-          (lib.getExe (
-            pkgs.writeShellScriptBin "wallpaper"
-            "${lib.getExe pkgs.swaybg} -i ${pkgs.fetchurl {
-              name = "wallpaper";
-              url = "https://raw.githubusercontent.com/DenverCoder1/minimalistic-wallpaper-collection/main/images/dalle2-minimalistic-colorful-flat-mountain-landscape.png";
-              hash = "sha256-ON54b7rzocXoFXKQmfAuG4xXaC2AUH1r1x6m4YqnNIs=";
-            }} -m fill"
-          ))
-        ];
       };
     };
   };
