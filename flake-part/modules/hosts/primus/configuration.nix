@@ -72,7 +72,7 @@
           wdisplays
         ]
         ++ (with pkgs-unstable; [
-          blender
+          (blender.withPackages (ps: [ps.setuptools]))
         ]);
       sessionVariables = {
         NH_FLAKE = "/etc/nixos/dotfiles/flake-part";
